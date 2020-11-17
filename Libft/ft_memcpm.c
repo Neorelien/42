@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memcpm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/17 18:45:02 by awery            ###   ########.fr       */
+/*   Updated: 2020/11/17 23:53:20 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-void	*ft_memcpy(void *dst, const void *src, size_t n);
+int	ft_memcmp(void *s1, const void *s2, size_t n);
 
 int main() {
 
-    int array [] = { 54, 85, 20, 63, 21 };
-    char src[] = "oui";
-    size_t n = sizeof( char ) * 2;
+    char  array [] = "ouu";;
+    char src[] = "oup";
+    size_t n = sizeof( char ) * 1;
 
     /* Display the initial values */
     for(int  length=0; length<5; length++) {
@@ -29,7 +29,7 @@ int main() {
     printf( "\n" );
 
     /* Reset the memory bloc */
-    printf("%p\n", ft_memcpy( array, src, n ));
+    printf("%d\n", ft_memcmp( array, src, n ));
 
     /* Display the new values */
     for( int length=0; length<5; length++) {
@@ -38,7 +38,7 @@ int main() {
     printf( "\n" );
 
      /* Reset the memory bloc */
-    printf("%p\n", memcpy( array, src, n ));
+    printf("%d\n", memcmp( array, src, n ));
 
     /* Display the new values */
     for( int length=0; length<5; length++) {
