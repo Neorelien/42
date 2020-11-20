@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 20:18:51 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 12:34:50 by cmoyal           ###   ########.fr       */
+/*   Created: 2020/11/19 23:49:11 by cmoyal            #+#    #+#             */
+/*   Updated: 2020/11/19 23:49:14 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	const unsigned char		*str1;
-	const unsigned char		*str2;
+	unsigned char	*temps1;
+	unsigned char	*temps2;
+	int				i;
 
-	str1 = s1;
-	str2 = s2;
-	while (n-- > 0)
+	i = 0;
+	temps1 = (unsigned char*)s1;
+	temps2 = (unsigned char*)s2;
+	while (n--)
 	{
-		if (*str1 != *str2)
-			return (*str1 > *str2 ? 1 : -1);
-		str1++;
-		str2++;
+		if (temps1[i] != temps2[i])
+			return (temps1[i] - temps2[i]);
+		i++;
 	}
 	return (0);
 }

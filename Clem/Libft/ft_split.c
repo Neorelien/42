@@ -6,23 +6,16 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 17:17:54 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 14:14:09 by cmoyal           ###   ########.fr       */
+/*   Updated: 2020/11/21 00:53:47 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strc(char *charset, char to_find)
+int		ft_strc(char charset, char to_find)
 {
-	unsigned int	j;
-
-	j = 0;
-	while (charset[j])
-	{
-		if (charset[j] == to_find)
-			return (1);
-		j++;
-	}
+	if (charset == to_find)
+		return (1);
 	return (0);
 }
 
@@ -45,23 +38,26 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 	return (dest);
 }
 
-void	ft_nbwords(char *str, char *charset, int *nb_words)
+int		ft_nbwords(char *str, char charset, int nb_words)
 {
 	int i;
 
 	i = 0;
+	if (!(str[i]))
+		return (0);
 	if (!(ft_strc(charset, str[i])))
-		nb_words[0]++;
+		nb_words++;
 	i++;
 	while (str[i])
 	{
 		if (ft_strc(charset, str[i - 1]) && !(ft_strc(charset, str[i])))
-			nb_words[0]++;
+			nb_words++;
 		i++;
 	}
+	return (nb_words);
 }
 
-void	ft_assign_tab(char **splited, char *str, char *charset)
+void	ft_assign_tab(char **splited, char *str, char charset)
 {
 	unsigned int	len;
 	unsigned int	i;
@@ -80,7 +76,7 @@ void	ft_assign_tab(char **splited, char *str, char *charset)
 			len++;
 		}
 		str -= len;
-		splited[i] = (char*)malloc(sizeof(char) * len);
+		splited[i] = (char*)malloc(sizeof(char) * (len + 1));
 		ft_strncpy(splited[i], str, len);
 		i++;
 		while (!ft_strc(charset, *str) && *str)
@@ -97,9 +93,10 @@ char	**ft_split(const char *s, char c)
 
 	str = (char *)s;
 	nb_words = 0;
-	ft_nbwords(str, &c, &nb_words);
-	splited = (char**)malloc(sizeof(char*) * nb_words + 1);
-	ft_assign_tab(splited, str, &c);
+	nb_words = ft_nbwords(str, c, nb_words);
+	if (!(splited = (char**)malloc(sizeof(char*) * (nb_words + 1))))
+		return (0);
+	ft_assign_tab(splited, str, c);
 	splited[nb_words] = 0;
 	return (splited);
 }

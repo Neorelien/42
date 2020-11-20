@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 10:31:09 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 12:38:19 by cmoyal           ###   ########.fr       */
+/*   Updated: 2020/11/19 12:22:02 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == (char)c)
 			return ((char *)s);
 		s++;
 	}
+	if (*s == c)
+		return ((char *)s);
 	return (0);
 }

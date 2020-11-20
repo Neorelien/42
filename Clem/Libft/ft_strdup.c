@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 12:04:10 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 12:38:45 by cmoyal           ###   ########.fr       */
+/*   Updated: 2020/11/20 00:05:16 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strdup(const char *s)
 
 	src = (char *)s;
 	i = 0;
-	cpy = malloc(sizeof(*cpy) * ft_strlen(src));
+	if (!(cpy = malloc(sizeof(*cpy) * ft_strlen(src) + 1)))
+		return (0);
 	while (src[i])
 	{
 		cpy[i] = src[i];

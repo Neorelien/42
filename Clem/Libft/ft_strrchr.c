@@ -5,23 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 10:45:19 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 12:41:42 by cmoyal           ###   ########.fr       */
+/*   Created: 2020/11/19 23:49:42 by cmoyal            #+#    #+#             */
+/*   Updated: 2020/11/19 23:49:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c1)
 {
-	char	*last_occ;
+	size_t	i;
+	char	*str;
+	int		resultat;
+	char	c;
 
-	last_occ = 0;
-	while (*s)
+	str = (char*)s;
+	c = c1;
+	i = 0;
+	resultat = -1;
+	while (i <= ft_strlen(str))
 	{
-		if (*s == c)
-			last_occ = (char *)s;
-		s++;
+		if (s[i] == c)
+			resultat = i;
+		i++;
 	}
-	return (last_occ);
+	if (resultat > -1)
+		return (&str[resultat]);
+	return (0);
 }

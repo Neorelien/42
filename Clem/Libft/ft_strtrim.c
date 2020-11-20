@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 16:15:31 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 12:43:03 by cmoyal           ###   ########.fr       */
+/*   Updated: 2020/11/20 00:20:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 
 	charset = (char *)set;
 	str = (char *)s1;
+	if (!str || !charset)
+		return (0);
 	size = ft_strlen(str);
 	while (ft_strstr(charset, *str))
 	{
@@ -42,12 +44,13 @@ char		*ft_strtrim(char const *s1, char const *set)
 		str++;
 	}
 	if (!*str)
-		return (0);
+		return (ft_strdup(""));
 	while (ft_strstr(charset, str[size - 1]))
 		size--;
 	if (size <= 0)
 		return (0);
-	dest = (char *)malloc(sizeof(char) * size);
+	if (!(dest = (char *)malloc(sizeof(char) * size + 1)))
+		return (0);
 	ft_strlcpy(dest, str, size + 1);
 	return (dest);
 }

@@ -5,27 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 18:04:58 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 12:33:21 by cmoyal           ###   ########.fr       */
+/*   Created: 2020/11/19 23:48:33 by cmoyal            #+#    #+#             */
+/*   Updated: 2020/11/19 23:48:36 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	char		*d;
-	const char	*s;
-	size_t		i;
+	unsigned char	*tempsrc;
+	unsigned char	*tempdst;
+	int				i;
+	unsigned char	c2;
 
-	d = dest;
-	s = src;
+	c2 = c;
 	i = 0;
-	while (i < n)
+	tempsrc = (unsigned char*)src;
+	tempdst = (unsigned char*)dst;
+	while (n--)
 	{
-		d[i] = s[i];
-		if (d[i++] == c)
-			return (d + i);
+		tempdst[i] = tempsrc[i];
+		if (tempsrc[i] == c2)
+			return (&tempdst[i + 1]);
+		i++;
 	}
 	return (0);
 }

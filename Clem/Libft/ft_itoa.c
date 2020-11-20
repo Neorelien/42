@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 18:51:40 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 13:58:55 by cmoyal           ###   ########.fr       */
+/*   Updated: 2020/11/20 12:26:29 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,10 @@ char	*ft_itoa(int n)
 	char	*str;
 
 	len = ft_len(n);
-	if (!(str = (char *)malloc(sizeof(char) * len)))
+	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
 		return (0);
 	ft_putnbr(n, str, 0);
+	str[len] = 0;
 	ft_str_rev(str);
 	return (str);
 }

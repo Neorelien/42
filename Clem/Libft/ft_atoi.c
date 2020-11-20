@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 11:44:47 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/18 12:20:24 by cmoyal           ###   ########.fr       */
+/*   Updated: 2020/11/19 13:22:47 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_atoi(const char *nptr)
 	sign = 1;
 	while (ft_isspace(*str))
 		str++;
-	while (ft_plusoumoins(*str))
+	if (ft_plusoumoins(*str))
 		sign *= ft_plusoumoins(*str++);
 	if (sign < 0 && ft_isnumber(*str))
 	{
