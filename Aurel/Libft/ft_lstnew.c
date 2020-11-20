@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/19 11:41:14 by awery            ###   ########.fr       */
+/*   Created: 2020/11/20 12:42:43 by awery             #+#    #+#             */
+/*   Updated: 2020/11/20 18:01:24 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+t_list	*ft_lstnew(void *content)
 {
-	char	*temp;
-	int		i;
+	t_list	*element;
 
-	if (n == 0)
-		return ;
-	temp = s;
-	i = 0;
-	while (n--)
-	{
-		temp[i] = 0;
-		i++;
-	}
+	if (!(element = malloc(sizeof(t_list))))
+		return (0);
+	element[0].content = content;
+	element[0].next = 0;
+	return (element);
 }

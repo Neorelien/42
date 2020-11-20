@@ -5,47 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/17 18:45:02 by awery            ###   ########.fr       */
+/*   Created: 2020/11/17 17:55:20 by awery             #+#    #+#             */
+/*   Updated: 2020/11/19 17:50:25 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char	*tempsrc;
+	char	*tempdst;
+	int		i;
 
-int main() {
-
-    int array [] = { 54, 85, 20, 63, 21 };
-    char src[] = "oui";
-    size_t n = sizeof( char ) * 2;
-
-    /* Display the initial values */
-    for(int  length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-    /* Reset the memory bloc */
-    printf("%p\n", ft_memcpy( array, src, n ));
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-     /* Reset the memory bloc */
-    printf("%p\n", memcpy( array, src, n ));
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-
-    return 0;
+	i = 0;
+	if (dst == 0 && src == 0)
+		return (0);
+	tempsrc = (char*)src;
+	tempdst = (char*)dst;
+	while (n--)
+	{
+		tempdst[i] = tempsrc[i];
+		i++;
+	}
+	return (dst);
 }

@@ -6,45 +6,23 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/17 16:27:31 by awery            ###   ########.fr       */
+/*   Updated: 2020/11/19 11:51:54 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
-void    *ft_memset(void *s, int c, size_t n);
+void	*ft_memset(void *s, int c, size_t n)
+{
+	char	*temp;
+	int		i;
 
-
-int main() {
-
-    int array [] = { 54, 85, 20, 63, 21 };
-    size_t size = sizeof( int ) * 5;
-
-    /* Display the initial values */
-    for(int  length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-    /* Reset the memory bloc */
-    ft_memset( array, -2, size );
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-     /* Reset the memory bloc */
-    memset( array, -2, size );
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-    return 0;
+	temp = s;
+	i = 0;
+	while (n--)
+	{
+		temp[i] = c;
+		i++;
+	}
+	return (s);
 }

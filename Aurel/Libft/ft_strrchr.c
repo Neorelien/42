@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/19 11:41:14 by awery            ###   ########.fr       */
+/*   Created: 2020/11/18 00:36:20 by awery             #+#    #+#             */
+/*   Updated: 2020/11/19 20:17:04 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strrchr(const char *s, int c1)
 {
-	char	*temp;
-	int		i;
+	size_t	i;
+	char	*str;
+	int		resultat;
+	char	c;
 
-	if (n == 0)
-		return ;
-	temp = s;
+	str = (char*)s;
+	c = c1;
 	i = 0;
-	while (n--)
+	resultat = -1;
+	while (i <= ft_strlen(str))
 	{
-		temp[i] = 0;
+		if (s[i] == c)
+			resultat = i;
 		i++;
 	}
+	if (resultat > -1)
+		return (&str[resultat]);
+	return (0);
 }

@@ -5,46 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/17 23:07:33 by awery            ###   ########.fr       */
+/*   Created: 2020/11/17 17:55:20 by awery             #+#    #+#             */
+/*   Updated: 2020/11/19 17:04:10 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
-void	*ft_memchr(void *dst, int c, size_t n);
+void	*ft_memchr(void *dst, int c, size_t n)
+{
+	unsigned char	*tempdst;
+	int				i;
+	unsigned char	c2;
 
-int main() {
-
-    int array [] = { 54, 85, 20, 63, 21 };
-    size_t n = sizeof( int ) * 2;
-
-    /* Display the initial values */
-    for(int  length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-    /* Reset the memory bloc */
-    printf("%p\n", ft_memchr( array, 54, n ));
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-     /* Reset the memory bloc */
-    printf("%p\n", memchr( array, 54, n ));
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-
-    return 0;
+	c2 = c;
+	i = 0;
+	tempdst = (unsigned char*)dst;
+	while (n--)
+	{
+		if (tempdst[i] == c2)
+			return (&tempdst[i]);
+		i++;
+	}
+	return (0);
 }
