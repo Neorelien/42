@@ -5,47 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/17 19:07:37 by awery            ###   ########.fr       */
+/*   Created: 2020/11/17 17:55:20 by awery             #+#    #+#             */
+/*   Updated: 2020/11/19 20:14:54 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n);
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+{
+	unsigned char	*tempsrc;
+	unsigned char	*tempdst;
+	int				i;
+	unsigned char	c2;
 
-int main() {
-
-    int array [] = { 54, 85, 20, 63, 21 };
-    int src[] = {1,2, 7};
-    size_t n = sizeof( int ) * 4;
-
-    /* Display the initial values */
-    for(int  length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-    /* Reset the memory bloc */
-    printf("%p\n", ft_memccpy( array, src, 1, n ));
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-     /* Reset the memory bloc */
-    printf("%p\n", memccpy( array, src, 1, n ));
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-
-    return 0;
+	c2 = c;
+	i = 0;
+	tempsrc = (unsigned char*)src;
+	tempdst = (unsigned char*)dst;
+	while (n--)
+	{
+		tempdst[i] = tempsrc[i];
+		if (tempsrc[i] == c2)
+			return (&tempdst[i + 1]);
+		i++;
+	}
+	return (0);
 }

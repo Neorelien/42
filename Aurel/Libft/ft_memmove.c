@@ -5,47 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/17 22:41:46 by awery            ###   ########.fr       */
+/*   Created: 2020/11/17 17:55:20 by awery             #+#    #+#             */
+/*   Updated: 2020/11/19 20:15:15 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n);
+void	*ft_memmove(void *dst, const void *src, size_t n)
+{
+	char		*tempsrc;
+	char		*tempdst;
+	int			i;
 
-int main() {
-
-    int array [] = { 54, 85, 20, 63, 21 };
-    int src[] = {1,2, 7};
-    size_t n = sizeof( int ) * 0;
-
-    /* Display the initial values */
-    for(int  length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-    /* Reset the memory bloc */
-    printf("%p\n", ft_memmove( array, src, n ));
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-     /* Reset the memory bloc */
-    printf("%p\n", memmove( array, src,  n ));
-
-    /* Display the new values */
-    for( int length=0; length<5; length++) {
-        printf( "%d ", array[ length ] );
-    }
-    printf( "\n" );
-
-
-    return 0;
+	if (dst == 0 && src == 0)
+		return (0);
+	i = 0;
+	tempsrc = (char*)src;
+	tempdst = (char*)dst;
+	if (tempsrc > tempdst)
+		while (n--)
+		{
+			tempdst[i] = tempsrc[i];
+			i++;
+		}
+	else
+		while (n--)
+			tempdst[n] = tempsrc[n];
+	return (dst);
 }

@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 13:59:03 by awery             #+#    #+#             */
-/*   Updated: 2020/11/19 11:41:14 by awery            ###   ########.fr       */
+/*   Created: 2020/11/18 10:20:47 by awery             #+#    #+#             */
+/*   Updated: 2020/11/19 12:09:13 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 {
-	char	*temp;
-	int		i;
+	unsigned int	j;
+	char			*str;
+	char			*to_find;
 
-	if (n == 0)
-		return ;
-	temp = s;
-	i = 0;
-	while (n--)
+	str = (char*)s1;
+	to_find = (char*)s2;
+	if (*to_find == 0)
+		return (str);
+	while (*str && len)
 	{
-		temp[i] = 0;
-		i++;
+		j = 0;
+		while (str[j] == to_find[j] && len >= ft_strlen(to_find))
+		{
+			j++;
+			if (!to_find[j])
+				return (str);
+		}
+		str++;
+		len--;
 	}
+	return (0);
 }
