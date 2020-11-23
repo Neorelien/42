@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:49:30 by awery             #+#    #+#             */
-/*   Updated: 2020/11/23 12:56:36 by awery            ###   ########.fr       */
+/*   Updated: 2020/11/23 14:27:18 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		get_next_line(int fd, char **line)
 
 	if (checkerror(fd, line, str))
 		return (-1);
-
 	
 	return (1);
 }
@@ -37,9 +36,10 @@ int		get_next_line(int fd, char **line)
 int main()
 {
 	char **test;
-
+	int fd = open("/Users/Aurelien/Pro/42/Perso/Stud/Aurel/Get_next_line/test", O_RDONLY);
 	test = (char**)malloc(sizeof(char*) * 1);
 	get_next_line(1, test);
 
+	
 	printf("%s", *test);
 }
