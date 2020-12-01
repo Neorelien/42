@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:22:18 by awery             #+#    #+#             */
-/*   Updated: 2020/11/30 18:36:46 by awery            ###   ########.fr       */
+/*   Updated: 2020/11/30 18:17:17 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ int		ft_clean(int fd, char **line, char **buffer, int reload)
 	int	i;
 
 	i = 0;
-	while (buffer[0][i])
+	while (buffer[fd][i])
 	{
-		buffer[0][i] = '\0';
+		buffer[fd][i] = '\0';
 		i++;
 	}
-	free(buffer[0]);
-	buffer[0] = NULL;
+	free(buffer[fd]);
+	buffer[fd] = NULL;
 	if (!(reload))
 		return (0);
 	return (checkerror(fd, line, buffer, 0));
