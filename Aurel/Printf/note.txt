@@ -1,0 +1,22 @@
+Les Kwargs ?
+
+code bien structuré et extensible
+	
+	lecture du/des string 
+		comptage du nombres d'arguments déclaré ( l'aide des flags ? )
+		récupération du type de chaque arguments déclaré
+
+
+Fonction a voir --> stdarg.h
+	void va_start(ap, last)
+	type va_arg(ap, type)
+	void va_copy(dst, src) --> doit etre suivie d'un va_end supplémentaire
+	void va_end(ap)
+
+ Les flags ?
+
+ taille de champs minimal ?
+ 
+ Conversions ?
+
+ man 3 printf / man 3 stdarg
