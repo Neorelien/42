@@ -6,7 +6,7 @@
 #    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/19 12:36:37 by awery             #+#    #+#              #
-#    Updated: 2020/11/21 00:02:38 by awery            ###   ########.fr        #
+#    Updated: 2020/12/09 23:12:35 by awery            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c
 all: $(NAME)
 
 $(NAME):
-	clang -Wall -Wextra -Werror -c $(SRC) ; ar rc $(NAME) *.o
+	clang -Wall -Wextra -Werror -c $(SRC)
 
 bonus:
 	clang -Wall -Wextra -Werror -c $(SRC) $(BONUS); ar rc $(NAME) *.o 

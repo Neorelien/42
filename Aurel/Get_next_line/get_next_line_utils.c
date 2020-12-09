@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:22:18 by awery             #+#    #+#             */
-/*   Updated: 2020/11/30 18:36:46 by awery            ###   ########.fr       */
+/*   Updated: 2020/12/01 16:58:34 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s1, int o)
 	i = 0;
 	if (!(cpy = malloc(sizeof(char) * o + 1)))
 		return (0);
-	while (i <= o)
+	while (i < o)
 	{
 		cpy[i] = src[i];
 		i++;

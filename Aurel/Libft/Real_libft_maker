@@ -1,0 +1,10 @@
+cd Libftinit; make bonus ; cd ../get_next_line ;make ; cd ../ ;
+
+cp Libftinit/*.o . ; cp get_next_line/*.o ;
+
+ar rc libft.a *.o ;
+
+rm *.o
+cd Libftinit ; rm *.o
+cd ../get_next_line ; rm *.o
+cd ../
