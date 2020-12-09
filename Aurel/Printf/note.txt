@@ -1,27 +1,156 @@
-Les Kwargs ?
-
 code bien structuré et extensible
 	
-	lecture du/des string 
-		comptage du nombres d'arguments déclaré ( l'aide des flags ? )
-		récupération du type de chaque arguments déclaré
+	lecture du/des string
+	analyse des spécification de convertion
+		Define / Enum ? 
+		tableau ? 
+		Variable globale ? 
+
+----------------------------------------------------------------------------------------
 
 Fonction a voir --> stdarg.h
+
+	va_list 	ap --> variable avec comportement indéfini si envoyé dans une fonction ?
 	void va_start(ap, last)
 	type va_arg(ap, type)
 	void va_copy(dst, src) --> doit etre suivie d'un va_end supplémentaire
 	void va_end(ap)
 
- Les flags ?
-	les operateur 
+----------------------------------------------------------------------------------------
+
+Indication de convertion
+
+	Débute par % ou *
+
+		si début par * l'arguement est ignoré
+
+	Les flags --> 1er
+
+		-	---------------------------------------
+
+			La valeur doit être justifié sur la limite gauche du champ
+			Valeur complété a droite par des espaces
+
+		0	---------------------------------------
+			
+			IGNORÉ si l 'attribut - apparait aussi
+
+			c	--> indéfini
+			s	--> indéfini
+			p	--> indéfini
+			d	--> remplissage a gauche avec des 0 --> ignoré en cas de précision
+			i	--> remplissage a gauche avec des 0 --> ignoré en cas de précision
+			u	--> remplissage a gauche avec des 0 --> ignoré en cas de précision
+			x	--> remplissage a gauche avec des 0 --> ignoré en cas de précision
+			X	--> remplissage a gauche avec des 0 --> ignoré en cas de précision
+			%	--> indéfini
+
+		*	---------------------------------------
+
+			On ignore le prochain arguement
+
+	La size --> 2eme 
+
+		* --> indique que la size se situe dans l'argument suivant
+		Nombre(INT) ne commencant pas par 0
+		Si valeur négative, on considére que ca vaut l'attribut -, donc on justifie a gauche en ajoutant les espaces
+		Indique la largeur minimal de champ
+		Ne troncate jamais le champ ! 
+		
+
+	La précision --> 3eme
+
+		Commence toujours par un "."
+		Suivi d'un nombre(INT) OU de * (se situe donc dans l'arguments suivant)
+		Si aucune valeur ou valeur négative --> valeur =  nulle
+
+		c	--> 
+
+		s	--> Indique le nombre MAXIMUM de caractere a imprimer
+
+		p	--> ??
+
+		d	--> Indique un MINIMUM de chiffre a faire apparaitre
+				Si int trop petit on remplit a gauche avec des 0 --> equivaut a 0(int)
+				par defaut 1
+				si 0 est convertit avec précision de 0 alors sortie vide
+
+		i	--> Indique un MINIMUM de chiffre a faire apparaitre				
+				Si int trop petit on remplit a gauche avec des 0 --> equivaut a 0(int)
+				par defaut 1
+				si 0 est convertit avec précision de 0 alors sortie vide
+
+		u	--> Indique un MINIMUM de chiffre a faire apparaitre
+				Si int trop petit on remplit a gauche avec des 0 --> equivaut a 0(int)
+				par defaut 1
+				si 0 est convertit avec précision de 0 alors sortie vide
+
+		x	--> Indique un MINIMUM de chiffre a faire apparaitre
+				Si int trop petit on remplit a gauche avec des 0 --> equivaut a 0(int)
+				par defaut 1
+				si 0 est convertit avec précision de 0 alors sortie vide
+
+		X	--> Indique un MINIMUM de chiffre a faire apparaitre
+				Si int trop petit on remplit a gauche avec des 0 --> equivaut a 0(int)
+				par defaut 1
+				si 0 est convertit avec précision de 0 alors sortie vide
+
+		%	--> ??
+
+	Le type/indicateur de convertion --> dernier
+
+		c	--> convertit un int en unsigned char, le caracactère correspondant est affiché (ascii ou décimal?)
+		s	--> affiche une string
+		p	--> affiche (l'adresse ?) du pointeur en hexadécimal
+		d	-->	int convertit en chiffre décimal signé
+		i	--> int convertit en chiffre décimal signé
+		u	-->	unsigned int converti en un chiffre décimal non signé
+		x	--> unsigned int converti en un chiffre Hexadécimal non signé
+		X	--> unsigned int converti en un chiffre Hexadécimal non signé
+		%	--> ecrit juste '%'
+
+----------------------------------------------------------------------------------------
+
+Conversions
+		c	-->
+		s	-->
+		p	-->
+		d	-->
+		i	-->
+		u	-->
+		x	-->
+		X	-->
+		%	-->
+
+----------------------------------------------------------------------------------------
+
+Valeur renvoyés
+		 Si ca reussi --> le nombre de caractères imprimés, sans compter l'octet nul « \0 » final dans les chaînes
+		 Si il y a une erreur de sortie --> valeur négative
+
+----------------------------------------------------------------------------------------
+
+man 3 printf / man 3 stdarg
+
+----------------------------------------------------------------------------------------
+
+Autre
+
+	les operateur
 		^	  --> OU exclusif (l'un ou l'autre mais pas les deux)
 		|	  --> OU inclusif (l'un ou l'autre et les deux)
 		&	  --> ET
 		>> << --> opérateur de décalage
 
+	technique utilisant les opérateurs et les booléens ? 
 
- taille de champs minimal ?
- 
- Conversions ?
+----------------------------------------------------------------------------------------
 
- man 3 printf / man 3 stdarg
+A tester
+	
+	Plusieurs fois le même indicateur de converstion / flag / précisons etc....
+	Tester la précision avec des int (plus petit plus grand que l'INT)
+	tester ce qui s'affiche quand on utilise c (décimal ou ascii ?)
+	tester avec P
+	voir le resultat quand la precision et / ou la size se situent dans l'argument d'apres 
+
