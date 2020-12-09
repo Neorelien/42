@@ -6,7 +6,6 @@ code bien structuré et extensible
 		comptage du nombres d'arguments déclaré ( l'aide des flags ? )
 		récupération du type de chaque arguments déclaré
 
-
 Fonction a voir --> stdarg.h
 	void va_start(ap, last)
 	type va_arg(ap, type)
@@ -14,6 +13,12 @@ Fonction a voir --> stdarg.h
 	void va_end(ap)
 
  Les flags ?
+	les operateur 
+		^	  --> OU exclusif (l'un ou l'autre mais pas les deux)
+		|	  --> OU inclusif (l'un ou l'autre et les deux)
+		&	  --> ET
+		>> << --> opérateur de décalage
+
 
  taille de champs minimal ?
  
