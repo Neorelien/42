@@ -60,6 +60,8 @@ TCP
 	internet
 	reseau
 
+	pas datagramme
+
 OSI
 	application
 	presentation
@@ -76,6 +78,7 @@ UDP
 	couche transport
 	datagramme
 	en tete de 8 bits
+	ne prend pas ne charge la diffusion
 
 
 DNS

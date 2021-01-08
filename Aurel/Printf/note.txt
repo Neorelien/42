@@ -20,18 +20,16 @@ Fonction a voir --> stdarg.h
 
 Indication de convertion
 
-	Débute par % ou *
+	Débute par %
 
-		si début par * l'arguement est ignoré
+	Les flags --> 1er --> Peut importe l'ordre les répétitions peuvent etre mélangé
 
-	Les flags --> 1er
-
-		-	---------------------------------------
+		-	--------------------------------------- insensible aux répétition 
 
 			La valeur doit être justifié sur la limite gauche du champ
 			Valeur complété a droite par des espaces
 
-		0	---------------------------------------
+		0	--------------------------------------- insensible aux répétition
 			
 			IGNORÉ si l 'attribut - apparait aussi
 
@@ -45,11 +43,11 @@ Indication de convertion
 			X	--> remplissage a gauche avec des 0 --> ignoré en cas de précision
 			%	--> indéfini
 
-		*	---------------------------------------
+		*	--------------------------------------- 
 
-			On ignore le prochain arguement
+			indique que la size est l'argument suivant, si négatif on considere que le flag - est activé
 
-	La size --> 2eme 
+	La size --> 2eme --> erreur de répétition 
 
 		* --> indique que la size se situe dans l'argument suivant
 		Nombre(INT) ne commencant pas par 0
@@ -58,10 +56,10 @@ Indication de convertion
 		Ne troncate jamais le champ ! 
 		
 
-	La précision --> 3eme
+	La précision --> 3eme --> erreur de répétition
 
 		Commence toujours par un "."
-		Suivi d'un nombre(INT) OU de * (se situe donc dans l'arguments suivant)
+		Suivi d'un nombre(INT) OU de *
 		Si aucune valeur ou valeur négative --> valeur =  nulle
 
 		c	--> 
@@ -99,28 +97,45 @@ Indication de convertion
 
 	Le type/indicateur de convertion --> dernier
 
-		c	--> convertit un int en unsigned char, le caracactère correspondant est affiché (ascii ou décimal?)
-		s	--> affiche une string
+		c	--> convertit un int en unsigned char, le caracactère correspondant est affiché (ascii)
 		p	--> affiche (l'adresse ?) du pointeur en hexadécimal
 		d	-->	int convertit en chiffre décimal signé
 		i	--> int convertit en chiffre décimal signé
 		u	-->	unsigned int converti en un chiffre décimal non signé
 		x	--> unsigned int converti en un chiffre Hexadécimal non signé
 		X	--> unsigned int converti en un chiffre Hexadécimal non signé
+		s	--> string
 		%	--> ecrit juste '%'
 
+
+		combinaison de flag possible
+
+	
 ----------------------------------------------------------------------------------------
 
 Conversions
-		c	-->
-		s	-->
-		p	-->
-		d	-->
-		i	-->
+		c	--> OK
+		s	--> OK
+		p	--> OK
+		d	--> OK
+		i	--> OK
 		u	-->
 		x	-->
 		X	-->
 		%	-->
+
+	if (c == 'c')
+		return ((char)va_arg(*arg, char));
+	if (c == 's')
+		return ((char*)va_arg(*arg, char*));
+	if (c == 'p')
+		return ((unsigned long long)va_arg(*arg, unsigned long long));
+	if ((c == 'd') || (c == 'i'))
+		return ((int)va_arg(*arg, int));
+	if (c == 'u')
+		return ((unsigned int)va_arg(*arg, unsigned int));
+	if ((c == 'x') || (c == 'X'))
+		return ((long)va_arg(*arg, long));
 
 ----------------------------------------------------------------------------------------
 
@@ -144,13 +159,8 @@ Autre
 
 	technique utilisant les opérateurs et les booléens ? 
 
+	Enum? 
+
 ----------------------------------------------------------------------------------------
 
 A tester
-	
-	Plusieurs fois le même indicateur de converstion / flag / précisons etc....
-	Tester la précision avec des int (plus petit plus grand que l'INT)
-	tester ce qui s'affiche quand on utilise c (décimal ou ascii ?)
-	tester avec P
-	voir le resultat quand la precision et / ou la size se situent dans l'argument d'apres 
-

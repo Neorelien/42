@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:13:38 by awery             #+#    #+#             */
-/*   Updated: 2020/12/01 17:09:24 by awery            ###   ########.fr       */
+/*   Updated: 2020/12/09 23:47:00 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int		checkerror(int fd, char **line, char **buf, int init)
 int		checkbuff(char buffer)
 {
 	if (buffer == '\0')
-		return (ENDFILE);
+		return (0);
 	if (buffer == '\n')
-		return (NEXTLINE);
+		return (1);
 	return (-1);
 }
 
@@ -84,9 +84,9 @@ int		ft_browse_buffer(char **buffer, char **line, int i, int fd)
 	{
 		retour[1] = fd;
 		retour[0] = checkbuff(buffer[fd][i]);
-		if (retour[0] == NEXTLINE)
+		if (retour[0] == 1)
 			return (ft_final(buffer, i, line, retour));
-		if (retour[0] == ENDFILE)
+		if (retour[0] == 0)
 			return (ft_final(buffer, i, line, retour));
 		if (buffer[fd][i + 1] == '\0')
 		{
@@ -94,7 +94,7 @@ int		ft_browse_buffer(char **buffer, char **line, int i, int fd)
 			*line = ft_strjoin(*line, buffer[fd], i, 0);
 			ft_clean(0, 0, &temp, 0);
 			if (ft_clean(fd, line, buffer, 1))
-				return (ERROR);
+				return (-1);
 			retour[0] = ft_browse_buffer(buffer, line, 0, fd);
 			return (retour[0]);
 		}
@@ -111,18 +111,18 @@ int		get_next_line(int fd, char **line)
 	{
 		free(buffer[fd]);
 		buffer[fd] = NULL;
-		return (ERROR);
+		return (-1);
 	}
 	if (retour == 2)
 	{
 		free(buffer[fd]);
 		buffer[fd] = NULL;
-		return (ENDFILE);
+		return (0);
 	}
 	retour = ft_browse_buffer(buffer, line, 0, fd);
-	if (retour == NEXTLINE)
-		return (NEXTLINE);
+	if (retour == 1)
+		return (1);
 	free(buffer[fd]);
 	buffer[fd] = NULL;
-	return (ENDFILE);
+	return (0);
 }

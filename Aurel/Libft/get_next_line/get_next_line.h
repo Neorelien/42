@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:51:14 by awery             #+#    #+#             */
-/*   Updated: 2020/11/29 20:29:44 by awery            ###   ########.fr       */
+/*   Updated: 2020/12/10 10:05:26 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-
-# define ERROR  -1
-# define NEXTLINE 1
-# define ENDFILE 0
 
 int		get_next_line(int fd, char **line);
 char	*ft_strdup(const char *s1, int p);
