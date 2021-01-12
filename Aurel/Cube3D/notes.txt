@@ -6,7 +6,7 @@
 #    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 13:18:59 by awery             #+#    #+#              #
-#    Updated: 2021/01/12 17:14:18 by awery            ###   ########.fr        #
+#    Updated: 2021/01/12 17:42:32 by awery            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,3 +151,8 @@ Ray-casting
 - comment on l'applique ?
 
 --------------------- FIN QUEST / REMARAQUES ------------------------
+
+A FAIRE 
+
+- regarder video clem sur discord
+- lire e man de la libx
