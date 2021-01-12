@@ -1,0 +1,153 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    notes.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/01/12 13:18:59 by awery             #+#    #+#              #
+#    Updated: 2021/01/12 17:14:18 by awery            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+objectifs
+
+- Cree une representation realiste d'un labyrinthe a la premiere personne
+
+------------------------	AFFICHAGE ----------------------- 
+
+	- gestion parfaite des fenetre, minimisation etc
+
+	- differentes textures selon l'orientation des murs
+
+	- affichage d'un objets au milieu du mur
+
+	- affichage de sprite --> mechant ??
+
+	- differentes couleurs pour sol et plafond
+
+	- Le programme doit pouvoir sauver la premier image rendue au format .bmp lorque le second argument vaut "--save" ===> AFFICHAGE NORMAL ENSUITE ???
+
+	- Si il n'y a pas de second argument, le programme doit afficher l'image dans une fenetre
+
+	- Si la taille de la map est plus grande aue celle de l'ecran, la taille de la fenetre doit etre celle de l'ecran
+
+	- Utilisation des image de la MinilibX recommamdee
+
+	------ TOUCHE ------
+
+	- La fenetre doit pouvoir se fermer et le programme doit quitter quand on appuie sur la croix rouge
+
+	- ESC doit permettre de fermer la fenetre et de quitter le programme rapidement
+
+	----- FIN TOUCHE ----
+
+------------------------ FIN AFFICHAGE -----------------------
+
+------------------------ MAP ---------------------------------
+
+	- SI UN PB DE CONFIG EST RENCONTRE, ERROR DIRECT, TOUS DOIT ETRE CHECKER ET CHAQUE ERROR POSSIBLE GEREE
+
+	- premier arguement du programme doit etre une map au format .cub
+
+	- compose de 4 caracteres
+
+		- 0 = espace vide
+		- 1 = mur
+		- 2 = objet
+		- N, S, E ou W = aui represente la positions de depart du joueur ainsi que son orientation
+		
+	- La map DOIT etre ferme avec des murs --> gestion erreur ERREUR
+
+	- Mis a part la desription de la MAP, chaque type d'element peut etre separe par une ou plusieurs ligne vi		de ----> C'est a dire ???
+
+	- La description de la carte sera toujours en dernier dans le fichier, le reste peut etre dans n'import quel ordre
+
+	- Sauf pour la map elle meme les element peuvet etre separe par un ou plusieurs espaces
+
+	- La carte doit etre parsee en accord avec ce qui est presente dans le fichier, les espaces/vides sont une partie valable de la carte, il faut les gerer correctement.
+
+	------ Les elements -----
+
+	- Resolution 
+		- R
+		- resolution x
+		- resolution y
+
+	- texture Nord
+		- NO
+		- path vers la texture
+
+	- texture south
+		- SO
+		- path
+	
+	- texture West
+		- WE
+		- path
+
+	- texture East
+		- EA
+		- path
+	
+	- texture Sprite
+		- S
+		- path
+	
+	- couleur du sol
+		- F
+		- couleur RGB range = x , x , x
+
+	- couleur du plafond
+		- C
+		- couleur RGB range = x , x , x
+	
+	------ FIN  elements -----
+
+------------------------ FIN MAP -----------------------------
+
+----------------------- IN GAME -------------------------------
+
+
+    ------ TOUCHES -------
+
+	- Les fleches de gauche et droite doivent permettre une rotation de la camera (regarder a droite et a gauche)
+
+	- Les touches W, A, S, D doivent deplacer la camera (vers l'avant, vers l'arriere, sur a droite, la gauche)
+
+	---- FIN TOUCHE -------
+
+---------------------- FIN IN GAME -----------------------------
+	
+------------------- QUESTIONS / REMARQUES -----------------------
+
+X11 et Quartz(apple) = protocoles de systeme de fenetrage
+
+fonctions autorisees
+- open
+- close
+- read
+- write
+- printf
+- malloc
+- free
+- perror --> ??
+- strerror --> ??
+- exit --> ??
+- lib math
+- MinilibX
+- Libft
+
+
+OpenGL
+- Qu'est ce que c'est ?
+
+Minilibx
+- Comment ca marche exactement ?
+
+Ray-casting
+- comment ca marche ?
+- en auoi ca va nous aider ?
+- comment on l'applique ?
+
+--------------------- FIN QUEST / REMARAQUES ------------------------
