@@ -6,7 +6,7 @@
 #    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 13:18:59 by awery             #+#    #+#              #
-#    Updated: 2021/01/13 11:25:59 by awery            ###   ########.fr        #
+#    Updated: 2021/01/13 16:09:22 by awery            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,6 +130,28 @@ void *mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title) --> ret
 int mlx_clear_window ( void *mlx_ptr, void *win_ptr ) --> nettoi la windows NE RETOURNE RIEN ?
 
 int mlx_destroy_window ( void *mlx_ptr, void *win_ptr ) --> destroy NE RETOURNE RIEN ??
+
+int mlx_pixel_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color ) --> format de la couleur = 0255255255 RGB, les coordornee 0,0 sont en haut a gauche de la fenetre
+
+int mlx_string_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color, char *string )
+
+int
+mlx_loop ( void *mlx_ptr );
+
+int
+mlx_key_hook ( void *win_ptr, int (*funct_ptr)(), void *param );
+appel fonction -->  key_hook(int keycode,void *param);
+
+int
+mlx_mouse_hook ( void *win_ptr, int (*funct_ptr)(), void *param );
+mouse_hook(int button,int x,int y,void *param);
+
+int
+mlx_expose_hook ( void *win_ptr, int (*funct_ptr)(), void *param );
+
+int
+mlx_loop_hook ( void *mlx_ptr, int (*funct_ptr)(), void *param );
+loop_hook(void *param);
 
 
 
