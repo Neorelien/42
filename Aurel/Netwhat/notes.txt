@@ -78,7 +78,8 @@ UDP
 	couche transport
 	datagramme
 	en tete de 8 bits
-	ne prend pas ne charge la diffusion
+	prend en charge la diffusion
+	systeme de verification basique
 
 
 DNS

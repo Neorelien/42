@@ -6,7 +6,7 @@
 #    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 13:18:59 by awery             #+#    #+#              #
-#    Updated: 2021/01/12 17:42:32 by awery            ###   ########.fr        #
+#    Updated: 2021/01/13 11:25:59 by awery            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,6 +118,29 @@ objectifs
 	---- FIN TOUCHE -------
 
 ---------------------- FIN IN GAME -----------------------------
+
+--------------------- Minilibx -------------------------------
+
+void *mlx_init() --> renvoi void* et initialise la connection entre le programme et l'ecran
+		NULL si echec
+
+void *mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title) --> return un void* --> windows identifier
+		NULL si echec
+
+int mlx_clear_window ( void *mlx_ptr, void *win_ptr ) --> nettoi la windows NE RETOURNE RIEN ?
+
+int mlx_destroy_window ( void *mlx_ptr, void *win_ptr ) --> destroy NE RETOURNE RIEN ??
+
+
+
+
+COMPILATION 
+
+- mac = -lmlx -framework OpenGL -framework AppKit
+- linux = -lmlx -lXext -lX11
+- les deux = You may also need to specify the path to the MiniLibX library, using the -L flag
+
+-------------------- FIN MinilibX ---------------------------
 	
 ------------------- QUESTIONS / REMARQUES -----------------------
 
