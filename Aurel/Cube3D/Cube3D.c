@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 23:33:01 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 23:37:36 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char **ft_map_dup(char **map, int fd, int *nxt_line)
 	x = 0;
 	while (map[x] != NULL)
 		x++;
-	dup = (char**)malloc(sizeof(char*) * x + 2);
+	printf("x vaut =%d\n", x);
+	dup = (char**)malloc(sizeof(char*) * x + 1);
 	x = 0;
 	while (map[x] != NULL)
 	{
@@ -30,6 +31,8 @@ char **ft_map_dup(char **map, int fd, int *nxt_line)
 		x++;
 	}
 	*nxt_line = get_next_line(fd, &dup[x]);
+	if (dup[x][0] == '\0')
+		return (dup);
 	x++;
 	dup[x] = ft_strdup("");
 	return (dup);
@@ -77,12 +80,12 @@ int	ft_map_init(int argc, char **argv, t_data *mlx)
 	nxt_line = get_next_line(fd, mlx->map);
 //	printf("%d", nxt_line);
 //	printf("%s", *mlx->map);
-/*	while (nxt_line != -1)
+	while (nxt_line != -1)
 	{
 		temp = ft_map_dup(mlx->map, fd, &nxt_line);
 		free(mlx->map);
 		mlx->map = temp;
-	}*/
+	}
 //	if (ft_check_map(map))
 //		return (1);
 	return (0);	
