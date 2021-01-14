@@ -6,13 +6,13 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 19:48:08 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 19:52:54 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
-char **ft_map_dup(char **map,int fd)
+char **ft_map_dup(char **map, int fd, int *nxt_line)
 {
 	int		x;
 	int		y;
@@ -29,7 +29,7 @@ char **ft_map_dup(char **map,int fd)
 		dup[x] = ft_strdup(map[x]);
 		x++;
 	}
-	get_next_line(fd, &dup[x]);
+	*nxt_line = get_next_line(fd, &dup[x]);
 	x++;
 	dup[x] = ft_strdup("");
 	return (dup);
@@ -76,7 +76,7 @@ int	ft_map_init(int argc, char **argv, t_data *mlx)
 	nxt_line = get_next_line(fd, mlx->map);
 	while (nxt_line != -1)
 	{
-		temp = ft_map_dup(mlx->map, fd);
+		temp = ft_map_dup(mlx->map, fd, &nxt_line);
 		free(mlx->map);
 		mlx->map = temp;
 	}
