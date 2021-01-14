@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 18:51:11 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 18:58:06 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	ft_map_init(int argc, char **argv, t_data *mlx)
 
 	if (argc != 1)
 		return (1);
-	if((fd = open(argv[1], O_RDONLY) == -1))
-			return (1);
+	if ((fd = open(argv[1], O_RDONLY) == -1))
+		return (1);
 	get_next_line(fd, mlx->map);
 	return (0);	
 }
