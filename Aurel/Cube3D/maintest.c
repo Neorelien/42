@@ -7,5 +7,5 @@ int main()
 
 	fd = open("map.cub", O_RDONLY);
 	get_next_line(fd, line);
-	printf("%s", *line);
+	printf("%d", fd);
 }

@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 20:49:50 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 20:54:53 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ int	ft_map_init(int argc, char **argv, t_data *mlx)
 		return (1);
 	if ((fd = open("map.cub", O_RDONLY) == -1))
 		return (1);
-	printf("%d", fd);
+	//printf("%d", fd);
+	line = malloc(sizeof(char*));
 	nxt_line = get_next_line(fd, mlx->map);
+	printf("%d", nxt_line);
 	//printf("%s", *mlx->map);
 	while (nxt_line != -1)
 	{
