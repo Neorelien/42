@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 23:37:36 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 23:44:48 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,11 @@ char **ft_map_dup(char **map, int fd, int *nxt_line)
 	x = 0;
 	while (map[x] != NULL)
 	{
+	printf("on va la\n");
 		dup[x] = ft_strdup(map[x]);
 		x++;
 	}
 	*nxt_line = get_next_line(fd, &dup[x]);
-	if (dup[x][0] == '\0')
-		return (dup);
-	x++;
-	dup[x] = ft_strdup("");
 	return (dup);
 }
 /*
@@ -86,6 +83,7 @@ int	ft_map_init(int argc, char **argv, t_data *mlx)
 		free(mlx->map);
 		mlx->map = temp;
 	}
+//	ft_add_end_map(mlx);
 //	if (ft_check_map(map))
 //		return (1);
 	return (0);	
