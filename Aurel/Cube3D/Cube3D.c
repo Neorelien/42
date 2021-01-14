@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 19:59:30 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 20:04:52 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char **ft_map_dup(char **map, int fd, int *nxt_line)
 int	ft_check_map(char **map)
 {
 	return (0);	
-}*/
+}
 
 int	ft_check_argv(char **argv)
 {
@@ -58,7 +58,7 @@ int	ft_check_argv(char **argv)
 	if (argv[1][i] == 'c')
 		return (1);
 	return (0);
-}
+}*/
 
 int	ft_map_init(int argc, char **argv, t_data *mlx)
 {
@@ -66,12 +66,12 @@ int	ft_map_init(int argc, char **argv, t_data *mlx)
 	int		nxt_line;
 	char	**temp;
 
-	if (ft_check_argv(argv))
-		return (1);
+	//if (ft_check_argv(argv))
+	//	return (1);
 	temp = NULL;
-	if (argc != 1)
+	if (argc != 2)
 		return (1);
-	if ((fd = open(argv[1], O_RDONLY) == -1))
+//	if ((fd = open(argv[1], O_RDONLY) == -1))
 		return (1);
 	nxt_line = get_next_line(fd, mlx->map);
 	while (nxt_line != -1)
@@ -91,6 +91,6 @@ int main(int argc, char **argv)
 
 	if (ft_map_init(argc, argv, &mlx))
 		return (1);
-//	printf("%s", mlx.map[0]);
+	printf("%s", mlx.map[0]);
 	return (0);
 }
