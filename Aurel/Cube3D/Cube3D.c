@@ -6,13 +6,13 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 19:22:11 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 19:29:00 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
-ft_map_dup(char **map)
+char **ft_map_dup(char **map)
 {
 	int		x;
 	int		y;
@@ -20,9 +20,21 @@ ft_map_dup(char **map)
 
 	y = 0;
 	x = 0;
-	while (map[x] != '\0')
+	while (map[x] != NULL)
 		x++;
 	dup = (char**)malloc(sizeof(char*) * x + 1);
+	x = 0;
+	while (map[x] != NULL)
+	{
+		while (map[x][y++] != '\0')
+			dup[x] = (char*)malloc(sizeof(char) * y-- + 1);
+		x++;
+	}
+	while (map[x] != NULL)
+	{
+		dup[x] = ft_strdup(map[x]);
+		x++;
+	}
 	return (dup);
 }
 
