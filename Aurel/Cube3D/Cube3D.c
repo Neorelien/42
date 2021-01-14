@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 19:38:31 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 19:43:58 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,26 @@ char **ft_map_dup(char **map,int fd)
 int	ft_check_map(char **map)
 {
 	return (0);	
+}
+
+int	ft_check_argv(char **argv)
+{
+	int i;
+
+	i = 0;
+	while (argv[1][i] != '.')
+	{
+		if (argv[1][i] == '\0')
+			return (1);
+		i++;
+	}
+	if (argv[1][i++] == 'c')
+		return (1);
+	if (argv[1][i++] == 'u')
+		return (1);
+	if (argv[1][i] == 'c')
+		return (1);
+	return (0);
 }
 
 int	ft_map_init(int argc, char **argv, t_data *mlx)
