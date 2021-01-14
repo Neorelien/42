@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 21:09:43 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 21:12:18 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_map_init(int argc, char **argv, t_data *mlx, char **map)
 	{
 		temp = ft_map_dup(map, fd, &nxt_line);
 		free(map);
-		map = temp;:w
+		map = temp;
 
 	}
 //	if (ft_check_map(map))
@@ -96,11 +96,12 @@ int main(int argc, char **argv)
 	t_data	mlx;
 
 	mlx.map = malloc(sizeof(char*) * 1);
-	*mlx.map = malloc(2);
-	*mlx.map[0] = 'a';
-	*mlx.map[1] = '\0';
-	if (ft_map_init(argc, argv, &mlx, map))
+	if((*mlx.map = malloc(sizeof(char) * 3)) == NULL)
 		return (1);
-	printf("%s", *map);
+	*mlx.map[1] = 'a';
+	//*mlx.map[1] = '\0';
+//	if (ft_map_init(argc, argv, &mlx, map))
+//		return (1);
+//	printf("%s", *map);
 	return (0);
 }
