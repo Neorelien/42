@@ -6,27 +6,29 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 18:43:05 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 18:51:11 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
-int	ft_map_init(int argc, char *argv)
+int	ft_map_init(int argc, char **argv, t_data *mlx)
 {
 	int		fd;
-	char	*line;
 
 	if (argc != 1)
 		return (1);
-	fd = open(argv, O_RDONLY);
-	get_next_line(fd, *map);
+	if((fd = open(argv[1], O_RDONLY) == -1))
+			return (1);
+	get_next_line(fd, mlx->map);
 	return (0);	
 }
 
-int main(int argc, char *argv)
+int main(int argc, char **argv)
 {
-	if (ft_map_init(argc, argv))
+	t_data	mlx;
+
+	if (ft_map_init(argc, argv, &mlx))
 		return (1);
 	return (0);
 }
