@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 20:57:59 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 21:03:05 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,11 @@ int main(int argc, char **argv)
 	t_data	mlx;
 	
 	mlx.map = malloc(sizeof(char*));
-	if (ft_map_init(argc, argv, &mlx))
-		return (1);
-//	printf("%s", *mlx.map);
+	*mlx.map = malloc(sizeof(char) * 2);
+	*mlx.map[0] = 'a';
+	*mlx.map[1] = '\0';
+//	if (ft_map_init(argc, argv, &mlx))
+//		return (1);
+	printf("%s", *mlx.map);
 	return (0);
 }
