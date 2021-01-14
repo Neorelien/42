@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 18:26:44 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 18:39:24 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	ft_map_init(int argc, char *argv)
 {
-	int	fd;
+	int		fd;
+	char	*line;
 
 	if (argc != 1)
 		return (1);
 	fd = open(argv, O_RDONLY);
+	
 	return (0);	
 }
 
