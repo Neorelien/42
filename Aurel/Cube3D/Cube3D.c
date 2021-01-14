@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 19:13:00 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 19:22:11 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 ft_map_dup(char **map)
 {
-	int x;
-	int y;
+	int		x;
+	int		y;
+	char	**dup;
 
 	y = 0;
 	x = 0;
 	while (map[x] != '\0')
 		x++;
-
+	dup = (char**)malloc(sizeof(char*) * x + 1);
+	return (dup);
 }
 
 int	ft_check_map(char **map)
