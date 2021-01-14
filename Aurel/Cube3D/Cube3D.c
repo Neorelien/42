@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 23:13:44 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 23:16:53 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_map_init(int argc, char **argv, t_data *mlx)
 	if ((fd = open("map.cub", O_RDONLY) == -1))
 		return (1);
 	//printf("%d", fd);
-	//nxt_line = get_next_line(fd, mlx->map);
+	nxt_line = get_next_line(fd, mlx->map);
 	printf("%d", nxt_line);
 	//printf("%s", *mlx->map);
 //	while (nxt_line != -1)
@@ -95,9 +95,22 @@ int main(int argc, char **argv)
 	mlx.map = malloc(sizeof(char*) * 1);
 	if((*mlx.map = malloc(sizeof(char) * 2)) == NULL)
 		return (1);
+
+	int fd;
+	int nxt_line;
+
+	if ((fd = open("map.cub", O_RDONLY) == -1))
+		return (1);
+	printf("%d", fd);
+//	nxt_line = get_next_line(fd, mlx.map);
+//	printf("%d", nxt_line);
+
+
+
+
 	//mlx.map[0][1] = 'a';
 	//*mlx.map[1] = '\0';
-	if (ft_map_init(argc, argv, &mlx))
+//	if (ft_map_init(argc, argv, &mlx))
 //		return (1);
 //	printf("%s", *map);
 	return (0);
