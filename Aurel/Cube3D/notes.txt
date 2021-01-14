@@ -6,7 +6,7 @@
 #    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 13:18:59 by awery             #+#    #+#              #
-#    Updated: 2021/01/14 11:05:18 by aurelien         ###   ########.fr        #
+#    Updated: 2021/01/14 19:03:34 by Aurelien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -205,6 +205,14 @@ A FAIRE
 --------------------------- PLAN --------------------------
 
 - creer une map
+    - mettre les lignes les unes derriere les autres avec GNL
+	-malloc ? 
+    - gerer les erreurs
+	- map pas entouré de mur
+	- map avec que des murs
+	- map sans mur
+	- map sans joueur
+	- autre caractere que 0 - 1 - 2 - N - S - E - W
 - lire la map avec GNL et l'inserer dans une matrice
 - afficher la matrice
 
