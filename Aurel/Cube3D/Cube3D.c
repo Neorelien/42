@@ -1,20 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cube3D_utils.h                                     :+:      :+:    :+:   */
+/*   Cube3D.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 11:10:07 by aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 18:16:12 by Aurelien         ###   ########.fr       */
+/*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
+/*   Updated: 2021/01/14 18:15:03 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx/mlx.h"
-#include "libft.h"
+#include "Cube3D_utils.h"
 
-typedef struct	s_mlx
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-}				t_mlx;
+
