@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 23:11:52 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 23:13:44 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_check_argv(char **argv)
 	return (0);
 }*/
 
-int	ft_map_init(int argc, char **argv, t_data *mlx, char **map)
+int	ft_map_init(int argc, char **argv, t_data *mlx)
 {
 	int		fd;
 	int		nxt_line;
@@ -73,19 +73,16 @@ int	ft_map_init(int argc, char **argv, t_data *mlx, char **map)
 		return (1);
 	if ((fd = open("map.cub", O_RDONLY) == -1))
 		return (1);
-	if ((map = malloc(sizeof(char*) * 1)) == NULL)
-			return (1);
 	//printf("%d", fd);
-	nxt_line = get_next_line(fd, map);
+	//nxt_line = get_next_line(fd, mlx->map);
 	printf("%d", nxt_line);
 	//printf("%s", *mlx->map);
-	while (nxt_line != -1)
-	{
-		temp = ft_map_dup(map, fd, &nxt_line);
-		free(map);
-		map = temp;
-
-	}
+//	while (nxt_line != -1)
+//	{
+//		temp = ft_map_dup(map, fd, &nxt_line);
+//		free(map);
+//		map = temp;
+//	}
 //	if (ft_check_map(map))
 //		return (1);
 	return (0);	
@@ -98,9 +95,9 @@ int main(int argc, char **argv)
 	mlx.map = malloc(sizeof(char*) * 1);
 	if((*mlx.map = malloc(sizeof(char) * 2)) == NULL)
 		return (1);
-	mlx.map[0][1] = 'a';
+	//mlx.map[0][1] = 'a';
 	//*mlx.map[1] = '\0';
-//	if (ft_map_init(argc, argv, &mlx, map))
+	if (ft_map_init(argc, argv, &mlx))
 //		return (1);
 //	printf("%s", *map);
 	return (0);
