@@ -6,7 +6,7 @@
 #    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 13:18:59 by awery             #+#    #+#              #
-#    Updated: 2021/01/13 16:09:22 by awery            ###   ########.fr        #
+#    Updated: 2021/01/14 11:05:18 by aurelien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -201,3 +201,10 @@ A FAIRE
 
 - regarder video clem sur discord
 - lire e man de la libx
+
+--------------------------- PLAN --------------------------
+
+- creer une map
+- lire la map avec GNL et l'inserer dans une matrice
+- afficher la matrice
+
