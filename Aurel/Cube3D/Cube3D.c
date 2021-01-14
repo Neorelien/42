@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 23:16:53 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/14 23:23:06 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,15 @@ int main(int argc, char **argv)
 		return (1);
 
 	int fd;
+	int fd2;
 	int nxt_line;
 
 	if ((fd = open("map.cub", O_RDONLY) == -1))
 		return (1);
-	printf("%d", fd);
+	if ((fd2 = open("m.cub", O_RDONLY) == -1))
+		return (1);
+	printf("%d\n", fd);
+	printf("%d", fd2);
 //	nxt_line = get_next_line(fd, mlx.map);
 //	printf("%d", nxt_line);
 
