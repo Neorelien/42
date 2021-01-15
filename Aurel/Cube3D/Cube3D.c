@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 16:14:22 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 16:19:54 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			ft_map_element(char **line)
 	}
 	if (count < 8)
 		return (1);
-	if (line[0][0] == '\n')
+	if (line[0][0] == 0)
 		return (1);
 	count = 0;
 	return (0);
@@ -102,6 +102,8 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 		get_next_line(fd, line);
 		mlx->map[i] = *line;
 		i++;
+
+	printf("i vaut =%d", i);
 	}
 	mlx->map[i] = NULL;
 	free(line);
