@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 22:53:06 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 22:59:07 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	ft_check_argv(char **argv, int argc)
 
 int			ft_check_elements(char **line)
 {
+	printf("%s", *line);
 	if (line[0][0] == 'R')
 		return (2);
 	if (line[0][0] == 'F')
@@ -153,7 +154,6 @@ int			ft_elem_resolution(char **line, t_data *mlx)
 
 int			ft_read_elem(char **line, t_data *mlx, int element)
 {
-	printf("%d", element);
 	if (element == 2)
 		return(ft_elem_resolution(line, mlx));
 	return (1);
@@ -170,7 +170,6 @@ int			ft_get_elements(char **argv, t_data *mlx)
 		return (1);
 	if (get_next_line(fd, line) == -1)
 		return (1);
-	printf("\n%s\n", *line);
 	while ((element = ft_map_element(line) != 0))
 	{
 		if (element == -1)
@@ -180,6 +179,8 @@ int			ft_get_elements(char **argv, t_data *mlx)
 		if (get_next_line(fd, line) == ( - 1 || 0 ))
 			return (1);
 	}
+	while (get_next_line(fd, line) > 0)
+		free(*line);
 	close(fd);
 	free(line);
 	free(*line);
