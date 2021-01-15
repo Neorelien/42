@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 19:19:36 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:21:44 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ int			ft_elem_resolution(char **line, t_data *mlx)
 	free(*line);
 	coordinates = ft_split(newline, ' ');
 	free(newline);
+	mlx->element.x = ft_atoi(coordinates[0]);
+	mlx->element.y = ft_atoi(coordinates[1]);
 	return (0);
 }
 

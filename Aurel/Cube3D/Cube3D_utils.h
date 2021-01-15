@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 11:10:07 by aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 18:32:45 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:21:15 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ typedef struct	s_data
 	void	*mlx_ptr;
 	void	*win_ptr;
 	char	**map;
-	
+	s_elem	element;	
 }				t_data;
