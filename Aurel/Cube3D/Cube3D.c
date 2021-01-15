@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 15:24:39 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:27:54 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,25 @@
    return (0);
    }*/
 
-int			ft_map_element(char **line)
+int			ft_is_map_descriptor(char **line)
 {
 	if (line[0][0] == '0')
-		return (1);
-	if (line[0][0] == '1' && line[0][1] == 'O')
-		return (1);
-	if (line[0][0] == '2' && line[0][1] == 'O')
-		return (1);
-	if (line[0][0] == ' ' && line[0][1] == 'E')
-		return (1);
-	if (line[0][0] == 'E' && line[0][1] == 'A')
-		return (1);
+		return (0);
+	if (line[0][0] == '1')
+		return (0);
+	if (line[0][0] == '2')
+		return (0);
+	if (line[0][0] == ' ')
+		return (0);
+	if (line[0][0] == 'E')
+		return (0);
 	if (line[0][0] == 'W')
-		return (1);
+		return (0);
 	if (line[0][0] == 'S')
-		return (1);
+		return (0);
 	if (line[0][0] == 'N')
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 static int	ft_map_size(char **argv)
@@ -71,7 +71,7 @@ static int	ft_map_size(char **argv)
 	fd = open(argv[1], O_RDONLY);
 	line = malloc(sizeof(char*));
 	nxt_line = get_next_line(fd, line);
-	while (ft_map_element(line))
+	while (ft_is_map_descriptor(line))
 	{
 		nxt_line = get_next_line(fd, line);
 		free(*line);
@@ -97,7 +97,7 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	fd = open(argv[1], O_RDONLY);
 	if ((line = malloc(sizeof(char*))) == NULL)
 		return (1);
-	while (get_next_line(fd, line) && ft_map_element(line)) 
+	while (get_next_line(fd, line) && ft_is_map_descriptor(line)) 
 		free(*line);
 	free(*line);
 	while (i < map_size)
@@ -111,6 +111,7 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	close (fd);
 	return (0);
 }
+
 int			ft_map_init(int argc, char **argv, t_data *mlx)
 {
 	int map_size;
