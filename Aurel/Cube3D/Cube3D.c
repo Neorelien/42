@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 23:24:59 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 23:29:02 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,9 @@ int			ft_get_elements(char **argv, t_data *mlx)
 		return (1);
 	while (((element = ft_map_element(line)) > 0))// a changer en != 0
 	{
-	//	if (element == -1)
-	//		return (1) ;
+		if (element == -1)
+			return (1) ;
+		printf("%d\n", element);
 		if (ft_read_elem(line, mlx, element))
 			return (1);
 		if (get_next_line(fd, line) < 1)
@@ -193,7 +194,6 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 
 	if (ft_check_argv(argv, argc))
 		return (1);
-	printf("on va la");
 	if (ft_get_elements(argv, mlx))
 		return (1);
 	map_size = ft_map_size(argv);
