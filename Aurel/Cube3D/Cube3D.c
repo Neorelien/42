@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 19:09:58 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:14:46 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,17 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	return (0);
 }
 
+int			ft_elem_Resolution(char **line, t_data *mlx)
+{
+	return (0);
+}
+
 int			ft_read_elem(char **line, t_data *mlx, int element)
 {
 	if (element == 2)
-		ft_strtrim(*line, "S);
+	{
+		ft_strtrim(*line, "R");
+	}
 }
 
 int			ft_get_elements(char **argv, t_data *mlx)
