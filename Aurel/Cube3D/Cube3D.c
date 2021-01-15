@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 22:59:07 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 23:03:10 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	ft_check_argv(char **argv, int argc)
 
 int			ft_check_elements(char **line)
 {
-	printf("%s", *line);
 	if (line[0][0] == 'R')
 		return (2);
 	if (line[0][0] == 'F')
