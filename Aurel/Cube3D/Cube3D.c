@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 16:01:51 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 16:09:48 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int			ft_map_element(char **line)
 {
 	static int	count;
 
+	printf("count = %d| line = %c|\n", count, line[0][0]);
 	if (line[0][0] != '\n' && count < 8)
 	{
 		count++;
