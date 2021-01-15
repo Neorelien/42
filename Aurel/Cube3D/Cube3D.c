@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 19:14:46 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:19:36 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,17 +136,23 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	return (0);
 }
 
-int			ft_elem_Resolution(char **line, t_data *mlx)
+int			ft_elem_resolution(char **line, t_data *mlx)
 {
+	char	**coordinates;
+	char	*newline;
+	
+	newline = ft_strtrim(*line, "R");
+	free(*line);
+	coordinates = ft_split(newline, ' ');
+	free(newline);
 	return (0);
 }
 
 int			ft_read_elem(char **line, t_data *mlx, int element)
 {
 	if (element == 2)
-	{
-		ft_strtrim(*line, "R");
-	}
+		return(ft_elem_resolution(line, mlx));
+	return (1);
 }
 
 int			ft_get_elements(char **argv, t_data *mlx)
