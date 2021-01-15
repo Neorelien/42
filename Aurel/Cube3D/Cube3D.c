@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 15:34:06 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:39:51 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,24 @@
 int			ft_map_element(char **line)
 {
 	static int	count;
-	
+
 	if (line[0][0] != '\n')
 		count++;
-	if (line[0][0] == '0' && count > 9)
+	if (line[0][0] == 'S' && count < 9)
 		return (1);
-	if (line[0][0] == '1' && line[0][1] == 'O')
+	if (line[0][0] == 'N' && line[0][1] == 'O' && count < 9)
 		return (1);
-	if (line[0][0] == '2' && line[0][1] == 'O')
+	if (line[0][0] == 'S' && line[0][1] == 'O' && count < 9)
 		return (1);
-	if (line[0][0] == ' ' && line[0][1] == 'E')
+	if (line[0][0] == 'W' && line[0][1] == 'E' && count < 9)
 		return (1);
-	if (line[0][0] == 'E' && line[0][1] == 'A')
+	if (line[0][0] == 'E' && line[0][1] == 'A' && count < 9)
 		return (1);
-	if (line[0][0] == 'W')
+	if (line[0][0] == 'S' && count < 9)
 		return (1);
-	if (line[0][0] == 'S')
+	if (line[0][0] == 'F' && count < 9)
 		return (1);
-	if (line[0][0] == 'N')
+	if (line[0][0] == 'C' && count < 9)
 		return (1);
 	return (0);
 }
@@ -70,7 +70,6 @@ static int	ft_map_size(char **argv)
 	char	**line;
 	int		nxt_line;
 
-	int u = 0;
 	i = 0;
 	fd = open(argv[1], O_RDONLY);
 	line = malloc(sizeof(char*));
