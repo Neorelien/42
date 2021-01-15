@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 23:45:00 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 23:46:34 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,22 +157,22 @@ int			ft_read_elem(char **line, t_data *mlx, int element)
 	printf("%d\n", element);
 	if (element == 1)
 		return (0);
-	if (element == 1)
-		return (0);
-	if (element == 1)
-		return (0);
-	if (element == 1)
-		return (0);
-	if (element == 1)
-		return (0);
-	if (element == 1)
-		return (0);
-	if (element == 1)
-		return (0);
-	if (element == 1)
-		return (0);
 	if (element == 2)
 		return(ft_elem_resolution(line, mlx));
+	if (element == 3)
+		return (0);
+	if (element == 4)
+		return (0);
+	if (element == 5)
+		return (0);
+	if (element == 6)
+		return (0);
+	if (element == 7)
+		return (0);
+	if (element == 8)
+		return (0);
+	if (element == 9)
+		return (0);
 	return (1);
 }
 
