@@ -6,13 +6,13 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 16:24:59 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 16:50:27 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
-/*
+
    int	ft_check_map(char **map)
    {
    return (0);	
@@ -36,7 +36,7 @@
    if (argv[1][i] == 'c')
    return (1);
    return (0);
-   }*/
+}
 
 int			ft_map_element(char **line)
 {
@@ -112,14 +112,12 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 {
 	int map_size;
 
-	//	if (ft_check_arg(argv, argc))
-	//		return (1);
 	map_size = ft_map_size(argv);
 	if ((mlx->map = malloc(sizeof(char*) * (map_size + 1))) == NULL)
 		return (1);
 	ft_maping(argv, mlx, map_size);
-//	if (ft_check_map(mlx->map))
-//			return (1);
+	if (ft_check_map(mlx->map))
+			return (1);
 	return (0);	
 }
 
