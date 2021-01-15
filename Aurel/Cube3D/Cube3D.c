@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 18:52:29 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 18:58:57 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,22 @@ int	ft_check_argv(char **argv, int argc)
 int			ft_check_elements(char **line)
 {
 	if (line[0][0] == 'R')
-		return ();
+		return (2);		
+	if (line[0][0] == 'F')
+		return (3);
+	if (line[0][0] == 'C')
+		return (4);
+	if (line[0][0] == 'S')
+		return (5);
+	if (line[0][0] == 'N' && line[0][1] == 'O')
+		return (6);
+	if (line[0][0] == 'S' && line[0][1] == 'O')
+		return (7);
 	if (line[0][0] == 'E' && line[0][1] == 'A')
-		return ();
+		return (8);
+	if (line[0][0] == 'W' && line[0][1] == 'E')
+		return (9);
+	return (-1);
 }
 
 int			ft_map_element(char **line)
