@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 15:59:31 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 16:01:51 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,16 @@ int			ft_map_element(char **line)
 {
 	static int	count;
 
-	if (line[0][0] != '\n')
+	if (line[0][0] != '\n' && count < 8)
+	{
 		count++;
-	if (count < 9)
+		return (1);
+	}
+	if (count < 8)
 		return (1);
 	if (line[0][0] == '\n')
 		return (1);
+	count = 0;
 	return (0);
 }
 
