@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 18:49:56 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 18:52:29 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ int	ft_check_argv(char **argv, int argc)
 	if (argv[1][i] != 'b')
 		return (1);
 	return (0);
+}
+
+int			ft_check_elements(char **line)
+{
+	if (line[0][0] == 'R')
+		return ();
+	if (line[0][0] == 'E' && line[0][1] == 'A')
+		return ();
 }
 
 int			ft_map_element(char **line)
