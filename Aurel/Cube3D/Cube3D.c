@@ -6,34 +6,12 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/14 23:54:25 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 00:59:49 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
-char **ft_map_dup(char **map, int fd, int *nxt_line)
-{
-	int		x;
-	int		y;
-	char	**dup;
-
-	y = 0;
-	x = 0;
-	while (map[x] != NULL)
-		x++;
-	printf("x vaut =%d\n", x);
-	dup = (char**)malloc(sizeof(char*) * x + 2);
-	x = 0;
-	while (map[x] != NULL)
-	{
-//	printf("on va la\n");
-		dup[x] = ft_strdup(map[x]);
-		x++;
-	}
-	*nxt_line = get_next_line(fd, &dup[x]);
-	return (dup);
-}
 /*
 int	ft_check_map(char **map)
 {
@@ -60,33 +38,62 @@ int	ft_check_argv(char **argv)
 	return (0);
 }*/
 
-int	ft_map_init(int argc, char **argv, t_data *mlx)
+static int	ft_map_size(char **argv)
 {
+	int		i;
 	int		fd;
+	char	**line;
 	int		nxt_line;
-	char	**temp;
 
-	//if (ft_check_argv(argv))
-	//	return (1);
-	temp = NULL;
-	if (argc != 2)
-		return (1);
-	mlx->map = malloc(sizeof(char*) * 1);
-	fd = open("map.cub", O_RDONLY);
-//	printf("%d\n", fd);
-	nxt_line = get_next_line(fd, mlx->map);
-//	printf("%d", nxt_line);
-//	printf("%s", *mlx->map);
-	while (nxt_line != -1)
+	i = 0;
+	fd = open(argv[1], O_RDONLY);
+	line = malloc(sizeof(char*));
+	nxt_line = get_next_line(fd, line);
+	while (nxt_line > 0)
 	{
-		temp = ft_map_dup(mlx->map, fd, &nxt_line);
-		free(mlx->map);
-		printf("%d\n", nxt_line);
-		mlx->map = temp;
-		printf("%s|\n%s|\n", mlx->map[0], mlx->map[1]);
+		nxt_line = get_next_line(fd, line);
+		i++;
+		free(*line);
 	}
+	free(line);
+	close (fd);
+	return (i);
+}
+
+int		ft_maping(char **argv, t_data *mlx, int map_size)
+{
+	int		i;
+	int		fd;
+	char	**line;
+
+	i = 0;
+	fd = open(argv[1], O_RDONLY);
+	if ((line = malloc(sizeof(char*))) == NULL)
+		return (1);
+	while (i < map_size)
+	{
+		get_next_line(fd, line);
+	//	mlx->map[i] = ft_strdup(*line);
+		free(*line);
+		i++;
+	}
+	close (fd);
+	free(line);
+	return (0);
+}
+int			ft_map_init(int argc, char **argv, t_data *mlx)
+{
+	int map_size;
+
+//	if (ft_check_arg(argv, argc))
+//		return (1);
+	map_size = ft_map_size(argv);
+	if ((mlx->map = malloc(sizeof(char*) * (map_size + 1))) == NULL)
+		return (1);
+	printf("%d", map_size);
+	ft_maping(argv, mlx, map_size);
 //	ft_add_end_map(mlx);
-//	if (ft_check_map(map))
+//	if (ft_check_map(mlx->map))
 //		return (1);
 	return (0);	
 }
@@ -97,6 +104,6 @@ int main(int argc, char **argv)
 
 	if (ft_map_init(argc, argv, &mlx))
 		return (1);
-	printf("%s", *mlx.map);
+//	printf("%s", mlx.map[2]);
 	return (0);
 }
