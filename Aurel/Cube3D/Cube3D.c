@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 15:48:22 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:54:08 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ static int	ft_map_size(char **argv)
 	nxt_line = get_next_line(fd, line);
 	while (ft_map_element(line))
 	{
+		free(*line);
 		nxt_line = get_next_line(fd, line);
-		if (ft_map_element(line))
-			free(*line);
 	}
 	free(*line);
 	while (nxt_line > 0)
@@ -126,8 +125,8 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 	if ((mlx->map = malloc(sizeof(char*) * (map_size + 1))) == NULL)
 		return (1);
 	ft_maping(argv, mlx, map_size);
-	//	if (ft_check_map(mlx->map))
-	//		return (1);
+//	if (ft_check_map(mlx->map))
+//			return (1);
 	return (0);	
 }
 
@@ -144,14 +143,19 @@ void	ft_free_map(t_data *xlm)
 	free(xlm->map[i]);
 }
 
+int		ft_error()
+{
+	printf("Error");
+	return (1);
+}
+
 int		main(int argc, char **argv)
 {
 	t_data	mlx;
 
 	if (ft_map_init(argc, argv, &mlx))
-		return (1);
+		return (ft_error());
 	printf("%s", mlx.map[0]);
 	ft_free_map(&mlx);
-	while(1);
 	return (0);
 }
