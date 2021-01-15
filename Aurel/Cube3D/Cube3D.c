@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 15:01:40 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:07:52 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ static int	ft_map_size(char **argv)
 	fd = open(argv[1], O_RDONLY);
 	line = malloc(sizeof(char*));
 	nxt_line = get_next_line(fd, line);
+	while (ft_map_element(line))
+	{
+		nxt_line = get_next_line(fd, line);
+		free(*line);
+	}
 	while (nxt_line > 0)
 	{
 		nxt_line = get_next_line(fd, line);
