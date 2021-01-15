@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 17:03:18 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 17:07:34 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 	ft_maping(argv, mlx, map_size);
 	if (ft_check_map(mlx->map))
 		return (1);
+
 	return (0);	
 }
 
@@ -146,7 +147,7 @@ int		main(int argc, char **argv)
 {
 	t_data	mlx;
 	int t = 0;
-	if (ft_check_argv(argv, argc))
+	if (ft_check_argv(argv, argc))//va surement degager avec ft_elements
 		return (ft_error("Error arg"));
 	if (ft_map_init(argc, argv, &mlx))
 		return (ft_error("Error map"));
