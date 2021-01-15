@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 01:16:43 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:01:40 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ int main(int argc, char **argv)
 
 	if (ft_map_init(argc, argv, &mlx))
 		return (1);
-	printf("%s", mlx.map[5]);
+	printf("%s", mlx.map[0]);
 	return (0);
 }
