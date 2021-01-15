@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 00:59:49 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 01:04:42 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,13 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	while (i < map_size)
 	{
 		get_next_line(fd, line);
-	//	mlx->map[i] = ft_strdup(*line);
-		free(*line);
+		mlx->map[i] = *line;
+		//free(*line);
 		i++;
 	}
-	close (fd);
 	free(line);
+	close (fd);
+//	free(line);
 	return (0);
 }
 int			ft_map_init(int argc, char **argv, t_data *mlx)
@@ -90,7 +91,6 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 	map_size = ft_map_size(argv);
 	if ((mlx->map = malloc(sizeof(char*) * (map_size + 1))) == NULL)
 		return (1);
-	printf("%d", map_size);
 	ft_maping(argv, mlx, map_size);
 //	ft_add_end_map(mlx);
 //	if (ft_check_map(mlx->map))
@@ -104,6 +104,7 @@ int main(int argc, char **argv)
 
 	if (ft_map_init(argc, argv, &mlx))
 		return (1);
-//	printf("%s", mlx.map[2]);
+	printf("%s", mlx.map[1]);
+	while (1);
 	return (0);
 }
