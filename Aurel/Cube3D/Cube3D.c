@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 16:54:24 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 16:59:54 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,19 @@ int	ft_check_argv(char **argv, int argc)
 
 	i = 0;
 	if (argc != 2)
-		return (0);
+		return (1);
 	while (argv[1][i] != '.')
 	{
 		if (argv[1][i] == '\0')
 			return (1);
 		i++;
 	}
-	if (argv[1][i++] == 'c')
+	printf("%s", &argv[1][i]);
+	if (argv[1][i++] != 'c')
 		return (1);
-	if (argv[1][i++] == 'u')
+	if (argv[1][i++] != 'u')
 		return (1);
-	if (argv[1][i] == 'c')
+	if (argv[1][i] != 'c')
 		return (1);
 	return (0);
 }
@@ -146,7 +147,7 @@ int		main(int argc, char **argv)
 {
 	t_data	mlx;
 
-	if (!ft_check_argv(argv, argc))
+	if (ft_check_argv(argv, argc))
 		return (ft_error("Error arg"));
 	if (ft_map_init(argc, argv, &mlx))
 		return (ft_error("Error map"));
