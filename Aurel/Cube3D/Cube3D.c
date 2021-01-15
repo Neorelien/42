@@ -6,37 +6,58 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 15:07:52 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:14:14 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
 /*
-int	ft_check_map(char **map)
-{
-	return (0);	
-}
+   int	ft_check_map(char **map)
+   {
+   return (0);	
+   }
 
-int	ft_check_argv(char **argv)
-{
-	int i;
+   int	ft_check_argv(char **argv)
+   {
+   int i;
 
-	i = 0;
-	while (argv[1][i] != '.')
-	{
-		if (argv[1][i] == '\0')
-			return (1);
-		i++;
-	}
-	if (argv[1][i++] == 'c')
+   i = 0;
+   while (argv[1][i] != '.')
+   {
+   if (argv[1][i] == '\0')
+   return (1);
+   i++;
+   }
+   if (argv[1][i++] == 'c')
+   return (1);
+   if (argv[1][i++] == 'u')
+   return (1);
+   if (argv[1][i] == 'c')
+   return (1);
+   return (0);
+   }*/
+
+int			ft_map_element(char **line)
+{
+	if (line[0][0] == 'S')
 		return (1);
-	if (argv[1][i++] == 'u')
+	if (line[0][0] == 'N' && line[0][1] == 'O')
 		return (1);
-	if (argv[1][i] == 'c')
+	if (line[0][0] == 'S' && line[0][1] == 'O')
+		return (1);
+	if (line[0][0] == 'W' && line[0][1] == 'E')
+		return (1);
+	if (line[0][0] == 'E' && line[0][1] == 'A')
+		return (1);
+	if (line[0][0] == 'S')
+		return (1);
+	if (line[0][0] == 'F')
+		return (1);
+	if (line[0][0] == 'C')
 		return (1);
 	return (0);
-}*/
+}
 
 static int	ft_map_size(char **argv)
 {
@@ -75,6 +96,11 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	fd = open(argv[1], O_RDONLY);
 	if ((line = malloc(sizeof(char*))) == NULL)
 		return (1);
+	while (ft_map_element(line))
+	{
+		get_next_line(fd, line);
+		free(*line);
+	}
 	while (i < map_size)
 	{
 		get_next_line(fd, line);
@@ -90,14 +116,14 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 {
 	int map_size;
 
-//	if (ft_check_arg(argv, argc))
-//		return (1);
+	//	if (ft_check_arg(argv, argc))
+	//		return (1);
 	map_size = ft_map_size(argv);
 	if ((mlx->map = malloc(sizeof(char*) * (map_size + 1))) == NULL)
 		return (1);
 	ft_maping(argv, mlx, map_size);
-//	if (ft_check_map(mlx->map))
-//		return (1);
+	//	if (ft_check_map(mlx->map))
+	//		return (1);
 	return (0);	
 }
 
