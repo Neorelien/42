@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 19:04:55 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:09:58 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,12 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	return (0);
 }
 
+int			ft_read_elem(char **line, t_data *mlx, int element)
+{
+	if (element == 2)
+		ft_strtrim(*line, "S);
+}
+
 int			ft_get_elements(char **argv, t_data *mlx)
 {
 	int		fd;
@@ -151,19 +157,14 @@ int			ft_get_elements(char **argv, t_data *mlx)
 	{
 		if (element == -1)
 			return (1);
-		if (element > 1)
-		{
-			if (ft_read_elem(line, mlx, element))
-				return (1);
-		}
-		else
-			free(*line);
+		if (ft_read_elem(line, mlx, element))
+			return (1);
 		if (get_next_line(fd, line) == ( - 1 || 0 ))
-				return (1);
+			return (1);
 	}
-	free(*line);
 	close(fd);
 	free(line);
+	free(*line);
 	return (0);	
 }
 
