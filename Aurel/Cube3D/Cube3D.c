@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 17:07:34 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 17:48:32 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,14 @@ static int	ft_map_size(char **argv)
 	fd = open(argv[1], O_RDONLY);
 	line = malloc(sizeof(char*));
 	nxt_line = get_next_line(fd, line);
+	if (nxt_line == -1)
+		return (-1);
 	while (ft_map_element(line))
 	{
 		free(*line);
 		nxt_line = get_next_line(fd, line);
+		if (nxt_line == -1)
+			return (-1);
 	}
 	free(*line);
 	while (nxt_line > 0)
@@ -110,17 +114,26 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	close (fd);
 	return (0);
 }
+
+int			ft_get_elements(char **argv, t_data *mlx)
+{
+	return (0);	
+}
+
 int			ft_map_init(int argc, char **argv, t_data *mlx)
 {
 	int map_size;
 
+	if (ft_check_argv(argv, argc))
+		return (1);
 	map_size = ft_map_size(argv);
 	if ((mlx->map = malloc(sizeof(char*) * (map_size + 1))) == NULL)
 		return (1);
 	ft_maping(argv, mlx, map_size);
 	if (ft_check_map(mlx->map))
 		return (1);
-
+	if (ft_get_elements(argv, mlx))
+		return (1);
 	return (0);	
 }
 
@@ -146,9 +159,8 @@ int		ft_error(char *error)
 int		main(int argc, char **argv)
 {
 	t_data	mlx;
-	int t = 0;
-	if (ft_check_argv(argv, argc))//va surement degager avec ft_elements
-		return (ft_error("Error arg"));
+	int		 t = 0;
+
 	if (ft_map_init(argc, argv, &mlx))
 		return (ft_error("Error map"));
 	while (mlx.map[t])
