@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 15:44:21 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:48:22 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static int	ft_map_size(char **argv)
 	while (ft_map_element(line))
 	{
 		nxt_line = get_next_line(fd, line);
-		free(*line);
+		if (ft_map_element(line))
+			free(*line);
 	}
 	free(*line);
 	while (nxt_line > 0)
