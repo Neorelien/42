@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 16:59:54 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 17:03:18 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int	ft_check_argv(char **argv, int argc)
 			return (1);
 		i++;
 	}
-	printf("%s", &argv[1][i]);
+	i++;
 	if (argv[1][i++] != 'c')
 		return (1);
 	if (argv[1][i++] != 'u')
 		return (1);
-	if (argv[1][i] != 'c')
+	if (argv[1][i] != 'b')
 		return (1);
 	return (0);
 }
@@ -45,7 +45,6 @@ int			ft_map_element(char **line)
 {
 	static int	count;
 
-	printf("count = %d| line = %d| line = %c|\n", count, line[0][0], line[0][0]);
 	if (line[0][0] != 0 && count < 8)
 	{
 		count++;
@@ -146,18 +145,14 @@ int		ft_error(char *error)
 int		main(int argc, char **argv)
 {
 	t_data	mlx;
-
+	int t = 0;
 	if (ft_check_argv(argv, argc))
 		return (ft_error("Error arg"));
 	if (ft_map_init(argc, argv, &mlx))
 		return (ft_error("Error map"));
-	printf("%s\n", mlx.map[0]);
-	printf("%s\n", mlx.map[1]);
-	printf("%s\n", mlx.map[2]);
-	printf("%s\n", mlx.map[3]);
-	printf("%s\n", mlx.map[4]);
-	printf("%s\n", mlx.map[5]);
+	while (mlx.map[t])
+		printf("%s\n", mlx.map[t++]);
+	printf("%s\n", mlx.map[t]);
 	ft_free_map(&mlx);
-	while (1);
 	return (0);
 }
