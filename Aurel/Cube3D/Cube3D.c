@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 19:21:44 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 20:13:14 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ int			ft_elem_resolution(char **line, t_data *mlx)
 	free(newline);
 	mlx->element.x = ft_atoi(coordinates[0]);
 	mlx->element.y = ft_atoi(coordinates[1]);
+	printf("%d| %d|", mlx->element.x, mlx->element.y);
 	return (0);
 }
 
@@ -167,7 +168,7 @@ int			ft_get_elements(char **argv, t_data *mlx)
 	if ((line = malloc(sizeof(char*))) == NULL)
 		return (1);
 	if (get_next_line(fd, line) == -1)
-		return (1);;
+		return (1);
 	while ((element = ft_map_element(line) != 0))
 	{
 		if (element == -1)
