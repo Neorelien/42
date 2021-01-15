@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 18:58:57 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:04:55 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,11 +149,19 @@ int			ft_get_elements(char **argv, t_data *mlx)
 		return (1);;
 	while ((element = ft_map_element(line) != 0))
 	{
-		if (ft_read_elem(line, mlx, element))
+		if (element == -1)
+			return (1);
+		if (element > 1)
+		{
+			if (ft_read_elem(line, mlx, element))
 				return (1);
+		}
+		else
+			free(*line);
 		if (get_next_line(fd, line) == ( - 1 || 0 ))
 				return (1);
 	}
+	free(*line);
 	close(fd);
 	free(line);
 	return (0);	
