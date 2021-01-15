@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 20:13:14 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 21:39:42 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int			ft_elem_resolution(char **line, t_data *mlx)
 
 int			ft_read_elem(char **line, t_data *mlx, int element)
 {
+		printf("on va la");
 	if (element == 2)
 		return(ft_elem_resolution(line, mlx));
 	return (1);
