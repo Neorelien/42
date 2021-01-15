@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 18:34:56 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 18:37:53 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int	ft_check_argv(char **argv, int argc)
 		return (1);
 	return (0);
 }
-
-
 
 int			ft_map_element(char **line)
 {
@@ -130,9 +128,12 @@ int			ft_get_elements(char **argv, t_data *mlx)
 		return (1);;
 	while ((element = ft_map_element(line) != 0))
 	{
-		if (ft_read_elem(line, mlx)
+		if (ft_read_elem(line, mlx, element))
 				return (1);
+		get_next_line(fd, line);
 	}
+	close(fd);
+	free(line);
 	return (0);	
 }
 
@@ -153,7 +154,7 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 	return (0);	
 }
 
-void	ft_free_map(t_data *xlm)
+void	ft_free_mlx(t_data *xlm)
 {
 	int i;
 
@@ -182,6 +183,6 @@ int		main(int argc, char **argv)
 	while (mlx.map[t])
 		printf("%s\n", mlx.map[t++]);
 	printf("%s\n", mlx.map[t]);
-	ft_free_map(&mlx);
+	ft_free_mlx(&mlx);
 	return (0);
 }
