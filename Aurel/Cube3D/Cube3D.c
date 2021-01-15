@@ -6,36 +6,38 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/15 16:50:27 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/15 16:54:24 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
 
-   int	ft_check_map(char **map)
-   {
-   return (0);	
-   }
+int	ft_check_map(char **map)
+{
+	return (0);	
+}
 
-   int	ft_check_argv(char **argv)
-   {
-   int i;
+int	ft_check_argv(char **argv, int argc)
+{
+	int i;
 
-   i = 0;
-   while (argv[1][i] != '.')
-   {
-   if (argv[1][i] == '\0')
-   return (1);
-   i++;
-   }
-   if (argv[1][i++] == 'c')
-   return (1);
-   if (argv[1][i++] == 'u')
-   return (1);
-   if (argv[1][i] == 'c')
-   return (1);
-   return (0);
+	i = 0;
+	if (argc != 2)
+		return (0);
+	while (argv[1][i] != '.')
+	{
+		if (argv[1][i] == '\0')
+			return (1);
+		i++;
+	}
+	if (argv[1][i++] == 'c')
+		return (1);
+	if (argv[1][i++] == 'u')
+		return (1);
+	if (argv[1][i] == 'c')
+		return (1);
+	return (0);
 }
 
 int			ft_map_element(char **line)
@@ -117,7 +119,7 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 		return (1);
 	ft_maping(argv, mlx, map_size);
 	if (ft_check_map(mlx->map))
-			return (1);
+		return (1);
 	return (0);	
 }
 
@@ -134,9 +136,9 @@ void	ft_free_map(t_data *xlm)
 	free(xlm->map[i]);
 }
 
-int		ft_error()
+int		ft_error(char *error)
 {
-	printf("Error");
+	printf("%s", error);
 	return (1);
 }
 
@@ -144,8 +146,10 @@ int		main(int argc, char **argv)
 {
 	t_data	mlx;
 
+	if (!ft_check_argv(argv, argc))
+		return (ft_error("Error arg"));
 	if (ft_map_init(argc, argv, &mlx))
-		return (ft_error());
+		return (ft_error("Error map"));
 	printf("%s\n", mlx.map[0]);
 	printf("%s\n", mlx.map[1]);
 	printf("%s\n", mlx.map[2]);
