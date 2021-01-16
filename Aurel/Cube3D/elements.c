@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 00:33:28 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/16 01:10:09 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/16 01:19:21 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int			ft_elem_resolution(char **line, t_data *mlx)
 	mlx->element.x = ft_atoi(coordinates[0]);
 	mlx->element.y = ft_atoi(coordinates[1]);
 	free(coordinates[1]);
-	//free(coordinates[0]);
 	free(coordinates);
 	if ((mlx->element.x < 0) || (mlx->element.y < 0))
 		return (1);
