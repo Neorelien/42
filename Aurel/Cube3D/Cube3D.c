@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/16 01:48:10 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/16 01:54:58 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,28 @@ int	ft_check_map(char **map)
 {
 	int x;
 	int y;
+	int check;
 
+	check = 0;
 	x = 0;
 	y = 0;
 	while (map[y])
 	{
 		while (map[y][x])
 		{
-			if (map[y][x] == '0')
-			if (map[y][x] == '1')
-			if (map[y][x] == '2')
-			if (map[y][x] == 'N')
-			if (map[y][x] == 'S')
-			if (map[y][x] == 'E')
-			if (map[y][x] == 'W')
-			if (map[y][x] == 'W')
+			if (ft_map_is_0(map, y, x))
+				return (1);
+			else if (ft_map_is_1(map, y, x))
+				return (1);
+			else if (ft_map_is_2(map, y, x))
+				return (1);
+			else if (ft_map_is_O(map, y, x))
+				return (1);
+			else if (ft_map_is_SPACE(map, y, x))
+				return (1);
 		}
 	}
+	if (check == 
 	return (0);	
 }
 
