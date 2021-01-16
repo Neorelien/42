@@ -6,13 +6,13 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/16 01:44:52 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/16 01:48:10 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
-/*
+
 int	ft_check_map(char **map)
 {
 	int x;
@@ -27,17 +27,15 @@ int	ft_check_map(char **map)
 			if (map[y][x] == '0')
 			if (map[y][x] == '1')
 			if (map[y][x] == '2')
-			if (map[y][x] == 1)
-			if (map[y][x] == 1)
-			if (map[y][x] == 1)
-			if (map[y][x] == 1)
-			if (map[y][x] == 1)
-
-
+			if (map[y][x] == 'N')
+			if (map[y][x] == 'S')
+			if (map[y][x] == 'E')
+			if (map[y][x] == 'W')
+			if (map[y][x] == 'W')
 		}
 	}
 	return (0);	
-}*/
+}
 
 int	ft_check_argv(char **argv, int argc)
 {
