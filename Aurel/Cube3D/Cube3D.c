@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/16 01:54:58 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/16 03:05:37 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,22 @@ int	ft_check_map(char **map)
 	{
 		while (map[y][x])
 		{
-			if (ft_map_is_0(map, y, x))
+			if (ft_map_is_0(map, y, x, &check))
 				return (1);
-			else if (ft_map_is_1(map, y, x))
+			if (ft_map_is_1(map, y, x, &check))
 				return (1);
-			else if (ft_map_is_2(map, y, x))
+			if (ft_map_is_2(map, y, x, &check))
 				return (1);
-			else if (ft_map_is_O(map, y, x))
+			if (ft_map_is_O(map, y, x, &check))
 				return (1);
-			else if (ft_map_is_SPACE(map, y, x))
-				return (1);
+			x++;
 		}
+		x = 0;
+		y++;
 	}
-	if (check == 
-	return (0);	
+	if (check == 3)
+		return (0);
+	return (1);	
 }
 
 int	ft_check_argv(char **argv, int argc)
@@ -135,9 +137,8 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 	map_size = ft_map_size(argv);
 	if ((mlx->map = malloc(sizeof(char*) * (map_size + 1))) == NULL)
 		return (1);
-	ft_maping(argv, mlx, map_size);
-	
-
+	if (ft_maping(argv, mlx, map_size))
+		return (1);
 	return (0);	
 }
 

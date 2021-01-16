@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 11:10:07 by aurelien          #+#    #+#             */
-/*   Updated: 2021/01/16 00:39:33 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/16 02:31:47 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,9 @@ typedef struct	s_data
 }				t_data;
 
 int			ft_get_elements(char **argv, t_data *mlx);
+int			ft_map_is_0(char **map, int y, int x, int *check);
+int			ft_map_is_2(char **map, int y, int x, int *check);
+int			ft_map_is_1(char **map, int y, int x, int *check);
+int			ft_map_is_O(char **map, int y, int x, int *check);
+int			ft_check_map(char **map);
 int			ft_map_element(char **line);
