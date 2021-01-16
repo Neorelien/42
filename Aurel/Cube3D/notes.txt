@@ -6,7 +6,7 @@
 #    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 13:18:59 by awery             #+#    #+#              #
-#    Updated: 2021/01/14 23:40:46 by Aurelien         ###   ########.fr        #
+#    Updated: 2021/01/16 01:12:49 by Aurelien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -201,6 +201,7 @@ A FAIRE
 
 - regarder video clem sur discord
 - lire e man de la libx
+-
 
 --------------------------- PLAN --------------------------
 
@@ -212,7 +213,20 @@ A FAIRE
 	- map avec que des murs
 	- map sans mur
 	- map sans joueur
-	- autre caractere que 0 - 1 - 2 - N - S - E - ' '
-- lire la map avec GNL et l'inserer dans une matrice
+	- autre caractere que 0 - 1 - 2 - N - S - E - 'W' -  ' '
+- lire la map avec GNL et l'inserer dans une matrice - SECURISER MALLOC OPEN ET verifier les free
 - afficher la matrice
 
+
+---------------------------- GESTION ERREUR ------------------------------------
+- argv
+- validité du fichier
+- validité des mallox
+- validité du contenu du fichier
+    - tt les elements
+    - bonne map
+    - pas de mauvais element
+    - bonne size ?
+
+------------------ WARNING ---------------
+ft_elem_resolution --> free le dernier coordonné et pas le premier ? bizarre mais 0 leaks
