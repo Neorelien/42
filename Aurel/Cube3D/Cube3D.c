@@ -6,17 +6,38 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/16 01:24:17 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/16 01:44:52 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube3D_utils.h"
 
-
+/*
 int	ft_check_map(char **map)
 {
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+	while (map[y])
+	{
+		while (map[y][x])
+		{
+			if (map[y][x] == '0')
+			if (map[y][x] == '1')
+			if (map[y][x] == '2')
+			if (map[y][x] == 1)
+			if (map[y][x] == 1)
+			if (map[y][x] == 1)
+			if (map[y][x] == 1)
+			if (map[y][x] == 1)
+
+
+		}
+	}
 	return (0);	
-}
+}*/
 
 int	ft_check_argv(char **argv, int argc)
 {
@@ -95,6 +116,8 @@ int		ft_maping(char **argv, t_data *mlx, int map_size)
 	mlx->map[i] = NULL;
 	free(line);
 	close(fd);
+	if (ft_check_map(mlx->map))
+		return (1);
 	return (0);
 }
 
@@ -110,8 +133,8 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 	if ((mlx->map = malloc(sizeof(char*) * (map_size + 1))) == NULL)
 		return (1);
 	ft_maping(argv, mlx, map_size);
-	if (ft_check_map(mlx->map))
-		return (1);
+	
+
 	return (0);	
 }
 
