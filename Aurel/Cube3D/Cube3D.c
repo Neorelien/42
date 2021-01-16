@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/16 03:05:37 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/16 03:34:04 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int	ft_check_map(char **map)
 		x = 0;
 		y++;
 	}
-	if (check == 3)
+	if (check == 6)
 		return (0);
+	printf("%d", check);
 	return (1);	
 }
 
