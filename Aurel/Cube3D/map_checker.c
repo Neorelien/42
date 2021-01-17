@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 16:24:50 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 16:25:28 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_map_is_1(char **map, int y, int x, int *check)
 	while (x < ft_strlen(map[y]) && count < 3)
 		if (map[y][x++] == '1')
 			count++;
-	x = temp;
+	x = temp2;
 	while (x >= 0 && count < 4)
 		if (map[y][x--] == '1')
 			count++;
