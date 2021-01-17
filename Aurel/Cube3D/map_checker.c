@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 19:02:03 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:09:38 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,22 @@ int	ft_map_is_2(char **map, int y, int x, int *check)
 
 int	ft_map_is_O(char **map, int y, int x, int *check)
 {
+	int count;
+
+	count = 0;
 	if (map[y][x] != 'N' && map[y][x] != 'S' &&
 			map[y][x] != 'W' && map[y][x] != 'E') 
 		return (0);
 	*check = (*check | 4);
-	return (0);
+	if (y > 0)
+		if (map[y - 1][x] == '0')
+			return (0);
+	if (y < ft_y_len(map))
+		if (map[y + 1][x] == '0')
+			return (0);
+	if (x > 0)
+		if (map[y][x - 1] == '0')
+			return (0);
+
+	return (1);
 }
