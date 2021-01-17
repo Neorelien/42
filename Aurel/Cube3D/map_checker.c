@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 20:39:42 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 20:43:55 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,9 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 	while (y < ft_y_len(map))
 	{
 		if (ft_cross_wall(y, x, map, temp))
-		{
-			printf("on va ici");
 			return (1);
-		}
+		else 
+			break ;
 		y++;
 	}
 	y = temp;
@@ -87,6 +86,8 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 	{
 		if (ft_cross_wall(y, x, map, temp))
 			return (1);
+		else 
+			break ;
 		y--;
 	}
 	y = temp;
@@ -94,6 +95,8 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 	{
 		if (ft_cross_wall(y, x, map, temp))
 			return (1);
+		else 
+			break ;
 		x++;
 	}
 	x = tempx;
@@ -102,6 +105,8 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 	{
 		if (ft_cross_wall(y, x, map, temp))
 			return (1);
+		else 
+			break ;
 		x--;
 	}
 	return (0);
