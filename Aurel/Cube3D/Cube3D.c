@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 21:44:01 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 21:52:48 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,6 @@ int		main(int argc, char **argv)
 	printf("%s\n", mlx.map[t]);
 	printf("%d %d", mlx.element.x, mlx.element.y);
 	ft_free_mlx(&mlx);
+	while(1);
 	return (0);
 }
