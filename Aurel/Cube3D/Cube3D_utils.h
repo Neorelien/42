@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 11:10:07 by aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 19:03:17 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 21:45:34 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,4 @@ int			ft_map_is_O(char **map, int y, int x, int *check);
 int			ft_map_is_close(char **map, int y, int x, int *check);
 int			ft_check_map(char **map);
 int			ft_map_element(char **line);
+int			ft_init_mlx(t_data *mlx);
