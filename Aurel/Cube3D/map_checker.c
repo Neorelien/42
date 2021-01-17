@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 16:48:33 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 16:54:38 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,17 @@ int	ft_map_is_1(char **map, int y, int x, int *check)
 	{
 		if (y == 0)
 			if (x >= ft_strlen(map[y + 1]))
-				break ; 
+				break ;
+		if (y == ft_y_len(map))
+			if (x >= ft_strlen(map[y - 1]))
+				break ;
+		if (0 < y < ft_y_len(map))
+		{
+			if (x >= ft_strlen(map[y + 1]))
+				break ;
+			if (x >= ft_strlen(map[y - 1]))
+				break ;
+		}	
 		if (map[y--][x] == '1')
 			count++;
 	}
