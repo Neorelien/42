@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 20:31:55 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 20:39:42 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ int	ft_cross_wall(int y, int x, char **map, int temp)
 int	ft_map_is_0(char **map, int y, int x, int *check)
 {
 	int	temp;
+	int tempx;
 
+	tempx = x;
 	temp = y;
 	if (map[y][x] != '0')
 		return (0);
@@ -72,18 +74,36 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 	if (y == 0 || x == 0)
 		return (1);
 	while (y < ft_y_len(map))
-		if (map[y++][x] == ' ' && ft_cross_wall(y, x, map, temp))
+	{
+		if (ft_cross_wall(y, x, map, temp))
+		{
+			printf("on va ici");
 			return (1);
+		}
+		y++;
+	}
 	y = temp;
 	while (y >= 0)
-		if (map[y--][x] == ' ' && ft_cross_wall(y, x, map, temp))
+	{
+		if (ft_cross_wall(y, x, map, temp))
 			return (1);
+		y--;
+	}
+	y = temp;
 	while (x < ft_strlen(map[temp]))
-		if (map[temp][x++] == ' ' && ft_cross_wall(y, x, map, temp))
+	{
+		if (ft_cross_wall(y, x, map, temp))
 			return (1);
+		x++;
+	}
+	x = tempx;
+	y = temp;
 	while (x >= 0)
-		if (map[temp][x--] == ' ' && ft_cross_wall(y, x, map, temp))
+	{
+		if (ft_cross_wall(y, x, map, temp))
 			return (1);
+		x--;
+	}
 	return (0);
 }	
 
