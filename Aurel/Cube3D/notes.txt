@@ -6,7 +6,7 @@
 #    By: awery <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 13:18:59 by awery             #+#    #+#              #
-#    Updated: 2021/01/16 02:23:42 by Aurelien         ###   ########.fr        #
+#    Updated: 2021/01/17 22:40:26 by Aurelien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ objectifs
 		
 	- La map DOIT etre ferme avec des murs --> gestion erreur ERREUR
 
-	- Mis a part la desription de la MAP, chaque type d'element peut etre separe par une ou plusieurs ligne vi		de ----> C'est a dire ???
+	- Mis a part la desription de la MAP, chaque type d'element peut etre separe par une ou plusieurs ligne vide ----> C'est a dire ???
 
 	- La description de la carte sera toujours en dernier dans le fichier, le reste peut etre dans n'import quel ordre
 
