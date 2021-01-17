@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 19:59:24 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 21:44:01 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int			ft_map_init(int argc, char **argv, t_data *mlx)
 		return (1);
 	if (ft_maping(argv, mlx, map_size))
 		return (1);
+	ft_init_mlx(mlx);
 	return (0);	
 }
 
