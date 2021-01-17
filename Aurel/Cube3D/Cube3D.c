@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 19:03:03 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:13:36 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	ft_check_map(char **map)
 				return (1);
 			if (ft_map_is_close(map, y, x, &check))
 				return (1);
-			if (ft_map_is_1(map, y, x, &check))
-				return (1);
+		//	if (ft_map_is_1(map, y, x, &check))
+		//		return (1);
 			if (ft_map_is_2(map, y, x, &check))
 				return (1);
 			if (ft_map_is_O(map, y, x, &check))
@@ -43,7 +43,6 @@ int	ft_check_map(char **map)
 	}
 	if (check == 6)
 		return (0);
-	printf("%d", check);
 	return (1);	
 }
 
