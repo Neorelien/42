@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 19:29:58 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:34:19 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	ft_map_is_close(char **map, int y, int x, int *check)
 	x = tempx;
 	while (x < ft_strlen(map[y]) && y < ft_y_len(map))
 	{
-		printf("valeur de x %d, y %d\n", x, y);
+		printf("valeur de x %d, y %d = \n", x, y);
 		if (map[y++ + 1][x++ + 1] == '1')
 			{
 				count++;
