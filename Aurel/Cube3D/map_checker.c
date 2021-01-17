@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 19:44:42 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:48:58 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,25 @@ int	ft_map_is_close(char **map, int y, int x, int *check)
 				break ;
 			}
 	}
-	if (count == 6)
+	y = tempy;
+	x = tempx;
+	while (x >= 0 && y >= 0)
+		if (map[y--][x--] == '1')
+			{
+				count++;
+				break ;
+			}
+	y = tempy;
+	x = tempx;
+	while (y < ft_y_len(map) && x >= 0)
+	{
+		if (map[y++][x--] == '1')
+			{
+				count++;
+				break ;
+			}
+	}
+	if (count == 8)
 		return (0);
 	return (1);
 }
