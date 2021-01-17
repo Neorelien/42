@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 20:28:53 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 20:31:55 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,28 +63,26 @@ int	ft_cross_wall(int y, int x, char **map, int temp)
 }
 int	ft_map_is_0(char **map, int y, int x, int *check)
 {
-	int count;
 	int	temp;
 
 	temp = y;
-	count = 0;
 	if (map[y][x] != '0')
 		return (0);
 	*check = (*check | 2);
 	if (y == 0 || x == 0)
 		return (1);
-	while (y < ft_y_len(map) && count < 1)
-		if (ft_cross_wall(y++, x, map, temp))
+	while (y < ft_y_len(map))
+		if (map[y++][x] == ' ' && ft_cross_wall(y, x, map, temp))
 			return (1);
 	y = temp;
-	while (y >= 0 && count < 2)
-		if (ft_cross_wall(y--, x, map, temp))
+	while (y >= 0)
+		if (map[y--][x] == ' ' && ft_cross_wall(y, x, map, temp))
 			return (1);
-	while (x < ft_strlen(map[temp]) && count < 3)
-		if (ft_cross_wall(y, x++, map, temp))
+	while (x < ft_strlen(map[temp]))
+		if (map[temp][x++] == ' ' && ft_cross_wall(y, x, map, temp))
 			return (1);
-	while (x >= 0 && count < 4)
-		if (ft_cross_wall(y, x--, map, temp))
+	while (x >= 0)
+		if (map[temp][x--] == ' ' && ft_cross_wall(y, x, map, temp))
 			return (1);
 	return (0);
 }	
