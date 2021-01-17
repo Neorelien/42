@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 20:20:42 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 20:28:53 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,40 @@ int	ft_y_len(char **str)
 int	ft_cross_wall(int y, int x, char **map, int temp)
 {
 	while (y < ft_y_len(map))
-		if (map[y++][x] == '1')
+	{
+		if (map[y][x] == ' ')
+			return (1);
+		if (map[y][x] == '1')
 			return (0);
+		y++;
+	}
 	y = temp;
 	while (y >= 0)
-		if (map[y--][x] == '1')
+	{
+		if (map[y][x] == ' ')
+			return (1);
+		if (map[y][x] == '1')
 			return (0);
+		y--;
+	}
 	y = x;
 	while (x < ft_strlen(map[temp]))
-		if (map[temp][x++] == '1')
+	{
+		if (map[y][x] == ' ')
+			return (1);
+		if (map[temp][x] == '1')
 			return (0);
+		x++;
+	}
 	x = y;
 	while (x >= 0)
-		if (map[temp][x--] == '1')
+	{
+		if (map[y][x] == ' ')
+			return (1);
+		if (map[temp][x] == '1')
 			return (0);
+		x--;
+	}
 	return (1);
 }
 int	ft_map_is_0(char **map, int y, int x, int *check)
@@ -54,17 +74,17 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 	if (y == 0 || x == 0)
 		return (1);
 	while (y < ft_y_len(map) && count < 1)
-		if (map[y++][x] == ' ' && ft_cross_wall(y, x, map, temp))
+		if (ft_cross_wall(y++, x, map, temp))
 			return (1);
 	y = temp;
 	while (y >= 0 && count < 2)
-		if (map[y--][x] == ' ' && ft_cross_wall(y, x, map, temp))
+		if (ft_cross_wall(y--, x, map, temp))
 			return (1);
 	while (x < ft_strlen(map[temp]) && count < 3)
-		if (map[temp][x++] == ' ' && ft_cross_wall(y, x, map, temp))
+		if (ft_cross_wall(y, x++, map, temp))
 			return (1);
 	while (x >= 0 && count < 4)
-		if (map[temp][x--] == ' ' && ft_cross_wall(y, x, map, temp))
+		if (ft_cross_wall(y, x--, map, temp))
 			return (1);
 	return (0);
 }	
