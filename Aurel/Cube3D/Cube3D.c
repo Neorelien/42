@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/16 03:34:04 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 18:42:33 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,9 @@ int		main(int argc, char **argv)
 	if (ft_map_init(argc, argv, &mlx))
 		return (ft_error("Error map"));
 	while (mlx.map[t])
+	{
 		printf("%s\n", mlx.map[t++]);
+	}
 	printf("%s\n", mlx.map[t]);
 	printf("%d %d", mlx.element.x, mlx.element.y);
 	ft_free_mlx(&mlx);
