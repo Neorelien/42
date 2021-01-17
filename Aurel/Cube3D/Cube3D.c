@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 18:42:33 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:03:03 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_check_map(char **map)
 		while (map[y][x])
 		{
 			if (ft_map_is_0(map, y, x, &check))
+				return (1);
+			if (ft_map_is_close(map, y, x, &check))
 				return (1);
 			if (ft_map_is_1(map, y, x, &check))
 				return (1);

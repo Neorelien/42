@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 18:54:36 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:02:03 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 	return (0);
 }	
 
-int	ft_map_is_1(char **map, int y, int x, int *check)
+int	ft_map_is_close(char **map, int y, int x, int *check)
 {
 	int count;
 	int	temp;
@@ -58,12 +58,8 @@ int	ft_map_is_1(char **map, int y, int x, int *check)
 	temp = y;
 	temp2 = x;
 	count = 0;
-	printf("x = %d, y = %d, map[][] = %c\n", x, y, map[y][x]);
 	if (map[y][x] != '0')
-	{
-		printf("on va la\n");
 		return (0);
-	}
 	while (y < ft_y_len(map) && count < 1)
 		if (map[y++][x] == '1')
 			count++;
