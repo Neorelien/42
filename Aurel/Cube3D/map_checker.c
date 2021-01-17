@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 20:43:55 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/01/17 20:47:55 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,52 +21,10 @@ int	ft_y_len(char **str)
 		i++;
 	return (i);
 }
-
-int	ft_cross_wall(int y, int x, char **map, int temp)
-{
-	while (y < ft_y_len(map))
-	{
-		if (map[y][x] == ' ')
-			return (1);
-		if (map[y][x] == '1')
-			return (0);
-		y++;
-	}
-	y = temp;
-	while (y >= 0)
-	{
-		if (map[y][x] == ' ')
-			return (1);
-		if (map[y][x] == '1')
-			return (0);
-		y--;
-	}
-	y = x;
-	while (x < ft_strlen(map[temp]))
-	{
-		if (map[y][x] == ' ')
-			return (1);
-		if (map[temp][x] == '1')
-			return (0);
-		x++;
-	}
-	x = y;
-	while (x >= 0)
-	{
-		if (map[y][x] == ' ')
-			return (1);
-		if (map[temp][x] == '1')
-			return (0);
-		x--;
-	}
-	return (1);
-}
 int	ft_map_is_0(char **map, int y, int x, int *check)
 {
 	int	temp;
-	int tempx;
 
-	tempx = x;
 	temp = y;
 	if (map[y][x] != '0')
 		return (0);
@@ -74,41 +32,18 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 	if (y == 0 || x == 0)
 		return (1);
 	while (y < ft_y_len(map))
-	{
-		if (ft_cross_wall(y, x, map, temp))
+		if (map[y++][x] == ' ')
 			return (1);
-		else 
-			break ;
-		y++;
-	}
 	y = temp;
 	while (y >= 0)
-	{
-		if (ft_cross_wall(y, x, map, temp))
+		if (map[y--][x] == ' ')
 			return (1);
-		else 
-			break ;
-		y--;
-	}
-	y = temp;
 	while (x < ft_strlen(map[temp]))
-	{
-		if (ft_cross_wall(y, x, map, temp))
+		if (map[temp][x++] == ' ')
 			return (1);
-		else 
-			break ;
-		x++;
-	}
-	x = tempx;
-	y = temp;
 	while (x >= 0)
-	{
-		if (ft_cross_wall(y, x, map, temp))
+		if (map[temp][x--] == ' ')
 			return (1);
-		else 
-			break ;
-		x--;
-	}
 	return (0);
 }	
 
