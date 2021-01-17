@@ -6,13 +6,13 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:25:46 by awery             #+#    #+#             */
-/*   Updated: 2020/11/21 16:25:49 by awery            ###   ########.fr       */
+/*   Updated: 2021/01/15 01:06:44 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*cpy;
 	int		i;
