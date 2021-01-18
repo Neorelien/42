@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 11:21:59 by awery             #+#    #+#             */
-/*   Updated: 2020/11/21 00:14:14 by awery            ###   ########.fr       */
+/*   Updated: 2021/01/15 01:07:32 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t			ft_strlen(const char *str);
 size_t			ft_strlcpy(char *dest, const char *s1, size_t size);
 size_t			ft_strlcat(char *dest, const char *s, size_t size);
 char			*ft_strjoin(const char *d1, const char *s1);
-char			*ft_strdup(const char *s1);
+char			*ft_strdup(char *s1);
 char			*ft_strchr(const char *s, int c);
 char			**ft_split(const char *s1, char charset);
 void			ft_putstr_fd(char *s, int fd);
