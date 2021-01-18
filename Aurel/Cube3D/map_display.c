@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 21:44:16 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/18 14:27:34 by awery            ###   ########.fr       */
+/*   Updated: 2021/01/18 15:06:54 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,25 @@ int	ft_put_map(t_data *mlx)
 	int countx;
 
 	ratio = 50;
-	x = 0;
 	y = 0;
 	while (mlx->map[y]!= NULL)
 	{
-		while (mlx->map[y][x] == '1')
+	x = 0;
+		while (mlx->map[y][x])
 		{
-			countx = (x + 1) * ratio;
-			county = (y + 1) * ratio;
-			while (countx - (x * ratio) >= 0)
+			if (mlx->map[y][x] == '1')
 			{
-				while (county - (y * ratio) >= 0)
+				countx = (x + 1) * ratio;
+				while (countx - (x * ratio) >= 0)
 				{
-					mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, countx, county, 0255255000);
-					county--;
+					county = (y + 1) * ratio;
+					while (county - (y * ratio) >= 0)
+					{
+						mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, countx, county, 0255255000);
+						county--;
+					}
+					countx--;
 				}
-				countx--;
 			}
 			x++;
 		}
