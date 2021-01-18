@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 21:44:16 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/18 15:06:54 by awery            ###   ########.fr       */
+/*   Updated: 2021/01/18 16:23:24 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ int ft_map_display(t_data *mlx)
 		return (1);
 	if (ft_put_map(mlx))
 		return (1);
+	void *image;
+	image = mlx_new_image(mlx->mlx_ptr, mlx->element.x, mlx->element.y);
+	void *newin;
+	newin = mlx_new_window(mlx->mlx_ptr, mlx->element.x, mlx->element.y, "cubetest");
+	mlx_put_image_to_window(mlx->mlx_ptr, newin, image, mlx->element.x, mlx->element.y);
 	return (0);
 }
 
