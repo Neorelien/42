@@ -6,22 +6,52 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 01:56:29 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/01/17 21:30:54 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/12 17:14:07 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cube3D_utils.h"
+#include "cubetd_utils.h"
 
-int	ft_y_len(char **str)
+int			ft_y_len(char **str)
 {
 	int i;
-	
+
 	i = 0;
 	while (str[i] != NULL)
 		i++;
 	return (i);
 }
-int	ft_map_is_0(char **map, int y, int x, int *check)
+
+static int	support_1(int *y, int *x, char **map, int temp)
+{
+	while (*y >= 0)
+	{
+		if (map[*y][*x] == '1')
+			break ;
+		if (map[*y][*x] == ' ')
+			return (1);
+		*y = *y - 1;
+	}
+	while (*x < (int)ft_strlen(map[temp]))
+	{
+		if (map[*y][*x] == '1')
+			break ;
+		if (map[temp][*x] == ' ')
+			return (1);
+		*x = *x + 1;
+	}
+	while (*x >= 0)
+	{
+		if (map[*y][*x] == '1')
+			break ;
+		if (map[temp][*x] == ' ')
+			return (1);
+		*x = *x - 1;
+	}
+	return (0);
+}
+
+int			ft_map_is_0(char **map, int y, int x, int *check)
 {
 	int	temp;
 
@@ -39,141 +69,32 @@ int	ft_map_is_0(char **map, int y, int x, int *check)
 			return (1);
 	}
 	y = temp;
-	while (y >= 0)
-	{
-		if (map[y][x] == '1')
-			break ;
-		if (map[y--][x] == ' ')
-			return (1);
-	}
-	while (x < ft_strlen(map[temp]))
-	{
-		if (map[y][x] == '1')
-			break ;
-		if (map[temp][x++] == ' ')
-			return (1);
-	}
-	while (x >= 0)
-	{
-		if (map[y][x] == '1')
-			break ;
-		if (map[temp][x--] == ' ')
-			return (1);
-	}
+	if (support_1(&y, &x, map, temp))
+		return (1);
 	return (0);
-}	
-
-int	ft_map_is_close(char **map, int y, int x, int *check)
-{
-	int count;
-	int	tempy;
-	int tempx;
-
-	tempy = y;
-	tempx = x;
-	count = 0;
-	if (map[y][x] != '0')
-		return (0);
-	while (y < ft_y_len(map) && count < 1)
-		if (map[y++][x] == '1')
-			count++;
-	y = tempy;
-	while (y >= 0 && count < 2)
-	{
-		if (y == 0)
-			if (x >= ft_strlen(map[y + 1]))
-				break ;
-		if (y == ft_y_len(map))
-			if (x >= ft_strlen(map[y - 1]))
-				break ;
-		if (0 < y && y < ft_y_len(map))
-		{
-			if (x >= ft_strlen(map[y + 1]))
-				break ;
-			if (x >= ft_strlen(map[y - 1]))
-				break ;
-		}
-		if (map[y--][x] == '1')
-		{
-			count++;
-			break;
-		}
-	}
-	y = tempy;
-	while (x < ft_strlen(map[y]) && count < 3)
-		if (map[y][x++ + 1] == '1')
-		{
-			count++;
-			break ;
-		}
-	x = tempx;
-	while (x >= 0 && count < 4)
-		if (map[y][x-- - 1] == '1')
-		{
-			count++;
-			break ;
-		}
-	x = tempx;
-	while (x < ft_strlen(map[y]) && y >= 0)
-		if (map[y--][x++] == '1')
-			{
-				count++;
-				break ;
-			}
-	y = tempy;;
-	x = tempx;
-	while (y < ft_y_len(map) && x < ft_strlen(map[y]))
-	{
-		if (map[y++][x++] == '1')
-			{
-				count++;
-				break ;
-			}
-	}
-	y = tempy;
-	x = tempx;
-	while (x >= 0 && y >= 0)
-		if (map[y--][x--] == '1')
-			{
-				count++;
-				break ;
-			}
-	y = tempy;
-	x = tempx;
-	while (y < ft_y_len(map) && x >= 0)
-	{
-		if (map[y++][x--] == '1')
-			{
-				count++;
-				break ;
-			}
-	}
-	if (count == 8)
-		return (0);
-	return (1);
 }
 
-int	ft_map_is_2(char **map, int y, int x, int *check)
+int			ft_map_is_2(char **map, int y, int x)
 {
 	if (map[y][x] != '2')
 		return (0);
 	if (y == 0 || x == 0)
 		return (1);
-	if (map[y + 1][x] ==' ')
+	if (map[y + 1][x] == ' ')
 		return (1);
-	if (map[y][x + 1] ==' ')
+	if (map[y][x + 1] == ' ')
 		return (1);
-	if (map[y - 1][x] ==' ')
+	if (map[y - 1][x] == ' ')
 		return (1);
-	if (map[y][x - 1] ==' ')
+	if (map[y][x - 1] == ' ')
 		return (1);
 	return (0);
 }
 
-int	ft_map_is_O(char **map, int y, int x, int *check)
+int			ft_map_is_o(char **map, int y, int x, int *check)
 {
 	if (map[y][x] != 'N' && map[y][x] != 'S' &&
-			map[y][x] != 'W' && map[y][x] != 'E') 
+			map[y][x] != 'W' && map[y][x] != 'E')
 		return (0);
 	if ((*check | 4) == *check)
 		return (1);
@@ -187,7 +108,7 @@ int	ft_map_is_O(char **map, int y, int x, int *check)
 	if (x > 0)
 		if (map[y][x - 1] == '0')
 			return (0);
-	if (x < ft_strlen(map[y]))
+	if (x < (int)ft_strlen(map[y]))
 		if (map[y][x + 1] == '0')
 			return (0);
 	return (1);

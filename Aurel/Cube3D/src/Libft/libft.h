@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 11:21:59 by awery             #+#    #+#             */
-/*   Updated: 2021/02/09 15:03:23 by awery            ###   ########.fr       */
+/*   Updated: 2021/02/13 17:45:16 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+void			ft_putnbr_base(int nbr, char *base, char *nb_convert);
+void			ft_str_rev(char *src);
+int				ft_basechecker(char *base);
 int				get_next_line(int fd, char **line);
 char			*ft_convert_base(char *nbr, char *base_from, char *base_to);
 int				ft_toupper(int c);

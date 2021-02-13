@@ -6,13 +6,13 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:22:18 by awery             #+#    #+#             */
-/*   Updated: 2020/12/01 16:58:34 by awery            ###   ########.fr       */
+/*   Updated: 2021/02/09 19:02:22 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strdup(const char *s1, int o)
+char	*ft_strdup_gnl(const char *s1, int o)
 {
 	char	*cpy;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:13:38 by awery             #+#    #+#             */
-/*   Updated: 2020/12/01 11:08:00 by awery            ###   ########.fr       */
+/*   Updated: 2021/02/09 19:11:33 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		checkerror(int fd, char **line, char **buf, int init)
 	if (!(line))
 		return (1);
 	if (init)
-		*line = ft_strdup("", 0);
+		*line = ft_strdup_gnl("", 0);
 	if (buf[0] == 0 && (buf[0] = (char*)malloc(sizeof(char) * BUFFER_SIZE + 1)))
 	{
 		while (i < BUFFER_SIZE)

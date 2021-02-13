@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 11:12:11 by awery             #+#    #+#             */
-/*   Updated: 2021/01/18 15:37:12 by awery            ###   ########.fr       */
+/*   Updated: 2021/01/20 18:44:11 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int main()
 {
 	t_lolol huli;
 	int		i = 0;
-	huli.a = 0;
 
+	huli.a = 0;
 	huli.mlx_ptr = mlx_init();
 	huli.windows_identifier =  mlx_new_window(huli.mlx_ptr, 500, 500, "bonjour");
 	while (i++ < 230)
