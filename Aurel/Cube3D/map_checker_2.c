@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:09:05 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/12 17:14:43 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/14 20:04:34 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	support_1(int *count, int x, int *y, char **map)
 		if (x >= (int)ft_strlen(map[*y - 1]))
 			return (1);
 	}
-	*y = *y + 1;
+	*y = *y - 1;
 	return (0);
 }
 

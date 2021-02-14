@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:27:32 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/13 18:46:16 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/14 20:10:15 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_null_init(t_data *mlx)
 	mlx->wall_three_path = NULL;
 	mlx->wall_four_path = NULL;
 	mlx->sprite_path = NULL;
+	mlx->nb_sprite = 0;
 }
 
 void	ft_free_mlx(t_data *mlx)
@@ -89,7 +90,7 @@ int		clean_exit(char *error, t_data *mlx)
 	ft_free_mlx(mlx);
 	printf("Voud avez fini de jouer.\n");
 	printf("\nTest des leaks\n");
-	system("leaks Cube3D\n");
+	system("leaks cube3D\n");
 	exit(0);
 	return (1);
 }
