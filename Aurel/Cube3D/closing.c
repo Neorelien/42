@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:27:32 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/14 20:22:43 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/14 20:54:54 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int		clean_exit(char *error, t_data *mlx)
 {
 	if (error != NULL)
 		printf("Error\n %s\n", error);
+	else
+		printf("Vous avez fini de jouer\n");
 	if (mlx->img_ptr != NULL)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->img_ptr);
 	if (mlx->td_img_ptr != NULL)
