@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:27:32 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/14 20:10:15 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/14 20:22:43 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ int		clean_exit(char *error, t_data *mlx)
 	if (mlx->td_win_ptr != NULL)
 		mlx_destroy_window(mlx->mlx_ptr, mlx->td_win_ptr);
 	ft_free_mlx(mlx);
-	printf("Voud avez fini de jouer.\n");
-	printf("\nTest des leaks\n");
-	system("leaks cube3D\n");
 	exit(0);
 	return (1);
 }

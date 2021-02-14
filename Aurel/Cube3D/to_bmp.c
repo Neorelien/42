@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:59:52 by awery             #+#    #+#             */
-/*   Updated: 2021/02/13 18:43:46 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/14 20:42:16 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void			ft_write_pixel_bmp(t_data *mlx, int fd)
 	unsigned char	*temp;
 
 	h = mlx->y_td - 1;
+	printf("mlx->x_td = %d, mlx->y_td = %d\n", mlx->x_td, mlx->y_td);
 	temp = malloc(sizeof(char) * 4);
 	while (h >= 0)
 	{
@@ -26,7 +27,7 @@ void			ft_write_pixel_bmp(t_data *mlx, int fd)
 		while (l < mlx->x_td)
 		{
 			ft_memset(temp, 0, 16);
-			ft_memcpy(temp, &mlx->td_data[pos(mlx, l, h)], 16);
+			ft_memcpy(temp, &mlx->td_data[pos_td(mlx, l, h)], 16);
 			write(fd, &temp[0], 1);
 			write(fd, &temp[1], 1);
 			write(fd, &temp[2], 1);
@@ -104,6 +105,7 @@ void			save_to_bmp(t_data *mlx)
 	{
 		create_image(mlx, fd);
 		close(fd);
+		cross_clean_exit(mlx);
 	}
 	else
 		clean_exit("fichier bmp", mlx);
