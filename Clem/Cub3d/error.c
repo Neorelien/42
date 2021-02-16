@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/13 18:23:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/13 18:44:08 by user42           ###   ########.fr       */
+/*   Created: 2021/02/15 16:13:26 by cmoyal            #+#    #+#             */
+/*   Updated: 2021/02/15 16:13:28 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,19 @@ void	ft_error_second(t_mlx *mlx)
 	if (mlx->error == OPEN_ERROR)
 		write(1, "Error during open\n", 18);
 	if (mlx->error == ERROR_COLORS)
-		write(1, "Error in colors\n", 21);
+		write(1, "Error in colors\n", 16);
 	if (mlx->error == COLOR_ERROR)
 		write(1, "ERROR 606\n", 10);
+	if (mlx->error == ERROR_TEX_N)
+		write(1, "North textures error\n", 21);
+	if (mlx->error == ERROR_TEX_S)
+		write(1, "South textures error\n", 21);
+	if (mlx->error == ERROR_TEX_E)
+		write(1, "East textures error\n", 20);
+	if (mlx->error == ERROR_TEX_W)
+		write(1, "West textures error\n", 20);
+	if (mlx->error == ERROR_TEX_SPRITE)
+		write(1, "Sprite textures error\n", 22);
 }
 
 void	ft_error(t_mlx *mlx)
@@ -44,8 +54,6 @@ void	ft_error(t_mlx *mlx)
 	if (mlx->error == MAP_ERROR)
 		write(1, "Error in map\n", 13);
 	ft_error_second(mlx);
-printf("\nTest des leaks\n");
-system("leaks cub3D.out | grep leaked\n");
 	exit(EXIT_FAILURE);
 }
 

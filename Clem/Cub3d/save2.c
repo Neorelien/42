@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 02:55:31 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/14 02:56:10 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/15 13:44:57 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int		ft_save(t_mlx *mlx)
 
 int		launch_save(t_mlx *mlx)
 {
-	ft_save(mlx);
+	if ((mlx->error = ft_save(mlx)) != SUCCESS)
+		ft_error(mlx);
 	mlx->save = 0;
 	return (SUCCESS);
 }

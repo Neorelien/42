@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 03:04:11 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/14 03:09:39 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/15 16:15:39 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,25 @@ t_mlx	get_textures_data(t_mlx mlx)
 	mlx.tex_s.data = (int *)mlx_get_data_addr(mlx.tex_s.img, &mlx.tex_s.bpp,
 	&mlx.tex_s.size_l, &mlx.tex_s.endian);
 	mlx = get_textures_data_second(mlx);
+	textures_check(&mlx);
 	return (mlx);
+}
+
+void	textures_check(t_mlx *mlx)
+{
+	if (mlx->tex_n.width != 32 || mlx->tex_n.height != 32)
+		mlx->error = ERROR_TEX_N;
+	else if (mlx->tex_s.width != 32 || mlx->tex_s.height != 32)
+		mlx->error = ERROR_TEX_S;
+	else if (mlx->tex_e.width != 32 || mlx->tex_e.height != 32)
+		mlx->error = ERROR_TEX_E;
+	else if (mlx->tex_w.width != 32 || mlx->tex_w.height != 32)
+		mlx->error = ERROR_TEX_W;
+	else if (mlx->tex_sprite.width != 32 || mlx->tex_sprite.height != 32)
+		mlx->error = ERROR_TEX_SPRITE;
+	else
+		return ;
+	ft_error(mlx);
 }
 
 char	*make_textures_path(char *info, t_mlx *mlx)

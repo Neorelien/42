@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 17:15:26 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/14 03:33:14 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/15 16:13:40 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	frame(t_mlx mlx)
 	t_ray	ray;
 	int		i;
 
-	ray.nb_line = 300;
+	ray.nb_line = 600;
 	ray.ligne = 0;
 	mlx.hero.ray_a = mlx.hero.pos_a;
 	init_color_fc(mlx);

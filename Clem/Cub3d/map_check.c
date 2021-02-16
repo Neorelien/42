@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/13 23:48:38 by user42            #+#    #+#             */
-/*   Updated: 2021/02/14 00:06:19 by user42           ###   ########.fr       */
+/*   Created: 2021/02/15 16:14:42 by cmoyal            #+#    #+#             */
+/*   Updated: 2021/02/15 16:14:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_mlx	check_map(char **map, t_mlx mlx)
 			}
 		}
 		if (mlx.error == MAP_ERROR)
-			ft_error(&mlx) ;
+			ft_error(&mlx);
 		card.y++;
 	}
 	return (mlx);

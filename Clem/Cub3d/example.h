@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:48:52 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/13 21:07:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/15 16:13:35 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct		s_ray
 {
 	int		ligne;
 	int		nb_line;
-	int		dist[301];
+	int		dist[601];
 	float	pos_y;
 	float	pos_x;
 	float	line_h;
@@ -286,4 +286,5 @@ void				ft_free_textures(t_mlx *mlx);
 int					ft_min(int a, int b);
 int					ft_abs(int a);
 int					ft_ismap(char c);
+void				textures_check(t_mlx *mlx);
 #endif

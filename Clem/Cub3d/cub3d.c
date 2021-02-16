@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:00:43 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/11 15:52:10 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/15 16:12:25 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int		exit_game(t_mlx *mlx)
 {
 	ft_free_all(mlx);
 	ft_free_textures(mlx);
-printf("\nTest des leaks\n");
-system("leaks cub3D.out | grep leaked\n");
 	exit(EXIT_SUCCESS);
 	return (0);
 }

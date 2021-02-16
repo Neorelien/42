@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/13 23:41:16 by user42            #+#    #+#             */
-/*   Updated: 2021/02/13 23:48:04 by user42           ###   ########.fr       */
+/*   Created: 2021/02/15 16:14:32 by cmoyal            #+#    #+#             */
+/*   Updated: 2021/02/15 16:14:34 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		ft_make_color_cf_second(char *str, t_color *color, int i)
 			color->b = color->tot;
 		if (str[i] != ',' || !str[i])
 			return (i);
-		else 
+		else
 			i++;
 	}
 	return (i);
