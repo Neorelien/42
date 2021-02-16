@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:51:14 by awery             #+#    #+#             */
-/*   Updated: 2020/11/29 20:29:44 by awery            ###   ########.fr       */
+/*   Updated: 2021/02/09 19:12:06 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define ENDFILE 0
 
 int		get_next_line(int fd, char **line);
-char	*ft_strdup(const char *s1, int p);
+char	*ft_strdup_gnl(const char *s1, int p);
 char	*ft_strjoin(char *d1, char *s1, int i, int secu);
 int		ft_browse_buffer(char **buffer, char **line, int i, int fd);
 int		ft_clean(int fd, char **line, char **str, int reload);

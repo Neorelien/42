@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 11:21:59 by awery             #+#    #+#             */
-/*   Updated: 2021/01/15 01:08:00 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:03:23 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
 
 typedef struct	s_list
 {
@@ -27,6 +24,8 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+int				get_next_line(int fd, char **line);
+char			*ft_convert_base(char *nbr, char *base_from, char *base_to);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
@@ -39,7 +38,7 @@ size_t			ft_strlen(const char *str);
 size_t			ft_strlcpy(char *dest, const char *s1, size_t size);
 size_t			ft_strlcat(char *dest, const char *s, size_t size);
 char			*ft_strjoin(const char *d1, const char *s1);
-char			*ft_strdup(char *s1);
+char			*ft_strdup(const char *s1);
 char			*ft_strchr(const char *s, int c);
 char			**ft_split(const char *s1, char charset);
 void			ft_putstr_fd(char *s, int fd);
@@ -71,6 +70,4 @@ void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 				void (*del)(void *));
-int				get_next_line(int fd, char **line);
-
 #endif
