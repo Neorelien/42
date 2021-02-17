@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:48:52 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/13 21:07:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:49:03 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXAMPLE_H
 
 # include <math.h>
-# include "./libx/mlx.h"
+# include "./minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -56,7 +56,9 @@ typedef enum		e_error
 	WRITE_ERROR,
 	OPEN_ERROR,
 	ERROR_COLORS,
-	COLOR_ERROR
+	COLOR_ERROR,
+	DOUBLE_INFO,
+	ERROR_TOO_MUCH_INFO
 }					t_error;
 
 typedef struct		s_save
@@ -97,7 +99,7 @@ typedef struct		s_ray
 {
 	int		ligne;
 	int		nb_line;
-	int		dist[301];
+	int		dist[601];
 	float	pos_y;
 	float	pos_x;
 	float	line_h;
@@ -230,9 +232,13 @@ typedef struct		s_mlx
 	int			error;
 	int			win_width;
 	int			win_height;
+	int			floor;
 	int			floor_color;
+	int			ceil;
 	int			ceil_color;
 	int			save;
+	int			fd;
+	int			r;
 }					t_mlx;
 
 void				ft_refresh_sprite(t_mlx *mlx);
@@ -243,7 +249,7 @@ int					ft_isnum(char c);
 t_mlx				check_map(char **map, t_mlx mlx);
 t_mlx				get_sprite(char **map, t_mlx mlx);
 t_mlx				get_textures_data(t_mlx mlx);
-int					take_info(char **info, t_mlx *mlx, int count);
+int					take_info(char **info, t_mlx *mlx, int count, int i);
 char				*make_textures_path(char *info, t_mlx *mlx);
 void				ft_double_pointer_free(char **tab, int size, int all);
 void				set_in_char(unsigned char *start, int value);
@@ -286,4 +292,6 @@ void				ft_free_textures(t_mlx *mlx);
 int					ft_min(int a, int b);
 int					ft_abs(int a);
 int					ft_ismap(char c);
+void				textures_check(t_mlx *mlx);
+void				ft_res_check(t_mlx *mlx);
 #endif

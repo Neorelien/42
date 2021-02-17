@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 16:13:26 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/15 16:13:28 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 02:14:09 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void	ft_error(t_mlx *mlx)
 		write(1, "Too much hero in map\n", 21);
 	if (mlx->error == MAP_ERROR)
 		write(1, "Error in map\n", 13);
+	if (mlx->error == ERROR_TEX_NOT_PATH)
+		write(1, "Wrong line in file\n", 19);
+	if (mlx->error == DOUBLE_INFO)
+		write(1, "An info is in double\n", 21);
 	ft_error_second(mlx);
 	exit(EXIT_FAILURE);
 }

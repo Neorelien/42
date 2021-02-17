@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:48:49 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/11 11:52:08 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:55:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_mlx		get_map(char *path, t_mlx mlx)
 		if ((count = get_next_line(fd, &map[i])) == -1)
 			mlx.error = READ_ERROR;
 		else if (count)
-			i = take_info(map, &mlx, i);
+			i = take_info(map, &mlx, i, 0);
 		if (mlx.error != SUCCESS)
 			ft_error(&mlx);
 	}

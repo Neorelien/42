@@ -1,4 +1,4 @@
-NAME = cub3D.out
+NAME = cub3D
 
 MAIN = ./cub3d.c
 

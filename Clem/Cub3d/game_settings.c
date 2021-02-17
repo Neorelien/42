@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 12:03:13 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/13 23:28:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:47:58 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	window_third(t_mlx *mlx)
 {
-	if (mlx->win_width < 10)
-		mlx->win_width = 10;
-	if (mlx->win_height < 10)
-		mlx->win_height = 10;
+	if (mlx->max_width < mlx->win_width)
+		mlx->win_width = mlx->max_width;
+	if (mlx->max_height < mlx->win_height)
+		mlx->win_height = mlx->max_height;
+	if (mlx->win_width < 100)
+		mlx->win_width = 100;
+	if (mlx->win_height < 100)
+		mlx->win_height = 100;
 }
 
 int		window_second(t_mlx *mlx, int count, char *res)
@@ -70,4 +74,14 @@ t_mlx	window(char *path, t_mlx mlx)
 	if (window_second(&mlx, count, res))
 		free(res);
 	return (mlx);
+}
+
+void	ft_res_check(t_mlx *mlx)
+{
+	if (mlx->r == 1)
+	{
+		mlx->error = DOUBLE_INFO;
+		ft_error(mlx);
+	}
+	mlx->r = 1;
 }

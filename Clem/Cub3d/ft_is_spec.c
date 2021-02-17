@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:59:05 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/13 23:02:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/15 16:13:56 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ char	ft_isangle(t_mlx mlx, t_ray ray)
 	return (ray.angle);
 }
 
-int 	ft_ismap(char c)
+int		ft_ismap(char c)
 {
 	if (c == '2' || c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E'
-		|| c == 'W')
+		|| c == 'W' || c == ' ')
 		return (1);
 	return (0);
 }

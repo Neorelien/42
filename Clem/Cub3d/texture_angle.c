@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:11:48 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/14 03:03:20 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/15 16:15:31 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void	ft_textures_angle_a(t_mlx mlx, t_ray ray, t_angle angle)
 
 void	ft_textures_angle(t_mlx mlx, t_ray ray)
 {
-	t_angle angle;
-	
+	t_angle	angle;
+
 	angle.y = 0;
 	if (ray.angle == 's')
 		ft_textures_angle_s(mlx, ray, angle);
