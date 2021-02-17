@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 19:28:04 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/16 20:53:12 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:30:30 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ static void		pl_sup_1(t_data *mlx, int key, int *first_move)
 		ft_sprite_pos(mlx);
 	}
 	ft_look(mlx);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->td_win_ptr,
+			mlx->td_img_ptr, 0, 0);
 }
 
 int				ft_player_move(int key, t_data *mlx)

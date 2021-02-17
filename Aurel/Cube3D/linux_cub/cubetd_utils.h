@@ -6,16 +6,14 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 11:10:07 by aurelien          #+#    #+#             */
-/*   Updated: 2021/02/16 18:38:29 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:55:49 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBETD_UTILS_H
 # define CUBETD_UTILS_H
 
-
 # include "linux_minilibx/mlx.h"
-//# include "minilibx/mlx.h"
 # include "libft.h"
 # include <stdio.h>
 # include <math.h>
@@ -81,6 +79,7 @@ typedef struct	s_data
 	int			save_pic;
 }				t_data;
 
+int				readelement_support(int element, int *check);
 int				cross_clean_exit(t_data *mlx);
 void			ft_cp_in_bmp(char *bmp, char *file_size, char *tmp,
 		char *maltemp);

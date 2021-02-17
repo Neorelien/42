@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 00:01:08 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/16 21:36:21 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:57:26 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,15 @@ int		cross_clean_exit(t_data *mlx)
 	ft_free_mlx(mlx);
 	exit(0);
 	return (1);
+}
+
+int		readelement_support(int element, int *check)
+{
+	if (check[0] != 10 && (check[0] = 0) == 0)
+		while (check[0]++ < 9)
+			check[check[0]] = 0;
+	if (check[element] == 1)
+		return (1);
+	else
+		return (0);
 }

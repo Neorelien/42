@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 00:33:28 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/12 15:52:19 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:55:54 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,27 @@ int			ft_elem_text(char **line, t_data *mlx, int element)
 
 int			ft_read_elem(char **line, t_data *mlx, int element)
 {
-	if (element == 1)
+	static int check[10];
+
+	if (readelement_support(element, check))
+		return (1);
+	if (element == 1 && (check[element] = 1))
 		return (0);
-	if (element == 2)
+	if (element == 2 && (check[element] = 1))
 		return (ft_elem_resolution(line, mlx));
-	if (element == 3)
+	if (element == 3 && (check[element] = 1))
 		return (ft_elem_floor_color(line, mlx));
-	if (element == 4)
+	if (element == 4 && (check[element] = 1))
 		return (ft_elem_sky_color(line, mlx));
-	if (element == 5)
+	if (element == 5 && (check[element] = 1))
 		return (ft_elem_text(line, mlx, element));
-	if (element == 6)
+	if (element == 6 && (check[element] = 1))
 		return (ft_elem_text(line, mlx, element));
-	if (element == 7)
+	if (element == 7 && (check[element] = 1))
 		return (ft_elem_text(line, mlx, element));
-	if (element == 8)
+	if (element == 8 && (check[element] = 1))
 		return (ft_elem_text(line, mlx, element));
-	if (element == 9)
+	if (element == 9 && (check[element] = 1))
 		return (ft_elem_text(line, mlx, element));
 	return (1);
 }

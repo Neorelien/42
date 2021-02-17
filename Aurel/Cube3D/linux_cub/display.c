@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 21:44:16 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/16 21:29:28 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:29:31 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	loading_init(t_data *mlx)
 		return (clean_exit("raycasting error", mlx));
 	if (mlx->save_pic)
 		save_to_bmp(mlx);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->td_win_ptr,
+			mlx->td_img_ptr, 0, 0);
 	return (0);
 }
 
