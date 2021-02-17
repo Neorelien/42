@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 16:14:32 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/17 13:48:33 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 14:22:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	find_info(char *tex_path, t_textures *textures, t_mlx *mlx)
 		free(tex_path);
 		ft_error(mlx);
 	}
-	textures->path = tex_path;	
+	textures->path = tex_path;
 	textures->malloc = 1;
 }
 
@@ -59,7 +59,7 @@ int		take_info(char **info, t_mlx *mlx, int count, int i)
 	else if (ft_ismaj(info[count][0]))
 		mlx->error = ERROR_TEX_NOT_PATH;
 	else if (info[count][i])
-	{	
+	{
 		while (info[count][i] && info[count][i] == ' ')
 			i++;
 		if (!ft_isnum(info[count][i]))
@@ -107,12 +107,12 @@ void	ft_make_color_cf(char *str, t_mlx *mlx)
 	{
 		mlx->error = ERROR_COLORS;
 		ft_error(mlx);
-	}	
+	}
 	if (str[0] == 'F')
 	{
 		if (mlx->floor == 1)
 			mlx->error = DOUBLE_INFO;
-		mlx->floor = 1;	
+		mlx->floor = 1;
 		mlx->floor_color = color.r * 256 * 256 + color.g * 256 + color.b;
 	}
 	if (str[0] == 'C')

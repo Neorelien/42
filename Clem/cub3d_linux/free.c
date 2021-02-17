@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 16:13:47 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/15 16:13:49 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 16:26:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_free_all(t_mlx *mlx)
 
 void	ft_free_textures(t_mlx *mlx)
 {
-	if (mlx->tex_n.malloc == -1)
+	if (mlx->tex_n.malloc == 1)
 		free(mlx->tex_n.path);
 	if (mlx->tex_s.malloc == 1)
 		free(mlx->tex_s.path);

@@ -20,14 +20,14 @@ LINK = ar rc
 
 CC = clang
 
-FLAGS = -Wall -Werror -Wextra -fsanitize=address
+FLAGS = -Wall -Werror -Wextra
 
 RM = rm -rf
 
 PATH_HEADER = ./
 
 .c.o:
-			${CC} ${FLAGS} ${BUFFER} -I${PATH_HEADER} -c $< -o ${<:.c=.o}
+			${CC} ${FLAGS} -I${PATH_HEADER} -c $< -o ${<:.c=.o}
 
 MYLIB = mylib.a
 

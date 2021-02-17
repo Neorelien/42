@@ -1,7 +1,7 @@
 R 100 100
 
 NO ./textures/brick.xpm
-SO ./textures/wood.xpm
+SO ./textures/wd.xpm
 EA ./textures/stone.xpm
 WE ./textures/grass.xpm
 

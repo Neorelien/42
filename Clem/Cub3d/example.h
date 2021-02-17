@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:48:52 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/17 13:49:03 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 15:51:49 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXAMPLE_H
 
 # include <math.h>
-# include "./minilibx-linux/mlx.h"
+# include "./libx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>

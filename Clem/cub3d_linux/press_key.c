@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 12:20:11 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/16 21:37:48 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 14:20:12 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		deal_key(int key, t_mlx *mlx)
 	else if (key == 65307)
 		exit_game(mlx);
 	else
-			return (0);
+		return (0);
 	ft_refresh_sprite(mlx);
 	frame(*mlx);
 	return (0);
