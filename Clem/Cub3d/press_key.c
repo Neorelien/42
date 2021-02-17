@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 12:20:11 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/15 16:15:02 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 14:19:46 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int		deal_key(int key, t_mlx *mlx)
 		*mlx = hero_turn(key, *mlx);
 	else if (key == 53)
 		exit_game(mlx);
+	else
+		return (0);
 	ft_refresh_sprite(mlx);
 	frame(*mlx);
 	return (0);
