@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:00:43 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/17 13:48:29 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 16:37:15 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		exit_game(t_mlx *mlx)
 {
 	ft_free_all(mlx);
 	ft_free_textures(mlx);
+	mlx_destroy_display(mlx->mlx_ptr);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
@@ -63,7 +64,7 @@ char	**ft_arg_check(int argc, char **argv, t_mlx *mlx)
 }
 
 void	ft_mlx_settings(char **argv, t_mlx *mlx)
-{	
+{
 	mlx->mlx_ptr = mlx_init();
 	*mlx = window(*argv, *mlx);
 	ft_init_mlx(mlx);

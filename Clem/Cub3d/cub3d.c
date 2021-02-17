@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:00:43 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/15 16:12:25 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 15:52:00 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	ft_init_mlx(t_mlx *mlx)
 	mlx->tex_e.malloc = 0;
 	mlx->tex_w.malloc = 0;
 	mlx->tex_s.malloc = 0;
+	mlx->floor = 0;
+	mlx->ceil = 0;
+	mlx->r = 0;
 	mlx->tex_sprite.malloc = 0;
 	mlx->floor_color = 255 * 256 * 256 + 255 * 256 + 255;
 	mlx->ceil_color = 255 * 256 * 256 + 255;
@@ -61,9 +64,9 @@ char	**ft_arg_check(int argc, char **argv, t_mlx *mlx)
 
 void	ft_mlx_settings(char **argv, t_mlx *mlx)
 {
+	mlx->mlx_ptr = mlx_init();
 	*mlx = window(*argv, *mlx);
 	ft_init_mlx(mlx);
-	mlx->mlx_ptr = mlx_init();
 	mlx->game_win = mlx_new_window(mlx->mlx_ptr, mlx->win_width,
 		mlx->win_height, *argv);
 	mlx->img.img_ptr = mlx_new_image(mlx->mlx_ptr, mlx->map.size_width,
