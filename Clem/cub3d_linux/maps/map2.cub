@@ -1,10 +1,12 @@
 R 100 100
+
 NO ./textures/brick.xpm
 SO ./textures/wood.xpm
-WE ./textures/grass.xpm
 EA ./textures/stone.xpm
-S ./textures/metal.xpm
+WE ./textures/grass.xpm
 
+C 144, 255, 0
+F 155, 0, 156
 
 11111111
 10000001

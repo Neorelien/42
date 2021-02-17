@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:00:43 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/16 21:24:06 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:48:29 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	ft_init_mlx(t_mlx *mlx)
 	mlx->tex_w.malloc = 0;
 	mlx->tex_s.malloc = 0;
 	mlx->tex_sprite.malloc = 0;
+	mlx->floor = 0;
+	mlx->ceil = 0;
+	mlx->r = 0;
 	mlx->floor_color = 255 * 256 * 256 + 255 * 256 + 255;
 	mlx->ceil_color = 255 * 256 * 256 + 255;
 }

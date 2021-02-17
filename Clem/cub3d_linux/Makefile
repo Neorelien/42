@@ -20,7 +20,7 @@ LINK = ar rc
 
 CC = clang
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 RM = rm -rf
 
@@ -48,8 +48,8 @@ clean:
 			make clean -C ${PATH_MLX_LINUX}
 
 fclean:		clean
-			${RM} ${NAME} ${MLX} libmlx.dylib ${MYLIB}
-			make clean -C ${PATH_MLX_LINUX}
+			${RM} ${NAME} ${MYLIB} ${MLX_LINUX}
+			
 
 re:			fclean all
 
