@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/13 18:41:15 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:29:33 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ void			ft_look(t_data *mlx)
 	}
 	mlx->direction = mlx->initial_direction;
 	mlx->ex_card_point = 0;
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->td_win_ptr,
-			mlx->td_img_ptr, 0, 0);
 }
 
 int				ft_init_direction(t_data *mlx)
