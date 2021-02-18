@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:04:38 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/18 18:20:47 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/17 22:40:51 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,16 @@ float		ft_floatcomp(float a, float b)
 
 int			ft_variance(int a, int b)
 {
+	int count;
+
+	count = 0;
 	if (a > b)
-		return (a - b);
+		while (a - count > b)
+			count++;
 	else
-		return (b * a);
+		while (b - count > a)
+			count++;
+	return (count);
 }
 
 int			ft_3d_win_init(t_data *mlx)

@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:48:56 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/18 18:58:50 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/17 21:01:21 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void		ft_look_sprite(t_data *mlx, int sprite_nb)
 	float		temp;
 
 	temp = mlx->direction;
-//	mlx->direction = atanf(ft_variance(mlx->sprite_pos[sprite_nb][0], ft_x(mlx->start_looking, mlx)) / ft_variance(mlx->sprite_pos[sprite_nb][1], ft_y(mlx->start_looking, mlx)));
 	mlx->direction += 90 * RAD;
 	if (mlx->direction > 360 * RAD)
 		mlx->direction -= 360 * RAD;
