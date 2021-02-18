@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 21:44:16 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/18 15:32:40 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:46:42 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int	ft_display_init(t_data *mlx)
 	if ((mlx->mlx_ptr = mlx_init()) == NULL)
 		return (1);
 	mlx_get_screen_size(mlx->mlx_ptr, &x_max, &y_max);
-	if (x_max < mlx->x && (mlx->x_td = x_max - 1) == -1)
-		mlx->x = x_max - 1;
+	if (x_max < mlx->x && (mlx->x_td = x_max))
+		mlx->x = x_max;
 	else
 		mlx->x_td = mlx->x;
-	if (y_max < mlx->y && (mlx->y_td = y_max - 1) == -1)
-		mlx->y = y_max - 1;
+	if (y_max < mlx->y && (mlx->y_td = y_max))
+		mlx->y = y_max;
 	else
 		mlx->y_td = mlx->y;
 	if ((mlx->x_td % 4) != 0)
