@@ -1,4 +1,4 @@
-R 100000000000 600
+R 1000000 600
 NO ./wall_one.xpm
 SO ./wall_two.xpm
 WE ./wall_four.xpm
