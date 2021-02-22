@@ -1,4 +1,4 @@
-R 100000 600
+R 1000 600
 NO ./wall_one.xpm
 SO ./wall_two.xpm
 EA ./wall_three.xpm
