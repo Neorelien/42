@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 15:43:15 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/12 15:53:49 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/23 15:19:31 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ int		ft_split_int(int *f_color, char *newline)
 			i++;
 		else if (newline[i] == ',')
 		{
-			if (ex_vir == 1)
+			if (ex_vir == 1 || o++ == 2)
 				return (1);
-			o++;
 			i++;
 			ex_vir = 1;
 		}
