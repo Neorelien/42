@@ -1,0 +1,20 @@
+R 2147483648 2147483648
+
+NO ./textures/brick.xpm
+SO ./textures/greystone.xpm
+EA ./textures/wood.xpm
+WE ./textures/red.xpm
+S ./textures/barrel.xpm
+C 255,    255, 25
+F 152, 25, 1
+
+111111111
+110000001
+100000001
+1000N0001
+100000001
+101002001
+100000001
+100000001
+100000001
+111111111
