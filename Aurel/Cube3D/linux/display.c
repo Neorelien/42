@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 21:44:16 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/18 17:46:42 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/22 15:06:11 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	ft_display_init(t_data *mlx)
 	int	x_max;
 	int	y_max;
 
-	mlx->ratio_map = 64;
 	mlx->rgb_wall = ft_rgb(252, 207, 147);
 	mlx->rgb_ray = ft_rgb(47, 61, 127);
 	if ((mlx->mlx_ptr = mlx_init()) == NULL)

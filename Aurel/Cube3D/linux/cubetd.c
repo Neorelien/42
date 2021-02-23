@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:14:40 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/17 15:11:00 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/02/22 15:06:32 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int				main(int argc, char **argv)
 	t_data				mlx;
 
 	mlx.amplitude = 3;
+	mlx.ratio_map = 64;
 	ft_null_init(&mlx);
 	if (ft_map_init(argc, argv, &mlx))
 		return (clean_exit("map", &mlx));
