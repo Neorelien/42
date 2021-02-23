@@ -6,18 +6,18 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 16:12:52 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/15 16:12:56 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/02/19 01:12:41 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "example.h"
+#include "cub3d.h"
 
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-int		ft_isalpha(int c)
+int		ft_isalpha(char c)
 {
 	if (c < 'A')
 		return (0);

@@ -3,94 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 13:10:04 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/15 16:15:17 by cmoyal           ###   ########.fr       */
+/*   Created: 2021/02/14 02:55:31 by cmoyal            #+#    #+#             */
+/*   Updated: 2021/02/22 20:22:18 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "example.h"
+#include "cub3d.h"
 
-void				set_in_char(unsigned char *start, int value)
+void	ft_make_header(t_mlx *mlx, int fd)
 {
-	start[0] = (unsigned char)(value);
-	start[1] = (unsigned char)(value >> 8);
-	start[2] = (unsigned char)(value >> 16);
-	start[3] = (unsigned char)(value >> 24);
+	int	tmp;
+
+	write(fd, "BM", 2);
+	tmp = 14 + 40 + 4 * mlx->win_width * mlx->win_height;
+	write(fd, &tmp, 4);
+	tmp = 0;
+	write(fd, &tmp, 2);
+	write(fd, &tmp, 2);
+	tmp = 54;
+	write(fd, &tmp, 4);
+	tmp = 40;
+	write(fd, &tmp, 4);
+	write(fd, &mlx->win_width, 4);
+	write(fd, &mlx->win_height, 4);
+	tmp = 1;
+	write(fd, &tmp, 2);
+	write(fd, &mlx->game.bpp, 2);
+	tmp = 0;
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
 }
 
-unsigned char		*create_file_header(t_mlx *mlx, int pad)
+void	ft_save(t_mlx *mlx)
 {
-	int						file_size;
-	int						bpp;
-	static unsigned char	file_header[14] = {
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	int	fd;
+	int	x;
+	int	y;
 
-	bpp = BYTES_PER_PIX;
-	file_size = 54 + (bpp * ((int)mlx->win_width + pad) *
-		(int)mlx->win_height);
-	file_header[0] = (unsigned char)('B');
-	file_header[1] = (unsigned char)('M');
-	set_in_char(file_header + 2, file_size);
-	set_in_char(file_header + 10, FILE_HEADER_SIZE + IMG_HEADER_SIZE);
-	return (file_header);
-}
-
-unsigned char		*create_img_header(int height, int width)
-{
-	static unsigned char img_header[40] = {
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-	set_in_char(img_header, 40);
-	set_in_char(img_header + 4, width);
-	set_in_char(img_header + 8, height);
-	img_header[12] = (unsigned char)(1);
-	set_in_char(img_header + 14, COMPRESSION);
-	return (img_header);
-}
-
-int					write_headers(t_save *save)
-{
-	if ((write(save->fd, save->file_header, FILE_HEADER_SIZE)) < 0)
+	y = mlx->win_height;
+	if ((fd = open("./screen.bmp", O_WRONLY | O_CREAT, S_IRWXU)) == -1)
+		ft_error(mlx, "Open screen.bmp\n");
+	ft_make_header(mlx, fd);
+	while (y >= 0)
 	{
-		close(save->fd);
-		return (WRITE_ERROR);
-	}
-	if ((write(save->fd, save->img_header, IMG_HEADER_SIZE)) < 0)
-	{
-		close(save->fd);
-		return (WRITE_ERROR);
-	}
-	return (SUCCESS);
-}
-
-int					write_colors(t_mlx *mlx, int fd, int height, int width)
-{
-	static unsigned char	rgb[3] = {
-		0, 0, 0 };
-	int						i;
-	int						j;
-
-	i = 0;
-	while (i < (int)mlx->win_height)
-	{
-		j = 0;
-		while (j < (int)mlx->win_width)
+		x = 0;
+		while (x < mlx->win_width)
 		{
-			rgb[0] = ((mlx->game.data[(height - i) * width + j]) >> 16);
-			rgb[1] = ((mlx->game.data[(height - i) * width + j]) >> 8);
-			rgb[2] = (mlx->game.data[(height - i) * width + j]);
-			if ((write(fd, rgb + 2, 1)) < 0)
-				return (WRITE_ERROR);
-			if ((write(fd, rgb + 1, 1)) < 0)
-				return (WRITE_ERROR);
-			if ((write(fd, rgb, 1)) < 0)
-				return (WRITE_ERROR);
-			j++;
+			write(fd, &mlx->game.data[y * mlx->game.size_l / 4 + x], 4);
+			x++;
 		}
-		i++;
+		y--;
 	}
-	return (SUCCESS);
+	ft_exit(mlx);
+}
+
+void	ft_save_screen(t_mlx *mlx, char **argv)
+{
+	if (argv[2][0] == '-' && argv[2][1] == '-' && argv[2][2] == 's'
+		&& argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e')
+		mlx->save = 1;
+	else
+	{
+		write(1, "Error\nArguments Invalids\n", 25);
+		exit(EXIT_FAILURE);
+	}
 }

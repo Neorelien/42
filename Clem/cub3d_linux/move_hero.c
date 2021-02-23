@@ -3,95 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   move_hero.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 16:16:26 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/16 21:32:20 by cmoyal           ###   ########.fr       */
+/*   Created: 2021/02/22 00:15:22 by cmoyal            #+#    #+#             */
+/*   Updated: 2021/02/22 19:57:00 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "example.h"
+#include "cub3d.h"
 
-void	rl_move(t_mlx *mlx)
+void	ft_forward_back(t_mlx *mlx)
 {
-	mlx->hero.tdx = cos(mlx->hero.pos_a + 1.5708) * 5;
-	mlx->hero.tdy = sin(mlx->hero.pos_a + 1.5708) * 5;
-}
-
-void	hero_new_pos_second(int key, t_mlx *mlx)
-{
-	if (key == 100)
+	if (mlx->hero.forward == 1)
 	{
-		rl_move(mlx);
-		mlx->hero.pos_x += mlx->hero.tdx;
-		mlx->hero.pos_y += mlx->hero.tdy;
-		if (move_hero(*mlx).hero.wall == 0)
-		{
-			mlx->hero.pos_x -= mlx->hero.tdx;
-			mlx->hero.pos_y -= mlx->hero.tdy;
-		}
+		if (mlx->card[(int)mlx->ray.pos_y][(int)(mlx->ray.pos_x
+			+ (mlx->ray.dir_x * mlx->ray.move_speed * 2))] == '0')
+			mlx->ray.pos_x += mlx->ray.dir_x * mlx->ray.move_speed;
+		if (mlx->card[(int)(mlx->ray.pos_y + (mlx->ray.dir_y
+			* mlx->ray.move_speed * 2))][(int)(mlx->ray.pos_x)] == '0')
+			mlx->ray.pos_y += mlx->ray.dir_y * mlx->ray.move_speed;
 	}
-	else if (key == 113)
+	if (mlx->hero.back == 1)
 	{
-		rl_move(mlx);
-		mlx->hero.pos_x -= mlx->hero.tdx;
-		mlx->hero.pos_y -= mlx->hero.tdy;
-		if (move_hero(*mlx).hero.wall == 0)
-		{
-			mlx->hero.pos_x += mlx->hero.tdx;
-			mlx->hero.pos_y += mlx->hero.tdy;
-		}
+		if (mlx->card[(int)(mlx->ray.pos_y)][(int)(mlx->ray.pos_x
+			- (mlx->ray.dir_x * mlx->ray.move_speed * 2))] == '0')
+			mlx->ray.pos_x -= mlx->ray.dir_x * mlx->ray.move_speed;
+		if (mlx->card[(int)(mlx->ray.pos_y - (mlx->ray.dir_y
+			* mlx->ray.move_speed * 2))][(int)(mlx->ray.pos_x)] == '0')
+			mlx->ray.pos_y -= mlx->ray.dir_y * mlx->ray.move_speed;
 	}
 }
 
-t_mlx	hero_new_pos(int key, t_mlx mlx)
+void	ft_left_right(t_mlx *mlx)
 {
-	clear_hero(mlx);
-	if (key == 122)
+	if (mlx->hero.right == 1)
 	{
-		mlx.hero.pos_x -= mlx.hero.pdx;
-		mlx.hero.pos_y -= mlx.hero.pdy;
-		if (move_hero(mlx).hero.wall == 0)
-		{
-			mlx.hero.pos_x += mlx.hero.pdx;
-			mlx.hero.pos_y += mlx.hero.pdy;
-		}
+		if (mlx->card[(int)mlx->ray.pos_y][(int)(mlx->ray.pos_x + mlx->ray.dir_y
+			* (mlx->ray.move_speed * 2))] == '0')
+			mlx->ray.pos_x += mlx->ray.dir_y * mlx->ray.move_speed;
+		if (mlx->card[(int)(mlx->ray.pos_y - mlx->ray.dir_x
+			* (mlx->ray.move_speed * 2))][(int)mlx->ray.pos_x] == '0')
+			mlx->ray.pos_y -= mlx->ray.dir_x * mlx->ray.move_speed;
 	}
-	else if (key == 115)
+	if (mlx->hero.left == 1)
 	{
-		mlx.hero.pos_x += mlx.hero.pdx;
-		mlx.hero.pos_y += mlx.hero.pdy;
-		if (move_hero(mlx).hero.wall == 0)
-		{
-			mlx.hero.pos_x -= mlx.hero.pdx;
-			mlx.hero.pos_y -= mlx.hero.pdy;
-		}
+		if (mlx->card[(int)mlx->ray.pos_y][(int)(mlx->ray.pos_x - mlx->ray.dir_y
+			* (mlx->ray.move_speed * 2))] == '0')
+			mlx->ray.pos_x -= mlx->ray.dir_y * mlx->ray.move_speed;
+		if (mlx->card[(int)(mlx->ray.pos_y + mlx->ray.dir_x
+			* (mlx->ray.move_speed * 2))][(int)mlx->ray.pos_x] == '0')
+			mlx->ray.pos_y += mlx->ray.dir_x * mlx->ray.move_speed;
 	}
-	else if (key == 113 || key == 100)
-		hero_new_pos_second(key, &mlx);
-	mlx = move_hero(mlx);
-	return (mlx);
 }
 
-t_mlx	hero_turn(int key, t_mlx mlx)
+void	ft_rotate_right_left(t_mlx *mlx)
 {
-	clear_hero(mlx);
-	if (key == 65363)
+	double	plan_x_prec;
+	double	dir_x_prec;
+
+	plan_x_prec = mlx->ray.plan_x;
+	dir_x_prec = mlx->ray.dir_x;
+	if (mlx->hero.r_right == 1)
 	{
-		mlx.hero.pos_a -= 0.0174533;
-		if (mlx.hero.pos_a < 0)
-			mlx.hero.pos_a += 2 * PI;
-		mlx.hero.pdx = cos(mlx.hero.pos_a) * 5;
-		mlx.hero.pdy = sin(mlx.hero.pos_a) * 5;
+		mlx->ray.dir_x = mlx->ray.dir_x * cos(-mlx->ray.rot_speed / 2) -
+			mlx->ray.dir_y * sin(-mlx->ray.rot_speed / 2);
+		mlx->ray.dir_y = dir_x_prec * sin(-mlx->ray.rot_speed / 2) +
+			mlx->ray.dir_y * cos(-mlx->ray.rot_speed / 2);
+		mlx->ray.plan_x = mlx->ray.plan_x * cos(-mlx->ray.rot_speed / 2)
+			- mlx->ray.plan_y * sin(-mlx->ray.rot_speed / 2);
+		mlx->ray.plan_y = plan_x_prec * sin(-mlx->ray.rot_speed / 2) +
+			mlx->ray.plan_y * cos(-mlx->ray.rot_speed / 2);
 	}
-	else if (key == 65361)
+	ft_rotate_left(mlx, dir_x_prec);
+}
+
+void	ft_rotate_left(t_mlx *mlx, double dir_x_prec)
+{
+	double	oldplanex;
+
+	if (mlx->hero.r_left == 1)
 	{
-		mlx.hero.pos_a += 0.0174533;
-		if (mlx.hero.pos_a > 2 * PI)
-			mlx.hero.pos_a -= 2 * PI;
-		mlx.hero.pdx = cos(mlx.hero.pos_a) * 5;
-		mlx.hero.pdy = sin(mlx.hero.pos_a) * 5;
+		dir_x_prec = mlx->ray.dir_x;
+		oldplanex = mlx->ray.plan_x;
+		mlx->ray.dir_x = mlx->ray.dir_x * cos(mlx->ray.rot_speed / 2) -
+			mlx->ray.dir_y * sin(mlx->ray.rot_speed / 2);
+		mlx->ray.dir_y = dir_x_prec * sin(mlx->ray.rot_speed / 2) + mlx->
+			ray.dir_y * cos(mlx->ray.rot_speed / 2);
+		mlx->ray.plan_x = mlx->ray.plan_x * cos(mlx->ray.rot_speed / 2) -
+			mlx->ray.plan_y * sin(mlx->ray.rot_speed / 2);
+		mlx->ray.plan_y = oldplanex * sin(mlx->ray.rot_speed / 2) +
+			mlx->ray.plan_y * cos(mlx->ray.rot_speed / 2);
 	}
-	mlx = move_hero(mlx);
-	return (mlx);
 }

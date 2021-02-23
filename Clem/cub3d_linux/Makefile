@@ -5,11 +5,10 @@ MAIN = ./cub3d.c
 OBJ_MAIN = ${MAIN:.c=.o}
 
 SRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-save.c save2.c frame.c move_hero.c clear_image.c ft_sprite.c cub3d_utils.c \
-map_check.c textures.c free.c error.c create_map.c get_hero.c game_settings.c \
-press_key.c texture_angle.c ft_is_spec.c display_sprite.c colors.c ray.c \
-move_hero2.c get_info.c cub3d_utils2.c
-
+cub3d_utils.c textures.c error.c save.c\
+colors.c ft_is_spec.c map_parsing.c display.c\
+cub3d_utils2.c exit.c create_map.c window.c map_check.c sprite.c ft_is_spec.c \
+ft_mlx.c raycasting.c move_hero.c display_sprite.c ft_key.c texture_data.c
 PATH_SRCS = ./
 
 _SRCS = ${addprefix ${PATH_SRCS}, ${SRCS}}

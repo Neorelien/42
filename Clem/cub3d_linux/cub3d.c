@@ -3,51 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/11 13:00:43 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/02/17 16:37:15 by cmoyal           ###   ########.fr       */
+/*   Created: 2021/02/18 18:02:37 by cmoyal            #+#    #+#             */
+/*   Updated: 2021/02/22 21:01:28 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "example.h"
-
-int		exit_game(t_mlx *mlx)
-{
-	ft_free_all(mlx);
-	ft_free_textures(mlx);
-	mlx_destroy_display(mlx->mlx_ptr);
-	exit(EXIT_SUCCESS);
-	return (0);
-}
-
-void	ft_init_mlx(t_mlx *mlx)
-{
-	mlx->tex_n.path = "./textures/brick.xpm";
-	mlx->tex_e.path = "./textures/grass.xpm";
-	mlx->tex_w.path = "./textures/stone.xpm";
-	mlx->tex_s.path = "./textures/wood.xpm";
-	mlx->tex_sprite.path = "./textures/metal.xpm";
-	mlx->tex_n.malloc = 0;
-	mlx->tex_e.malloc = 0;
-	mlx->tex_w.malloc = 0;
-	mlx->tex_s.malloc = 0;
-	mlx->tex_sprite.malloc = 0;
-	mlx->floor = 0;
-	mlx->ceil = 0;
-	mlx->r = 0;
-	mlx->floor_color = 255 * 256 * 256 + 255 * 256 + 255;
-	mlx->ceil_color = 255 * 256 * 256 + 255;
-}
+#include "cub3d.h"
 
 char	**ft_arg_check(int argc, char **argv, t_mlx *mlx)
 {
 	int len;
 
+	mlx->save = 0;
 	if (argc < 2 || argc > 3)
 	{
-		mlx->error = ERROR_ARG_NB;
-		ft_error(mlx);
+		write(1, "Error\nArguments Invalids\n", 25);
+		exit(EXIT_FAILURE);
 	}
 	if (argc == 3)
 		ft_save_screen(mlx, argv);
@@ -56,53 +29,64 @@ char	**ft_arg_check(int argc, char **argv, t_mlx *mlx)
 	if (argv[0][len - 4] != '.' || argv[0][len - 3] != 'c'
 		|| argv[0][len - 2] != 'u' || argv[0][len - 1] != 'b')
 	{
-		mlx->error = NOT_MAP;
-		ft_error(mlx);
+		write(1, "Error\nMap name invalid\n", 23);
+		exit(EXIT_FAILURE);
 	}
-	count_size_map(*argv, mlx);
 	return (argv);
 }
 
-void	ft_mlx_settings(char **argv, t_mlx *mlx)
+void	ft_init_more(t_mlx *mlx)
 {
-	mlx->mlx_ptr = mlx_init();
-	*mlx = window(*argv, *mlx);
-	ft_init_mlx(mlx);
-	mlx->game_win = mlx_new_window(mlx->mlx_ptr, mlx->win_width,
-		mlx->win_height, *argv);
-	mlx->img.img_ptr = mlx_new_image(mlx->mlx_ptr, mlx->map.size_width,
-		mlx->map.size_height);
-	mlx->game.img_ptr = mlx_new_image(mlx->mlx_ptr, mlx->win_width,
-		mlx->win_height);
-	mlx->img.data = (int *)mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
-		&mlx->img.size_l, &mlx->img.endian);
-	mlx->game.data = (int *)mlx_get_data_addr(mlx->game.img_ptr, &mlx->game.bpp,
-		&mlx->game.size_l, &mlx->img.endian);
-	*mlx = get_map(*argv, *mlx);
+	mlx->color_f = -1;
+	mlx->color_c = -1;
+	mlx->init[0] = 0;
+	mlx->init[1] = 0;
+	mlx->init[2] = 0;
+	mlx->ray.dir_x = 0;
+	mlx->ray.dir_y = 0;
+	mlx->ray.plan_x = 0;
+	mlx->ray.plan_y = 0;
+	mlx->super_width = 0;
+	mlx->super_height = 0;
+	mlx->mlx_ptr = NULL;
+}
+
+void	ft_init(t_mlx *mlx)
+{
+	mlx->tex_n.path = NULL;
+	mlx->tex_s.path = NULL;
+	mlx->tex_w.path = NULL;
+	mlx->tex_e.path = NULL;
+	mlx->tex_sprite.path = NULL;
+	mlx->tex_n.malloc = 0;
+	mlx->tex_s.malloc = 0;
+	mlx->tex_w.malloc = 0;
+	mlx->tex_e.malloc = 0;
+	mlx->tex_sprite.malloc = 0;
+	mlx->win_height = 0;
+	mlx->win_width = 0;
+	mlx->nblines = 0;
+	mlx->sizeline = 0;
+	mlx->card = NULL;
+	mlx->inmap = 0;
+	mlx->count = 0;
+	mlx->wrongcharmap = 0;
+	mlx->start = 0;
+	mlx->i = 0;
+	mlx->spr = NULL;
+	mlx->sprite.dist = NULL;
+	mlx->sprite.order = 0;
+	mlx->nb_sprite = 0;
+	ft_init_more(mlx);
 }
 
 int		main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
-	mlx.error = 0;
+	mlx.error = SUCCESS;
 	argv = ft_arg_check(argc, argv, &mlx);
-	if (mlx.error != SUCCESS)
-		ft_error(&mlx);
-	ft_mlx_settings(argv, &mlx);
-	if (mlx.error != SUCCESS)
-	{
-		ft_error(&mlx);
-	}
-	ft_refresh_sprite(&mlx);
-	frame(mlx);
-	if (mlx.save == 1)
-	{
-		launch_save(&mlx);
-		exit_game(&mlx);
-	}
-	mlx_hook(mlx.game_win, 2, 1L << 0, deal_key, &mlx);
-	mlx_hook(mlx.game_win, 33, 1L << 17, exit_game, &mlx);
-	mlx_loop(mlx.mlx_ptr);
+	ft_init(&mlx);
+	ft_parsing_info(*argv, &mlx);
 	return (0);
 }
