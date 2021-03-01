@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 15:41:12 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/14 00:09:43 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/01 15:46:30 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,13 @@ int			ft_elem_resolution(char **line, t_data *mlx)
 	newline = ft_strtrim(*line, "R");
 	free(*line);
 	*line = NULL;
-	mlx->x = -1;
-	mlx->y = -1;
 	if (ft_split_res(newline, mlx))
 	{
 		free(newline);
 		return (1);
 	}
 	free(newline);
-	if ((mlx->x < 0) || (mlx->y < 0))
+	if ((mlx->x <= 0) || (mlx->y <= 0))
 		return (1);
 	return (0);
 }

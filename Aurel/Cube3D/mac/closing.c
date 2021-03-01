@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:27:32 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/18 15:44:11 by Aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/01 15:42:23 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	free_support(t_data *mlx)
 
 void	ft_null_init(t_data *mlx)
 {
+	mlx->x = 0;
+	mlx->y = 0;
 	mlx->map = NULL;
 	mlx->mlx_ptr = NULL;
 	mlx->img_ptr = NULL;
