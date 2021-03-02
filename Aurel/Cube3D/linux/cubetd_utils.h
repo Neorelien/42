@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 11:10:07 by aurelien          #+#    #+#             */
-/*   Updated: 2021/02/17 17:41:42 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:06:25 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct	s_data
 	int			save_pic;
 }				t_data;
 
+int				ft_nofloor(char c);
 int				readelement_support(int element, int *check);
 int				cross_clean_exit(t_data *mlx);
 void			ft_cp_in_bmp(char *bmp, char *file_size, char *tmp,

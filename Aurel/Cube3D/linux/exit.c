@@ -6,11 +6,19 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 00:01:08 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/02/17 15:57:26 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:06:18 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubetd_utils.h"
+
+int		ft_nofloor(char c)
+{
+	if (c != '0' && c != '2' && c != 'N' && c != 'E' &&
+			c != 'W' && c != 'S' && c != '1')
+		return (1);
+	return (0);
+}
 
 int		cross_clean_exit(t_data *mlx)
 {
@@ -31,8 +39,6 @@ int		cross_clean_exit(t_data *mlx)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->sprite_img_ptr);
 	if (mlx->td_win_ptr != NULL)
 		mlx_destroy_window(mlx->mlx_ptr, mlx->td_win_ptr);
-	if (mlx->mlx_ptr != NULL)
-		mlx_destroy_display(mlx->mlx_ptr);
 	ft_free_mlx(mlx);
 	exit(0);
 	return (1);
