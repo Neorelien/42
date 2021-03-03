@@ -6,7 +6,7 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 16:09:05 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/03/01 16:30:17 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/03 19:28:51 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ int			ft_map_is_close(char **map, int *coor)
 
 	temp[0] = coor[0];
 	count = 0;
-	if ((temp[1] = coor[1]) == coor[1] && map[coor[1]][coor[0]] != '0')
-		return (0);
+	if (ft_supsup(temp, coor, map) != -1)
+		return (ft_supsup(temp, coor, map));
 	while (coor[1] < ft_y_len(map) && count < 1)
 	{
 		if (coor[0] > 0 && coor[0] >= (int)ft_strlen(map[temp[1]]) - 1)

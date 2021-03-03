@@ -6,11 +6,22 @@
 /*   By: Aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 00:01:08 by Aurelien          #+#    #+#             */
-/*   Updated: 2021/03/01 14:06:18 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/03 19:28:40 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubetd_utils.h"
+
+int		ft_supsup(int *temp, int *coor, char **map)
+{
+	if ((temp[1] = coor[1]) == coor[1] && map[coor[1]][coor[0]] != '0')
+		return (0);
+	if ((int)ft_strlen(map[coor[1] - 1]) <= coor[0] - 1)
+		return (1);
+	if ((int)ft_strlen(map[coor[1] + 1]) <= coor[0] - 1)
+		return (1);
+	return (-1);
+}
 
 int		ft_nofloor(char c)
 {
