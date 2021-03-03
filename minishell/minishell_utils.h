@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 18:21:33 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/03 21:55:19 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_parsing
 	char				*objet;
 	char				**option;
 	char				**data;
+	char				separator[2];
 	struct s_parsing	*next;
 }				t_parsing;
 
