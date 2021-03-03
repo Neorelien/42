@@ -6,27 +6,26 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 11:52:21 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/03 12:10:53 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_utils.h"
 
-int main (int argc, char **argv)
+int main ()
 {
 	char		**line;
 	t_parsing	*parsing;
 	int			i;
-	char		**splited;
+	char		*temp;
 	
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
+	temp = NULL;
 	*line = NULL;
-	splited = NULL;
-	while (splited != NULL ||  get_next_line(1, line))
+	while (get_next_line(1, line))
 	{
-		splited = ft_split(*line, ' ');
-		
+		while ()
 		free(*line);
 		*line = NULL;
 	}
