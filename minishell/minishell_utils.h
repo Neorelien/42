@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/03 14:57:28 by awery            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/03 14:26:15 by cmoyal           ###   ########.fr       */
+>>>>>>> 8a343064b95802a04f7a18a6aadc66eba014fe4a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +26,7 @@
 typedef struct	s_parsing
 {
 	char				*objet;
-	char				*option;
+	char				**option;
 	char				**data;
 	struct s_parsing	*next;
 }				t_parsing;
