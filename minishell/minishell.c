@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 23:04:20 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/03 23:20:57 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_parsing *new_list(t_parsing *previous_lst)
 	parsing->next = NULL;
 	parsing->objet = NULL;
 	parsing->data = NULL;
+	parsing->option = NULL;
 	if (previous_lst != NULL)
 		previous_lst->next = parsing;
 	return (parsing);
@@ -121,6 +122,35 @@ void	recopy_data(char **data, char **temp)
 	}
 }
 
+void	get_option(t_parsing *parsing, char *option)
+{
+	int		o;
+	char	**temp;
+	char	*tmp;
+
+	o = 0;
+	tmp = option;
+	option = ft_strdup(&option[1]);
+	free(tmp);
+	if (parsing->option == NULL)
+	{
+		parsing->option = malloc(sizeof(char*) * 2);
+		parsing->option[1] = NULL;
+		parsing->option[0] = option;
+	}
+	else
+	{
+		while (parsing->option[o] != NULL)
+			o++;
+		temp = parsing->option;
+		parsing->option = malloc(sizeof(char*) * (o + 1));
+		recopy_data(parsing->option, temp);
+		free(temp);
+		parsing->option[o + 1] = NULL;
+	}
+
+}
+
 void	get_data(int *i, t_parsing *parsing, char **line)
 {
 	char	**temp;
@@ -144,7 +174,7 @@ void	get_data(int *i, t_parsing *parsing, char **line)
 		*i = get_objet(*line, *i, &parsing->data[o]);
 		if (parsing->data[o][0] == '-')
 		{
-			//parsing->option = parsing->data[o];
+			get_option(parsing, parsing->data[o]);
 			parsing->data[o] = NULL;
 		}
 		parsing->data[o + 1] = NULL;
