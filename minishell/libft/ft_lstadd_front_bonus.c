@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 11:30:37 by cmoyal           ###   ########.fr       */
+/*   Created: 2020/11/20 17:11:55 by cmoyal            #+#    #+#             */
+/*   Updated: 2020/11/20 17:11:57 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main ()
+#include "libft.h"
+
+void	ft_lstadd_front(t_list **alst, t_list *new)
 {
-	return (0);
+	if (alst && new)
+	{
+		new->next = *alst;
+		*alst = new;
+	}
 }

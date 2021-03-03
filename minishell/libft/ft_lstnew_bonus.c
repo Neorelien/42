@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 11:30:37 by cmoyal           ###   ########.fr       */
+/*   Created: 2020/11/20 17:12:11 by cmoyal            #+#    #+#             */
+/*   Updated: 2020/11/20 17:12:43 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main ()
+#include "libft.h"
+
+t_list	*ft_lstnew(void *content)
 {
-	return (0);
+	t_list	*list;
+
+	list = malloc(sizeof(t_list));
+	if (list)
+	{
+		list->content = content;
+		list->next = NULL;
+	}
+	return (list);
 }

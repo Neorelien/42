@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 11:30:37 by cmoyal           ###   ########.fr       */
+/*   Created: 2020/11/16 19:39:54 by cmoyal            #+#    #+#             */
+/*   Updated: 2020/11/19 12:16:00 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main ()
+#include "libft.h"
+
+void	*ft_memchr(const void *s, int c, size_t n)
 {
+	const unsigned char	*src;
+
+	src = (unsigned char *)s;
+	while (n-- > 0)
+	{
+		if (*src == (unsigned char)c)
+			return ((void*)src);
+		src++;
+	}
 	return (0);
 }

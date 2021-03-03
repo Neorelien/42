@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 11:30:37 by cmoyal           ###   ########.fr       */
+/*   Created: 2020/11/20 17:13:35 by cmoyal            #+#    #+#             */
+/*   Updated: 2020/11/20 17:13:37 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main ()
+#include "libft.h"
+
+int	ft_lstsize(t_list *lst)
 {
-	return (0);
+	size_t size;
+
+	size = 0;
+	if (!lst)
+		return (0);
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
 }
