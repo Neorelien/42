@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 22:45:30 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/03 23:04:20 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,11 @@ void	get_data(int *i, t_parsing *parsing, char **line)
 		recopy_data(parsing->data, temp);
 		free(temp);
 		*i = get_objet(*line, *i, &parsing->data[o]);
+		if (parsing->data[o][0] == '-')
+		{
+			//parsing->option = parsing->data[o];
+			parsing->data[o] = NULL;
+		}
 		parsing->data[o + 1] = NULL;
 	}
 }
@@ -188,7 +193,7 @@ int		main(void)
 	start = parsing;
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
-	while (get_next_line(1, line))
+	while (write(1, "-> ", 3) && get_next_line(1, line))
 	{
 		recursive_parsing(line, parsing, i);
 		printf("objet = %s\n", parsing->objet);
