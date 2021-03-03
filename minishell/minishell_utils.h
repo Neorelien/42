@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 15:47:13 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/03 15:54:51 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ typedef struct	s_parsing
 }				t_parsing;
 
 # define OPEN_QUOTE -2
+
+int	echo(t_parsing info);
+size_t	ft_doubletab_len(char **doubletab);
 
 #endif
