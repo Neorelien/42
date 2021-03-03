@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/03 16:16:55 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/03 15:54:51 by cmoyal           ###   ########.fr       */
->>>>>>> 74669c730328c95556b1d653214c2a40bb8fc980
+/*   Updated: 2021/03/03 18:21:33 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +15,8 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft/libft.h"
-#include "get_next_line/get_next_line.h"
+#include "srcs/libft/libft.h"
+#include "srcs/get_next_line/get_next_line.h"
 #include <stdio.h>
 
 typedef struct	s_parsing

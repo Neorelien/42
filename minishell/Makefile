@@ -5,8 +5,9 @@ MAIN = ./minishell.c
 OBJ_MAIN = ${MAIN:.c=.o}
 
 SRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+echo.c minishell_utils.c
 
-PATH_SRCS = ./
+PATH_SRCS = ./srcs/
 
 _SRCS = ${addprefix ${PATH_SRCS}, ${SRCS}}
 
@@ -27,13 +28,13 @@ PATH_HEADER = ./
 
 MYLIB = mylib.a
 
-PATH_LIBFT = ./libft/
+PATH_LIBFT = ./srcs/libft/
 
-LIBFT = ./libft/libft.a
+LIBFT = ./srcs/libft/libft.a
 
 all:        ${NAME}
 
-${NAME}:	${MV} ${OBJ_MAIN} ${OBJS}
+${NAME}:	${OBJ_MAIN} ${OBJS}
 			${LINK} ${MYLIB} ${OBJS}
 			ranlib ${MYLIB}
 			make -C ${PATH_LIBFT}
