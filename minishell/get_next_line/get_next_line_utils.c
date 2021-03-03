@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:49:14 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/01/06 17:15:32 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/03 15:42:25 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_gnl(char const *s1, char const *s2)
 {
 	char			*str;
 	unsigned int	i;

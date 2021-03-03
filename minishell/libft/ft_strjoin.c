@@ -3,29 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 15:26:01 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/20 00:13:54 by cmoyal           ###   ########.fr       */
+/*   Created: 2020/11/18 14:17:35 by awery             #+#    #+#             */
+/*   Updated: 2020/11/19 17:30:52 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+int		char_lengh(char *src)
 {
-	size_t	i;
-	char	*dest;
+	int i;
 
 	i = 0;
-	i = ft_strlen(s1) + ft_strlen(s2);
-	if (!(dest = (char*)malloc(sizeof(char) * i)))
-		return (0);
+	while (src[i] != '\0')
+		i++;
+	return (i);
+}
+
+void	writeinjoin(char *dest, char *src, char *str)
+{
+	int		i;
+
 	i = 0;
-	while (*s1)
-		dest[i++] = (char)*s1++;
-	while (*s2)
-		dest[i++] = (char)*s2++;
-	dest[i] = 0;
-	return (dest);
+	while (*dest)
+	{
+		str[i++] = *dest++;
+	}
+	while (*src)
+	{
+		str[i++] = *src++;
+	}
+	str[i] = '\0';
+}
+
+char	*ft_strjoin(const char *d1, const char *s1)
+{
+	int		ldest;
+	int		lsrc;
+	char	*str;
+	char	*dest;
+	char	*src;
+
+	dest = (char*)d1;
+	src = (char*)s1;
+	ldest = char_lengh(dest);
+	lsrc = char_lengh(src);
+	if (!(str = (char*)malloc(sizeof(char) * ldest + lsrc + 1)))
+		return (0);
+	writeinjoin(dest, src, str);
+	return (str);
 }

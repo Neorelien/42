@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:03:14 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/01/06 17:16:05 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/03 15:42:11 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*gnl_read(char *str, int fd, int *r)
 		buff[*r] = 0;
 		if (str)
 		{
-			temp = ft_strjoin(str, buff);
+			temp = ft_strjoin_gnl(str, buff);
 			free(str);
 			str = ft_strdup(temp);
 			free(temp);

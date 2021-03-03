@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:03:25 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/27 13:03:27 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/03 15:41:26 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			get_next_line(int fd, char **line);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strdup(const char *s);
 size_t		ft_strlen(const char *s);
-char		*ft_strjoin(const char *s1, const char *s2);
+char		*ft_strjoin_gnl(const char *s1, const char *s2);
 char		*ft_strcpy(char *dst, char *src);
 
 #endif

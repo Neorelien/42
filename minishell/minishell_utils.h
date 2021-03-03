@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 14:15:33 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/03 14:57:28 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ typedef struct	s_parsing
 	char				**data;
 	struct s_parsing	*next;
 }				t_parsing;
+
+# define OPEN_QUOTE -2
 
 #endif
