@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 18:43:50 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/04 19:22:07 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,8 +245,8 @@ int		main(void)
 	parsing = new_list(NULL);
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
-	while (write(1, "-> ", 3) && get_next_line(1, line))
-	{
+	while (write(1, "-> ", 3) && ft_display_rep() && get_next_line(1, line))
+	{	
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 		{
@@ -262,6 +262,10 @@ int		main(void)
 		}
 		if (ft_strncmp(parsing->objet, "echo", 5) == 0)
 			echo(*parsing);
+		if (ft_strncmp(parsing->objet, "cd", 3) == 0)
+			ft_cd(*parsing);
+		if (ft_strncmp(parsing->objet, "pwd", 4) == 0)
+			ft_pwd(*parsing);
 		if (clean_parsing(parsing))
 			exit(1);
 	//	system("leaks minishell\n");

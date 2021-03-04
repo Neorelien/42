@@ -38,7 +38,7 @@ ${NAME}:	${OBJ_MAIN} ${OBJS}
 			${LINK} ${MYLIB} ${OBJS}
 			ranlib ${MYLIB}
 			make -C ${PATH_LIBFT}
-			${CC} ${FLAGS} ${OBJ_MAIN} ${MYLIB} ${LIBFT} -o ${NAME}
+			${CC} ${FLAGS} -fsanitize=address ${OBJ_MAIN} ${MYLIB} ${LIBFT} -o ${NAME}
 
 clean:
 			${RM} ${OBJ_MAIN} ${OBJS}
