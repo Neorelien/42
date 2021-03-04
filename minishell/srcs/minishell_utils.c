@@ -23,3 +23,21 @@ int		is_separator(char *str)
 		return (5);
 	return (0);
 }
+
+int	write_with_separator(t_parsing info)
+{
+	int sep;
+
+	if ((sep = is_separator(info.separator)) == 0)
+		return (1);
+	if (sep == 1)
+		return (1);
+	else if (sep == 2)
+		return (1);
+	else if (sep == 3)
+		return (open(info.next->objet, O_RDWR | O_CREAT, 644 | O_DIRECTORY));
+	else if (sep == 4)
+		return (1);
+	else
+		return (open(info.next->objet, O_RDWR | O_CREAT, 644 | O_DIRECTORY));
+}

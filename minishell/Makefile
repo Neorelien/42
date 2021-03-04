@@ -5,7 +5,7 @@ MAIN = ./minishell.c
 OBJ_MAIN = ${MAIN:.c=.o}
 
 SRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-echo.c minishell_utils.c
+echo.c minishell_utils.c ft_dir.c
 
 PATH_SRCS = ./srcs/
 
