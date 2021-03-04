@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 11:14:02 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:05:11 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,21 @@ t_parsing *new_list(t_parsing *previous_lst)
 	return (parsing);
 }
 
+int		is_separator(char *str)
+{
+	if (str[0] == ';' && str[1] == 0)
+		return (1);
+	if (str[0] == '|' && str[1] == 0)
+		return (2);
+	if (str[0] == '>' && str[1] == 0)
+		return (3);
+	if (str[0] == '<' && str[1] == 0)
+		return (4);
+	if (str[0] == '>' && str[1] == '>' && str[2] == 0)
+		return (5);
+	return (0);
+}
+
 void	recopy_data(char **data, char **temp)
 {
 	int	i;
@@ -122,6 +137,7 @@ void	get_option(t_parsing *parsing, char *option)
 	free(tmp);
 	if (parsing->option == NULL)
 	{
+		printf("1 on va la\n");
 		parsing->option = malloc(sizeof(char*) * 2);
 		parsing->option[1] = NULL;
 		parsing->option[0] = option;
@@ -130,13 +146,14 @@ void	get_option(t_parsing *parsing, char *option)
 	{
 		while (parsing->option[o] != NULL)
 			o++;
+		printf("2 on va la o = %d\n", o);
 		temp = parsing->option;
-		parsing->option = malloc(sizeof(char*) * (o + 1));
+		parsing->option = malloc(sizeof(char*) * (o + 2));
 		recopy_data(parsing->option, temp);
 		free(temp);
+		parsing->option[o] = option;
 		parsing->option[o + 1] = NULL;
 	}
-
 }
 
 void	get_data(int *i, t_parsing *parsing, char **line)
@@ -145,34 +162,24 @@ void	get_data(int *i, t_parsing *parsing, char **line)
 	int		o;
 
 	o = 0;
-	if (parsing->data == NULL)
+	if (parsing->data == NULL || parsing->data[0] == NULL)
 	{
 		parsing->data = malloc(sizeof(char*) * 2);
 		parsing->data[1] = NULL;
 		*i = get_objet(*line, *i, &parsing->data[0]);
-		if (parsing->data[o][0] == '-')
-		{
-			get_option(parsing, parsing->data[o]);
-	//		printf("o = %d\n", o);
-			parsing->data[0] = NULL;
-		}
-		printf("1 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
+		//	printf("1 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
 	}
 	else
 	{
+		//	printf("2 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
 		while (parsing->data[o] != NULL)
 			o++;
+		//	printf("o = %d\n", o);
 		temp = parsing->data;
-		parsing->data = malloc(sizeof(char*) * (o + 1));
+		parsing->data = malloc(sizeof(char*) * (o + 2));
 		recopy_data(parsing->data, temp);
 		free(temp);
 		*i = get_objet(*line, *i, &parsing->data[o]);
-		if (parsing->data[o][0] == '-')
-		{
-			get_option(parsing, parsing->data[o]);
-	//		printf("o = %d\n", o);
-			parsing->data[o] = NULL;
-		}
 		parsing->data[o + 1] = NULL;
 	}
 }
@@ -186,7 +193,7 @@ void	recursive_parsing(char **line, t_parsing *parsing, int i)
 	if (parsing->objet == NULL)
 	{
 		i = get_objet(*line, i, &parsing->objet);
-	//	printf("1 on va ici et objet = %s\n", parsing->objet);
+		//	printf("1 on va ici et objet = %s\n", parsing->objet);
 		if (is_separator(parsing->objet))
 		{
 			parsing->separator[0] = parsing->objet[0];
@@ -200,7 +207,7 @@ void	recursive_parsing(char **line, t_parsing *parsing, int i)
 	}
 	else
 	{
-	//	printf("2 on va ici et objet = %s\n", parsing->objet);
+		//	printf("2 on va ici et objet = %s\n", parsing->objet);
 		get_data(&i, parsing, line);
 		if (line[0][i])
 			recursive_parsing(line, parsing, i);
@@ -216,18 +223,13 @@ void	test_struct(t_parsing *parsing)
 	i= 0;
 	if (parsing->objet != NULL)
 		printf("objet =%s|\n", parsing->objet);
-	while (parsing->option[i] != NULL)
-	{
-		printf("option %d =%s|\n", i, parsing->option[i]);
-		i++;
-	}
-	i = 0;
-	while (parsing->data[i] != NULL)
+	//	printf("on va la 2\n");
+	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
 		printf("data %d =%s|\n", i, parsing->data[i]);
 		i++;
 	}
-	//printf("on va la 2\n");
+	//	printf("on va la 3\n");
 	if (parsing->next != NULL)
 		test_struct(parsing->next);
 }
@@ -247,6 +249,7 @@ int		main(void)
 	{
 		recursive_parsing(line, parsing, i);
 		test_struct(parsing);
+		parsing = new_list(parsing);
 		i = 0;
 		free(*line);
 	}
