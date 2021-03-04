@@ -2,10 +2,10 @@
 #include "libft/libft.h"
 int main(int argc, char **argv)
 {
-	int fd;
-fd = open("test", O_RDWR | O_CREAT, 644 | O_DIRECTORY);
-write(fd, "mdr", 3);
-close(fd);
+	char *lol;
+	lol = NULL;
+	chdir("../");
+	printf("%s\n", getcwd(lol, 0 ));
 
 /*	t_parsing info;
 
