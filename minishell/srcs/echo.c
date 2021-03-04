@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/04 12:05:03 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:08:25 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell_utils.h"
@@ -25,10 +25,8 @@ int	echo_separator(t_parsing info)
 		return (open(info.next->objet, O_RDWR | O_CREAT, 644 | O_DIRECTORY));
 	else if (sep == 4)
 		return (1);
-	else if (sep == 5)
+	else
 		return (open(info.next->objet, O_RDWR | O_CREAT, 644 | O_DIRECTORY));
-
-
 }
 
 int		echo(t_parsing info)
@@ -42,10 +40,6 @@ int		echo(t_parsing info)
 		return (0);
 	if (ft_strncmp(info.data[i], "-n", 3) == 0 && ++i)
 		flag = 1;
-	else if (info.option[0] == NULL)
-		flag = 0;
-	else
-		return (0);
 	if ((fd = echo_separator(info)) <= 0)
 		return (-1);
 	while (info.data[i])
