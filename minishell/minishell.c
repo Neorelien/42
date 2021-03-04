@@ -6,13 +6,20 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 14:35:35 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 16:01:40 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_utils.h"
 
 void	test_struct(t_parsing *parsing);
+
+void	get_dquote(char **line)
+{
+	free(*line);
+	write(1, "dquote> ", 8);
+	get_next_line(1, line);
+}
 
 int		whithout_quote(int i, char *line, char **dest)
 {
@@ -53,7 +60,12 @@ int		get_next_string(int i, char *line, char **dest, char quote)
 		while (line[i] != quote)
 		{
 			if (!line[i])
-				return (OPEN_QUOTE);
+			{
+				if (quote == 39)
+					return (OPEN_SQUOTE);
+				else
+					return (OPEN_DQUOTE);
+			}
 			tmp = res;
 			to_join[0] = line[i];
 			res = ft_strjoin_gnl(res, to_join);
@@ -65,22 +77,22 @@ int		get_next_string(int i, char *line, char **dest, char quote)
 	return (i);
 }
 
-int		get_objet(char *line, int i, char **dest)
+int		get_objet(char **line, int i, char **dest)
 {
 	int		quote[2];
 
-	if ((quote[0] = 0) == 0 && line[i] == 39)
+	if ((quote[0] = 0) == 0 && line[0][i] == 39)
 		quote[0] = 1;
-	if ((quote[1] = 0) == 0 && line[i] == 34)
+	if ((quote[1] = 0) == 0 && line[0][i] == 34)
 		quote[1] = 1;
 	if (quote[0] == 1 || quote[1] == 1)
 		i++;
 	if (quote[0])
-		return (get_next_string(i, line, dest, 39));
+		return (get_next_string(i, *line, dest, 39));
 	else if (quote[1])
-		return (get_next_string(i, line, dest, 34));
+		return (get_next_string(i, *line, dest, 34));
 	else
-		return (get_next_string(i, line, dest, ' '));
+		return (get_next_string(i, *line, dest, ' '));
 	return (0);
 }
 
@@ -112,7 +124,8 @@ void	recopy_data(char **data, char **temp)
 	}
 }
 
-void	get_data(int *i, t_parsing *parsing, char **line)
+
+int		get_data(int *i, t_parsing *parsing, char **line)
 {
 	char	**temp;
 	int		o;
@@ -122,7 +135,8 @@ void	get_data(int *i, t_parsing *parsing, char **line)
 	{
 		parsing->data = malloc(sizeof(char*) * 2);
 		parsing->data[1] = NULL;
-		*i = get_objet(*line, *i, &parsing->data[0]);
+		*i = get_objet(line, *i, &parsing->data[0]);
+		return (*i);
 		//	printf("1 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
 	}
 	else
@@ -135,20 +149,21 @@ void	get_data(int *i, t_parsing *parsing, char **line)
 		parsing->data = malloc(sizeof(char*) * (o + 2));
 		recopy_data(parsing->data, temp);
 		free(temp);
-		*i = get_objet(*line, *i, &parsing->data[o]);
+		*i = get_objet(line, *i, &parsing->data[o]);
 		parsing->data[o + 1] = NULL;
+		return (*i);
 	}
 }
 
-void	recursive_parsing(char **line, t_parsing *parsing, int i)
+int		recursive_parsing(char **line, t_parsing *parsing, int i)
 {
 	while (line[0][i] == ' ')
 		i++;
 	if (!line[0][i])
-		return ;
+		return (i);
 	if (parsing->objet == NULL)
 	{
-		i = get_objet(*line, i, &parsing->objet);
+		i = get_objet(line, i, &parsing->objet);
 		//	printf("1 on va ici et objet = %s\n", parsing->objet);
 		if (is_separator(parsing->objet))
 		{
@@ -157,18 +172,20 @@ void	recursive_parsing(char **line, t_parsing *parsing, int i)
 			recursive_parsing(line, new_list(parsing), i);
 		}
 		else if (line[0][i])
-			recursive_parsing(line, parsing, i);
+			i = recursive_parsing(line, parsing, i);
 		else
-			return ;
+			return (i);
+		return (i);
 	}
 	else
 	{
 		//	printf("2 on va ici et objet = %s\n", parsing->objet);
 		get_data(&i, parsing, line);
 		if (line[0][i])
-			recursive_parsing(line, parsing, i);
+			i = recursive_parsing(line, parsing, i);
 		else
-			return ;
+			return (i);
+		return (i);
 	}
 }
 
@@ -222,13 +239,23 @@ int		main(void)
 	char		**line;
 	t_parsing	*parsing;
 	int			i;
+	char		*tmp;
 
 	parsing = new_list(NULL);
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
 	while (write(1, "-> ", 3) && get_next_line(1, line))
 	{
-		recursive_parsing(line, parsing, i);
+		i = recursive_parsing(line, parsing, i);
+		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
+		{
+			i = 0;
+			get_dquote(line);
+			tmp = *line;
+			*line = ft_strjoin("'", *line);
+			free(tmp);
+			i = recursive_parsing(line, parsing, i);
+		}
 		if (ft_strncmp(parsing->objet, "echo", 5) == 0)
 			echo(*parsing);
 		//test_struct(parsing);
