@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 11:00:40 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 11:14:48 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ typedef struct	s_parsing
 
 int	echo(t_parsing info);
 size_t	ft_doubletab_len(char **doubletab);
+int		is_separator(char *str);
 
 #endif
