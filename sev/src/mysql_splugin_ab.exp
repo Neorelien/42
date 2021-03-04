@@ -1,0 +1,23 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+spawn mysql -u root -p mysql
+
+expect "Enter password"
+
+send -- "admin\r"
+
+expect "MariaDB"
+
+send -- "update user set plugin='' where user='root';\r"
+
+expect "MariaDB"
+
+send -- "flush privileges;\r"
+
+expect "MariaDB"
+
+send -- "quit;\r"
+
+expect eof

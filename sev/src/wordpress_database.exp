@@ -1,0 +1,26 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+spawn mysql -u root -p 
+
+expect "Enter password: "
+
+send -- "admin\r"
+
+expect "MariaDB"
+
+send -- "CREATE DATABASE wordpress;\r"
+
+expect "MariaDB"
+
+send -- "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'Password' WITH GRANT OPTION;\r"
+
+expect "MariaDB"
+
+send -- "FLUSH PRIVILEGES;\r"
+
+expect "MariaDB"
+
+send -- "exit;\r"
+expect eof

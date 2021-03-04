@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cp /var/nginx_conf_on /etc/nginx/sites-available/default
+
+service nginx restart
