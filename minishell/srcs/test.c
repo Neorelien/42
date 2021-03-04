@@ -2,23 +2,20 @@
 #include "libft/libft.h"
 char **g_envv;
 
-int main(int argc, char **argv, char **envv)
+int main(int argc, char **argv, char **env)
 {
-	char *lol;
-int i, j;
-i = 0;
-j = 0;
-	while (envv[i])
-{
-	if (ft_strncmp(envv[i], "HOME=", 4) == 0)
+	char *home_path;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (env[i])
 	{
-		while (envv[i][j] != '=')
-			j++;
-		lol = envv[i] + j + 1;
-		printf("%s\n", lol);
+		printf("%s\n", env[i]);
+		i++;
 	}
-	i++;
-}
+	return (-1);
 
 /*	t_parsing info;
 

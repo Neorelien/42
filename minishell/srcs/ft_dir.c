@@ -6,11 +6,31 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/04 19:41:21 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 23:41:23 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell_utils.h"
+
+char *ft_home_dir(char **env)
+{
+	int i
+	int j;
+
+	i = 0;
+	j = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "HOME=", 4) == 0)
+		{
+			while (env[i][j] != '=')
+				j++;
+			return (env[i] + j + 1);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 int	ft_display_rep(void)
 {
@@ -32,14 +52,14 @@ int	ft_display_rep(void)
 	return (1);
 }
 
-int ft_cd(t_parsing info)
+int ft_cd(t_parsing info, char **env)
 {
 	if (ft_doubletab_len(info.data) > 1)
 		return (-1);
 	if ((write_with_separator(info)) <= 0)
 		return (-1);
 	if (info.data == NULL)
-		chdir("~");
+		chdir(ft_home_dir(env));
 	else
 		chdir(info.data[0]);
 	return (1);
