@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 12:49:24 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 13:00:56 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,18 +206,18 @@ int		main(void)
 {
 	char		**line;
 	t_parsing	*parsing;
-	t_parsing	*start;
 	int			i;
 
 	parsing = new_list(NULL);
-	start = parsing;
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
 	while (write(1, "-> ", 3) && get_next_line(1, line))
 	{
 		recursive_parsing(line, parsing, i);
-		test_struct(start);
-		parsing = new_list(parsing);
+		if (strncmp(parsing->objet, "echo", 5) == 0)
+			echo(*parsing);
+		//test_struct(parsing);
+		parsing = new_list(NULL);
 		i = 0;
 		free(*line);
 	}
