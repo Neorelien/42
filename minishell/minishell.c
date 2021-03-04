@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 12:05:11 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 12:10:01 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ t_parsing *new_list(t_parsing *previous_lst)
 	parsing->next = NULL;
 	parsing->objet = NULL;
 	parsing->data = NULL;
-	parsing->option = NULL;
 	if (previous_lst != NULL)
 		previous_lst->next = parsing;
 	return (parsing);
