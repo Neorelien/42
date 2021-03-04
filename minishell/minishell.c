@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 13:00:56 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 13:10:53 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,21 +95,6 @@ t_parsing *new_list(t_parsing *previous_lst)
 	if (previous_lst != NULL)
 		previous_lst->next = parsing;
 	return (parsing);
-}
-
-int		is_separator(char *str)
-{
-	if (str[0] == ';' && str[1] == 0)
-		return (1);
-	if (str[0] == '|' && str[1] == 0)
-		return (2);
-	if (str[0] == '>' && str[1] == 0)
-		return (3);
-	if (str[0] == '<' && str[1] == 0)
-		return (4);
-	if (str[0] == '>' && str[1] == '>' && str[2] == 0)
-		return (5);
-	return (0);
 }
 
 void	recopy_data(char **data, char **temp)
