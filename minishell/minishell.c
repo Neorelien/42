@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 16:01:40 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 18:43:50 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int		get_next_string(int i, char *line, char **dest, char quote)
 		{
 			if (!line[i])
 			{
+				*dest = res;
 				if (quote == 39)
 					return (OPEN_SQUOTE);
 				else
@@ -249,16 +250,18 @@ int		main(void)
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 		{
-			i = 0;
 			get_dquote(line);
 			tmp = *line;
-			*line = ft_strjoin("'", *line);
+			if (i == OPEN_SQUOTE)
+				*line = ft_strjoin("'\n", *line);
+			else
+				*line = ft_strjoin("\"\n", *line);
+			i = 0;
 			free(tmp);
 			i = recursive_parsing(line, parsing, i);
 		}
 		if (ft_strncmp(parsing->objet, "echo", 5) == 0)
 			echo(*parsing);
-		//test_struct(parsing);
 		if (clean_parsing(parsing))
 			exit(1);
 	//	system("leaks minishell\n");
