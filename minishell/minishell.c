@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 13:19:30 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 14:35:35 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int		get_next_string(int i, char *line, char **dest, char quote)
 	res[0] = 0;
 	to_join[1] = 0;
 	if (quote == ' ')
+	{
+		free(res);
 		return (whithout_quote(i, line, dest));
+	}
 	else
 		while (line[i] != quote)
 		{
@@ -187,13 +190,19 @@ void	test_struct(t_parsing *parsing)
 		test_struct(parsing->next);
 }
 
-void	clean_parsing(t_parsing *parsing)
+int		clean_parsing(t_parsing *parsing)
 {
 	int i;
+	int ex;
 
 	i= 0;
+	ex = 0;
 	if (parsing->objet != NULL)
+	{
+		if (ft_strncmp(parsing->objet, "exit", 5) == 0)
+			ex = 1;
 		free(parsing->objet);
+	}
 	//	printf("on va la 2\n");
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
@@ -203,7 +212,9 @@ void	clean_parsing(t_parsing *parsing)
 	if (parsing->data != NULL)
 	free(parsing->data);
 	if (parsing->next != NULL)
-		clean_parsing(parsing->next);
+		ex = clean_parsing(parsing->next);
+	free(parsing);
+	return (ex);
 }
 
 int		main(void)
@@ -221,7 +232,9 @@ int		main(void)
 		if (ft_strncmp(parsing->objet, "echo", 5) == 0)
 			echo(*parsing);
 		//test_struct(parsing);
-		clean_parsing(parsing);
+		if (clean_parsing(parsing))
+			exit(1);
+	//	system("leaks minishell\n");
 		parsing = new_list(NULL);
 		i = 0;
 		free(*line);
