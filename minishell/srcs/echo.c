@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/04 13:01:45 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 13:03:46 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell_utils.h"
@@ -44,10 +44,11 @@ int		echo(t_parsing info)
 	while (info.data[i])
 	{
 		write(fd, info.data[i], ft_strlen(info.data[i]));
+		ft_putchar_fd(' ', fd);
 		i++;
 	}
 	if (flag == 0)
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", fd);
 	if (fd != 1)
 		close(fd);
 	return (1);
