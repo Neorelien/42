@@ -6,11 +6,13 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/03 23:20:57 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:11:54 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_utils.h"
+
+void	test_struct(t_parsing *parsing);
 
 int		whithout_quote(int i, char *line, char **dest)
 {
@@ -86,6 +88,7 @@ t_parsing *new_list(t_parsing *previous_lst)
 	parsing = malloc(sizeof(t_parsing));
 	parsing->separator[0] = 0;
 	parsing->separator[1] = 0;
+	parsing->separator[2] = 0;
 	parsing->next = NULL;
 	parsing->objet = NULL;
 	parsing->data = NULL;
@@ -100,13 +103,13 @@ int		is_separator(char *str)
 	if (str[0] == ';' && str[1] == 0)
 		return (1);
 	if (str[0] == '|' && str[1] == 0)
-		return (1);
-	if (str[0] == '>' && str[1] == 0)
-		return (1);
-	if (str[0] == '<' && str[1] == 0)
-		return (1);
-	if (str[0] == '>' && str[1] == '>' && str[2] == 0)
 		return (2);
+	if (str[0] == '>' && str[1] == 0)
+		return (3);
+	if (str[0] == '<' && str[1] == 0)
+		return (4);
+	if (str[0] == '>' && str[1] == '>' && str[2] == 0)
+		return (5);
 	return (0);
 }
 
@@ -162,6 +165,13 @@ void	get_data(int *i, t_parsing *parsing, char **line)
 		parsing->data = malloc(sizeof(char*) * 2);
 		parsing->data[1] = NULL;
 		*i = get_objet(*line, *i, &parsing->data[0]);
+		if (parsing->data[o][0] == '-')
+		{
+			get_option(parsing, parsing->data[o]);
+	//		printf("o = %d\n", o);
+			parsing->data[0] = NULL;
+		}
+		printf("1 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
 	}
 	else
 	{
@@ -175,6 +185,7 @@ void	get_data(int *i, t_parsing *parsing, char **line)
 		if (parsing->data[o][0] == '-')
 		{
 			get_option(parsing, parsing->data[o]);
+	//		printf("o = %d\n", o);
 			parsing->data[o] = NULL;
 		}
 		parsing->data[o + 1] = NULL;
@@ -183,33 +194,57 @@ void	get_data(int *i, t_parsing *parsing, char **line)
 
 void	recursive_parsing(char **line, t_parsing *parsing, int i)
 {
-	while (line[0][i])
+	while (line[0][i] == ' ')
+		i++;
+	if (!line[0][i])
+		return ;
+	if (parsing->objet == NULL)
 	{
-		while (line[0][i] == ' ')
-			i++;
-		if (parsing->objet == NULL)
+		i = get_objet(*line, i, &parsing->objet);
+	//	printf("1 on va ici et objet = %s\n", parsing->objet);
+		if (is_separator(parsing->objet))
 		{
-			i = get_objet(*line, i, &parsing->objet);
-			if (is_separator(parsing->objet))
-			{
-				parsing->separator[0] = parsing->objet[0];
-				parsing->separator[1] = parsing->objet[1];
-				recursive_parsing(line, new_list(parsing), i);
-			}
-			else if (line[0][i])
-				recursive_parsing(line, parsing, i);
-			else
-				return ;
+			parsing->separator[0] = parsing->objet[0];
+			parsing->separator[1] = parsing->objet[1];
+			recursive_parsing(line, new_list(parsing), i);
 		}
+		else if (line[0][i])
+			recursive_parsing(line, parsing, i);
 		else
-		{
-			get_data(&i, parsing, line);
-			if (line[0][i])
-				recursive_parsing(line, parsing, i);
-			else
-				return ;
-		}
+			return ;
 	}
+	else
+	{
+	//	printf("2 on va ici et objet = %s\n", parsing->objet);
+		get_data(&i, parsing, line);
+		if (line[0][i])
+			recursive_parsing(line, parsing, i);
+		else
+			return ;
+	}
+}
+
+void	test_struct(t_parsing *parsing)
+{
+	int i;
+
+	i= 0;
+	if (parsing->objet != NULL)
+		printf("objet =%s|\n", parsing->objet);
+	while (parsing->option[i] != NULL)
+	{
+		printf("option %d =%s|\n", i, parsing->option[i]);
+		i++;
+	}
+	i = 0;
+	while (parsing->data[i] != NULL)
+	{
+		printf("data %d =%s|\n", i, parsing->data[i]);
+		i++;
+	}
+	//printf("on va la 2\n");
+	if (parsing->next != NULL)
+		test_struct(parsing->next);
 }
 
 int		main(void)
@@ -226,7 +261,7 @@ int		main(void)
 	while (write(1, "-> ", 3) && get_next_line(1, line))
 	{
 		recursive_parsing(line, parsing, i);
-		printf("objet = %s\n", parsing->objet);
+		test_struct(parsing);
 		i = 0;
 		free(*line);
 	}
