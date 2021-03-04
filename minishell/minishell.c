@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 12:10:01 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 12:49:24 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,37 +124,6 @@ void	recopy_data(char **data, char **temp)
 	}
 }
 
-void	get_option(t_parsing *parsing, char *option)
-{
-	int		o;
-	char	**temp;
-	char	*tmp;
-
-	o = 0;
-	tmp = option;
-	option = ft_strdup(&option[1]);
-	free(tmp);
-	if (parsing->option == NULL)
-	{
-		printf("1 on va la\n");
-		parsing->option = malloc(sizeof(char*) * 2);
-		parsing->option[1] = NULL;
-		parsing->option[0] = option;
-	}
-	else
-	{
-		while (parsing->option[o] != NULL)
-			o++;
-		printf("2 on va la o = %d\n", o);
-		temp = parsing->option;
-		parsing->option = malloc(sizeof(char*) * (o + 2));
-		recopy_data(parsing->option, temp);
-		free(temp);
-		parsing->option[o] = option;
-		parsing->option[o + 1] = NULL;
-	}
-}
-
 void	get_data(int *i, t_parsing *parsing, char **line)
 {
 	char	**temp;
@@ -247,7 +216,7 @@ int		main(void)
 	while (write(1, "-> ", 3) && get_next_line(1, line))
 	{
 		recursive_parsing(line, parsing, i);
-		test_struct(parsing);
+		test_struct(start);
 		parsing = new_list(parsing);
 		i = 0;
 		free(*line);
