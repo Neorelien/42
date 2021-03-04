@@ -6,15 +6,21 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/03 18:21:53 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 11:12:13 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell_utils.h"
+
+int	echo_separator(t_parsing info)
+{
+	
+}
 
 int		echo(t_parsing info)
 {
 	int		i;
 	int		flag;
+	int		fd;
 
 	i = 0;
 	if (ft_doubletab_len(info.option) > 1)
@@ -25,6 +31,7 @@ int		echo(t_parsing info)
 		flag = 0;
 	else
 		return (0);
+	fd = echo_separator(info);
 	while (info.data[i])
 	{
 		write(1, info.data[i], ft_strlen(info.data[i]));

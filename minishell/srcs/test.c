@@ -1,8 +1,9 @@
 #include "../minishell_utils.h"
 #include "libft/libft.h"
-int main()
+int main(int argc, char **argv)
 {
-	t_parsing info;
+	printf("%d   %s\n", argc, argv[1]);
+/*	t_parsing info;
 
 	info.option = (char**)malloc(sizeof(char*) * 2);
 	info.option[0] = (char*)malloc(sizeof(char) * 3);
@@ -16,7 +17,7 @@ int main()
 	info.data[1] = "lil peep can fly";
 	info.data[2] = NULL;
 
-	echo(info);
+	echo(info);*/
 
 //	free(info.data[2]);
 //	free(&info.data[1]);
