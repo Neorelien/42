@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/04 13:03:46 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 13:07:53 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell_utils.h"
@@ -43,8 +43,9 @@ int		echo(t_parsing info)
 		return (-1);
 	while (info.data[i])
 	{
+		if (i != ft_doubletab_len(info.data))
+			ft_putchar_fd(' ', fd);
 		write(fd, info.data[i], ft_strlen(info.data[i]));
-		ft_putchar_fd(' ', fd);
 		i++;
 	}
 	if (flag == 0)
