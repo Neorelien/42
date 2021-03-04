@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 13:10:53 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/04 13:19:30 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,25 @@ void	test_struct(t_parsing *parsing)
 		test_struct(parsing->next);
 }
 
+void	clean_parsing(t_parsing *parsing)
+{
+	int i;
+
+	i= 0;
+	if (parsing->objet != NULL)
+		free(parsing->objet);
+	//	printf("on va la 2\n");
+	while (parsing->data != NULL && parsing->data[i] != NULL)
+	{
+		free(parsing->data[i]);
+		i++;
+	}
+	if (parsing->data != NULL)
+	free(parsing->data);
+	if (parsing->next != NULL)
+		clean_parsing(parsing->next);
+}
+
 int		main(void)
 {
 	char		**line;
@@ -199,9 +218,10 @@ int		main(void)
 	while (write(1, "-> ", 3) && get_next_line(1, line))
 	{
 		recursive_parsing(line, parsing, i);
-		if (strncmp(parsing->objet, "echo", 5) == 0)
+		if (ft_strncmp(parsing->objet, "echo", 5) == 0)
 			echo(*parsing);
 		//test_struct(parsing);
+		clean_parsing(parsing);
 		parsing = new_list(NULL);
 		i = 0;
 		free(*line);
