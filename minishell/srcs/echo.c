@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/04 12:52:28 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 13:01:45 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell_utils.h"
@@ -34,7 +34,8 @@ int		echo(t_parsing info)
 	int		i;
 	int		flag;
 	int		fd;
-
+	
+	flag = 0;
 	i = 0;
 	if (ft_strncmp(info.data[i], "-n", 3) == 0 && ++i)
 		flag = 1;
