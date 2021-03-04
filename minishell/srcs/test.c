@@ -2,7 +2,11 @@
 #include "libft/libft.h"
 int main(int argc, char **argv)
 {
-	printf("%d   %s\n", argc, argv[1]);
+	int fd;
+fd = open("test", O_RDWR | O_CREAT, 644 | O_DIRECTORY);
+write(fd, "mdr", 3);
+close(fd);
+
 /*	t_parsing info;
 
 	info.option = (char**)malloc(sizeof(char*) * 2);
