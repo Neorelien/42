@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 18:56:55 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 18:58:52 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int		is_separator(char *str);
 int		write_with_separator(t_parsing info);
 int		ft_display_rep(void);
 int		ft_cd(t_parsing info);
-int 	ft_pwd(t_parsing info)
+int 	ft_pwd(t_parsing info);
 
 #endif
