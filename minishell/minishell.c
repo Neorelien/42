@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/04 19:22:07 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/04 20:11:33 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,86 @@ void	get_dquote(char **line)
 	get_next_line(1, line);
 }
 
+char	*ft_str_erase_set(char *str, char quote)
+{
+	char	*res;
+	int		o;
+	int		i;
+
+	i = 0;
+	o = 0;
+//	printf("srtr = %s\n", str);
+	while (str[i])
+	{
+		if (str[i] == quote)
+			i++;
+		else
+		{
+			i++;
+			o++;
+		}
+	}
+	//printf("o = %d\n", o);
+	res = malloc(sizeof(char) * (o + 1));
+	i = 0;
+	o = 0;
+	while (str[i])
+	{
+		if (str[i] == quote)
+			i++;
+		else
+			res[o++] = str[i++];
+	}
+//	printf("srtr = %s\n", str);
+	res[o] = 0;
+	return (res);
+}
+
 int		whithout_quote(int i, char *line, char **dest)
 {
 	char	*res;
 	char	*tmp;
 	char	to_join[2];
+	char	quote;
 
 	res = malloc(sizeof(char) * 1);
 	res[0] = 0;
 	to_join[1] = 0;
+	quote = -1;
 	while (line[i] != ' ' && line[i])
 	{
 		tmp = res;
 		to_join[0] = line[i];
 		res = ft_strjoin_gnl(res, to_join);
 		free(tmp);
+		if ((line[i] == 39 || line[i] == 34 ) && quote == -1)
+			quote = line[i];
+		else if (line[i] == quote)
+		{
+			tmp = res;
+		//	printf("res ava= %s\n", res);
+			res = ft_str_erase_set(res, quote);
+		//	printf("res apr= %s\n", res);
+			free(tmp);
+			quote = -1;
+		}
 		i++;
 	}
 	*dest = res;
+	if (quote == 39)
+	{
+		tmp = *dest;
+		*dest = ft_str_erase_set(res, 39);
+		free(tmp);
+		return (OPEN_SQUOTE);
+	}
+	if (quote == 34)
+	{
+		tmp = *dest;
+		*dest = ft_str_erase_set(res, 34);
+		free(tmp);
+		return (OPEN_DQUOTE);
+	}
 	return (i);
 }
 
@@ -228,11 +290,25 @@ int		clean_parsing(t_parsing *parsing)
 		i++;
 	}
 	if (parsing->data != NULL)
-	free(parsing->data);
+		free(parsing->data);
 	if (parsing->next != NULL)
 		ex = clean_parsing(parsing->next);
 	free(parsing);
 	return (ex);
+}
+
+void	get_open_quote(int *i, char **line, t_parsing *parsing)
+{
+	char *tmp;
+	get_dquote(line);
+	tmp = *line;
+	if (*i == OPEN_SQUOTE)
+		*line = ft_strjoin("'\n", *line);
+	else
+		*line = ft_strjoin("\"\n", *line);
+	*i = 0;
+	free(tmp);
+	*i = recursive_parsing(line, parsing, *i);
 }
 
 int		main(void)
@@ -240,35 +316,20 @@ int		main(void)
 	char		**line;
 	t_parsing	*parsing;
 	int			i;
-	char		*tmp;
 
 	parsing = new_list(NULL);
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
-	while (write(1, "-> ", 3) && ft_display_rep() && get_next_line(1, line))
-	{	
+	while (write(1, "-> ", 3) && get_next_line(1, line))
+	{
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
-		{
-			get_dquote(line);
-			tmp = *line;
-			if (i == OPEN_SQUOTE)
-				*line = ft_strjoin("'\n", *line);
-			else
-				*line = ft_strjoin("\"\n", *line);
-			i = 0;
-			free(tmp);
-			i = recursive_parsing(line, parsing, i);
-		}
+			get_open_quote(&i, line, parsing);
 		if (ft_strncmp(parsing->objet, "echo", 5) == 0)
 			echo(*parsing);
-		if (ft_strncmp(parsing->objet, "cd", 3) == 0)
-			ft_cd(*parsing);
-		if (ft_strncmp(parsing->objet, "pwd", 4) == 0)
-			ft_pwd(*parsing);
 		if (clean_parsing(parsing))
 			exit(1);
-	//	system("leaks minishell\n");
+		//	system("leaks minishell\n");
 		parsing = new_list(NULL);
 		i = 0;
 		free(*line);
