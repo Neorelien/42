@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 14:12:45 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/05 16:06:34 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_parsing
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
 
+int		ft_error(char *str, char *strbis);
 void	recopy_data(char **data, char **temp);
 int		ft_export(t_parsing parsing, char **env);
 char	*ft_str_erase_set(char *str, char quote);

@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/05 14:54:10 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/05 16:08:50 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,7 @@
 static int echo_second(t_parsing info, int fd)
 {
 	if ((fd = write_with_separator(info)) <= 0)
-	{
-		ft_putstr_fd("zsh: no such file or directory: ", 1);
-		ft_putstr_fd(info.next->objet, 1);
-		ft_putchar_fd('\n', 1);
-		return (-1);
-	}
+		return (ft_error("zsh: no such file or directory: ", info.next->objet));
 	return (fd);
 }
 int		echo(t_parsing info)
