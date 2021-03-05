@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 13:18:52 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 13:46:39 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,6 @@ void	recopy_data(char **data, char **temp)
 	}
 }
 
-
 int		get_data(int *i, t_parsing *parsing, char **line)
 {
 	char	**temp;
@@ -319,8 +318,8 @@ void	fonction_router(t_parsing parsing, char **env)
 		ft_cd(parsing, env);
 	else if (ft_strncmp(parsing.objet, "pwd", 3) == 0)
 		ft_pwd(parsing);
-//	else if (ft_strncmp(parsing.objet, "export", 6) == 0)
-//		ft_export(parsing, env);
+	else if (ft_strncmp(parsing.objet, "export", 6) == 0)
+		ft_export(parsing, env);
 }
 
 int		main(int argc,char **argv, char **env)
