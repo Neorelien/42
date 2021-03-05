@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 12:16:37 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 13:16:40 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,23 @@ int		egal_in(char *str)
 		return (i);
 }
 
-void	ft_export(t_paring parsing, char **env)
+int	ft_export(t_parsing parsing, char **env)
 {
 	char	*new_var;
 	char	*data;
 	int		i;
-	
-	if (parsing.data != NULL)
-		if (egal_in(parsing.data) < 0)
+	int		o;
 
+	i = 0;
+	o = 0;
+	write_with_separator(parsing);	
+	if (parsing.data != NULL)
+		if ((i = egal_in(parsing.data)) < 0)
+			return (0);
 //	else
-//		ft_env(env);
+//	{
+//		ft_env(parsing, env);
+//		return (1);
+//	}
 	
 }
