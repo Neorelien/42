@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/05 14:10:20 by cmoyal           ###   ########.fr       */
+=======
+/*   Updated: 2021/03/05 14:10:36 by awery            ###   ########.fr       */
+>>>>>>> ed843bb0c8f58037ccea55d499db2fb4f1bffdbe
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +247,13 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 	{
 		//	printf("2 on va ici et objet = %s\n", parsing->objet);
 		get_data(&i, parsing, line);
-		if (line[0][i])
+		if (is_separator(parsing->objet))
+		{
+			parsing->separator[0] = parsing->objet[0];
+			parsing->separator[1] = parsing->objet[1];
+			recursive_parsing(line, new_list(parsing), i);
+		}
+		else if (line[0][i])
 			i = recursive_parsing(line, parsing, i);
 		else
 			return (i);
