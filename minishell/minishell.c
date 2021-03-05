@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/05 13:46:39 by awery            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/05 13:48:48 by cmoyal           ###   ########.fr       */
+>>>>>>> 7214fc7c067d38942aa3a848e62c0e0a6ea4cd7b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,7 +337,7 @@ int		main(int argc,char **argv, char **env)
 	parsing = new_list(NULL);
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
-	while (ft_display_rep() && write(1, "-> ", 3) && get_next_line(1, line))
+	while (ft_display_rep(env) && write(1, "-> ", 3) && get_next_line(1, line))
 	{
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)

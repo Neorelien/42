@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/05 13:15:11 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/05 13:30:57 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char *ft_home_dir(char **env)
 	return (NULL);
 }
 
-int	ft_display_rep(void)
+int	ft_display_rep(char **env)
 {
 	char	*path;
 	int		size;
@@ -42,6 +42,8 @@ int	ft_display_rep(void)
 	path = getcwd(path, 0);
 	temp = path;
 	size = (int)ft_strlen(path);
+	if (ft_strncmp(path, ft_home_dir(env), 4096) == 0)
+		path = "/~";
 	while (size >= 0 && path[size] != '/')
 		size--;
 	path += size + 1;
@@ -63,7 +65,7 @@ int ft_cd(t_parsing info, char **env)
 	else if (info.data[0][0] == '~')
 	{
 		chdir(ft_home_dir(env));
-		chdir(info.data[0] + 1);
+		chdir(info.data[0] + 2);
 	}
 	else
 		chdir(info.data[0]);
