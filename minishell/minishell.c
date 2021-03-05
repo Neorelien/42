@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 14:31:13 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 14:52:21 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_str_erase_set(char *str, char quote)
 
 	i = 0;
 	o = 0;
-	//	printf("srtr = %s\n", str);
+//	printf("srtr = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == quote)
@@ -51,7 +51,7 @@ char	*ft_str_erase_set(char *str, char quote)
 		else
 			res[o++] = str[i++];
 	}
-	//	printf("srtr = %s\n", str);
+//	printf("srtr = %s\n", str);
 	res[o] = 0;
 	return (res);
 }
@@ -78,9 +78,9 @@ int		whithout_quote(int i, char *line, char **dest)
 		else if (line[i] == quote)
 		{
 			tmp = res;
-			//	printf("res ava= %s\n", res);
+		//	printf("res ava= %s\n", res);
 			res = ft_str_erase_set(res, quote);
-			//	printf("res apr= %s\n", res);
+		//	printf("res apr= %s\n", res);
 			free(tmp);
 			quote = -1;
 		}
@@ -187,14 +187,6 @@ void	recopy_data(char **data, char **temp)
 	}
 }
 
-int		get_separator(t_parsing *parsing, int i, int index)
-{
-	parsing->separator[0] = parsing->data[index][0];
-	parsing->separator[1] = parsing->data[index][1];
-	parsing->data[0] = NULL;
-	return (i * -1);
-}
-
 int		get_data(int *i, t_parsing *parsing, char **line)
 {
 	char	**temp;
@@ -207,7 +199,12 @@ int		get_data(int *i, t_parsing *parsing, char **line)
 		parsing->data[1] = NULL;
 		*i = get_objet(line, *i, &parsing->data[0]);
 		if (is_separator(parsing->data[0]))
-			return (get_separator(parsing, *i, 0));
+		{
+			parsing->separator[0] = parsing->data[0][0];
+			parsing->separator[1] = parsing->data[0][1];
+			parsing->data[0] = NULL;
+			return (*i * -1);
+		}
 		return (*i);
 		//	printf("1 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
 	}
@@ -223,7 +220,12 @@ int		get_data(int *i, t_parsing *parsing, char **line)
 		free(temp);
 		*i = get_objet(line, *i, &parsing->data[o]);
 		if (is_separator(parsing->data[o]))
-			return (get_separator(parsing, *i, o));
+		{
+			parsing->separator[0] = parsing->data[o][0];
+			parsing->separator[1] = parsing->data[o][1];
+			parsing->data[o] = NULL;
+			return (*i * -1);
+		}
 		parsing->data[o + 1] = NULL;
 		return (*i);
 	}
