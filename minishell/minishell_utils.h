@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 11:23:19 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 12:16:43 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_parsing
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
 
+char	*ft_str_erase_set(char *str, char quote);
 int		echo(t_parsing info);
 size_t	ft_doubletab_len(char **doubletab);
 int		is_separator(char *str);

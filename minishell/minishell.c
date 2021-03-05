@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 11:23:13 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 11:56:30 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,7 +311,7 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 	*i = recursive_parsing(line, parsing, *i);
 }
 
-void	fonction_router(t_parsing parsing, char ** env)
+void	fonction_router(t_parsing parsing, char **env)
 {
 	if (ft_strncmp(parsing.objet, "echo", 4) == 0)
 		echo(parsing);	
@@ -319,6 +319,8 @@ void	fonction_router(t_parsing parsing, char ** env)
 		ft_cd(parsing, env);
 	else if (ft_strncmp(parsing.objet, "pwd", 3) == 0)
 		ft_pwd(parsing);
+	else if (ft_strncmp(parsing.objet, "export", 6) == 0)
+		ft_export(parsing, env);
 }
 
 int		main(int argc,char **argv, char **env)
