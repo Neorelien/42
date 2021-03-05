@@ -37,9 +37,9 @@ int	write_with_separator(t_parsing info)
 	else if (sep == 2)
 		return (1);
 	else if (sep == 3)
-		return (open(info.next->objet, O_RDWR | O_CREAT, 644 | O_DIRECTORY));
+		return (open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY));
 	else if (sep == 4)
 		return (1);
 	else
-		return (open(info.next->objet, O_RDWR | O_CREAT, 644 | O_DIRECTORY));
+		return (open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY));
 }
