@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/05 10:25:00 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 11:23:15 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_display_rep(void)
 	char	*temp;
 
 	path = NULL;
-	path = getcwd(path, 0); //malloc need free
+	path = getcwd(path, 0);
 	temp = path;
 	size = (int)ft_strlen(path);
 	while (size >= 0 && path[size] != '/')
