@@ -6,12 +6,23 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/04 18:32:03 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/05 14:54:10 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell_utils.h"
 
+static int echo_second(t_parsing info, int fd)
+{
+	if ((fd = write_with_separator(info)) <= 0)
+	{
+		ft_putstr_fd("zsh: no such file or directory: ", 1);
+		ft_putstr_fd(info.next->objet, 1);
+		ft_putchar_fd('\n', 1);
+		return (-1);
+	}
+	return (fd);
+}
 int		echo(t_parsing info)
 {
 	int		i;
@@ -25,7 +36,7 @@ int		echo(t_parsing info)
 	{
 		if (ft_strncmp(info.data[i], "-n", 3) == 0 && ++i)
 			flag = 1;
-		if ((fd = write_with_separator(info)) <= 0)
+		if ((fd = echo_second(info, fd)) <= 0)
 			return (-1);
 		while (info.data[i])
 		{
