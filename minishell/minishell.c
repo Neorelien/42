@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 17:00:55 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 19:41:47 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_str_erase_set(char *str, char quote)
 	return (res);
 }
 
-int		whithout_quote(int i, char *line, char **dest)
+int		get_objet(char **line, int i, char **dest)
 {
 	char	*res;
 	char	*tmp;
@@ -67,15 +67,15 @@ int		whithout_quote(int i, char *line, char **dest)
 	res[0] = 0;
 	to_join[1] = 0;
 	quote = -1;
-	while (line[i] != ' ' && line[i])
+	while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != -1) ) && line[0][i])
 	{
 		tmp = res;
-		to_join[0] = line[i];
+		to_join[0] = line[0][i];
 		res = ft_strjoin_gnl(res, to_join);
 		free(tmp);
-		if ((line[i] == 39 || line[i] == 34 ) && quote == -1)
-			quote = line[i];
-		else if (line[i] == quote)
+		if ((line[0][i] == 39 || line[0][i] == 34 ) && quote == -1)
+			quote = line[0][i];
+		else if (line[0][i] == quote)
 		{
 			tmp = res;
 		//	printf("res ava= %s\n", res);
@@ -103,7 +103,7 @@ int		whithout_quote(int i, char *line, char **dest)
 	}
 	return (i);
 }
-
+/*
 int		get_next_string(int i, char *line, char **dest, char quote)
 {
 	char	*res;
@@ -148,17 +148,17 @@ int		get_objet(char **line, int i, char **dest)
 		quote[0] = 1;
 	if ((quote[1] = 0) == 0 && line[0][i] == 34)
 		quote[1] = 1;
-	if (quote[0] == 1 || quote[1] == 1)
+if (quote[0] == 1 || quote[1] == 1)
 		i++;
 	if (quote[0])
-		return (get_next_string(i, *line, dest, 39));
+		return (get_next_string(i, *line, dest, ' '));
 	else if (quote[1])
-		return (get_next_string(i, *line, dest, 34));
+		return (get_next_string(i, *line, dest, ' '));
 	else
 		return (get_next_string(i, *line, dest, ' '));
 	return (0);
 }
-
+*/
 t_parsing *new_list(t_parsing *previous_lst)
 {
 	t_parsing	*parsing;
