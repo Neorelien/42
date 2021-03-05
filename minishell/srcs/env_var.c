@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 13:47:38 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 14:08:58 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,21 @@ void	add_env(int i, t_parsing parsing, char **env)
 	tmp = env;
 	env = malloc(sizeof(char*) * (len + 2));
 	recopy_data(env, tmp);
+	free(tmp);
 	env[len] = ft_strdup(parsing.data[i]);
 	env[len + 1] = NULL;
+}
+
+char	**mall_env(char **env)
+{
+	char	**res;
+	int		len;
+
+	len = ft_doubletab_len(env);
+	res = malloc(sizeof(char*) * (len + 1));
+	recopy_data(res, env);
+	res[len] = NULL;
+	return (res);
 }
 
 int		ft_export(t_parsing parsing, char **env)
@@ -43,7 +56,8 @@ int		ft_export(t_parsing parsing, char **env)
 	int		i;
 
 	i = 0;
-	write_with_separator(parsing);	
+	write_with_separator(parsing);
+	env = mall_env(env);	
 	if (parsing.data != NULL)
 	{
 		while (parsing.data[i] != NULL)
@@ -53,10 +67,10 @@ int		ft_export(t_parsing parsing, char **env)
 			i++;
 		}
 	}
-//	else
-//	{
-//		ft_env(parsing, env);
-//		return (1);
-//	}
+/*	else
+	{
+		display_env(env);
+		return (1);
+	}*/
 	return (1);
 }
