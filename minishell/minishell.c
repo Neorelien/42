@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/05 16:11:54 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/05 17:00:55 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ int		get_data(int *i, t_parsing *parsing, char **line)
 			parsing->separator[0] = parsing->data[0][0];
 			parsing->separator[1] = parsing->data[0][1];
 			parsing->data[0] = NULL;
-			return (*i * -1);
+			return (*i);
 		}
 		return (*i);
 		//	printf("1 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
@@ -224,7 +224,7 @@ int		get_data(int *i, t_parsing *parsing, char **line)
 			parsing->separator[0] = parsing->data[o][0];
 			parsing->separator[1] = parsing->data[o][1];
 			parsing->data[o] = NULL;
-			return (*i * -1);
+			return (*i);
 		}
 		parsing->data[o + 1] = NULL;
 		return (*i);
@@ -255,14 +255,23 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 	}
 	else
 	{
-		//	printf("2 on va ici et objet = %s\n", parsing->objet);
+	//	printf(" objet = %s\n", parsing->objet);
 		i = get_data(&i, parsing, line);
-		if 	(i < 0)
-			recursive_parsing(line, new_list(parsing), i * -1);
+		if 	(parsing->separator[0] != 0)
+		{
+		//	printf("onvalaaaaa, line = %s,  i = %d\n", *line, i);
+			recursive_parsing(line, new_list(parsing), i);
+		}
 		else if (line[0][i])
+		{
+		//	printf("onvaiciiiiiiii\n");
 			i = recursive_parsing(line, parsing, i);
+		}
 		else
+		{
+	//	printf("on va ici2\n");
 			return (i);
+		}
 		return (i);
 	}
 }
@@ -315,6 +324,7 @@ int		clean_parsing(t_parsing *parsing)
 void	get_open_quote(int *i, char **line, t_parsing *parsing)
 {
 	char *tmp;
+
 	get_dquote(line);
 	tmp = *line;
 	if (*i == OPEN_SQUOTE)
