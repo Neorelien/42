@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/05 13:05:41 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/05 13:15:11 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ int ft_cd(t_parsing info, char **env)
 		return (-1);
 	if ((write_with_separator(info)) <= 0)
 		return (-1);
-	if (is_separator(info.separator))
-		write_with_separator(info);
 	if (info.data == NULL)
 		chdir(ft_home_dir(env));
+	else if (info.data[0][0] == '~')
+	{
+		chdir(ft_home_dir(env));
+		chdir(info.data[0] + 1);
+	}
 	else
 		chdir(info.data[0]);
 	return (1);
