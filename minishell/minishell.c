@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 14:55:36 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 15:17:16 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void	recopy_data(char **data, char **temp)
 		data[i] = temp[i];
 		i++;
 	}
+	data[i] = NULL;
 }
 
 int		get_data(int *i, t_parsing *parsing, char **line)
