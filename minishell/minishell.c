@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 13:07:37 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 13:41:44 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,6 +350,13 @@ void	fonction_router(t_parsing *parsing, char ***env)
 		ft_env(parsing, env);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		ft_unset(parsing, env);
+	else
+		ft_other_bin(parsing);
+}
+
+void	init_utils(t_utils *router)
+{
+
 }
 
 int		main(int argc,char **argv, char **env)
@@ -358,7 +365,9 @@ int		main(int argc,char **argv, char **env)
 	t_parsing	*parsing;
 	int			i;
 	char		***p_env;
+	static t_utils router;
 
+	init_utils(&router);
 	p_env = malloc(sizeof(char**));
 	*p_env = env;
 	argc = 0;
@@ -366,12 +375,12 @@ int		main(int argc,char **argv, char **env)
 	parsing = new_list(NULL);
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
-	while (ft_display_rep(env) && write(1, "-> ", 3) && get_next_line(1, line))
+	while (ft_display_rep(env, router) && write(1, "-> ", 3) && get_next_line(1, line))
 	{
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
-		fonction_router(parsing, p_env);
+		fonction_router(parsing, p_env, router);
 		if (clean_parsing(parsing))
 			exit(1);
 		//	system("leaks minishell\n");
