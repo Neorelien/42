@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 14:54:29 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 15:18:15 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,21 @@ int		env_in_env(char ***env, char *str)
 	int	i;
 	int	len;
 
-	len = ft_strlen(str);
+	len = 0;
+	i = 0;
+	while (str[len] != '=' && str[i])
+		len++;
 	i = 0;
 	while (env[0][i] != NULL)
 	{
 		if (ft_strncmp(env[0][i], str, len - 1) == 0 && env[0][i][len] == '=')
 		{
-			free(env[0][i]);
 			env[0][i] = ft_strdup(str);
 			return (1);
 		}
+		i++;
 	}
+	env[0][i] = NULL;
 	return (0);
 }
 
