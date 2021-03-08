@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 15:31:01 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 15:40:18 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,6 @@ void	fonction_router(t_parsing *parsing, char **env, t_utils *router)
 void	init_utils(t_utils *utils)
 {
 	utils->pwd = NULL;
-	utils->env_alrdy_mall = 0;
 }
 
 int		main(int argc, char **argv, char **env)
