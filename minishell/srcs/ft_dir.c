@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 13:41:41 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 13:51:37 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	ft_display_rep(char **env, t_utils utils)
 	char	*temp;
 
 	path = NULL;
-	path = getcwd(path, 0);
+	if ((path = getcwd(path, 0)) == NULL)
+		path = utils.pwd;
 	temp = path;
 	size = (int)ft_strlen(path);
 	if (ft_strncmp(path, ft_home_dir(env), 4096) == 0)
@@ -54,7 +55,7 @@ int	ft_display_rep(char **env, t_utils utils)
 	return (1);
 }
 
-int ft_cd(t_parsing info, char **env, t_utils utils)
+int ft_cd(t_parsing info, char **env, t_utils *utils)
 {
 	if (ft_doubletab_len(info.data) > 1)
 		return (ft_error("cd: string not in pwd: ", info.data[0]));
@@ -83,16 +84,13 @@ int ft_pwd(t_parsing info,char **env, t_utils utils)
 	char *path;
 	if (env == NULL)
 		;
-
 	path = NULL;
 	if (ft_doubletab_len(info.data) > 0)
 		ft_error("pwd: too many arguments", NULL);
 	fd = write_with_separator(info);
-/*	if (getcwd(path, 0) == NULL)
-	{
-		ft_get_pwd(path, 0, 0);
-	}*/	
-	ft_putstr_fd(getcwd(path, 0), fd);
+	if (getcwd(path, 0) == NULL)
+		path = utils.pwd;
+	ft_putstr_fd(path, fd);
 	ft_putchar_fd('\n', fd);
 	if (path != NULL)
 		free(path);
