@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 13:51:37 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 14:00:27 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,32 @@ int	ft_display_rep(char **env, t_utils utils)
 	return (1);
 }
 
-int ft_cd(t_parsing info, char **env, t_utils *utils)
+static void    add_env_pwd(int i, char *str, char ***env)
 {
+    int     len;
+    char    **tmp;
+
+    len = ft_doubletab_len(*env);
+    tmp = *env;
+    *env = malloc(sizeof(char*) * (len + 2));
+    recopy_data(*env, tmp);
+    free(tmp);
+    env[0][len] = ft_strdup(str[i]);
+    env[0][len + 1] = NULL;
+}
+
+int ft_cd(t_parsing info, char ***env, t_utils *utils)
+{
+	if (utils.pwd == NULL)
+		;
 	if (ft_doubletab_len(info.data) > 1)
 		return (ft_error("cd: string not in pwd: ", info.data[0]));
 	write_with_separator(info);
 	if (info.data == NULL)
-		chdir(ft_home_dir(env));
+		chdir(ft_home_dir(*env));
 	else if (info.data[0][0] == '~')
 	{
-		chdir(ft_home_dir(env));
+		chdir(ft_home_dir(*env));
 		if (chdir(info.data[0] + 2) < 0)
 			ft_error(strerror(errno), info.data[0]);
 	}
