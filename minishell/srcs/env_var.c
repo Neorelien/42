@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 10:40:15 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 14:54:29 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@ int		egal_in(char *str)
 		return (i);
 }
 
+int		env_in_env(char ***env, char *str)
+{
+	int	i;
+	int	len;
+
+	len = ft_strlen(str);
+	i = 0;
+	while (env[0][i] != NULL)
+	{
+		if (ft_strncmp(env[0][i], str, len - 1) == 0 && env[0][i][len] == '=')
+		{
+			free(env[0][i]);
+			env[0][i] = ft_strdup(str);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 void	add_env(int i, t_parsing *parsing, char ***env)
 {
 	int		len;
@@ -35,8 +54,13 @@ void	add_env(int i, t_parsing *parsing, char ***env)
 	*env = malloc(sizeof(char*) * (len + 2));
 	recopy_data(*env, tmp);
 	free(tmp);
-	env[0][len] = ft_strdup(parsing->data[i]);
-	env[0][len + 1] = NULL;
+	if (env_in_env(env, parsing->data[i]))
+		;
+	else
+	{
+		env[0][len] = ft_strdup(parsing->data[i]);
+		env[0][len + 1] = NULL;
+	}
 }
 
 char	**mall_env(char **env)
@@ -107,7 +131,10 @@ void	recopy_less_data(char **data, char **temp, char *str)
 	while (temp[i] != NULL)
 	{
 		if (ft_strncmp(temp[i], str, len - 1) == 0 && temp[i][len] == '=')
+		{
+			free(temp[i]);
 			i++;
+		}
 		else
 		{
 			data[o] = temp[i];
@@ -146,14 +173,14 @@ int		in_db_tab(char **tab, char *str)
 	return (0);
 }
 
-int		ft_unset(t_parsing *parsing, char ***env)
+int		ft_unset(t_parsing *parsing, char ***env, t_utils *router)
 {
 	int	i;
 	char ** tmp;
 
 	i = 0;
 
-	if (env_alrdy_mall == 0 && (env_alrdy_mall = 1))
+	if (router->env_alrdy_mall == 0 && (router->env_alrdy_mall = 1))
 	{
 		tmp = *env;
 		*env = mall_env(*env);
@@ -183,7 +210,7 @@ int		ft_env(t_parsing *parsing, char ***env)
 	return (1);
 }
 
-int		ft_export(t_parsing *parsing, char ***env)
+int		ft_export(t_parsing *parsing, char ***env, t_utils *router)
 {
 	int			i;
 	int			fd;
@@ -191,7 +218,7 @@ int		ft_export(t_parsing *parsing, char ***env)
 
 	i = 0;
 	fd = write_with_separator(*parsing);
-	if (env_alrdy_mall == 0 && (env_alrdy_mall = 1))
+	if (router->env_alrdy_mall == 0 && (router->env_alrdy_mall = 1))
 	{
 		tmp = *env;
 		*env = mall_env(*env);
