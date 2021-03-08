@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 13:07:40 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 13:19:13 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "srcs/get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <limits.h>
+#include <errno.h>
 
 typedef struct	s_parsing
 {

@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 13:18:07 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 13:41:41 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char *ft_home_dir(char **env)
 	return (NULL);
 }
 
-int	ft_display_rep(char **env)
+int	ft_display_rep(char **env, t_utils utils)
 {
 	char	*path;
 	int		size;
@@ -54,7 +54,7 @@ int	ft_display_rep(char **env)
 	return (1);
 }
 
-int ft_cd(t_parsing info, char **env)
+int ft_cd(t_parsing info, char **env, t_utils utils)
 {
 	if (ft_doubletab_len(info.data) > 1)
 		return (ft_error("cd: string not in pwd: ", info.data[0]));
@@ -77,10 +77,12 @@ int ft_cd(t_parsing info, char **env)
 
 /*static void (ft_get_pwd*/
 
-int ft_pwd(t_parsing info, **env)
+int ft_pwd(t_parsing info,char **env, t_utils utils)
 {
 	int fd;
 	char *path;
+	if (env == NULL)
+		;
 
 	path = NULL;
 	if (ft_doubletab_len(info.data) > 0)
@@ -89,8 +91,8 @@ int ft_pwd(t_parsing info, **env)
 /*	if (getcwd(path, 0) == NULL)
 	{
 		ft_get_pwd(path, 0, 0);
-	}*/
-	ft_putstr_fd(path, fd);
+	}*/	
+	ft_putstr_fd(getcwd(path, 0), fd);
 	ft_putchar_fd('\n', fd);
 	if (path != NULL)
 		free(path);
