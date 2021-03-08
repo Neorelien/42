@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 15:30:03 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 15:31:46 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	add_env_pwd(char *str, char ***env)
 	}
 }
 
-int ft_cd(t_parsing info, char ***env, t_utils *utils)
+int ft_cd(t_parsing info, char **env, t_utils *utils)
 {
 	char *path;
 
