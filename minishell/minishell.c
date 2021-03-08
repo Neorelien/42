@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 13:47:48 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 13:51:11 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,22 +336,22 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 	*i = recursive_parsing(line, parsing, *i);
 }
 
-void	fonction_router(t_parsing *parsing, char ***env)
+void	fonction_router(t_parsing *parsing, char ***env, t_utils *router)
 {
 	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		echo(*parsing);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
-		ft_cd(*parsing, *env);
+		ft_cd(*parsing, *env, router);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
-		ft_pwd(*parsing, *env);
+		ft_pwd(*parsing, *env, *router);
 	else if (ft_strncmp(parsing->objet, "export", 6) == 0)
 		ft_export(parsing, env);
 	else if (ft_strncmp(parsing->objet, "env", 3) == 0)
 		ft_env(parsing, env);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		ft_unset(parsing, env);
-	else
-		ft_other_bin(parsing);
+//	else
+//		ft_other_bin(parsing);
 }
 
 void	init_utils(t_utils *router)
@@ -381,7 +381,7 @@ int		main(int argc,char **argv, char **env)
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
-		fonction_router(parsing, p_env, router);
+		fonction_router(parsing, p_env, &router);
 		if (clean_parsing(parsing))
 			exit(1);
 		//	system("leaks minishell\n");

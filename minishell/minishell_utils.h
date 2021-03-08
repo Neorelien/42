@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 13:46:05 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 13:51:07 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct	s_utils
 {
 	char	*pwd;
 	int		env_alrdy_mall;
-} t_utils
+}				t_utils;
 
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
@@ -52,7 +52,7 @@ size_t	ft_doubletab_len(char **doubletab);
 int		is_separator(char *str);
 int		write_with_separator(t_parsing info);
 int		ft_display_rep(char **env, t_utils utils);
-int		ft_cd(t_parsing info, char **env, t_utils utils);
+int		ft_cd(t_parsing info, char **env, t_utils *utils);
 int 	ft_pwd(t_parsing info, char **env, t_utils utils);
 
 #endif
