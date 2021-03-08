@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 15:17:16 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 15:31:01 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,62 +103,7 @@ int		get_objet(char **line, int i, char **dest)
 	}
 	return (i);
 }
-/*
-int		get_next_string(int i, char *line, char **dest, char quote)
-{
-	char	*res;
-	char	*tmp;
-	char	to_join[2];
 
-	res = malloc(sizeof(char) * 1);
-	res[0] = 0;
-	to_join[1] = 0;
-	if (quote == ' ')
-	{
-		free(res);
-		return (whithout_quote(i, line, dest));
-	}
-	else
-		while (line[i] != quote)
-		{
-			if (!line[i])
-			{
-				*dest = res;
-				if (quote == 39)
-					return (OPEN_SQUOTE);
-				else
-					return (OPEN_DQUOTE);
-			}
-			tmp = res;
-			to_join[0] = line[i];
-			res = ft_strjoin_gnl(res, to_join);
-			free(tmp);
-			i++;
-		}
-	*dest = res;
-	i++;//le prochain caractere qui sera lu est celui juste apres le quote
-	return (i);
-}
-
-int		get_objet(char **line, int i, char **dest)
-{
-	int		quote[2];
-
-	if ((quote[0] = 0) == 0 && line[0][i] == 39)
-		quote[0] = 1;
-	if ((quote[1] = 0) == 0 && line[0][i] == 34)
-		quote[1] = 1;
-if (quote[0] == 1 || quote[1] == 1)
-		i++;
-	if (quote[0])
-		return (get_next_string(i, *line, dest, ' '));
-	else if (quote[1])
-		return (get_next_string(i, *line, dest, ' '));
-	else
-		return (get_next_string(i, *line, dest, ' '));
-	return (0);
-}
-*/
 t_parsing *new_list(t_parsing *previous_lst)
 {
 	t_parsing	*parsing;
@@ -337,14 +282,14 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 	*i = recursive_parsing(line, parsing, *i);
 }
 
-void	fonction_router(t_parsing *parsing, char ***env, t_utils *router)
+void	fonction_router(t_parsing *parsing, char **env, t_utils *router)
 {
 	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		echo(*parsing);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
 		ft_cd(*parsing, env, router);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
-		ft_pwd(*parsing, *env, *router);
+		ft_pwd(*parsing, env, *router);
 	else if (ft_strncmp(parsing->objet, "export", 6) == 0)
 		ft_export(parsing, env, router);
 	else if (ft_strncmp(parsing->objet, "env", 3) == 0)
@@ -355,34 +300,34 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *router)
 //		ft_other_exc(parsing);
 }
 
-void	init_utils(t_utils *router)
+void	init_utils(t_utils *utils)
 {
-	router->pwd = NULL;
-	router->env_alrdy_mall = 0;
+	utils->pwd = NULL;
+	utils->env_alrdy_mall = 0;
 }
 
-int		main(int argc,char **argv, char **env)
+int		main(int argc, char **argv, char **env)
 {
 	char			**line;
 	t_parsing		*parsing;
 	int				i;
-	char			***p_env;
-	static t_utils router;
+	static t_utils	utils;
 
-	init_utils(&router);
-	p_env = malloc(sizeof(char**));
-	*p_env = env;
+	init_utils(&utils);
 	argc = 0;
 	argv = NULL;
+	utils.tmp = malloc(sizeof(char*) * (ft_doubletab_len(env) + 1));
+	recopy_data(utils.tmp, env);
+	env = utils.tmp;
 	parsing = new_list(NULL);
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
-	while (ft_display_rep(env, router) && write(1, "-> ", 3) && get_next_line(1, line))
+	while (ft_display_rep(env, utils) && write(1, "-> ", 3) && get_next_line(1, line))
 	{
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
-		fonction_router(parsing, p_env, &router);
+		fonction_router(parsing, env, &utils);
 		if (clean_parsing(parsing))
 			exit(1);
 		//	system("leaks minishell\n");

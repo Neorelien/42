@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 14:55:39 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 15:34:47 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,24 @@ typedef struct	s_utils
 {
 	char	*pwd;
 	int		env_alrdy_mall;
+	char	**tmp;
 }				t_utils;
 
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
 
-int		ft_unset(t_parsing *parsing, char ***env, t_utils *router);
-int		ft_env(t_parsing *parsing, char ***env);
+int		ft_unset(t_parsing *parsing, char **env, t_utils *router);
+int		ft_env(t_parsing *parsing, char **env);
 int		ft_error(char *str, char *strbis);
 void	recopy_data(char **data, char **temp);
-int		ft_export(t_parsing *parsing, char ***env, t_utils *router);
+int		ft_export(t_parsing *parsing, char **env, t_utils *router);
 char	*ft_str_erase_set(char *str, char quote);
 int		echo(t_parsing info);
 size_t	ft_doubletab_len(char **doubletab);
 int		is_separator(char *str);
 int		write_with_separator(t_parsing info);
 int		ft_display_rep(char **env, t_utils utils);
-int		ft_cd(t_parsing info, char ***env, t_utils *utils);
+int		ft_cd(t_parsing info, char **env, t_utils *utils);
 int 	ft_pwd(t_parsing info, char **env, t_utils utils);
 
 #endif
