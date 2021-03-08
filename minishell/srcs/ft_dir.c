@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 15:40:06 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 15:57:21 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_display_rep(char **env, t_utils utils)
 	char	*path;
 	int		size;
 	char	*temp;
-
+	
 	path = NULL;
 	if ((path = getcwd(path, 0)) == NULL)
 		path = utils.pwd;
