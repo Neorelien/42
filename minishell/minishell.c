@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 15:51:26 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 18:37:00 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_parsing *new_list(t_parsing *previous_lst)
 	return (parsing);
 }
 
-void	recopy_data(char **data, char **temp)
+char	**recopy_data(char **data, char **temp)
 {
 	int	i;
 
@@ -131,6 +131,7 @@ void	recopy_data(char **data, char **temp)
 		i++;
 	}
 	data[i] = NULL;
+	return (data);
 }
 
 int		get_data(int *i, t_parsing *parsing, char **line)
@@ -253,7 +254,6 @@ int		clean_parsing(t_parsing *parsing)
 			ex = 1;
 		free(parsing->objet);
 	}
-	//	printf("on va la 2\n");
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
 		free(parsing->data[i]);
@@ -282,18 +282,18 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 	*i = recursive_parsing(line, parsing, *i);
 }
 
-void	fonction_router(t_parsing *parsing, char **env, t_utils *router)
+void	fonction_router(t_parsing *parsing, char ***env, t_utils *router)
 {
 	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		echo(*parsing);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
-		ft_cd(*parsing, env, router);
+		ft_cd(*parsing, *env, router);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
-		ft_pwd(*parsing, env, *router);
+		ft_pwd(*parsing, *env, *router);
 	else if (ft_strncmp(parsing->objet, "export", 6) == 0)
 		ft_export(parsing, env);
 	else if (ft_strncmp(parsing->objet, "env", 3) == 0)
-		ft_env(parsing, env);
+		ft_env(parsing, *env);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		ft_unset(parsing, env);
 //	else
@@ -326,7 +326,7 @@ int		main(int argc, char **argv, char **env)
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
-		fonction_router(parsing, env, &utils);
+		fonction_router(parsing, &env, &utils);
 		if (clean_parsing(parsing))
 			exit(1);
 		//	system("leaks minishell\n");

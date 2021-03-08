@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 15:42:57 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 18:36:06 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,22 @@ int		env_in_env(char **env, char *str)
 	return (0);
 }
 
-void	add_env(int i, t_parsing *parsing, char **env)
+void	add_env(int i, t_parsing *parsing, char ***env)
 {
 	int		len;
 	char	**tmp;
 
-	len = ft_doubletab_len(env);
-	tmp = env;
-	env = malloc(sizeof(char*) * (len + 2));
-	recopy_data(env, tmp);
+	len = ft_doubletab_len(*env);
+	tmp = *env;
+	*env = malloc(sizeof(char*) * (len + 2));
+	*env = recopy_data(*env, tmp);
 	free(tmp);
-	if (env_in_env(env, parsing->data[i]))
+	if (env_in_env(*env, parsing->data[i]))
 		;
 	else
 	{
-		env[len] = ft_strdup(parsing->data[i]);
-		env[len + 1] = NULL;
+		env[0][len] = ft_strdup(parsing->data[i]);
+		env[0][len + 1] = NULL;
 	}
 }
 
@@ -122,7 +122,7 @@ void	display_env_sort(char **env, int fd)
 	}
 }
 
-void	recopy_less_data(char **data, char **temp, char *str)
+void	recopy_less_data(char ***data, char **temp, char *str)
 {
 	int	i;
 	int	o;
@@ -140,22 +140,22 @@ void	recopy_less_data(char **data, char **temp, char *str)
 		}
 		else
 		{
-			data[o] = temp[i];
+			data[0][o] = temp[i];
 			i++;
 			o++;
 		}
 	}
-	data[o] = NULL;
+	data[0][o] = NULL;
 }
 
-void	supp_env(char **env, char *str)
+void	supp_env(char ***env, char *str)
 {
 	int		len;
 	char	**tmp;
 
-	len = ft_doubletab_len(env);
-	tmp = env;
-	env = malloc(sizeof(char*) * (len));
+	len = ft_doubletab_len(*env);
+	tmp = *env;
+	*env = malloc(sizeof(char*) * (len));
 	recopy_less_data(env, tmp, str);
 	free(tmp);
 }
@@ -176,14 +176,14 @@ int		in_db_tab(char **tab, char *str)
 	return (0);
 }
 
-int		ft_unset(t_parsing *parsing, char **env)
+int		ft_unset(t_parsing *parsing, char ***env)
 {
 	int	i;
 
 	i = 0;
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
-		if (in_db_tab(env, parsing->data[i]))
+		if (in_db_tab(*env, parsing->data[i]))
 			supp_env(env, parsing->data[i]);
 		i++;
 	}
@@ -206,7 +206,7 @@ int		ft_env(t_parsing *parsing, char **env)
 	return (1);
 }
 
-int		ft_export(t_parsing *parsing, char **env)
+int		ft_export(t_parsing *parsing, char ***env)
 {
 	int			i;
 	int			fd;
@@ -224,7 +224,7 @@ int		ft_export(t_parsing *parsing, char **env)
 	}
 	else
 	{
-		display_env_sort(env, fd);
+		display_env_sort(*env, fd);
 		return (1);
 	}
 	return (1);
