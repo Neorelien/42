@@ -4,12 +4,13 @@
 
 int main(int argc, char **argv, char **env)
 {
-	int fd;
+	printf("%d\n", ft_strncmp("lol", "lol", 400));
+/*	int fd;
 	fd = open(argv[1], O_RDWR | O_CREAT, S_IROTH | O_DIRECTORY);
 	if (fd < 0)
 	{
 		printf("%s\n", strerror(errno));
-	}
+	}*/
 /*	char *home_path;
 	int i;
 	int j;

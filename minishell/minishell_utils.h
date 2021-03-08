@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/08 15:34:47 by awery            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/08 15:21:12 by cmoyal           ###   ########.fr       */
+>>>>>>> b1f3fa966e1809c1139fbc3e0c8147e00aa0d1c6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +59,5 @@ int		write_with_separator(t_parsing info);
 int		ft_display_rep(char **env, t_utils utils);
 int		ft_cd(t_parsing info, char **env, t_utils *utils);
 int 	ft_pwd(t_parsing info, char **env, t_utils utils);
-
+int		env_in_env(char ***env, char *str);
 #endif
