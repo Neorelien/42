@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 14:56:02 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 14:58:31 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_display_rep(char **env, t_utils utils)
 	return (1);
 }
 
-static void    add_env_pwd(int i, char *str, char ***env)
+static void    add_env_pwd(char *str, char ***env)
 {
     int     len;
     char    **tmp;
@@ -65,7 +65,7 @@ static void    add_env_pwd(int i, char *str, char ***env)
     *env = malloc(sizeof(char*) * (len + 2));
     recopy_data(*env, tmp);
     free(tmp);
-    env[0][len] = ft_strdup(str[i]);
+    env[0][len] = ft_strdup(str);
     env[0][len + 1] = NULL;
 }
 
@@ -90,12 +90,12 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 		if (chdir(info.data[0]) < 0)
 			ft_error(strerror(errno), info.data[0]);
 	}
-	getcwd(path, 0)
+	getcwd(path, 0);
 	if (utils->pwd != NULL)
 		free(utils->pwd);
 	utils->pwd = path;
 	path = ft_strjoin("PWD=", path);
-	add_env_pwd(0, path, env);
+	add_env_pwd(path, env);
 	return (1);
 }
 
