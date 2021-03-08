@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 13:41:28 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/08 13:46:05 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "srcs/get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <limits.h>
+#include <errno.h>
 
 typedef struct	s_parsing
 {
@@ -31,7 +32,11 @@ typedef struct	s_parsing
 	struct s_parsing	*next;
 }				t_parsing;
 
-int		env_alrdy_mall;
+typedef struct	s_utils
+{
+	char	*pwd;
+	int		env_alrdy_mall;
+} t_utils
 
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
@@ -46,8 +51,8 @@ int		echo(t_parsing info);
 size_t	ft_doubletab_len(char **doubletab);
 int		is_separator(char *str);
 int		write_with_separator(t_parsing info);
-int		ft_display_rep(char **env);
-int		ft_cd(t_parsing info, char **env);
-int 	ft_pwd(t_parsing info, char **env);
+int		ft_display_rep(char **env, t_utils utils);
+int		ft_cd(t_parsing info, char **env, t_utils utils);
+int 	ft_pwd(t_parsing info, char **env, t_utils utils);
 
 #endif

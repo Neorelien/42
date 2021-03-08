@@ -49,7 +49,7 @@ int	write_with_separator(t_parsing info)
 	else
 	{
 		fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
-		if (fd < 0);
+		if (fd < 0)
 			ft_error(strerror(errno), info.next->objet);
 		return (fd);
 	}
