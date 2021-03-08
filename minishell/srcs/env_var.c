@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/08 15:34:45 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/08 15:21:00 by cmoyal           ###   ########.fr       */
->>>>>>> b1f3fa966e1809c1139fbc3e0c8147e00aa0d1c6
+/*   Updated: 2021/03/08 15:42:57 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +176,9 @@ int		in_db_tab(char **tab, char *str)
 	return (0);
 }
 
-int		ft_unset(t_parsing *parsing, char **env, t_utils *router)
+int		ft_unset(t_parsing *parsing, char **env)
 {
 	int	i;
-	char ** tmp;
 
 	i = 0;
 	while (parsing->data != NULL && parsing->data[i] != NULL)
@@ -211,11 +206,10 @@ int		ft_env(t_parsing *parsing, char **env)
 	return (1);
 }
 
-int		ft_export(t_parsing *parsing, char **env, t_utils *router)
+int		ft_export(t_parsing *parsing, char **env)
 {
 	int			i;
 	int			fd;
-	char		**tmp;
 
 	i = 0;
 	fd = write_with_separator(*parsing);

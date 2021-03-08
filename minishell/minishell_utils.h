@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/08 15:36:09 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/08 15:39:15 by cmoyal           ###   ########.fr       */
->>>>>>> babb76a4c8709f4a14a0c83ec3d43d6e14ef7548
+/*   Updated: 2021/03/08 15:43:25 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +42,11 @@ typedef struct	s_utils
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
 
-int		ft_unset(t_parsing *parsing, char **env, t_utils *router);
+int		ft_unset(t_parsing *parsing, char **env);
 int		ft_env(t_parsing *parsing, char **env);
 int		ft_error(char *str, char *strbis);
 void	recopy_data(char **data, char **temp);
-int		ft_export(t_parsing *parsing, char **env, t_utils *router);
+int		ft_export(t_parsing *parsing, char **env);
 char	*ft_str_erase_set(char *str, char quote);
 int		echo(t_parsing info);
 size_t	ft_doubletab_len(char **doubletab);
