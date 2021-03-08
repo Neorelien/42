@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 10:43:46 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 13:18:07 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,39 @@ int ft_cd(t_parsing info, char **env)
 {
 	if (ft_doubletab_len(info.data) > 1)
 		return (ft_error("cd: string not in pwd: ", info.data[0]));
-	if ((write_with_separator(info)) <= 0)
-		return (ft_error("zsh: is a directory: ", info.next->objet));	
+	write_with_separator(info);
 	if (info.data == NULL)
 		chdir(ft_home_dir(env));
 	else if (info.data[0][0] == '~')
 	{
 		chdir(ft_home_dir(env));
-		chdir(info.data[0] + 2);
+		if (chdir(info.data[0] + 2) < 0)
+			ft_error(strerror(errno), info.data[0]);
 	}
 	else
-		chdir(info.data[0]);
+	{
+		if (chdir(info.data[0]) < 0)
+			ft_error(strerror(errno), info.data[0]);
+	}
 	return (1);
 }
 
-int ft_pwd(t_parsing info)
+/*static void (ft_get_pwd*/
+
+int ft_pwd(t_parsing info, **env)
 {
 	int fd;
 	char *path;
 
 	path = NULL;
 	if (ft_doubletab_len(info.data) > 0)
-		return (-1);
-	if ((fd = write_with_separator(info)) <= 0)
-		return (-1);
-	ft_putstr_fd(getcwd(path, 0), fd);
+		ft_error("pwd: too many arguments", NULL);
+	fd = write_with_separator(info);
+/*	if (getcwd(path, 0) == NULL)
+	{
+		ft_get_pwd(path, 0, 0);
+	}*/
+	ft_putstr_fd(path, fd);
 	ft_putchar_fd('\n', fd);
 	if (path != NULL)
 		free(path);

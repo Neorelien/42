@@ -1,10 +1,16 @@
 #include "../minishell_utils.h"
 #include "libft/libft.h"
-char **g_envv;
+#include "errno.h"
 
 int main(int argc, char **argv, char **env)
 {
-	char *home_path;
+	int fd;
+	fd = open(argv[1], O_RDWR | O_CREAT, S_IROTH | O_DIRECTORY);
+	if (fd < 0)
+	{
+		printf("%s\n", strerror(errno));
+	}
+/*	char *home_path;
 	int i;
 	int j;
 
@@ -16,7 +22,7 @@ int main(int argc, char **argv, char **env)
 		i++;
 	}
 	return (-1);
-
+*/
 /*	t_parsing info;
 
 	info.option = (char**)malloc(sizeof(char*) * 2);
