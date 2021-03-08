@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 14:00:27 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/08 14:56:02 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ static void    add_env_pwd(int i, char *str, char ***env)
 
 int ft_cd(t_parsing info, char ***env, t_utils *utils)
 {
-	if (utils.pwd == NULL)
-		;
+	char *path;
+
+	path = NULL;
+	write_with_separator(info);
 	if (ft_doubletab_len(info.data) > 1)
 		return (ft_error("cd: string not in pwd: ", info.data[0]));
-	write_with_separator(info);
 	if (info.data == NULL)
 		chdir(ft_home_dir(*env));
 	else if (info.data[0][0] == '~')
@@ -89,10 +90,14 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 		if (chdir(info.data[0]) < 0)
 			ft_error(strerror(errno), info.data[0]);
 	}
+	getcwd(path, 0)
+	if (utils->pwd != NULL)
+		free(utils->pwd);
+	utils->pwd = path;
+	path = ft_strjoin("PWD=", path);
+	add_env_pwd(0, path, env);
 	return (1);
 }
-
-/*static void (ft_get_pwd*/
 
 int ft_pwd(t_parsing info,char **env, t_utils utils)
 {
