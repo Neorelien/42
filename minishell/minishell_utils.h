@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 18:36:29 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:49:31 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	ft_doubletab_len(char **doubletab);
 int		is_separator(char *str);
 int		write_with_separator(t_parsing info);
 int		ft_display_rep(char **env, t_utils utils);
-int		ft_cd(t_parsing info, char **env, t_utils *utils);
+int		ft_cd(t_parsing info, char ***env, t_utils *utils);
 int 	ft_pwd(t_parsing info, char **env, t_utils utils);
 int		env_in_env(char **env, char *str);
 #endif
