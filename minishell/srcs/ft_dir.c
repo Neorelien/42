@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/08 18:54:10 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/09 13:01:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,12 @@ static void    add_env_pwd(char *str, char ***env)
 int ft_cd(t_parsing info, char ***env, t_utils *utils)
 {
 	char *path;
+	char *oldpath;
 
 	path = NULL;
+	oldpath = NULL;
+	path = getcwd(path, 0);
+	path = ft_strjoin("OLDPWD=", path);
 	write_with_separator(info);
 	if (ft_doubletab_len(info.data) > 1)
 		return (ft_error("cd: string not in pwd: ", info.data[0]));
@@ -101,6 +105,7 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	utils->pwd = path;
 	path = ft_strjoin("PWD=", path);
 	add_env_pwd(path, env);
+	add_env_pwd(oldpath, env);
 	return (1);
 }
 
