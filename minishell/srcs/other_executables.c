@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/09 15:47:17 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:23:41 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,18 @@ char		*get_data_len(char **data, char **str)
 	i = malloc(sizeof(int) * 2);
 	i[0] = 0;
 	i[1] = 0;
-	while (data[i[1]] != NULL)
+	while (data != NULL && data[i[1]] != NULL)
 	{
 		o = 0;
-		while (data[i[1]][i[0]] != 0)
+		while (data[i[1]][o] != 0)
+		{
 			o++;
+		}
 		i[0] = i[0] + o;
 		i[1]++;
 	}
+	if (i[1] == 0)
+		return (ft_strdup("0"));
 	*str = malloc(sizeof(char) * (i[0] + i[1] + 1));
 	cpy_double_simple(data, str);
 	res = ft_itoa(i[0]);
@@ -95,12 +99,12 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	(void)env;
 	(void)parsing;
 
-	char *c;
-	int i = 0;
+//	char *c;
+//	int i = 0;
 
 	if (pipe(utils->pipefd) == -1)
 		printf("error pipe");
-	utils->cpid = fork();
+/*	utils->cpid = fork();
 	if (utils->cpid == 0) // lecture du fils
 	{
 		close(utils->pipefd[1]);
@@ -112,10 +116,10 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		close(utils->pipefd[0]);
 	}
 	else // lecture du pere
-	{
+	{*/
 		close(utils->pipefd[0]);
 		send_in_pipe(utils->pipefd[1], parsing);
 		close(utils->pipefd[1]);
 		wait(NULL);
-	}
+//	}
 }
