@@ -97,6 +97,7 @@ int	write_with_separator(t_parsing info, char **env)
 int	ft_error(char *str, char *strbis)
 {
 	ft_putstr_fd(str, 1);
+	ft_putstr_fd(": ", 1);
 	if (strbis != NULL)
 		ft_putstr_fd(strbis, 1);
 	ft_putchar_fd('\n', 1);
