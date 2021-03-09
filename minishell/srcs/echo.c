@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/09 15:24:35 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/09 15:37:20 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		echo(t_parsing info, char ***env)
 					while (!ft_isspace(info.data[i][j]))
 						j++;
 				}
+				
 				ft_putchar_fd(info.data[i][j], fd);
 				j++;
 			}

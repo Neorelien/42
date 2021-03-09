@@ -1,5 +1,12 @@
 #include "../minishell_utils.h"
 
+int	ft_isspace_without_back(char c)
+{
+	if (c == 'n' || c == 't' || c == 'v' || c == 'f' || c == 'r')
+		return (1);
+	return (0);
+}
+
 char *find_in_env(char **env, char *name)
 {
 	unsigned int i;
