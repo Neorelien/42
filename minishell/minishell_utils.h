@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/09 13:36:43 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/09 13:39:28 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char		*ft_str_erase_set(char *str, char quote);
 int			echo(t_parsing info, char ***env);
 size_t		ft_doubletab_len(char **doubletab);
 int			is_separator(char *str);
-int			write_with_separator(t_parsing info, char **env);
+int			write_with_separator(t_parsing info);
 int			ft_display_rep(char **env, t_utils utils);
 int			ft_cd(t_parsing info, char ***env, t_utils *utils);
 int			ft_pwd(t_parsing info, char ***env, t_utils utils);
