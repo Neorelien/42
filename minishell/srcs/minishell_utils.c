@@ -9,13 +9,13 @@ char *find_in_env(char **env, char *name)
 	i = 0;
 	while (!ft_isspace(name[i]) && name[i])
 		i++;
-	path = ft_substr(name, 0, i - 1);
+	path = ft_substr(name, 0, i);
 	tmp = ft_strjoin(path, "=");
 	free(path);
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0)
+		if (ft_strncmp(tmp, env[i], ft_strlen(tmp) - 1) == 0)
 		{
 			path = ft_strdup(env[i] + ft_strlen(tmp));
 			return (path);
@@ -57,7 +57,7 @@ int	write_with_separator(t_parsing info, char **env)
 	int fd;
 	char *tmp;
 
-	if (info.next->objet[0] == '$')
+	if (info.next != NULL && info.next->objet[0] == '$')
 	{
 		tmp = info.next->objet;
 		info.next->objet = find_in_env(env, info.next->objet + 1);
