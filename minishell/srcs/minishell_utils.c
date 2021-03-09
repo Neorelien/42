@@ -44,8 +44,9 @@ int	write_with_separator(t_parsing info,char **env)
 	int sep;
 	int fd;
 
-	if (info.next->objet[0] == '$')
-
+//	if (info.next->objet[0] == '$')
+if (env == NULL)
+	;
 	if ((sep = is_separator(info.separator)) == 0)
 		return (1);
 	if (sep == 1)
