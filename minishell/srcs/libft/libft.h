@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 18:21:37 by cmoyal            #+#    #+#             */
-/*   Updated: 2020/11/20 17:25:25 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/09 14:47:27 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 void			*ft_calloc(size_t nmemb, size_t size);
-
+int				ft_isspace(char c);
 #endif
