@@ -4,7 +4,8 @@
 
 int main(int argc, char **argv, char **env)
 {
-	printf("%d\n", ft_strncmp("lol", "lol", 400));
+	//printf("%d\n", ft_strncmp("lol", "lol", 400));
+	printf("%c\n", -1);
 /*	int fd;
 	fd = open(argv[1], O_RDWR | O_CREAT, S_IROTH | O_DIRECTORY);
 	if (fd < 0)
