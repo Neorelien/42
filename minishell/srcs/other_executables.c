@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/09 14:51:30 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/09 14:52:57 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_parsing	*get_pipe(t_utils *utils)
 	t_parsing	*parsing;
 	int			i;
 
+	(void)utils;
 	i = 0;
 	parsing = new_list(NULL);
 
