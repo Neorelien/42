@@ -1,18 +1,30 @@
 #include "../minishell_utils.h"
-/*
+
 char *find_in_env(char **env, char *name)
 {
 	unsigned int i;
+	char *path;
 	char *tmp;
 
 	i = 0;
-	name = ft_strjoin(name, "=");
+	while (!ft_isspace(name[i]) && name[i])
+		i++;
+	path = ft_substr(name, 0, i - 1);
+	tmp = ft_strjoin(path, "=");
+	free(path);
+	i = 0;
 	while (env[i])
 	{
-		
+		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0)
+		{
+			path = ft_strdup(env[i] + ft_strlen(tmp));
+			return (path);
+		}
+		i++;
 	}
+	return (NULL);
 }
-*/
+
 size_t ft_doubletab_len(char **doubletab)
 {
 	int	i;
@@ -39,12 +51,18 @@ int		is_separator(char *str)
 	return (0);
 }
 
-int	write_with_separator(t_parsing info)
+int	write_with_separator(t_parsing info, char **env)
 {
 	int sep;
 	int fd;
+	char *tmp;
 
-//	if (info.next->objet[0] == '$')
+	if (info.next->objet[0] == '$')
+	{
+		tmp = info.next->objet;
+		info.next->objet = find_in_env(env, info.next->objet + 1);
+		free(tmp);
+	}
 	if ((sep = is_separator(info.separator)) == 0)
 		return (1);
 	if (sep == 1)
