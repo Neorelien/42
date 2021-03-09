@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 18:49:31 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/09 12:06:50 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ typedef struct	s_parsing
 typedef struct	s_utils
 {
 	char	*pwd;
-	int		env_alrdy_mall;
 	char	**tmp;
+	pid_t	cpid;
+	int		pipefd[2];
 }				t_utils;
 
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
 
+void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils);
 int		ft_unset(t_parsing *parsing, char ***env);
 int		ft_env(t_parsing *parsing, char **env);
 int		ft_error(char *str, char *strbis);

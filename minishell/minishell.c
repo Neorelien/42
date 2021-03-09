@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/08 18:49:08 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/09 11:57:36 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,22 +282,22 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 	*i = recursive_parsing(line, parsing, *i);
 }
 
-void	fonction_router(t_parsing *parsing, char ***env, t_utils *router)
+void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
 	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		echo(*parsing);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
-		ft_cd(*parsing, env, router);
+		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
-		ft_pwd(*parsing, *env, *router);
+		ft_pwd(*parsing, *env, *utils);
 	else if (ft_strncmp(parsing->objet, "export", 6) == 0)
 		ft_export(parsing, env);
 	else if (ft_strncmp(parsing->objet, "env", 3) == 0)
 		ft_env(parsing, *env);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		ft_unset(parsing, env);
-//	else
-//		ft_other_exc(parsing);
+	else
+		ft_other_exc(parsing, *env, utils);
 }
 
 void	init_utils(t_utils *utils)
