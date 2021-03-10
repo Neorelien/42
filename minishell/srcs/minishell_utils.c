@@ -59,7 +59,7 @@ int		ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 	{
 		if (utils->pipefd[1] > 0)
 			close(utils->pipefd[1]);
-		return (utils->pipefd[0])
+		return (utils->pipefd[0]);
 	}
 	else
 	{
@@ -69,7 +69,7 @@ int		ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 	}
 }
 
-void ft_env_fd(t_parsing *info)
+void ft_env_fd(t_parsing *info, char **env)
 {
 	char *tmp;
 
@@ -86,14 +86,13 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils)
 	int sep;
 	int fd;
 
-	ft_env_fd(&info);
-	if ((sep = is_separator(info.separator)) == 0)
-		return (1);
-	if (sep == 1)
+	utils->cpid = -1;
+	ft_env_fd(&info, env);
+	if ((sep = is_separator(info.separator)) == 0 || sep == 1)
 		return (1);
 	else if (sep == 2)
 		return (ft_pipe_settings(info, env, utils));
-	else if (sep == 3)
+	if (sep == 3)
 	{
 		fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
 		if (fd < 0)

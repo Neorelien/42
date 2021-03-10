@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/10 16:02:43 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:11:46 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 	i = 0;
 	fd = write_with_separator(info, *env, utils);
 	if (utils->cpid == 0)
-		echo(info.next, env, utils);
-	else if (info.data && utils->pid == -1)
+		echo(*info.next, env, utils);
+	else if (info.data && utils->cpid == -1)
 	{
 		if (ft_strncmp(info.data[i], "-n", 3) == 0 && ++i)
 			flag = 1;	
