@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 15:45:45 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:02:08 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,21 +185,15 @@ int			next_path(t_parsing *parsing, char **env)
 	i = ft_find_env(env);
 	if (i > -1)
 		path = ft_split(env[i], ':');
-	printf("un path avant=%s\n", path[p]);
 	while (path[p])
 	{
 		tmp = path[p];
 		path[p] = ft_strjoin(path[p], "/");
-	//	free(tmp);
 		tmp = parsing->objet;
+		if (p == 0)
+			path[p] = path[p] + 5;
 		parsing->objet = ft_strjoin(path[p], parsing->objet);
-	//	free(tmp);
-	//	i = 0;
-	/*	while (path[i])
-			free(path[i++]);*/
-	//	free(path);
 		p++;
-	printf("un path =%s, p =%d\n", parsing->objet, p);
 		return (1);
 	}
 	return (0);
@@ -207,7 +201,7 @@ int			next_path(t_parsing *parsing, char **env)
 
 void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 {
-
+	char	*tmp;
 	(void)env;
 	(void)parsing;
 	if (pipe(utils->pipefd) == -1)
@@ -217,29 +211,17 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	{
 		close(utils->pipefd[1]);
 		parsing = get_pipe(utils);
-
-		/*
-		int i = 0;
-		printf("objet =%s\n", parsing->objet);
-		while (parsing->data != NULL && parsing->data[i] != NULL)
-			printf("data =%s\n", parsing->data[i++]);
-		if (parsing->separator[0] != 0)
-			printf("sep = %s\n", parsing->separator);
-		*/
-
-
 		if (parsing->data == NULL)
 		{
 			parsing->data = malloc(sizeof(char*));
 			*parsing->data = malloc(1);
 			parsing->data[0][0] = 0;
 		}
+		tmp = ft_strdup(parsing->objet);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
-			;
-
-
-
+			parsing->objet = ft_strdup(tmp);
 		close(utils->pipefd[0]);
+	//	clean_parsing(parsing);
 	}
 	else // lecture du pere
 	{

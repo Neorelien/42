@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 15:47:56 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:02:20 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,8 +329,8 @@ int		main(int argc, char **argv, char **env)
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
 		fonction_router(parsing, &env, &utils);
-		if (clean_parsing(utils.parsing_start))
-			exit(1);
+	//	if (clean_parsing(utils.parsing_start))
+	//		exit(1);
 		//	system("leaks minishell\n");
 		parsing = new_list(NULL);
 		i = 0;
