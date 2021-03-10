@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:05:58 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:08:15 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct	s_utils
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
 
+int			clean_parsing(t_parsing *parsing);
 t_parsing	*new_list(t_parsing *previous_lst);
 void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils);
 int			ft_unset(t_parsing *parsing, char ***env);
