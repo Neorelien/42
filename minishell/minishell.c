@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 11:32:06 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/10 15:47:56 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,7 @@ void	init_utils(t_utils *utils, t_parsing *parsing)
 {
 	utils->pwd = NULL;
 	utils->parsing_start = parsing;
+	utils->cpid = -1;
 }
 
 int		main(int argc, char **argv, char **env)
