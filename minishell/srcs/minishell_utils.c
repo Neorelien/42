@@ -86,7 +86,6 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils)
 	int sep;
 	int fd;
 
-	utils->cpid = -1;
 	ft_env_fd(&info, env);
 	if ((sep = is_separator(info.separator)) == 0 || sep == 1)
 		return (1);
