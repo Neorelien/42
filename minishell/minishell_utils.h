@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:23:23 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/10 17:11:29 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,6 @@ int			ft_cd(t_parsing info, char ***env, t_utils *utils);
 int			ft_pwd(t_parsing info, char ***env, t_utils *utils);
 int			env_in_env(char **env, char *str);
 char		*find_in_env(char **env, char *name);
+void		fonction_router(t_parsing *parsing, char ***env, t_utils *utils);
+
 #endif

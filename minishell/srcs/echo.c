@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/10 17:07:03 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/10 17:12:30 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 	if (utils->cpid == 0)
 	{
 		utils->cpid = -2;
-		echo(*info.next, env, utils);
+		fonction_router(info.next, env, utils);
 		exit(1);
 	}
 	else if (info.data && utils->cpid < 0)
