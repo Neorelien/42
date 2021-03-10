@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:10:30 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:23:02 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,9 +291,9 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
 		ft_pwd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "export", 6) == 0)
-		ft_export(parsing, env);
+		ft_export(parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "env", 3) == 0)
-		ft_env(parsing, *env);
+		ft_env(parsing, *env, utils);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		ft_unset(parsing, env);
 	else if (parsing->objet != NULL)

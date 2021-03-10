@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:19:01 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:36:02 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,16 @@ int			ft_find_env(char **env)
 	return (i);
 }
 
+void		ft_free(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != NULL)
+		free(str[i++]);
+//	free(str);
+}
+
 int			next_path(t_parsing *parsing, char **env)
 {
 	char		**path;
@@ -199,7 +209,7 @@ int			next_path(t_parsing *parsing, char **env)
 		tmp = parsing->objet;
 		parsing->objet = ft_strjoin(path[p], parsing->objet);
 		free(tmp);
-		free(path[p]);
+	//	ft_free(path);
 		p++;
 		return (1);
 	}

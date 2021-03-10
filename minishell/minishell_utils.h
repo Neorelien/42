@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:08:15 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:23:23 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int			clean_parsing(t_parsing *parsing);
 t_parsing	*new_list(t_parsing *previous_lst);
 void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils);
 int			ft_unset(t_parsing *parsing, char ***env);
-int			ft_env(t_parsing *parsing, char **env);
+int			ft_env(t_parsing *parsing, char **env, t_utils *utils);
 int			ft_error(char *str, char *strbis);
 char		**recopy_data(char **data, char **temp);
-int			ft_export(t_parsing *parsing, char ***env);
+int			ft_export(t_parsing *parsing, char ***env, t_utils *utils);
 char		*ft_str_erase_set(char *str, char quote);
 int			echo(t_parsing info, char ***env, t_utils *utils);
 size_t		ft_doubletab_len(char **doubletab);
