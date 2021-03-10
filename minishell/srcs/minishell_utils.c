@@ -1,12 +1,5 @@
 #include "../minishell_utils.h"
 
-int	ft_isspace_without_back(char c)
-{
-	if (c == 'n' || c == 't' || c == 'v' || c == 'f' || c == 'r')
-		return (1);
-	return (0);
-}
-
 char *find_in_env(char **env, char *name)
 {
 	unsigned int i;
@@ -58,25 +51,48 @@ int		is_separator(char *str)
 	return (0);
 }
 
-int	write_with_separator(t_parsing info, char **env)
+int		ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
+{
+	pipe(utils->pipefd);
+	utils->cpid = fork();
+	if (utils->cpid == 0)
+	{
+		if (utils->pipefd[1] > 0)
+			close(utils->pipefd[1]);
+		return (utils->pipefd[0]);
+	}
+	else
+	{
+		if (utils->pipefd[0] > 0)
+			close(utils->pipefd[0]);
+		return(utils->pipefd[1]);
+	}
+}
+
+void ft_env_fd(t_parsing *info, char **env)
+{
+	char *tmp;
+
+	if (info->next != NULL && info->next->objet[0] == '$')
+	{
+		tmp = info->next->objet;
+		info->next->objet = find_in_env(env, info->next->objet + 1);
+		free(tmp);
+	}
+}
+
+int	write_with_separator(t_parsing info, char **env, t_utils *utils)
 {
 	int sep;
 	int fd;
-	char *tmp;
 
-	if (info.next != NULL && info.next->objet[0] == '$')
-	{
-		tmp = info.next->objet;
-		info.next->objet = find_in_env(env, info.next->objet + 1);
-		free(tmp);
-	}
-	if ((sep = is_separator(info.separator)) == 0)
-		return (1);
-	if (sep == 1)
+	utils->cpid = -1;
+	ft_env_fd(&info, env);
+	if ((sep = is_separator(info.separator)) == 0 || sep == 1)
 		return (1);
 	else if (sep == 2)
-		return (1);
-	else if (sep == 3)
+		return (ft_pipe_settings(info, env, utils));
+	if (sep == 3)
 	{
 		fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
 		if (fd < 0)

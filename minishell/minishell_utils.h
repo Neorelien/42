@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:01:12 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:08:15 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ int			ft_error(char *str, char *strbis);
 char		**recopy_data(char **data, char **temp);
 int			ft_export(t_parsing *parsing, char ***env);
 char		*ft_str_erase_set(char *str, char quote);
-int			echo(t_parsing info, char ***env);
+int			echo(t_parsing info, char ***env, t_utils *utils);
 size_t		ft_doubletab_len(char **doubletab);
 int			is_separator(char *str);
-int			write_with_separator(t_parsing info, char **env);
+int			write_with_separator(t_parsing info, char **env, t_utils *utils);
 int			ft_display_rep(char **env, t_utils utils);
 int			ft_cd(t_parsing info, char ***env, t_utils *utils);
-int			ft_pwd(t_parsing info, char ***env, t_utils utils);
+int			ft_pwd(t_parsing info, char ***env, t_utils *utils);
 int			env_in_env(char **env, char *str);
 char		*find_in_env(char **env, char *name);
 #endif
