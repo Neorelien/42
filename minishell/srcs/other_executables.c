@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:02:08 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:19:01 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			ft_data_count(char *line)
 	return (count - 1);
 }
 
-void		ft_malloc_pars(t_parsing *parsing, t_utils *utils)
+void		ft_gmalloc_pars(t_parsing *parsing, t_utils *utils)
 {
 	int		tmp;
 	int		len;
@@ -128,7 +128,7 @@ t_parsing	*get_pipe(t_utils *utils)
 	i = 0;
 	parsing = new_list(NULL);
 	utils->parsing_start = parsing;
-	ft_malloc_pars(parsing, utils);
+	ft_gmalloc_pars(parsing, utils);
 	return (parsing);
 }
 
@@ -189,10 +189,17 @@ int			next_path(t_parsing *parsing, char **env)
 	{
 		tmp = path[p];
 		path[p] = ft_strjoin(path[p], "/");
-		tmp = parsing->objet;
+		free(tmp);
 		if (p == 0)
+		{
+			tmp = path[p];
 			path[p] = path[p] + 5;
+			free(tmp);
+		}
+		tmp = parsing->objet;
 		parsing->objet = ft_strjoin(path[p], parsing->objet);
+		free(tmp);
+		free(path[p]);
 		p++;
 		return (1);
 	}
@@ -218,9 +225,9 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			parsing->data[0][0] = 0;
 		}
 		tmp = ft_strdup(parsing->objet);
+		close(utils->pipefd[0]);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
 			parsing->objet = ft_strdup(tmp);
-		close(utils->pipefd[0]);
 	//	clean_parsing(parsing);
 	}
 	else // lecture du pere
