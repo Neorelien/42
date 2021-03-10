@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/09 14:20:47 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/10 15:47:56 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,13 +296,15 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 		ft_env(parsing, *env);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		ft_unset(parsing, env);
-	else
+	else if (parsing->objet != NULL)
 		ft_other_exc(parsing, *env, utils);
 }
 
-void	init_utils(t_utils *utils)
+void	init_utils(t_utils *utils, t_parsing *parsing)
 {
 	utils->pwd = NULL;
+	utils->parsing_start = parsing;
+	utils->cpid = -1;
 }
 
 int		main(int argc, char **argv, char **env)
@@ -312,13 +314,13 @@ int		main(int argc, char **argv, char **env)
 	int				i;
 	static t_utils	utils;
 
-	init_utils(&utils);
+	parsing = new_list(NULL);
+	init_utils(&utils, parsing);
 	argc = 0;
 	argv = NULL;
 	utils.tmp = malloc(sizeof(char*) * (ft_doubletab_len(env) + 1));
 	recopy_data(utils.tmp, env);
 	env = utils.tmp;
-	parsing = new_list(NULL);
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
 	while (ft_display_rep(env, utils) && write(1, "-> ", 3) && get_next_line(1, line))
@@ -327,7 +329,7 @@ int		main(int argc, char **argv, char **env)
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
 		fonction_router(parsing, &env, &utils);
-		if (clean_parsing(parsing))
+		if (clean_parsing(utils.parsing_start))
 			exit(1);
 		//	system("leaks minishell\n");
 		parsing = new_list(NULL);

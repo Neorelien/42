@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/09 14:49:14 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/10 11:18:41 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <errno.h>
+#include <sys/wait.h>
 
 typedef struct	s_parsing
 {
@@ -34,10 +35,11 @@ typedef struct	s_parsing
 
 typedef struct	s_utils
 {
-	char	*pwd;
-	char	**tmp;
-	pid_t	cpid;
-	int		pipefd[2];
+	char		*pwd;
+	char		**tmp;
+	pid_t		cpid;
+	int			pipefd[2];
+	t_parsing	*parsing_start;
 }				t_utils;
 
 # define OPEN_SQUOTE -2
