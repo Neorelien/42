@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/09 16:18:30 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:06:25 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	return (1);
 }
 
-int ft_pwd(t_parsing info,char ***env, t_utils utils)
+int ft_pwd(t_parsing info,char ***env, t_utils *utils)
 {
 	int fd;
 	char *path;
@@ -120,7 +120,7 @@ int ft_pwd(t_parsing info,char ***env, t_utils utils)
 		ft_error("pwd: too many arguments", NULL);
 	fd = write_with_separator(info, *env);
 	if ((path = getcwd(path, 0)) == NULL)
-		path = utils.pwd;
+		path = utils->pwd;
 	ft_putstr_fd(path, fd);
 	ft_putchar_fd('\n', fd);
 	if (path != NULL)
