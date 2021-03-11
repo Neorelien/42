@@ -1,4 +1,4 @@
 - gerer les $ avant un nom de variable avec export
 - gerer les unset des variable deja mise
 - gerer les \n sur echo et \\n
--regler le LEAK après l'execution de "echo lol | echo mdr"
+- regler le LEAK après l'execution de "echo lol | echo mdr"

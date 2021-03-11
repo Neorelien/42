@@ -36,6 +36,26 @@ size_t ft_doubletab_len(char **doubletab)
 	return (i);
 }
 
+void	check_to_next(t_parsing info, char ***env, t_utils *utils)
+{
+	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 2)
+		return ;
+	if (is_separator(info.separator) == 1)
+		fonction_router(info.next, env, utils);
+	else
+		check_to_next(*info.next, env, utils);
+}
+
+void	ft_next_is_pipe(t_parsing info, char ***env, t_utils *utils)
+{
+	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 1)
+		return ;
+	if (is_separator(info.separator) == 2)
+		fonction_router(info.next, env, utils);
+	else
+		ft_next_is_pipe(*info.next, env, utils);
+}
+
 int		is_separator(char *str)
 {
 	if (str[0] == ';' && str[1] == 0)
