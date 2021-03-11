@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:23:02 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/11 18:36:04 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_str_erase_set(char *str, char quote)
 
 	i = 0;
 	o = 0;
-//	printf("srtr = %s\n", str);
+	//	printf("srtr = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == quote)
@@ -51,7 +51,7 @@ char	*ft_str_erase_set(char *str, char quote)
 		else
 			res[o++] = str[i++];
 	}
-//	printf("srtr = %s\n", str);
+	//	printf("srtr = %s\n", str);
 	res[o] = 0;
 	return (res);
 }
@@ -67,23 +67,45 @@ int		get_objet(char **line, int i, char **dest)
 	res[0] = 0;
 	to_join[1] = 0;
 	quote = -1;
-	while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != -1) ) && line[0][i])
+	while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != -1) ) &&
+			line[0][i])
 	{
+	/*	if (is_separator_parsing(line[0], i) > 0 ||
+				is_separator_parsing(line[0], i) < 5)
+		{
+			i = i + 2;
+			break ;
+		}*/
+		if (line[0][i] == 92 && quote != -1)
+		{
+			tmp = res;
+			to_join[0] = line[0][i];
+			res = ft_strjoin_gnl(res, to_join);
+			free(tmp);
+		}
 		tmp = res;
 		to_join[0] = line[0][i];
 		res = ft_strjoin_gnl(res, to_join);
 		free(tmp);
-		if ((line[0][i] == 39 || line[0][i] == 34 ) && quote == -1)
+		if ((line[0][i] == 39 || line[0][i] == 34) && quote == -1)
 			quote = line[0][i];
 		else if (line[0][i] == quote)
 		{
 			tmp = res;
-		//	printf("res ava= %s\n", res);
 			res = ft_str_erase_set(res, quote);
-		//	printf("res apr= %s\n", res);
 			free(tmp);
 			quote = -1;
+		}/*
+		if (is_separator_parsing(line[0], i) == 5)
+		{
+			tmp = res;
+			to_join[0] = line[0][i];
+			res = ft_strjoin_gnl(res, to_join);
+			free(tmp);
+			i = i + 2;
+			break ;
 		}
+	*/
 		i++;
 	}
 	*dest = res;
@@ -153,14 +175,11 @@ int		get_data(int *i, t_parsing *parsing, char **line)
 			return (*i);
 		}
 		return (*i);
-		//	printf("1 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
 	}
 	else
 	{
-		//	printf("2 on va ici et data[0] =%s| data[1]=%s\n", parsing->data[0], parsing->data[1]);
 		while (parsing->data[o] != NULL)
 			o++;
-		//	printf("o = %d\n", o);
 		temp = parsing->data;
 		parsing->data = malloc(sizeof(char*) * (o + 2));
 		recopy_data(parsing->data, temp);
@@ -187,7 +206,6 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 	if (parsing->objet == NULL)
 	{
 		i = get_objet(line, i, &parsing->objet);
-		//	printf("1 on va ici et objet = %s\n", parsing->objet);
 		if (is_separator(parsing->objet))
 		{
 			parsing->separator[0] = parsing->objet[0];
@@ -202,23 +220,13 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 	}
 	else
 	{
-	//	printf(" objet = %s\n", parsing->objet);
 		i = get_data(&i, parsing, line);
 		if 	(parsing->separator[0] != 0)
-		{
-		//	printf("onvalaaaaa, line = %s,  i = %d\n", *line, i);
 			recursive_parsing(line, new_list(parsing), i);
-		}
 		else if (line[0][i])
-		{
-		//	printf("onvaiciiiiiiii\n");
 			i = recursive_parsing(line, parsing, i);
-		}
 		else
-		{
-	//	printf("on va ici2\n");
 			return (i);
-		}
 		return (i);
 	}
 }
@@ -230,13 +238,11 @@ void	test_struct(t_parsing *parsing)
 	i= 0;
 	if (parsing->objet != NULL)
 		printf("objet =%s|\n", parsing->objet);
-	//	printf("on va la 2\n");
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
 		printf("data %d =%s|\n", i, parsing->data[i]);
 		i++;
 	}
-	//	printf("on va la 3\n");
 	if (parsing->next != NULL)
 		test_struct(parsing->next);
 }
@@ -282,11 +288,17 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 	*i = recursive_parsing(line, parsing, *i);
 }
 
+void	data_formatation(t_parsing *parsing, char ***env)
+{
+	int	i;
+}
+
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
+//	data_formatation(parsing, env);
 	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		echo(*parsing, env, utils);	
-	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
+	if (ft_strncmp(parsing->objet, "cd", 2) == 0)
 		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
 		ft_pwd(*parsing, env, utils);
@@ -329,8 +341,8 @@ int		main(int argc, char **argv, char **env)
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
 		fonction_router(parsing, &env, &utils);
-	//	if (clean_parsing(utils.parsing_start))
-	//		exit(1);
+		//	if (clean_parsing(utils.parsing_start))
+		//		exit(1);
 		//	system("leaks minishell\n");
 		parsing = new_list(NULL);
 		i = 0;
