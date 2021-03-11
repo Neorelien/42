@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/11 14:17:40 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/11 16:02:17 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,18 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 	int		fd;
 	int		j;
 	char	*str;
-	
+
 	flag = 0;
 	i = 0;
 	fd = write_with_separator(info, *env, utils);
 	if (utils->cpid == 0)
 	{
-		utils->cpid = -2;	
+		utils->cpid = -2;
+		fonction_router(info.next, env, utils);
 	}
 	else if (info.data && utils->cpid < 0)
 	{
-		ft_next_is_pipe(info, env, utils);
+		fd = ft_next_is_pipe(info, env, utils, fd);
 		if (ft_strncmp(info.data[i], "-n", 3) == 0 && ++i)
 			flag = 1;
 		while (info.data[i])
@@ -58,12 +59,14 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 	else
 	{
 		wait(NULL);
+		utils->cpid = -1;
 		return (0);
 	}
 	if (flag == 0)
 		ft_putstr_fd("\n", fd);
 	if (fd != 1)
-		close(fd);	
+		close(fd);
+	check_to_next(info, env, utils);
 	if (utils->cpid == -2)
 		exit(1);
 	return (1);
