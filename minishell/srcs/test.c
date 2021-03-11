@@ -4,7 +4,10 @@
 
 int main(int argc, char **argv, char **env)
 {
-	int pipefd[2];
+
+	write(STDOUT_FILENO, "oui", 3);
+	write(STDIN_FILENO, "oui", 3);
+/*	int pipefd[2];
 	char **buff;
 	buff = (char**)malloc(sizeof(char*) * 2);
 	*buff = (char*)malloc(sizeof(char) * 3);
@@ -14,7 +17,7 @@ int main(int argc, char **argv, char **env)
 	buff[0][2] = '\0';
 	pipe(pipefd);
 	write(pipefd[1], "lol\n", 4);
-printf("%d\n", pipefd[0]);
+printf("%d\n", pipefd[0]);*/
 //	buff[1] = pipefd;
 //	execve("/bin/cat", buff, env);
 	//printf("%d\n", ft_strncmp("lol", "lol", 400));

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:22:51 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:47:49 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	recopy_less_data(char ***data, char **temp, char *str)
 	{
 		if (ft_strncmp(temp[i], str, len - 1) == 0 && temp[i][len] == '=')
 		{
-			free(temp[i]);
+		//	free(temp[i]);
 			i++;
 		}
 		else
@@ -217,7 +217,7 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 	{
 		while (parsing->data[i] != NULL)
 		{
-			if ((egal_in(parsing->data[i])) > -1)
+			if (egal_in(parsing->data[i]) > -1)
 				add_env(i, parsing, env);
 			i++;
 		}

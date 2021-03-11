@@ -1,3 +1,21 @@
-- gerer les $ avant un nom de variable avec export
-- gerer les unset des variable deja mise
-- gerer les \n sur echo et \\n
+- EXPORT
+		- le nom de la var ne peut pas
+			- etre un chiffre/nombre seul
+			- compose d'un char special tel que
+				- ~ ? ! # { } [ \ ^ @ ° £ % §
+-------------------------------------------------------------
+-PARSING
+	- $ renvoi le contenu d'une ENV
+		- si un egal est trouvé il y a deux options
+			- si le nom de la var existe on revoi son contenu
+			- si le contenu de la var existe pas 
+				- si il y a un = on revoit ce qu'il y a derriere 
+					(cela peut etre une string vide)
+				- si il n'y a rien, renvoi string vide
+	- si $ sans rien derriere c'est juste le char $
+			
+-------------------------------------------------------------
+
+
+- gerer les \n sur echo et \\n 
+	- le \ s'il est tt seul disparait
