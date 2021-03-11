@@ -47,3 +47,6 @@ PREMIER PASSAGE
 DEUXIEME PASSAGE
 
 - \ si | a b t n v f r | on remplace les deux par le ASCII qui correcpond
+
+
+LIRE CA https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_03.html

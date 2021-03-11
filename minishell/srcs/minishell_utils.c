@@ -38,23 +38,22 @@ size_t ft_doubletab_len(char **doubletab)
 
 void	check_to_next(t_parsing info, char ***env, t_utils *utils)
 {
-	if (is_separator(info.separator) == 0)
+	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 2)
 		return ;
-	if (is_separator(info.separator) == 1 || is_separator(info.separator) == 2)
+	if (is_separator(info.separator) == 1)
 		fonction_router(info.next, env, utils);
 	else
 		check_to_next(*info.next, env, utils);
 }
 
-int	ft_next_is_pipe(t_parsing info, char ***env, t_utils *utils, int fd)
+void	ft_next_is_pipe(t_parsing info, char ***env, t_utils *utils)
 {
 	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 1)
-		return (fd);
+		return ;
 	if (is_separator(info.separator) == 2)
-		return (2);
+		fonction_router(info.next, env, utils);
 	else
-		fd = ft_next_is_pipe(*info.next, env, utils, fd);
-	return (fd);
+		ft_next_is_pipe(*info.next, env, utils);
 }
 
 int		is_separator_parsing(char *str, int i)

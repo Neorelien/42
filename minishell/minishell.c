@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/11 18:36:04 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/11 19:26:04 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,25 @@ int		get_objet(char **line, int i, char **dest)
 	while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != -1) ) &&
 			line[0][i])
 	{
-	/*	if (is_separator_parsing(line[0], i) > 0 ||
-				is_separator_parsing(line[0], i) < 5)
+	/*	if (is_separator_parsing(line[0], i))
 		{
-			i = i + 2;
-			break ;
+			if (quote != -1)
+			{
+				tmp = res;
+				to_join[0] = 92;
+				res = ft_strjoin_gnl(res, to_join);
+				free(tmp);
+				tmp = res;
+				to_join[0] = line[0][i];
+				res = ft_strjoin_gnl(res, to_join);
+				free(tmp);
+			}
+			else
+			{
+				put_sep_in_sep
+				i++;
+				break ;
+			}
 		}*/
 		if (line[0][i] == 92 && quote != -1)
 		{
@@ -95,17 +109,7 @@ int		get_objet(char **line, int i, char **dest)
 			res = ft_str_erase_set(res, quote);
 			free(tmp);
 			quote = -1;
-		}/*
-		if (is_separator_parsing(line[0], i) == 5)
-		{
-			tmp = res;
-			to_join[0] = line[0][i];
-			res = ft_strjoin_gnl(res, to_join);
-			free(tmp);
-			i = i + 2;
-			break ;
 		}
-	*/
 		i++;
 	}
 	*dest = res;
