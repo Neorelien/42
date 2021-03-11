@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - EXPORT
 		- le nom de la var ne peut pas
 			- etre un chiffre/nombre seul
@@ -19,3 +20,9 @@
 
 - gerer les \n sur echo et \\n 
 	- le \ s'il est tt seul disparait
+=======
+- gerer les $ avant un nom de variable avec export
+- gerer les unset des variable deja mise
+- gerer les \n sur echo et \\n
+-regler le LEAK après l'execution de "echo lol | echo mdr"
+>>>>>>> 0b940a5d4ffd5fbdbe758bb0b0c2a33e4f52774a
