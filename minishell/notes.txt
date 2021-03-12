@@ -37,7 +37,7 @@ FORMATAGE
 PREMIER PASSAGE
 
 - $ la suite est une ENV, jusqu'a   -->   tout ce qui n'est pas alphanumérique EXPECT à é et les sséparator
-	- si le char d'avant est un \, le dis char disparait et $, la suite n'est pas une ENV
+	- si le char d'avant est un \, le dis char disparait et $ est un char, la suite n'est pas une ENV
 	- si pas de suite $ est considere comme un char a conserver en string
 	- si la suite ne correspond a aucun ENV existante, cela faut une string vide
 
