@@ -38,22 +38,25 @@
 ----V---------V-----------------------------------------V-----------V---
 
 méta-caractère
-Un caractère qui, non protégé, sépare les mots. Un de ceux-ci :
+Un caractère qui, non protégé, sépare les mots
 
 
 PROTECTION (single quoting) 
 
 PARSING 
 
+	
+
 	- single quote -> chaque caractere conserve uniquement sa valeur ascii, donc est un char
+		- lu comme un simple char si \ derriere OU double quote ouvert
 		- AJOUT d'UN \ derriere TOUT LES CHAR
 		- " est lu AUSSI comme un simple char
 
 	- double quote -> chaque caractere conserve uniquement sa valeur ascii, donc est un char
 		- lu comme un simple char si \ derriere OU simple quote ouvert
 		- AJOUT d'UN \ derriere TOUT LES CHAR
-			- NE SONT PAS ECHAPPE
-				- $ en toute situation,
+			- NE SONT PAS ECHAPPE(ne sont pas un char ascii, donc pas d'ajout de \ derriere)
+				- $ en toute situation
 				- \ quand il est suivie de $ " \ FINDELIGNE
 
 	- separator
@@ -69,18 +72,26 @@ FORMATAGE
 
 PREMIER PASSAGE
 
-- $ la suite est une ENV, jusqu'a   -->   tout ce qui n'est pas alphanumérique EXPECT à é et les sséparator
+- $ la suite est une ENV, jusqu'a   -->   tout ce qui n'est pas alphanumérique EXPECT à é
 	- si le char d'avant est un \, le dis char disparait et $ est un char, la suite n'est pas une ENV
 	- si pas de suite $ est considere comme un char a conserver en string
 	- si la suite ne correspond a aucun ENV existante, cela faut une string vide
 	
 
+------------------- A REVOIR ----------------
+
+	essaye mkdir '\n', il semble que mkdir recoive \\n
+
 DEUXIEME PASSAGE
-
-- \ si | a b t n v f r | on remplace les deux par le ASCII qui correcpond
-
 - \ le caractere derriere est conservé
 	- le \ inital disparait
+	- OU PAS si c'est un \\ peut etre que les deux reste
+
+TROISIEME PASSAGE --> N'EST PAS EFFECTUE SI on est sur objet et non pas sur data
+- \ si | a b t n v f r | on remplace les deux par le ASCII qui correcpond
+- OU PAS, on peut peut etre aussi laisse les deux \\ et la lettre
+
+
 
 
 LIRE CA https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_03.html
