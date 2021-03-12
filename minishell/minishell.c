@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/12 02:09:25 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/12 15:19:38 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,7 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 //	data_formatation(parsing, env);
 	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		echo(*parsing, env, utils);	
-	if (ft_strncmp(parsing->objet, "cd", 2) == 0)
+	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
 		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
 		ft_pwd(*parsing, env, utils);

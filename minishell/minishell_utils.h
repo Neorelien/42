@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/12 12:06:07 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/12 15:53:31 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct	s_utils
 	int			pipefd[2];
 	t_parsing	*parsing_start;
 	char		result;
+	char		**data;
 }				t_utils;
 
 # define OPEN_SQUOTE -2
@@ -67,5 +68,4 @@ int			env_in_env(char **env, char *str);
 char		*find_in_env(char **env, char *name);
 void		fonction_router(t_parsing *parsing, char ***env, t_utils *utils);
 void		check_to_next(t_parsing info, char ***env, t_utils *utils);
-int			ft_next_is_pipe(t_parsing info, char ***env, t_utils *utils, int fd);
 #endif

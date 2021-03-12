@@ -114,38 +114,71 @@ void ft_env_fd(t_parsing *info, char **env)
 
 void	check_to_next(t_parsing info, char ***env, t_utils *utils)
 {
-	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 2)
+	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 2)	
 		return ;
 	if (is_separator(info.separator) == 1)
 		fonction_router(info.next, env, utils);
 	else
+	{
 		check_to_next(*info.next, env, utils);
+	}
 }
 
-int		ft_next_is_pipe(t_parsing info, char ***env, t_utils *utils, int fd)
+int		ft_next_is_pipe(t_parsing info, char **env, t_utils *utils, int flag)
 {
 	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 1)
-		return (fd);
+		return (flag);
 	if (is_separator(info.separator) == 2)
-		return (utils->pipefd[0]);
+		return (1);
 	else
-		fd = ft_next_is_pipe(*info.next, env, utils, fd);
-	return (fd);
+		flag = ft_next_is_pipe(*info.next, env, utils, flag);
+	return (flag);
 }
 
-int	write_with_separator(t_parsing info, char ***env, t_utils *utils, int fd)
+void ft_reroll(t_parsing info, char **env, t_utils *utils)
+{
+	char tmp_sep[3];
+	t_parsing *tmp_next;
+
+	if ((info.data == NULL || info.data[0] == NULL) && utils->data != NULL)
+		info.data = utils->data;
+printf("%p   %s\n", utils->data, info.data[0]);
+	tmp_sep[0] = info.next->separator[0];
+	tmp_sep[1] = info.next->separator[1];
+	tmp_sep[2] = info.next->separator[2];
+	tmp_next = info.next->next;
+	info.next->separator[0] = 0;
+	info.next->separator[1] = 0;
+	info.next->separator[2] = 0;
+	info.next->next = NULL;
+	echo(info, &env, utils);
+	info.next->separator[0] = tmp_sep[0];
+	info.next->separator[1] = tmp_sep[1];
+	info.next->separator[2] = tmp_sep[2];
+	info.next->next = tmp_next;
+	utils->data = info.data;
+}
+
+int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 {
 	int sep;
+	int flag_pipe;
 
+	flag_pipe = ft_next_is_pipe(info, env, utils, 0);
 	if ((sep = is_separator(info.separator)) == 0 || sep == 1)
 		return (fd);
 	else if (sep == 2)
 		return (ft_pipe_settings(info, env, utils));
 	if (sep == 3)
 	{
-		fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
-		if (fd < 0)
-			ft_error(strerror(errno), info.next->objet);
+		if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)
+			ft_reroll(info, env, utils);
+		else
+		{
+			fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+			if (fd < 0)
+				ft_error(strerror(errno), info.next->objet);
+		}
 		fd = write_with_separator(*info.next, env, utils, fd);
 	}
 	else if (sep == 4)
