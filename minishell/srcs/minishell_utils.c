@@ -36,27 +36,6 @@ size_t ft_doubletab_len(char **doubletab)
 	return (i);
 }
 
-void	check_to_next(t_parsing info, char ***env, t_utils *utils)
-{
-	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 2)
-		return ;
-	if (is_separator(info.separator) == 1)
-		fonction_router(info.next, env, utils);
-	else
-		check_to_next(*info.next, env, utils);
-}
-
-void	ft_next_is_pipe(t_parsing info, char ***env, t_utils *utils)
-{
-	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 1)
-		return ;
-	if (is_separator(info.separator) == 2)
-		return (utils->pipefd[0]);
-		fonction_router(info.next, env, utils);
-	else
-		ft_next_is_pipe(*info.next, env, utils);
-}
-
 int		is_separator_parsing(char *str, int i)
 {
 	if (i > 0)
@@ -105,6 +84,7 @@ int		is_separator(char *str)
 
 int		ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 {
+	pipe(utils->pipefd);
 	utils->cpid = fork();
 	if (utils->cpid == 0)
 	{
@@ -132,14 +112,33 @@ void ft_env_fd(t_parsing *info, char **env)
 	}
 }
 
-int	write_with_separator(t_parsing info, char **env, t_utils *utils)
+void	check_to_next(t_parsing info, char ***env, t_utils *utils)
+{
+	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 2)
+		return ;
+	if (is_separator(info.separator) == 1)
+		fonction_router(info.next, env, utils);
+	else
+		check_to_next(*info.next, env, utils);
+}
+
+int		ft_next_is_pipe(t_parsing info, char ***env, t_utils *utils, int fd)
+{
+	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 1)
+		return (fd);
+	if (is_separator(info.separator) == 2)
+		return (utils->pipefd[0]);
+	else
+		fd = ft_next_is_pipe(*info.next, env, utils, fd);
+	return (fd);
+}
+
+int	write_with_separator(t_parsing info, char ***env, t_utils *utils, int fd)
 {
 	int sep;
-	int fd;
 
-	ft_env_fd(&info, env);
 	if ((sep = is_separator(info.separator)) == 0 || sep == 1)
-		return (1);
+		return (fd);
 	else if (sep == 2)
 		return (ft_pipe_settings(info, env, utils));
 	if (sep == 3)
@@ -147,17 +146,18 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils)
 		fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
 		if (fd < 0)
 			ft_error(strerror(errno), info.next->objet);
-		return (fd);
+		fd = write_with_separator(*info.next, env, utils, fd);
 	}
 	else if (sep == 4)
-		return (1);
+		fd = write_with_separator(*info.next, env, utils, fd);
 	else
 	{
 		fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
 		if (fd < 0)
 			ft_error(strerror(errno), info.next->objet);
-		return (fd);
+		fd = write_with_separator(*info.next, env, utils, fd);
 	}
+	return (fd);
 }
 
 int	ft_error(char *str, char *strbis)

@@ -17,6 +17,7 @@
 	-caractere qui serapare ? --> ex: on a t=1 de declare, si on ecrit echo $t%oui, bash affiche 1%oui, alors qu'avec $toui il renvoi une string vide
 		- ~ # { } \ / ^ @ ° £ % § --> tout ce qui n'est pas alapha numerique et qui n'est pas un sseparator Y COMPRIS A et E avec accent
 -------------------------------------------------------------
+
 - ajouter fonction pipe in main 
 - gerer les separateurs sans espaces
 - gerer les \n sur echo et \\n 

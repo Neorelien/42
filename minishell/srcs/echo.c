@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/11 17:56:33 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:55:40 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 	int		j;
 	char	*str;
 
-printf("%d   %d\n", utils->pipefd[0], utils->pipefd[1]);
 	flag = 0;
 	i = 0;
-	fd = write_with_separator(info, *env, utils);
+	fd = write_with_separator(info, env, utils, 1);
 	if (utils->cpid == 0)
 	{
 		utils->cpid = -2;
@@ -36,7 +35,7 @@ printf("%d   %d\n", utils->pipefd[0], utils->pipefd[1]);
 			flag = 1;
 		while (info.data[i])
 		{
-			j = 0;
+/*			j = 0;
 			while (info.data[i][j])
 			{
 				if (info.data[i][j] == '$' && !ft_isspace(info.data[i][j]))
@@ -50,8 +49,10 @@ printf("%d   %d\n", utils->pipefd[0], utils->pipefd[1]);
 						j++;
 				}
 				ft_putchar_fd(info.data[i][j], fd);
-				j++;
-			}
+			j++;
+			
+			}*/
+			ft_putstr_fd(info.data[i], fd);
 			if (i != (int)ft_doubletab_len(info.data) - 1)
 				ft_putchar_fd(' ', fd);
 			i++;
