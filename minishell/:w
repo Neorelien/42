@@ -17,36 +17,15 @@
 	-caractere qui serapare ? --> ex: on a t=1 de declare, si on ecrit echo $t%oui, bash affiche 1%oui, alors qu'avec $toui il renvoi une string vide
 		- ~ # { } \ / ^ @ ° £ % § --> tout ce qui n'est pas alapha numerique et qui n'est pas un sseparator Y COMPRIS A et E avec accent
 -------------------------------------------------------------
-- ajouter fonction pipe in main 
-- gerer les separateurs sans espaces
+
+
 - gerer les \n sur echo et \\n 
 	- le \ s'il est tt seul disparait
 - gerer les $ avant un nom de variable avec export
 - gerer les unset des variable deja mise
 - gerer les \n sur echo et \\n
-- regler le LEAK après l'execution de "echo lol | echo mdr"
+-regler le LEAK après l'execution de "echo lol | echo mdr"
 - ajouter les ' ' autour de la valeur d'une var s'il y a un = dedans 
 		- gerer ca dans export, dans env et dans trans_env
 - GERER tous les charactere speciaux juste apres un \, meme les guillemets
 - QUAND ON est entre guillement, a chaque \ rencontré, on rajoute automatiquement un \ collé a lui- Quand on rencontre un \, si le caractere suivant est defacto considere comme un caractere seul ET ascii, c'est a dire, ni un separateur, ni un caractere special genre retour a la ligne, non. C'est juste un caractere a prendre en compte comme input(le \ lui disparait)
-
-
-
-FORMATAGE 
-
-PREMIER PASSAGE
-
-- $ la suite est une ENV, jusqu'a   -->   tout ce qui n'est pas alphanumérique EXPECT à é et les sséparator
-	- si le char d'avant est un \, le dis char disparait et $, la suite n'est pas une ENV
-	- si pas de suite $ est considere comme un char a conserver en string
-	- si la suite ne correspond a aucun ENV existante, cela faut une string vide
-
-- \ le caractere derriere est conservé
-	- le \ inital disparait
-
-DEUXIEME PASSAGE
-
-- \ si | a b t n v f r | on remplace les deux par le ASCII qui correcpond
-
-
-LIRE CA https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_03.html
