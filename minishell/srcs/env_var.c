@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/11 10:47:49 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:06:33 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int		ft_env(t_parsing *parsing, char **env, t_utils *utils)
 	int		fd;
 
 	i = 0;
-	fd = write_with_separator(*parsing, env, utils);
+	fd = write_with_separator(*parsing, env, utils, 1);
 	while (env[i] != NULL)
 	{
 		ft_putstr_fd(env[i], fd);
@@ -212,7 +212,7 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 	int			fd;
 
 	i = 0;
-	fd = write_with_separator(*parsing, *env, utils);
+	fd = write_with_separator(*parsing, *env, utils, 1);
 	if (parsing->data != NULL && parsing->data[0] != NULL)
 	{
 		while (parsing->data[i] != NULL)

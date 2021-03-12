@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/12 11:55:40 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/12 12:11:43 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 	int		fd;
 	int		j;
 	char	*str;
-
+printf("test\n");
 	flag = 0;
 	i = 0;
-	fd = write_with_separator(info, env, utils, 1);
+	fd = write_with_separator(info, *env, utils, 1);
 	if (utils->cpid == 0)
 	{
 		utils->cpid = -2;
@@ -30,11 +30,11 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 	}
 	else if (info.data && utils->cpid < 0)
 	{
-		fd = ft_next_is_pipe(info, env, utils, fd);
 		if (ft_strncmp(info.data[i], "-n", 3) == 0 && ++i)
 			flag = 1;
 		while (info.data[i])
 		{
+			printf("%s  %s   test\n", info.data[0], info.data[1]);
 /*			j = 0;
 			while (info.data[i][j])
 			{
