@@ -51,7 +51,7 @@ int	ft_next_is_pipe(t_parsing info, char ***env, t_utils *utils, int fd)
 	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 1)
 		return (fd);
 	if (is_separator(info.separator) == 2)
-		return (2);
+		return (utils->pipefd[0]);
 	else
 		fd = ft_next_is_pipe(*info.next, env, utils, fd);
 	return (fd);
@@ -74,7 +74,6 @@ int		is_separator(char *str)
 
 int		ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 {
-	pipe(utils->pipefd);
 	utils->cpid = fork();
 	if (utils->cpid == 0)
 	{

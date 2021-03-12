@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/11 15:46:22 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/11 17:40:41 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_utils
 	pid_t		cpid;
 	int			pipefd[2];
 	t_parsing	*parsing_start;
+	char		result;
 }				t_utils;
 
 # define OPEN_SQUOTE -2

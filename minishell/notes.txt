@@ -15,8 +15,8 @@
 	- si $ sans rien derriere c'est juste le char $
 			
 -------------------------------------------------------------
-
-
+- ajouter fonction pipe in main 
+- gerer les separateurs sans espaces
 - gerer les \n sur echo et \\n 
 - le \ s'il est tt seul disparait
 - gerer les $ avant un nom de variable avec export

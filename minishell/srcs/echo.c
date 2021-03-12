@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/11 16:02:17 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/11 17:56:33 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 	int		j;
 	char	*str;
 
+printf("%d   %d\n", utils->pipefd[0], utils->pipefd[1]);
 	flag = 0;
 	i = 0;
 	fd = write_with_separator(info, *env, utils);
