@@ -39,7 +39,6 @@
 
 méta-caractère
 Un caractère qui, non protégé, sépare les mots. Un de ceux-ci :
-| & ; ( ) < > espace tabulation
 
 
 PROTECTION (single quoting) 
@@ -47,15 +46,24 @@ PROTECTION (single quoting)
 PARSING 
 
 	- single quote -> chaque caractere conserve uniquement sa valeur ascii, donc est un char
-		LISTE EXHAUSTIVE
-		- caractere speciaux 
-		- mots reserve
-		- parametre 
-			- $ENV
+		- AJOUT d'UN \ derriere TOUT LES CHAR
+		- " est lu AUSSI comme un simple char
 
-	- double quote -> conserve la valeur de tous les caractere a l'interieur en une seul string
+	- double quote -> chaque caractere conserve uniquement sa valeur ascii, donc est un char
+		- lu comme un simple char si \ derriere OU simple quote ouvert
+		- AJOUT d'UN \ derriere TOUT LES CHAR
+			- NE SONT PAS ECHAPPE
+				- $ en toute situation,
+				- \ quand il est suivie de $ " \ FINDELIGNE
 
+	- separator
+		- si non precédé d'un \
+		- si non entre single quote
+		- si non entre double quote
 
+	- $ si succeder d'un single quote, le $ disparait tt simplement
+
+VOIRRR Les mots de la forme $aqchaîneaq sont traités différemment dans le man 
 
 FORMATAGE 
 
@@ -65,13 +73,14 @@ PREMIER PASSAGE
 	- si le char d'avant est un \, le dis char disparait et $ est un char, la suite n'est pas une ENV
 	- si pas de suite $ est considere comme un char a conserver en string
 	- si la suite ne correspond a aucun ENV existante, cela faut une string vide
-
-- \ le caractere derriere est conservé
-	- le \ inital disparait
+	
 
 DEUXIEME PASSAGE
 
 - \ si | a b t n v f r | on remplace les deux par le ASCII qui correcpond
+
+- \ le caractere derriere est conservé
+	- le \ inital disparait
 
 
 LIRE CA https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_03.html
