@@ -4,7 +4,12 @@
 
 int main(int argc, char **argv, char **env)
 {
-	char test[6] = "lol\n";
+	char test[8];
+	test[0] = 10;
+	test[1] = 0;
+	test[2] = 0;
+
+	char test2[8] = "";
 	printf("test = %s",test);
 /*	int pipefd[2];
 	char **buff;

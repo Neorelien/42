@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/10 16:36:02 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/15 13:17:07 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		mall_data_fr_pipe(t_parsing *parsing, t_utils *utils, int *len, char *line
 	parsing->data[0] = ft_strdup(parsing->objet);
 	while (line[i] != -3 && line[i] != -4)
 	{
+	
 		while (line[i++] != -2)
 			p++;
 		parsing->data[o++] = malloc(sizeof(char) * (p + 1));
@@ -148,6 +149,7 @@ void		send_in_pipe(int fd, t_parsing *parsing)
 	{
 		if (c == -1 && (c = -2) == -2)
 			write(fd, &c, 1);
+
 		write(fd, parsing->data[i], ft_strlen(parsing->data[i]));
 		i++;
 		c = -2;
