@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/15 13:12:02 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/15 13:45:32 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 		ft_putstr_fd("\n", fd);
 	if (fd != 1)
 		close(fd);
-	check_to_next(info, env, utils);
 	if (utils->cpid == -2)
 		exit(1);
 	return (1);

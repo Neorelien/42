@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/15 13:46:14 by awery            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/15 13:44:57 by cmoyal           ###   ########.fr       */
+>>>>>>> 9f7d204f5d192a9d581c55a0d3799a820053cbf3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,10 +313,18 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 	//ft_sep(parsing);
 //	data_formatation(parsing, env);
 //
+<<<<<<< HEAD
 //	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 //		echo(*parsing, env, utils);	
 //	printf("data = %s\n", parsing->data[0]);
 	if (ft_strncmp(parsing->objet, "cd", 2) == 0)
+=======
+	if (ft_sep(*parsing) <= 0)
+		;
+	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
+		echo(*parsing, env, utils);	
+	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
+>>>>>>> 9f7d204f5d192a9d581c55a0d3799a820053cbf3
 		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
 		ft_pwd(*parsing, env, utils);
@@ -324,6 +336,7 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 		ft_unset(parsing, env);
 	else if (parsing->objet != NULL)
 		ft_other_exc(parsing, *env, utils);
+	check_to_next(*parsing, env, utils);
 }
 
 void	init_utils(t_utils *utils, t_parsing *parsing)
