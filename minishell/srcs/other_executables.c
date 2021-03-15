@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/15 13:17:07 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:46:09 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ void		mall_data_fr_pipe(t_parsing *parsing, t_utils *utils, int *len, char *line
 	i = *len;
 	p = 0;
 	parsing->data[0] = ft_strdup(parsing->objet);
+	printf("line = %s\n", line);
 	while (line[i] != -3 && line[i] != -4)
 	{
-	
-		while (line[i++] != -2)
+		while (line[i] != -2)
+		{
+			if (i < 20)
+			printf("i = %d, line[i] = %c et %d\n", i, line[i], line[i]);
+			i++;
 			p++;
+		}
 		parsing->data[o++] = malloc(sizeof(char) * (p + 1));
 		p = 0;
 	}
@@ -95,9 +100,18 @@ void		ft_gmalloc_pars(t_parsing *parsing, t_utils *utils)
 	int		len;
 	char	*line;
 	int		i;
+	char	*buff;
 
 	i = 0;
-	get_next_line(utils->pipefd[0], &line);
+	buff = malloc(sizeof(char) * 2);
+	buff[1] = 0;
+	line = ft_strdup("");
+	while (read(utils->pipefd[0], buff, 1))
+	{
+		*utils->tmp = line;
+		line = ft_strjoin(line, buff);
+		free(*utils->tmp);
+	}
 	len = len_in_pipe(-1, line);
 	parsing->objet = malloc(sizeof(char) * (len + 1));
 	cpy_from_pipe(line, &parsing->objet, -1);
@@ -149,7 +163,6 @@ void		send_in_pipe(int fd, t_parsing *parsing)
 	{
 		if (c == -1 && (c = -2) == -2)
 			write(fd, &c, 1);
-
 		write(fd, parsing->data[i], ft_strlen(parsing->data[i]));
 		i++;
 		c = -2;

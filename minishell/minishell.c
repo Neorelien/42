@@ -6,7 +6,15 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/15 14:10:51 by cmoyal           ###   ########.fr       */
+=======
+<<<<<<< HEAD
+/*   Updated: 2021/03/15 13:46:14 by awery            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/15 13:44:57 by cmoyal           ###   ########.fr       */
+>>>>>>> 9f7d204f5d192a9d581c55a0d3799a820053cbf3
+>>>>>>> 96967b6163934118bf355085b824ecfab0d774aa
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,13 +307,28 @@ void	data_formatation(t_parsing *parsing, char ***env)
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
+	free(parsing->data[0]);
+	parsing->data[0] = malloc(sizeof(char) * 8);
+	parsing->data[0][0] = 92;
+	parsing->data[0][1] = 92;
+	parsing->data[0][2] = 10;
+	parsing->data[0][3] = 0;
+
+	//ft_sep(parsing);
 //	data_formatation(parsing, env);
 //
+<<<<<<< HEAD
+//	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
+//		echo(*parsing, env, utils);	
+//	printf("data = %s\n", parsing->data[0]);
+	if (ft_strncmp(parsing->objet, "cd", 2) == 0)
+=======
 	if (ft_sep(*parsing) <= 0)
 		;
 	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		echo(*parsing, env, utils);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
+>>>>>>> 9f7d204f5d192a9d581c55a0d3799a820053cbf3
 		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
 		ft_pwd(*parsing, env, utils);
