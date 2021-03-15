@@ -6,19 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/15 16:22:25 by awery            ###   ########.fr       */
-=======
-<<<<<<< HEAD
-/*   Updated: 2021/03/15 14:10:51 by cmoyal           ###   ########.fr       */
-=======
-<<<<<<< HEAD
-/*   Updated: 2021/03/15 13:46:14 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/15 13:44:57 by cmoyal           ###   ########.fr       */
->>>>>>> 9f7d204f5d192a9d581c55a0d3799a820053cbf3
->>>>>>> 96967b6163934118bf355085b824ecfab0d774aa
->>>>>>> f5fe3581fd41da4265cdccc14362bb862b2d987e
+/*   Updated: 2021/03/15 19:56:45 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +73,13 @@ int		no_escape(char **line, int i)
 
 int		get_objet(char **line, int i, char **dest, t_parsing *parsing)
 {
-	char	*res;
-	char	*tmp;
-	char	to_join[2];
-	char	quote;
-
+	char		*res;
+	char		*tmp;
+	char		to_join[2];
+	static char	quote;
+	
+/*	if (quote > 0)
+		res = ft_strdup(*dest);*/
 	res = malloc(sizeof(char) * 1);
 	res[0] = 0;
 	to_join[1] = 0;
@@ -143,6 +133,8 @@ int		get_objet(char **line, int i, char **dest, t_parsing *parsing)
 			if (line[0][i] == 34 || line[0][i] == 39)
 			{
 				if (i > 0 && line[0][i - 1] != 92)
+					quote = line[0][i];
+				if (i == 0)
 					quote = line[0][i];
 			}
 			else
@@ -233,8 +225,6 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 			recursive_parsing(line, new_list(parsing), i);
 		else if (line[0][i])
 			i = recursive_parsing(line, parsing, i);
-		else
-			return (i);
 		return (i);
 	}
 	else
@@ -244,8 +234,6 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 			recursive_parsing(line, new_list(parsing), i);
 		else if (line[0][i])
 			i = recursive_parsing(line, parsing, i);
-		else
-			return (i);
 		return (i);
 	}
 }
@@ -315,10 +303,11 @@ void	data_formatation(t_parsing *parsing, char ***env)
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
 	//	data_formatation(parsing, env);
+	test_struct(parsing);
 	if (ft_sep(*parsing) <= 0)
 		;
-	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
-		echo(*parsing, env, utils);	
+//	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
+//		echo(*parsing, env, utils);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
 		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
@@ -329,8 +318,8 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 		ft_env(parsing, *env, utils);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		ft_unset(parsing, env);
-	else if (parsing->objet != NULL)
-		ft_other_exc(parsing, *env, utils);
+//	else if (parsing->objet != NULL)
+//		ft_other_exc(parsing, *env, utils);
 	check_to_next(*parsing, env, utils);
 }
 
