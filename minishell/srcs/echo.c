@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/12 14:51:27 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/15 13:12:02 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,6 @@ int		echo(t_parsing info, char ***env, t_utils *utils)
 			flag = 1;
 		while (info.data[i])
 		{
-/*			j = 0;
-			while (info.data[i][j])
-			{
-				if (info.data[i][j] == '$' && !ft_isspace(info.data[i][j]))
-				{
-					if ((str = find_in_env(*env, info.data[i] + 1)) != NULL)
-					{
-						ft_putstr_fd(str, fd);
-						free(str);
-					}
-					while (!ft_isspace(info.data[i][j]))
-						j++;
-				}
-				ft_putchar_fd(info.data[i][j], fd);
-			j++;
-			
-			}*/
 			ft_putstr_fd(info.data[i], fd); 
 			if (i != (int)ft_doubletab_len(info.data) - 1)
 				ft_putchar_fd(' ', fd);
