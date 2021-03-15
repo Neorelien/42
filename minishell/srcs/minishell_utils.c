@@ -142,7 +142,6 @@ void ft_reroll(t_parsing info, char **env, t_utils *utils)
 
 	if ((info.data == NULL || info.data[0] == NULL) && utils->data != NULL)
 		info.data = utils->data;
-printf("%p   %s\n", utils->data, info.data[0]);
 	tmp_sep[0] = info.next->separator[0];
 	tmp_sep[1] = info.next->separator[1];
 	tmp_sep[2] = info.next->separator[2];
@@ -169,7 +168,7 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 		return (fd);
 	else if (sep == 2)
 		return (ft_pipe_settings(info, env, utils));
-	if (sep == 3)
+	else if (sep == 3)
 	{
 		if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)
 			ft_reroll(info, env, utils);
@@ -185,9 +184,14 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 		fd = write_with_separator(*info.next, env, utils, fd);
 	else
 	{
-		fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
-		if (fd < 0)
-			ft_error(strerror(errno), info.next->objet);
+		if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)
+			ft_reroll(info, env, utils);
+		else
+		{
+			fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+			if (fd < 0)
+				ft_error(strerror(errno), info.next->objet);
+		}
 		fd = write_with_separator(*info.next, env, utils, fd);
 	}
 	return (fd);
