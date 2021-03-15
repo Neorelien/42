@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/15 13:46:14 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/15 13:44:57 by cmoyal           ###   ########.fr       */
->>>>>>> 9f7d204f5d192a9d581c55a0d3799a820053cbf3
+/*   Updated: 2021/03/15 16:22:25 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +56,22 @@ char	*ft_str_erase_set(char *str, char quote)
 	return (res);
 }
 
-int		get_objet(char **line, int i, char **dest)
+int		no_escape(char **line, int i)
+{
+	if (line[0][i] != 92)
+		return (0);
+	if (line[0][i + 1] == '$')
+		return (1);
+	if (line[0][i + 1] == '"')
+		return (1);	
+	if (line[0][i + 1] == 92)
+		return (1);
+	if (line[0][i + 1] == 0)
+		return (1);
+	return (0);
+}
+
+int		get_objet(char **line, int i, char **dest, t_parsing *parsing)
 {
 	char	*res;
 	char	*tmp;
@@ -74,63 +85,69 @@ int		get_objet(char **line, int i, char **dest)
 	while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != -1) ) &&
 			line[0][i])
 	{
-	/*	if (is_separator_parsing(line[0], i))
+		if (quote != -1)
 		{
-			if (quote != -1)
+			if (line[0][i] != quote)
 			{
-				tmp = res;
-				to_join[0] = 92;
-				res = ft_strjoin_gnl(res, to_join);
-				free(tmp);
+				if (quote == 34 && (line[0][i] == '$' || no_escape(line, i)))
+				{
+					tmp = res;
+					to_join[0] = line[0][i];
+					res = ft_strjoin_gnl(res, to_join);
+					free(tmp);
+				}
+				else
+				{
+					tmp = res;
+					to_join[0] = 92;
+					res = ft_strjoin_gnl(res, to_join);
+					free(tmp);
+					tmp = res;
+					to_join[0] = line[0][i];
+					res = ft_strjoin_gnl(res, to_join);
+					free(tmp);
+				}
+			}
+			else
+				quote = -1;
+		}
+		else if (is_separator_parsing(line[0], i))
+		{
+			if (is_separator_parsing(line[0], i) > 4)
+			{
+				parsing->separator[0] = '>';
+				parsing->separator[1] = '>';
+				parsing->separator[2] = 0;
+				i = i + 2;
+			}
+			else
+				parsing->separator[0] = line[0][i++];
+			free(res);
+			res = NULL;
+			break ;
+		}
+		else
+		{
+			if (line[0][i] == 34 || line[0][i] == 39)
+			{
+				if (i > 0 && line[0][i - 1] != 92)
+					quote = line[0][i];
+			}
+			else
+			{
 				tmp = res;
 				to_join[0] = line[0][i];
 				res = ft_strjoin_gnl(res, to_join);
 				free(tmp);
 			}
-			else
-			{
-				put_sep_in_sep
-				i++;
-				break ;
-			}
-		}*/
-		if (line[0][i] == 92 && quote != -1)
-		{
-			tmp = res;
-			to_join[0] = line[0][i];
-			res = ft_strjoin_gnl(res, to_join);
-			free(tmp);
-		}
-		tmp = res;
-		to_join[0] = line[0][i];
-		res = ft_strjoin_gnl(res, to_join);
-		free(tmp);
-		if ((line[0][i] == 39 || line[0][i] == 34) && quote == -1)
-			quote = line[0][i];
-		else if (line[0][i] == quote)
-		{
-			tmp = res;
-			res = ft_str_erase_set(res, quote);
-			free(tmp);
-			quote = -1;
 		}
 		i++;
 	}
 	*dest = res;
 	if (quote == 39)
-	{
-		tmp = *dest;
-		*dest = ft_str_erase_set(res, 39);
-		free(tmp);
 		return (OPEN_SQUOTE);
-	}
 	if (quote == 34)
-	{
-		tmp = *dest;
-		*dest = ft_str_erase_set(res, 34);
-		free(tmp);
 		return (OPEN_DQUOTE);
-	}
 	return (i);
 }
 
@@ -174,14 +191,7 @@ int		get_data(int *i, t_parsing *parsing, char **line)
 	{
 		parsing->data = malloc(sizeof(char*) * 2);
 		parsing->data[1] = NULL;
-		*i = get_objet(line, *i, &parsing->data[0]);
-		if (is_separator(parsing->data[0]))
-		{
-			parsing->separator[0] = parsing->data[0][0];
-			parsing->separator[1] = parsing->data[0][1];
-			parsing->data[0] = NULL;
-			return (*i);
-		}
+		*i = get_objet(line, *i, &parsing->data[0], parsing);
 		return (*i);
 	}
 	else
@@ -192,14 +202,7 @@ int		get_data(int *i, t_parsing *parsing, char **line)
 		parsing->data = malloc(sizeof(char*) * (o + 2));
 		recopy_data(parsing->data, temp);
 		free(temp);
-		*i = get_objet(line, *i, &parsing->data[o]);
-		if (is_separator(parsing->data[o]))
-		{
-			parsing->separator[0] = parsing->data[o][0];
-			parsing->separator[1] = parsing->data[o][1];
-			parsing->data[o] = NULL;
-			return (*i);
-		}
+		*i = get_objet(line, *i, &parsing->data[o], parsing);
 		parsing->data[o + 1] = NULL;
 		return (*i);
 	}
@@ -213,13 +216,9 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 		return (i);
 	if (parsing->objet == NULL)
 	{
-		i = get_objet(line, i, &parsing->objet);
-		if (is_separator(parsing->objet))
-		{
-			parsing->separator[0] = parsing->objet[0];
-			parsing->separator[1] = parsing->objet[1];
+		i = get_objet(line, i, &parsing->objet, parsing);
+		if (parsing->separator[0] != 0)
 			recursive_parsing(line, new_list(parsing), i);
-		}
 		else if (line[0][i])
 			i = recursive_parsing(line, parsing, i);
 		else
@@ -229,7 +228,7 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 	else
 	{
 		i = get_data(&i, parsing, line);
-		if 	(parsing->separator[0] != 0)
+		if (parsing->separator[0] != 0)
 			recursive_parsing(line, new_list(parsing), i);
 		else if (line[0][i])
 			i = recursive_parsing(line, parsing, i);
@@ -303,28 +302,12 @@ void	data_formatation(t_parsing *parsing, char ***env)
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
-	free(parsing->data[0]);
-	parsing->data[0] = malloc(sizeof(char) * 8);
-	parsing->data[0][0] = 92;
-	parsing->data[0][1] = 92;
-	parsing->data[0][2] = 10;
-	parsing->data[0][3] = 0;
-
-	//ft_sep(parsing);
-//	data_formatation(parsing, env);
-//
-<<<<<<< HEAD
-//	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
-//		echo(*parsing, env, utils);	
-//	printf("data = %s\n", parsing->data[0]);
-	if (ft_strncmp(parsing->objet, "cd", 2) == 0)
-=======
+	//	data_formatation(parsing, env);
 	if (ft_sep(*parsing) <= 0)
 		;
 	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		echo(*parsing, env, utils);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
->>>>>>> 9f7d204f5d192a9d581c55a0d3799a820053cbf3
 		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
 		ft_pwd(*parsing, env, utils);
