@@ -6,11 +6,12 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:03:05 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/15 13:42:23 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:45:10 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell_utils.h"
+
 int		ft_sep(t_parsing info)
 {
 	int sep;
@@ -22,7 +23,7 @@ int		ft_sep(t_parsing info)
         return (1);
 	else if (sep == 3)
     {
-        fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+        fd = open(info.next->objet, O_WRONLY | O_CREAT, 0644 | O_DIRECTORY);
         if (fd < 0)
             return (ft_error(strerror(errno), info.next->objet));
 		close(fd);
@@ -32,7 +33,7 @@ int		ft_sep(t_parsing info)
         return (ft_sep(*info.next));
     else
     {
-        fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+        fd = open(info.next->objet, O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
         if (fd < 0)
             return (ft_error(strerror(errno), info.next->objet));
 		close(fd);

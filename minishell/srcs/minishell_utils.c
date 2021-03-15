@@ -174,7 +174,7 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 			ft_reroll(info, env, utils);
 		else
 		{
-			fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+			fd = open(info.next->objet, O_WRONLY | O_CREAT, 0644 | O_DIRECTORY);
 			if (fd < 0)
 				ft_error(strerror(errno), info.next->objet);
 		}
@@ -188,7 +188,7 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 			ft_reroll(info, env, utils);
 		else
 		{
-			fd = open(info.next->objet, O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+			fd = open(info.next->objet, O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
 			if (fd < 0)
 				ft_error(strerror(errno), info.next->objet);
 		}
