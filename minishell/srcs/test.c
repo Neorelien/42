@@ -3,17 +3,18 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <dirent.h>
 int main()
 {
-	int fd;
-struct 	stat state;
-	fd = open("lol", O_RDWR |O_CREAT, 0644 | O_DIRECTORY | O_APPEND);
-	fstat(fd, &state);
-	printf("%d\n", state.st_inode);
-printf("%llu\n", state.st_size);
-printf("%d\n", state.st_blksize);
-printf("%d\n", state.st_blocks);
-printf("%d\n", state.st_atime);
-printf("%d\n", state.st_mtime);
-printf("%d\n", state.st_ctime);
+	struct dirent lol;
+	int fdd;
+	DIR fd;
+	int pipefd[2];
+	fdd = open("lol", O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+	fd = (int)fdd;
+	lol = *readdir(&fd);
+	printf("%s\n", lol.d_name);
+//	printf("%d\n", isatty(pipefd[0]));
+//	printf("%s\n", ttyname(fd));
+//	printf("%d\n", isatty(fd));
 }

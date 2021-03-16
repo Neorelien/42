@@ -44,12 +44,12 @@ int		is_separator_parsing(char *str, int i)
 			return (1);
 		if (str[i] == '|' && str[i - 1] != 92)
 			return (2);
-		if (str[i] == '>' && str[i - 1] != 92)
-			return (3);
 		if (str[i] == '<' && str[i - 1] != 92)
 			return (4);
 		if (str[i] == '>' && str[i + 1] == '>' && str[i - 1] != 92)
 			return (5);
+		if (str[i] == '>' && str[i - 1] != 92)
+			return (3);
 	}
 	else
 	{
