@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/16 14:54:19 by aurelien         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/16 14:53:16 by cmoyal           ###   ########.fr       */
->>>>>>> 5e0c9ad0e20adb11f29d64ce30f515a7552810df
+/*   Updated: 2021/03/16 19:58:07 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +139,8 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 		if (quote != 0)
 		{
 			if (line[0][i] != quote)
+				ft_cpy(res, line[0][i]);
+			else if (i > 0 && line[0][i - 1] == 92 && quote == 34) 
 				ft_cpy(res, line[0][i]);
 			else if ((quote = 0) == 0)
 				ft_cpy(res, line[0][i]);
@@ -287,14 +285,9 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 	*i = recursive_parsing(line, ft_lstlast(parsing), *i);
 }
 
-void	data_formatation(t_parsing *parsing, char ***env)
-{
-	int	i;
-}
-
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
-	//	data_formatation(parsing, env);
+	data_formation(parsing, env);
 	test_struct(parsing);
 	if (ft_sep(*parsing) <= 0)
 		;
