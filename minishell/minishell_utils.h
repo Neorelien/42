@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/15 13:29:07 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/16 12:07:01 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ typedef struct	s_utils
 
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3
+# define TEST printf("ON VA LA\n")
 
+int			ft_lstsize(t_parsing *lst);
+t_parsing	*ft_lstlast(t_parsing *lst);
 int			is_separator_parsing(char *str, int i);
 int			clean_parsing(t_parsing *parsing);
 t_parsing	*new_list(t_parsing *previous_lst);
