@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/16 14:48:45 by aurelien         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/16 13:48:44 by cmoyal           ###   ########.fr       */
+>>>>>>> 2c510c6899c64c41dc20cca6d2af86edab0a09c4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,12 +294,21 @@ void	data_formatation(t_parsing *parsing, char ***env)
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
+	free(parsing->data[0]);
+	parsing->data[0] = malloc(sizeof(char) * 8);
+	parsing->data[0][0] = 92;
+	parsing->data[0][1] = 92;
+	parsing->data[0][2] = 10;
+	parsing->data[0][3] = 0;
+
+//	data_formatation(parsing, env);
+//
 	//	data_formatation(parsing, env);
 	test_struct(parsing);
 	if (ft_sep(*parsing) <= 0)
 		;
-	//	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
-	//		echo(*parsing, env, utils);	
+//	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
+//			echo(*parsing, env, utils);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
 		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)

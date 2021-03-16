@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/15 13:56:27 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/16 13:47:25 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	char *path;
 	char *oldpath;
 
+	if (ft_next_is_pipe(info, *env, utils, 0) == 1)
+		;
 	path = NULL;
 	oldpath = NULL;
 	if ((oldpath = getcwd(path, 0)) == NULL)

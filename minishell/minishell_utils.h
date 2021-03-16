@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/16 12:07:01 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/16 13:48:59 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ char		*find_in_env(char **env, char *name);
 void		fonction_router(t_parsing *parsing, char ***env, t_utils *utils);
 void		check_to_next(t_parsing info, char ***env, t_utils *utils);
 int			ft_sep(t_parsing info);
+int			ft_next_is_pipe(t_parsing info, char **env, t_utils *utils, int flag);
 #endif
