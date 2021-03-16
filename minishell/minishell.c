@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/16 14:38:31 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/16 14:53:16 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_quote(char **line, int quote)
 		write(1, "dquote> ", 8);
 	else
 		write(1, "quote> ", 8);
-	get_next_line(1, line);
+	get_next_line(0, line);
 }
 
 char	*ft_str_erase_set(char *str, char quote)
@@ -106,7 +106,21 @@ char	**selec_dest(t_parsing *parsing, char quote)
 	parsing->data = malloc(sizeof(char*) * (i + 2));
 	recopy_data(parsing->data, tmp);
 	free(tmp);
+	parsing->data[i] = ft_strdup("");
+	parsing->data[i + 1] = NULL;
 	return (&parsing->data[i]);
+}
+
+void	ft_cpy(char **res, char c)
+{
+	char	to_join[2];
+	char	*tmp;
+
+	to_join[0] = c;
+	to_join[1] = 0;
+	tmp = *res;
+	*res = ft_strjoin_gnl(*res, to_join);
+	free(tmp);
 }
 
 int		get_objet(char **line, int i, t_parsing *parsing)
@@ -115,7 +129,8 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 	char		*tmp;
 	char		to_join[2];
 	static char	quote;
-
+	
+	if (line[0][i])
 	res = selec_dest(parsing, quote);
 	to_join[1] = 0;
 	while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != 0) ) &&
@@ -124,30 +139,9 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 		if (quote != 0)
 		{
 			if (line[0][i] != quote)
-			{
-				if (quote == 34 && (line[0][i] == '$' || no_escape(line, i)))
-				{
-					tmp = *res;
-					to_join[0] = line[0][i];
-					*res = ft_strjoin_gnl(*res, to_join);
-					free(tmp);
-				}
-				else
-				{
-					tmp = *res;
-					to_join[0] = line[0][i];
-					*res = ft_strjoin_gnl(*res, to_join);
-					free(tmp);
-				}
-			}
-			else
-			{
-				tmp = *res;
-				to_join[0] = line[0][i];
-				*res = ft_strjoin_gnl(*res, to_join);
-				free(tmp);
-				quote = 0;
-			}
+				ft_cpy(res, line[0][i]);
+			else if ((quote = 0) == 0)
+				ft_cpy(res, line[0][i]);
 		}
 		else if (is_separator_parsing(line[0], i))
 		{
@@ -175,18 +169,10 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 					quote = line[0][i];
 				if (i == 0)
 					quote = line[0][i];
-				tmp = *res;
-				to_join[0] = line[0][i];
-				*res = ft_strjoin_gnl(*res, to_join);
-				free(tmp);
+				ft_cpy(res, line[0][i]);
 			}
 			else
-			{
-				tmp = *res;
-				to_join[0] = line[0][i];
-				*res = ft_strjoin_gnl(*res, to_join);
-				free(tmp);
-			}
+				ft_cpy(res, line[0][i]);
 		}
 		i++;
 	}
