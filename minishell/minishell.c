@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/16 13:48:44 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/16 14:38:31 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,7 +357,7 @@ int		main(int argc, char **argv, char **env)
 	env = utils.tmp;
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
-	while (ft_display_rep(env, utils) && write(1, "-> ", 3) && get_next_line(1, line))
+	while (ft_display_rep(env, utils) && write(1, "-> ", 3) && get_next_line(0, line))
 	{
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
