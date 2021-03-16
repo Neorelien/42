@@ -74,7 +74,7 @@ PREMIER PASSAGE
 
 - $ la suite est une ENV, jusqu'a   -->   tout ce qui n'est pas alphanumérique EXPECT à é
 	- si le char d'avant est un \, le dis char disparait et $ est un char, la suite n'est pas une ENV
-	- si pas de suite ou alors longueur de la ENV est de 0 (ex : rencontre un caractere autre que alphanumerique juste apres le $) $ est considere comme un char a conserver en string, SAUF SI ENTRE quote
+	- si pas de suite (fin de string) ou alors longueur de la ENV est de 0 (ex : rencontre un caractere autre que alphanumerique juste apres le $) $ est considere comme un char a conserver en string, SAUF SI ENTRE quote
 	- si la suite ne correspond a aucun ENV existante, cela faut une string vide
 
 

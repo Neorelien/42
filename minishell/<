@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/16 10:59:33 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/15 20:06:41 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 void	test_struct(t_parsing *parsing);
 
-void	get_quote(char **line, int quote)
+void	get_dquote(char **line)
 {
 	free(*line);
-	if (quote == OPEN_DQUOTE)
-		write(1, "dquote> ", 8);
-	else
-		write(1, "quote> ", 8);
+	write(1, "dquote> ", 8);
 	get_next_line(1, line);
 }
 
@@ -74,80 +71,48 @@ int		no_escape(char **line, int i)
 	return (0);
 }
 
-char	**selec_dest(t_parsing *parsing, char quote)
-{
-	int		i;
-	char	**tmp;
-
-	i = 0;
-	if (parsing->objet == NULL)
-	{
-		parsing->objet = ft_strdup("");
-		return (&parsing->objet);
-	}
-	else if (parsing->objet != NULL && parsing->data == NULL && quote > 0)
-		return (&parsing->objet);
-	else if (parsing->data == NULL)
-	{
-		parsing->data = malloc(sizeof(char*) * 2);
-		parsing->data[0] = ft_strdup("");
-		parsing->data[1] = NULL;
-		return (&parsing->data[0]);
-	}
-	else if (parsing->data != NULL && quote > 0)
-	{
-		while (parsing->data[i])
-			i++;
-		return (&parsing->data[i - 1]);
-	}
-	while (parsing->data[i] != NULL)
-		i++;
-	tmp = parsing->data;
-	parsing->data = malloc(sizeof(char*) * (i + 2));
-	recopy_data(parsing->data, tmp);
-	free(tmp);
-	return (&parsing->data[i]);
-}
-
 int		get_objet(char **line, int i, t_parsing *parsing)
 {
-	char		**res;
+	char		*res;
 	char		*tmp;
 	char		to_join[2];
 	static char	quote;
+	char		*dest;
 
-	res = selec_dest(parsing, quote);
+	/*	if (quote > 0)
+		res = ft_strdup(*dest);*/
+	res = malloc(sizeof(char) * 1);
+	res[0] = 0;
 	to_join[1] = 0;
-	while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != 0) ) &&
+	quote = -1;
+	while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != -1) ) &&
 			line[0][i])
 	{
-		if (quote != 0)
+		if (quote != -1)
 		{
 			if (line[0][i] != quote)
 			{
 				if (quote == 34 && (line[0][i] == '$' || no_escape(line, i)))
 				{
-					tmp = *res;
+					tmp = res;
 					to_join[0] = line[0][i];
-					*res = ft_strjoin_gnl(*res, to_join);
+					res = ft_strjoin_gnl(res, to_join);
 					free(tmp);
 				}
 				else
 				{
-					tmp = *res;
+					tmp = res;
+					to_join[0] = 92;
+					res = ft_strjoin_gnl(res, to_join);
+					free(tmp);
+					tmp = res;
 					to_join[0] = line[0][i];
-					*res = ft_strjoin_gnl(*res, to_join);
+					res = ft_strjoin_gnl(res, to_join);
 					free(tmp);
 				}
 			}
 			else
-			{
-				tmp = *res;
-				to_join[0] = line[0][i];
-				*res = ft_strjoin_gnl(*res, to_join);
-				free(tmp);
 				quote = -1;
-			}
 		}
 		else if (is_separator_parsing(line[0], i))
 		{
@@ -160,11 +125,8 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 			}
 			else
 				parsing->separator[0] = line[0][i++];
-			if (*res != NULL && res[0][0] == 0)
-			{
-				free(*res);
-				*res = NULL;
-			}
+			free(res);
+			res = NULL;
 			break ;
 		}
 		else
@@ -175,21 +137,18 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 					quote = line[0][i];
 				if (i == 0)
 					quote = line[0][i];
-				tmp = *res;
-				to_join[0] = line[0][i];
-				*res = ft_strjoin_gnl(*res, to_join);
-				free(tmp);
 			}
 			else
 			{
-				tmp = *res;
+				tmp = res;
 				to_join[0] = line[0][i];
-				*res = ft_strjoin_gnl(*res, to_join);
+				res = ft_strjoin_gnl(res, to_join);
 				free(tmp);
 			}
 		}
 		i++;
 	}
+	dest = res;
 	if (quote == 39)
 		return (OPEN_SQUOTE);
 	if (quote == 34)
@@ -226,7 +185,34 @@ char	**recopy_data(char **data, char **temp)
 	data[i] = NULL;
 	return (data);
 }
+/*
+int		get_data(int *i, t_parsing *parsing, char **line)
+{
+	char	**temp;
+	int		o;
 
+	o = 0;
+	if (parsing->data == NULL || parsing->data[0] == NULL)
+	{
+		parsing->data = malloc(sizeof(char*) * 2);
+		parsing->data[1] = NULL;
+		*i = get_objet(line, *i, &parsing->data[0], parsing);
+		return (*i);
+	}
+	else
+	{
+		while (parsing->data[o] != NULL)
+			o++;
+		temp = parsing->data;
+		parsing->data = malloc(sizeof(char*) * (o + 2));
+		recopy_data(parsing->data, temp);
+		free(temp);
+		*i = get_objet(line, *i, &parsing->data[o], parsing);
+		parsing->data[o + 1] = NULL;
+		return (*i);
+	}
+}
+*/
 int		recursive_parsing(char **line, t_parsing *parsing, int i)
 {
 	while (line[0][i] == ' ')
@@ -287,9 +273,12 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 {
 	char *tmp;
 
-	get_quote(line, *i);
+	get_dquote(line);
 	tmp = *line;
-	*line = ft_strjoin("\n", *line);
+	if (*i == OPEN_SQUOTE)
+		*line = ft_strjoin("'\n", *line);
+	else
+		*line = ft_strjoin("\"\n", *line);
 	*i = 0;
 	free(tmp);
 	*i = recursive_parsing(line, parsing, *i);
