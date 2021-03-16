@@ -82,7 +82,28 @@ int		is_separator(char *str)
 	return (0);
 }
 
-int		ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
+int			ft_lstsize(t_parsing *lst)
+{
+	size_t size;
+
+	size = 0;
+	if (!lst)
+		return (0);
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+}
+
+t_parsing	*ft_lstlast(t_parsing *lst)
+{
+	while (lst->next != NULL)
+		lst = lst->next; 
+	return (lst);
+}
+
+int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 {
 	pipe(utils->pipefd);
 	utils->cpid = fork();

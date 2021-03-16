@@ -6,13 +6,13 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 17:13:35 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/03 14:34:46 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/16 12:00:28 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_parsing *lst)
 {
 	size_t size;
 

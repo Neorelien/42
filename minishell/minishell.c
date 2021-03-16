@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/16 12:01:54 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/16 13:48:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 				to_join[0] = line[0][i];
 				*res = ft_strjoin_gnl(*res, to_join);
 				free(tmp);
-				quote = -1;
+				quote = 0;
 			}
 		}
 		else if (is_separator_parsing(line[0], i))
@@ -235,7 +235,7 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
 		return (i);
 	i = get_objet(line, i, parsing);
 	if (parsing->separator[0] != 0)
-		recursive_parsing(line, new_list(parsing), i);
+		i = recursive_parsing(line, new_list(parsing), i);
 	else if (line[0][i])
 		i = recursive_parsing(line, parsing, i);
 	return (i);
@@ -253,6 +253,8 @@ void	test_struct(t_parsing *parsing)
 		printf("data %d =%s|\n", i, parsing->data[i]);
 		i++;
 	}
+	if (parsing->separator[0] != 0)
+		printf("sep = %s\n", parsing->separator);
 	if (parsing->next != NULL)
 		test_struct(parsing->next);
 }
@@ -292,7 +294,7 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 	*line = ft_strjoin("\n", *line);
 	*i = 0;
 	free(tmp);
-	*i = recursive_parsing(line, parsing, *i);
+	*i = recursive_parsing(line, ft_lstlast(parsing), *i);
 }
 
 void	data_formatation(t_parsing *parsing, char ***env)
