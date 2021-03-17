@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/03/16 19:54:47 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/17 11:16:56 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	trans_env(t_parsing *parsing, char ***env)
 		}
 		if (parsing->objet[i] == '$')
 			i = look_for_env(parsing, quote, i, new_obj, env);
+		else
+			i++;
 	}
 	free(parsing->objet);
 	parsing->objet = new_obj;

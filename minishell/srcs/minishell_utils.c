@@ -84,7 +84,7 @@ int		is_separator(char *str)
 
 int			ft_lstsize(t_parsing *lst)
 {
-	size_t size;
+	int size;
 
 	size = 0;
 	if (!lst)
@@ -94,6 +94,7 @@ int			ft_lstsize(t_parsing *lst)
 		size++;
 		lst = lst->next;
 	}
+	return (size);
 }
 
 t_parsing	*ft_lstlast(t_parsing *lst)
