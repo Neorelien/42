@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/17 10:47:15 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:23:37 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	get_quote(char **line, int quote)
 		write(1, "dquote> ", 8);
 	else
 		write(1, "quote> ", 8);
-	get_next_line(0, line);
+	if (!get_next_line(0, line))
+		ft_error("unexpected EOF while looking for matching", "\'\"\'");
 }
 
 char	*ft_str_erase_set(char *str, char quote)
@@ -315,6 +316,25 @@ void	init_utils(t_utils *utils, t_parsing *parsing)
 	utils->cpid = -1;
 }
 
+int ft_signal(void)
+{
+	signal(SIGINT, handler_next);
+	signal(SIGQUIT, handler_quit);
+	return (1);
+}
+
+int ft_recup_line(char **line)
+{
+	int ret;
+	int pid;
+
+	while (!(ret = get_next_line(0, line)) && **line != 0)
+		ft_putstr_fd("bla", 0);
+	if (!ret && **line == 0)
+		return (0);
+	return (1);
+}
+
 int		main(int argc, char **argv, char **env)
 {
 	char			**line;
@@ -331,18 +351,20 @@ int		main(int argc, char **argv, char **env)
 	env = utils.tmp;
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
-	while (ft_display_rep(env, utils) && write(1, "-> ", 3) && get_next_line(0, line))
+	while (ft_display_rep(env, utils) && write(1, "-> ", 3)	&& ft_signal() && ft_recup_line(line))
 	{
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
 		fonction_router(parsing, &env, &utils);
-		//	if (clean_parsing(utils.parsing_start))
-		//		exit(1);
-		//	system("leaks minishell\n");
+	//	if (clean_parsing(utils.parsing_start))
+	//		exit(1);
+	//	system("leaks minishell\n");
 		parsing = new_list(NULL);
 		i = 0;
 		free(*line);
 	}
+	free(line);
+	ft_putstr_fd("exit\n", 1);
 	return (0);
 }
