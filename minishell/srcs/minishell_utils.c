@@ -1,5 +1,16 @@
 #include "../minishell_utils.h"
+void handler_next(int sign)
+{
+	char *printed;
+	ft_putstr_fd("\b\b\n", 0);
+	printed = getenv("PWD");
+	printf("%s\n", printed);
+}
 
+void handler_quit(int sign)
+{
+	printf("\b\bnext  %d\n", sign);
+}
 char *find_in_env(char **env, char *name)
 {
 	unsigned int i;
