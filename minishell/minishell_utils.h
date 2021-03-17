@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/17 16:11:27 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/17 20:00:30 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ typedef struct	s_utils
 	char		result;
 	char		**data;
 }				t_utils;
+
+typedef struct	s_sig
+{
+	pid_t	pid;
+}				t_sig;
+
+extern t_sig g_sig;
 
 # define OPEN_SQUOTE -2
 # define OPEN_DQUOTE -3

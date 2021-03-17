@@ -6,16 +6,12 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/17 16:31:16 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/17 16:23:37 by cmoyal           ###   ########.fr       */
->>>>>>> 303a59207ec12128f91a4694e109e1391a258015
+/*   Updated: 2021/03/18 00:43:53 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_utils.h"
-
+t_sig g_sig;
 void	test_struct(t_parsing *parsing);
 
 void	get_quote(char **line, int quote)
@@ -311,6 +307,8 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 	else if (parsing->objet != NULL)
 			ft_other_exc(parsing, *env, utils);
 	check_to_next(*parsing, env, utils);
+	if (utils->cpid == -2)
+		exit(1);
 }
 
 void	init_utils(t_utils *utils, t_parsing *parsing)
@@ -355,8 +353,9 @@ int		main(int argc, char **argv, char **env)
 	env = utils.tmp;
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
+	g_sig.pid = -1;
 	while (ft_display_rep(env, utils) && write(1, "-> ", 3)	&& ft_signal() && ft_recup_line(line))
-	{
+	{	
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
@@ -367,6 +366,7 @@ int		main(int argc, char **argv, char **env)
 		parsing = new_list(NULL);
 		i = 0;
 		free(*line);
+		g_sig.pid = -1;
 	}
 	free(line);
 	ft_putstr_fd("exit\n", 1);

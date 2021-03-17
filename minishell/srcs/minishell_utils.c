@@ -1,10 +1,20 @@
 #include "../minishell_utils.h"
 void handler_next(int sign)
 {
-	char *printed;
-	ft_putstr_fd("\b\b\n", 0);
-	printed = getenv("PWD");
-	printf("%s\n", printed);
+	char 	*printed;
+	int		len;
+
+	ft_putstr_fd("\n", 0);
+	if (g_sig.pid == -1)
+	{
+		printed = getenv("PWD");
+		len = ft_strlen(printed);
+		while (len >= 0 && printed[len] != '/')
+			len--;
+		printed += len + 1;
+		ft_putstr_fd(printed, 0);
+		ft_putstr_fd(" -> ", 0);
+	}
 }
 
 void handler_quit(int sign)
