@@ -9,7 +9,19 @@
 
 void handler(int sign)
 {
-	signal(sign, SIG_IGN);
+	printf("\b\blol\n");
+//	signal(sign, SIG_IGN);
+}
+
+void handler_quit(int sign)
+{
+	printf("\b\bmdr\n");
+//	signal(sign, SIG_DFL);
+}
+
+void leave(int sign)
+{
+	printf("NOO GOD NOOOOO\n");
 }
 
 int main()
@@ -18,6 +30,8 @@ int main()
 	while (42)
 	{
 		signal(SIGINT, handler);
+		signal(SIGQUIT, handler_quit);
+		signal(SIGSTOP, leave);
 		get_next_line(0, &line);
 		if (ft_strncmp("exit", line, 3) == 0)
 			exit(1);

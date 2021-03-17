@@ -1,2 +1,4 @@
 - cd -
-
+\b
+SIG_ING = le signal est ignoré
+SIG_DFL = faire quelque chose
