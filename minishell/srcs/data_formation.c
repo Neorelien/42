@@ -6,49 +6,43 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/03/17 11:16:56 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:30:55 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell_utils.h"
 
-void	quote_status(t_parsing *parsing, int *quote, int i, char *new_obj)
+int		quote_status(char **objet, int *quote, int i)
 {
-	if (*quote == 0 && parsing->objet[i] == 34)
+	if (*quote == 0 && objet[0][i] == 34)
 	{
 		if (i == 0)
-		{
-			ft_cpy(&new_obj, parsing->objet[i]);
-			*quote = parsing->objet[i];
-		}
-		if (i > 0 && parsing->objet[i - 1] != 92)
-		{
-			ft_cpy(&new_obj, parsing->objet[i]);
-			*quote = parsing->objet[i];
-		}
+			*quote = objet[0][i];
+		else if (i > 0 && objet[0][i - 1] != 92)
+			*quote = objet[0][i];
 		else
-			ft_cpy(&new_obj, parsing->objet[i]);
+			return (1);
 	}
-	else if (*quote == 0 && parsing->objet[i] == 39)
+	else if (*quote == 0 && objet[0][i] == 39)
 	{
-		ft_cpy(&new_obj, parsing->objet[i]);
-		*quote = parsing->objet[i];
-	}
-	else if (parsing->objet[i] == *quote)
-	{
-		if (i > 0 && parsing->objet[i - 1] != 92 && *quote == 34)
-			ft_cpy(&new_obj, parsing->objet[i]);
+		if (i > 0 && objet[0][i - 1] != 92)
+			*quote = objet[0][i];
+		else if (i == 0)
+			*quote = objet[0][i];
 		else
-		{
-			ft_cpy(&new_obj, parsing->objet[i]);
+			return (1);
+	}
+	else if (objet[0][i] == *quote)
+	{
+		if (i > 0 && objet[0][i - 1] == 92 && *quote == 34)
+			return (1);
+		else
 			*quote = 0;
-		}
 	}
-	else
-		ft_cpy(&new_obj, parsing->objet[i]);
+	return (0);
 }
 
-int		look_for_env(t_parsing *parsing, int quote, int i, char *new_obj, char ***env)
+int		look_for_env(char **objet, int quote, int i, char **new_obj, char ***env)
 {
 	char	*env_name;
 	char	*env_cont;
@@ -56,30 +50,31 @@ int		look_for_env(t_parsing *parsing, int quote, int i, char *new_obj, char ***e
 
 	o = 0;
 	env_name = ft_strdup("");
-	if (i > 0 && parsing->objet[i - 1] == 92)
-		ft_cpy(&new_obj, parsing->objet[i++]);
+	if (i > 0 && objet[0][i - 1] == 92)
+		ft_cpy(new_obj, objet[0][i++]);
 	else if (quote == 39)
-		ft_cpy(&new_obj, parsing->objet[i++]);
-	else if (quote == 0 && parsing->objet[i + 1] == 39)
+		ft_cpy(new_obj, objet[0][i++]);
+	else if (quote == 0 && objet[0][i + 1] == 39)
 		i++;
-	else if (!ft_isalnum(parsing->objet[i + 1]))
-		ft_cpy(&new_obj, parsing->objet[i++]);
+	else if (!ft_isalnum(objet[0][i + 1]))
+		ft_cpy(new_obj, objet[0][i++]);
 	else
 	{
-		while (ft_isalnum(parsing->objet[i]))
-			ft_cpy(&env_name, parsing->objet[i++]);
+		i++;
+		while (ft_isalnum(objet[0][i]))
+			ft_cpy(&env_name, objet[0][i++]);
 		env_cont = find_in_env(*env, env_name);
 		if (env_cont == NULL)
 			;
 		else
 			while (env_cont[o])
-				ft_cpy(&new_obj, env_cont[o++]);
+				ft_cpy(new_obj, env_cont[o++]);
 		free(env_name);
 	}
 	return (i);
 }
 
-void	trans_env(t_parsing *parsing, char ***env)
+void	trans_env(char **objet, char ***env)
 {
 	int		i;
 	int		quote;
@@ -88,30 +83,156 @@ void	trans_env(t_parsing *parsing, char ***env)
 	new_obj = ft_strdup("");
 	quote = 0;
 	i = 0;
-	while (parsing->objet[i])
+	while (objet[0][i])
 	{
-		if (parsing->objet[i] == 34 || parsing->objet[i] == 39)
+		if (objet[0][i] == 34 || objet[0][i] == 39)
 		{
-			ft_cpy(&new_obj, parsing->objet[i]);
-			quote_status(parsing, &quote, i, new_obj);
-			i++;
+			quote_status(objet, &quote, i);
+			ft_cpy(&new_obj, objet[0][i++]);
 		}
-		if (parsing->objet[i] == '$')
-			i = look_for_env(parsing, quote, i, new_obj, env);
+		else if (objet[0][i] == '$')
+			i = look_for_env(objet, quote, i, &new_obj, env);
 		else
-			i++;
+			ft_cpy(&new_obj, objet[0][i++]);
 	}
-	free(parsing->objet);
-	parsing->objet = new_obj;
+	free(objet[0]);
+	objet[0] = new_obj;
 }
 
-void	form_objet(t_parsing *parsing, char ***env)
+int		is_token_remplace(char c, char **objet)
 {
-	trans_env(parsing, env);
+	if (c == 'a')
+		ft_cpy(objet, 7);
+	else if (c == 'b')
+		ft_cpy(objet, 8);
+	else if (c == 't')
+		ft_cpy(objet, 9);
+	else if (c == 'n')
+		ft_cpy(objet, 10);
+	else if (c == 'v')
+		ft_cpy(objet, 11);
+	else if (c == 'f')
+		ft_cpy(objet, 12);
+	else if (c == 'r')
+		ft_cpy(objet, 13);
+	else
+		return (0);
+	return (1);
+}
+
+int		is_token(char c, char **objet)
+{
+	if (c == 'a')
+		return (1);
+	else if (c == 'b')
+		return (1);
+	else if (c == 't')
+		return (1);
+	else if (c == 'n')
+		return (1);
+	else if (c == 'v')
+		return (1);
+	else if (c == 'f')
+		return (1);
+	else if (c == 'r')
+		return (1);
+	else
+		return (0);
+}
+
+int		look_for_BS_token(char **objet, int quote, int i, char **new_obj)
+{
+	if (quote)
+	{
+		if (is_token_remplace(objet[0][i + 1], new_obj))
+			i = i + 2;
+		else if ((objet[0][i + 1] == 92 || objet[0][i + 1] == 34) && quote == 34)
+		{
+			ft_cpy(new_obj, objet[0][i + 1]);
+			i = i + 2;
+		}
+		else
+			ft_cpy(new_obj, objet[0][i++]);
+	}
+	else
+	{
+		if (objet[0][i] == 92)
+		{
+			if (objet[0][i + 1] == 92 &&
+					is_token_remplace(objet[0][i + 2], new_obj))
+				i = i + 3;
+			else
+				ft_cpy(new_obj, objet[0][i++ + 1]);
+		}
+	}
+	return (i);
+}
+
+int		look_for_BS(char **objet, int quote, int i, char **new_obj)
+{
+	if (quote)
+	{
+		if ((objet[0][i + 1] == 92 || objet[0][i + 1] == 34) && quote == 34)
+		{
+			ft_cpy(new_obj, objet[0][i + 1]);
+			i = i + 2;
+		}
+		else
+			ft_cpy(new_obj, objet[0][i++]);
+	}
+	else
+	{
+		if (objet[0][i] == 92)
+			ft_cpy(new_obj, objet[0][i++ + 1]);
+	}
+	return (i);
+}
+
+void	trans_BS_quote(char **objet, char ***env, int token)
+{
+	int		i;
+	int		quote;
+	char	*new_obj;
+
+	quote = 0;
+	i = 0;
+	new_obj = ft_strdup("");
+	while (objet[0][i])
+	{
+		if (objet[0][i] == 34 || objet[0][i] == 39)
+		{
+			if (quote_status(objet, &quote, i))
+				ft_cpy(&new_obj, objet[0][i]);
+		}
+		else if (objet[0][i] == 92)
+		{
+			if (token)
+				i = look_for_BS_token(objet, quote, i, &new_obj);
+			else
+				i = look_for_BS(objet, quote, i, &new_obj);
+		}
+		else
+			ft_cpy(&new_obj, objet[0][i]);
+		i++;
+	}
+	free(objet[0]);
+	objet[0] = new_obj;
 }
 
 void	data_formation(t_parsing *parsing, char ***env)
 {
+	int	i;
+
+	i = 0;
 	if (parsing->objet != NULL)
-		form_objet(parsing, env);
+	{
+		trans_env(&parsing->objet, env);
+		trans_BS_quote(&parsing->objet, env, 0);
+	}
+	while (parsing->data != NULL && parsing->data[i] != NULL)
+	{
+		trans_env(&parsing->data[i], env);
+		trans_BS_quote(&parsing->data[i], env, 1);
+		i++;
+	}
 }

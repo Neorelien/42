@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/17 10:47:15 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:31:16 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
 	data_formation(parsing, env);
-	test_struct(parsing);
+//	test_struct(parsing);
 	if (ft_sep(*parsing) <= 0)
 		;
 //	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
@@ -303,8 +303,8 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 		ft_env(parsing, *env, utils);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		ft_unset(parsing, env);
-	//	else if (parsing->objet != NULL)
-	//		ft_other_exc(parsing, *env, utils);
+	else if (parsing->objet != NULL)
+			ft_other_exc(parsing, *env, utils);
 	check_to_next(*parsing, env, utils);
 }
 
