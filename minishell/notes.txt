@@ -64,7 +64,6 @@ PARSING
 		- si non entre single quote
 		- si non entre double quote
 
-	- $ si succeder d'un single quote, le $ disparait tt simplement, sauf s'il est entre double quote ou single
 
 VOIRRR Les mots de la forme $aqchaîneaq sont traités différemment dans le man 
 
@@ -73,9 +72,10 @@ FORMATAGE
 PREMIER PASSAGE
 
 - $ la suite est une ENV, jusqu'a   -->   tout ce qui n'est pas alphanumérique EXPECT à é
+	- $ si succeder d'un single quote, le $ disparait tt simplement, sauf s'il est entre double quote ou single
 	- si le char d'avant est un \, le dis char disparait et $ est un char, la suite n'est pas une ENV
-	- si pas de suite (fin de string) ou alors longueur de la ENV est de 0 (ex : rencontre un caractere autre que alphanumerique juste apres le $) $ est considere comme un char a conserver en string, SAUF SI ENTRE quote
-	- si la suite ne correspond a aucun ENV existante, cela faut une string vide
+	- si pas de suite (fin de string) ou alors longueur de la ENV est de 0 (ex : rencontre un caractere autre que alphanumerique juste apres le $) $ est considere comme un char a conserver en string, SAUF SI la suite est entre single quote
+- si la suite ne correspond a aucun ENV existante, cela faut une string vide
 
 
 ------------------- A REVOIR ----------------
@@ -95,3 +95,18 @@ TROISIEME PASSAGE --> N'EST PAS EFFECTUE SI on est sur objet et non pas sur data
 
 
 LIRE CA https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_03.html
+
+
+LEs cas de figure
+
+$ 
+
+apres
+'
+
+avant
+
+
+\
+"
+'
