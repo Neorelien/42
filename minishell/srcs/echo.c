@@ -6,13 +6,13 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/18 00:44:56 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/18 13:13:03 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell_utils.h"
 
-int		echo(t_parsing info, char ***env, t_utils *utils)
+int		ft_echo(t_parsing info, char ***env, t_utils *utils)
 {
 	int		i;
 	int		flag;

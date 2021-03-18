@@ -6,6 +6,11 @@
 #include <dirent.h>
 #include "../minishell_utils.h"
 #include <signal.h>
+#include <curses.h>
+#include <term.h>
+#include <stdlib.h>
+#include <ncurses.h>
+//#include <tcl8.5.h>
 
 void handler(int sign)
 {
@@ -25,13 +30,25 @@ void leave(int sign)
 	printf("\033[1;31m");
 }
 
+int ft_putchar(int c)
+{
+	int lol = 1;
+	write(0, &c, 1); 
+	return (lol);
+}
+
 int main()
 {
 	char *line;
+	char *term_type = getenv("TERM");
+	tgetent(NULL, term_type);
+	char *cl_cap = tgetstr("cl", NULL);
+	tputs(cl_cap, 1, ft_putchar);
 	while (42)
 	{
 		signal(SIGINT, leave);
 		signal(SIGQUIT, handler_quit);
+
 		while (!get_next_line(0, &line))
 			;
 		if (ft_strncmp("exit", line, 3) == 0)

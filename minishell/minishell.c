@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/18 00:43:53 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:50:28 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,7 +293,7 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 	if (ft_sep(*parsing) <= 0)
 		;
 //	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
-//			echo(*parsing, env, utils);	
+//			ft_echo(*parsing, env, utils);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
 		ft_cd(*parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
@@ -318,7 +318,7 @@ void	init_utils(t_utils *utils, t_parsing *parsing)
 	utils->cpid = -1;
 }
 
-int ft_signal(void)
+int ft_signal(char **line)
 {
 	signal(SIGINT, handler_next);
 	signal(SIGQUIT, handler_quit);
@@ -353,9 +353,10 @@ int		main(int argc, char **argv, char **env)
 	env = utils.tmp;
 	i = 0;
 	line = malloc(sizeof(char*) * 1);
+	*line = NULL;
 	g_sig.pid = -1;
-	while (ft_display_rep(env, utils) && write(1, "-> ", 3)	&& ft_signal() && ft_recup_line(line))
-	{	
+	while (ft_display_rep(env, utils) && write(1, "-> ", 3)	&& ft_signal(line) && ft_recup_line(line))
+	{		
 		i = recursive_parsing(line, parsing, i);
 		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 			get_open_quote(&i, line, parsing);
