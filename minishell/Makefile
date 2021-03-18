@@ -22,7 +22,7 @@ FLAGS =
 
 RM = rm -rf
 
-PATH_HEADER = ./
+PATH_HEADER = ./minishell_utils.h
 
 .c.o:
 		${CC} ${FLAGS} -I${PATH_HEADER} -c $< -o ${<:.c=.o}

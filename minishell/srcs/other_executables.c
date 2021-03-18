@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/15 13:59:36 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/18 00:51:07 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,12 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	(void)parsing;
 	if (pipe(utils->pipefd) == -1)
 		printf("error pipe");
+//if (utils->cpid != -2)
 	utils->cpid = fork();
+//else
+//	utils->cpid = 0;
+g_sig.pid = utils->cpid;
+
 	if (utils->cpid == 0) // lecture du fils
 	{
 		close(utils->pipefd[1]);
