@@ -16,6 +16,7 @@
 
 	-caractere qui serapare ? --> ex: on a t=1 de declare, si on ecrit echo $t%oui, bash affiche 1%oui, alors qu'avec $toui il renvoi une string vide
 		- ~ # { } \ / ^ @ ° £ % § --> tout ce qui n'est pas alapha numerique et qui n'est pas un sseparator Y COMPRIS A et E avec accent
+
 -------------------------------------------------------------
 
 - ajouter fonction pipe in main 
@@ -99,14 +100,14 @@ LIRE CA https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_03.html
 
 LEs cas de figure
 
-$ 
-
-apres
-'
-
-avant
+$
 
 
-\
-"
-'
+------------------------ A FAIRE ----------------------------------
+
+- verifier la gestion de multiple \\\\\\\\\ avec ou sans quote
+- activer token pour ECHO dans le parsing (formatation)
+- TERMCAP
+- rempalcement de texte pour ctrl D et ctrl \
+- finir export (voir au dessus)
+- gerer $?

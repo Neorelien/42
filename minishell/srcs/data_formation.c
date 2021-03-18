@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/03/17 16:30:55 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/18 14:26:14 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int		look_for_BS(char **objet, int quote, int i, char **new_obj)
 		}
 		else
 			ft_cpy(new_obj, objet[0][i++]);
+		printf("new = %s\n", *new_obj);
 	}
 	else
 	{
@@ -203,6 +204,7 @@ void	trans_BS_quote(char **objet, char ***env, int token)
 		{
 			if (quote_status(objet, &quote, i))
 				ft_cpy(&new_obj, objet[0][i]);
+			i++;
 		}
 		else if (objet[0][i] == 92)
 		{
@@ -212,8 +214,7 @@ void	trans_BS_quote(char **objet, char ***env, int token)
 				i = look_for_BS(objet, quote, i, &new_obj);
 		}
 		else
-			ft_cpy(&new_obj, objet[0][i]);
-		i++;
+			ft_cpy(&new_obj, objet[0][i++]);
 	}
 	free(objet[0]);
 	objet[0] = new_obj;
@@ -232,7 +233,8 @@ void	data_formation(t_parsing *parsing, char ***env)
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
 		trans_env(&parsing->data[i], env);
-		trans_BS_quote(&parsing->data[i], env, 1);
+		trans_BS_quote(&parsing->data[i], env, 0);
 		i++;
 	}
+	test_struct(parsing);
 }
