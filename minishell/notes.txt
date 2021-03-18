@@ -105,9 +105,7 @@ $
 
 ------------------------ A FAIRE ----------------------------------
 
-- verifier la gestion de multiple \\\\\\\\\ avec ou sans quote
-- activer token pour ECHO dans le parsing (formatation)
+- LIRE LE MAN BASH EN ENTIER, le s\\ sont parfaitement gerer pour les fonction mkdir etc etc mais pas pour echo, deuxieme analyse necessaire ?? A chercher dans le man
 - TERMCAP
 - rempalcement de texte pour ctrl D et ctrl \
-- finir export (voir au dessus)
 - gerer $?
