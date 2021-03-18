@@ -19,7 +19,10 @@ void handler_next(int sign)
 
 void handler_quit(int sign)
 {
-	printf("\b\bnext  %d\n", sign);
+	if (g_sig.pid != -1)
+		printf("Quit: %d\n", sign);
+	else
+		ft_putstr_fd("\b\b  \b\b", 0);
 }
 char *find_in_env(char **env, char *name)
 {
@@ -193,7 +196,7 @@ void ft_reroll(t_parsing info, char **env, t_utils *utils)
 	info.next->separator[1] = 0;
 	info.next->separator[2] = 0;
 	info.next->next = NULL;
-	echo(info, &env, utils);
+	ft_echo(info, &env, utils);
 	info.next->separator[0] = tmp_sep[0];
 	info.next->separator[1] = tmp_sep[1];
 	info.next->separator[2] = tmp_sep[2];

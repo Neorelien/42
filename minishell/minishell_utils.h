@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/18 11:37:02 by aurelien         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/18 13:13:17 by cmoyal           ###   ########.fr       */
+>>>>>>> d70df55fbfb465158d73361f443874d5c48111b0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +74,7 @@ int			ft_error(char *str, char *strbis);
 char		**recopy_data(char **data, char **temp);
 int			ft_export(t_parsing *parsing, char ***env, t_utils *utils);
 char		*ft_str_erase_set(char *str, char quote);
-int			echo(t_parsing info, char ***env, t_utils *utils);
+int			ft_echo(t_parsing info, char ***env, t_utils *utils);
 size_t		ft_doubletab_len(char **doubletab);
 int			is_separator(char *str);
 int			write_with_separator(t_parsing info, char **env, t_utils *utils, int fd);

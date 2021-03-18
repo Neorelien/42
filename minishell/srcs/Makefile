@@ -17,7 +17,7 @@ LINK = ar rc
 
 CC = clang
 
-FLAGS = 
+FLAGS = -lncurses
 
 RM = rm -rf
 
