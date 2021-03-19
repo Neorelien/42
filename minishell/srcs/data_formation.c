@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/03/18 14:26:14 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/19 00:10:45 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,14 @@ int		look_for_BS_token(char **objet, int quote, int i, char **new_obj)
 	{
 		if (objet[0][i] == 92)
 		{
-			if (objet[0][i + 1] == 92 &&
-					is_token_remplace(objet[0][i + 2], new_obj))
-				i = i + 3;
-			else
-				ft_cpy(new_obj, objet[0][i++ + 1]);
+			//if (objet[0][i + 1] == 92 &&
+		//			is_token_remplace(objet[0][i + 2], new_obj))
+		//		i = i + 3;
+		//	else
+		//	{
+				ft_cpy(new_obj, objet[0][i + 1]);
+				i = i + 2;
+		//	}
 		}
 	}
 	return (i);
@@ -184,7 +187,10 @@ int		look_for_BS(char **objet, int quote, int i, char **new_obj)
 	else
 	{
 		if (objet[0][i] == 92)
-			ft_cpy(new_obj, objet[0][i++ + 1]);
+		{
+			ft_cpy(new_obj, objet[0][i + 1]);
+			i = i + 2;
+		}
 	}
 	return (i);
 }
@@ -233,7 +239,10 @@ void	data_formation(t_parsing *parsing, char ***env)
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
 		trans_env(&parsing->data[i], env);
-		trans_BS_quote(&parsing->data[i], env, 0);
+		if (!ft_strncmp(parsing->objet, "echo", 5))
+			trans_BS_quote(&parsing->data[i], env, 1);
+		else
+			trans_BS_quote(&parsing->data[i], env, 0);
 		i++;
 	}
 	test_struct(parsing);

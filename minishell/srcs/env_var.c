@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/12 12:06:33 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/18 23:42:16 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,13 +210,21 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 {
 	int			i;
 	int			fd;
+	int			o;
 
+	o = 0;
 	i = 0;
 	fd = write_with_separator(*parsing, *env, utils, 1);
 	if (parsing->data != NULL && parsing->data[0] != NULL)
 	{
 		while (parsing->data[i] != NULL)
 		{
+			while (parsing->data[i][o] && parsing->data[i][o] != '=')
+				if (!ft_isalnum(parsing->data[i][o++]))
+					return (0);
+			if (i == 0 && parsing->data[i][0] >= '0' &&
+					parsing->data[i][0] <= '9')
+				return (0);
 			if (egal_in(parsing->data[i]) > -1)
 				add_env(i, parsing, env);
 			i++;
