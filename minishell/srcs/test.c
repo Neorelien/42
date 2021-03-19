@@ -10,24 +10,37 @@
 #include <term.h>
 #include <stdlib.h>
 #include <ncurses.h>
-//#include <tcl8.5.h>
 
-void handler(int sign)
+t_sig g_sig;
+
+void handler_next(int sign)
 {
-	ft_putstr_fd("\33[2K\rlol\n", 1);
-//	signal(sign, SIG_IGN);
+	char 	*printed;
+	int		len;
+
+	ft_putstr_fd("\n", 0);
+	if (g_sig.pid == -1)
+	{
+		printed = getenv("PWD");
+		len = ft_strlen(printed);
+		while (len >= 0 && printed[len] != '/')
+			len--;
+		printed += len + 1;
+		ft_putstr_fd(printed, 0);
+		ft_putstr_fd(" -> ", 0);
+	}
 }
 
 void handler_quit(int sign)
 {
-	printf("mdr\n");
-//	signal(sign, SIG_DFL);
-}
-
-void leave(int sign)
-{
-	printf("NOO GOD NOOOOO\n");
-	printf("\033[1;31m");
+	if (g_sig.pid != -1)
+printf("lol\n");
+//		printf("Quit: %d\n", sign);
+	else
+	{
+		ft_putstr_fd("\b\b  \b\b", 0);
+		while (42);
+	}
 }
 
 int ft_putchar(int c)
@@ -37,22 +50,26 @@ int ft_putchar(int c)
 	return (lol);
 }
 
+int ft_signal()
+{
+	signal(SIGQUIT, handler_quit);
+	return (1);
+}
+
 int main()
 {
 	char *line;
-	char *term_type = getenv("TERM");
-	tgetent(NULL, term_type);
-	char *cl_cap = tgetstr("cl", NULL);
-	tputs(cl_cap, 1, ft_putchar);
-	while (42)
+	g_sig.pid = -1;
+	g_sig.pid = fork();
+	if (g_sig.pid > 0)
 	{
-		signal(SIGINT, leave);
-		signal(SIGQUIT, handler_quit);
-
-		while (!get_next_line(0, &line))
-			;
-		if (ft_strncmp("exit", line, 3) == 0)
-			exit(1);
+		get_next_line(0, &line);
+		printf("%s\n", line);
 		free(line);
+	}
+	else
+	{
+		write(1, "Clement", 7);
+		exit(1);
 	}
 }

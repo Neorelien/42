@@ -17,7 +17,7 @@ LINK = ar rc
 
 CC = clang
 
-FLAGS = -lncurses
+FLAGS = -fsanitize=address -g3
 
 RM = rm -rf
 
