@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/03/19 00:10:45 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/19 16:36:14 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,56 +117,16 @@ int		is_token_remplace(char c, char **objet)
 		ft_cpy(objet, 13);
 	else
 		return (0);
-	return (1);
-}
-
-int		is_token(char c, char **objet)
-{
-	if (c == 'a')
-		return (1);
-	else if (c == 'b')
-		return (1);
-	else if (c == 't')
-		return (1);
-	else if (c == 'n')
-		return (1);
-	else if (c == 'v')
-		return (1);
-	else if (c == 'f')
-		return (1);
-	else if (c == 'r')
-		return (1);
-	else
-		return (0);
 }
 
 int		look_for_BS_token(char **objet, int quote, int i, char **new_obj)
 {
-	if (quote)
-	{
-		if (is_token_remplace(objet[0][i + 1], new_obj))
-			i = i + 2;
-		else if ((objet[0][i + 1] == 92 || objet[0][i + 1] == 34) && quote == 34)
-		{
-			ft_cpy(new_obj, objet[0][i + 1]);
-			i = i + 2;
-		}
-		else
-			ft_cpy(new_obj, objet[0][i++]);
-	}
+	if (is_token_remplace(objet[0][i + 1], new_obj))
+		i = i + 2;
 	else
 	{
-		if (objet[0][i] == 92)
-		{
-			//if (objet[0][i + 1] == 92 &&
-		//			is_token_remplace(objet[0][i + 2], new_obj))
-		//		i = i + 3;
-		//	else
-		//	{
-				ft_cpy(new_obj, objet[0][i + 1]);
-				i = i + 2;
-		//	}
-		}
+		ft_cpy(new_obj, objet[0][i + 1]);
+		i = i + 2;
 	}
 	return (i);
 }
@@ -182,7 +142,6 @@ int		look_for_BS(char **objet, int quote, int i, char **new_obj)
 		}
 		else
 			ft_cpy(new_obj, objet[0][i++]);
-		printf("new = %s\n", *new_obj);
 	}
 	else
 	{
@@ -239,11 +198,9 @@ void	data_formation(t_parsing *parsing, char ***env)
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
 		trans_env(&parsing->data[i], env);
+		trans_BS_quote(&parsing->data[i], env, 0);
 		if (!ft_strncmp(parsing->objet, "echo", 5))
 			trans_BS_quote(&parsing->data[i], env, 1);
-		else
-			trans_BS_quote(&parsing->data[i], env, 0);
 		i++;
 	}
-	test_struct(parsing);
 }
