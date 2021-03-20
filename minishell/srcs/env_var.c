@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/18 23:42:16 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/20 00:04:50 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	**mall_env(char **env)
 	return (res);
 }
 
-void	double_tab_sort(char **tab)
+void	double_tab_sort(char **tabl)
 {
 	char	*temp;
 	int		count;
@@ -87,10 +87,10 @@ void	double_tab_sort(char **tab)
 
 	i = 0;
 	count = 0;
-	len = ft_doubletab_len(tab);
+	len = ft_doubletab_len(tabl);
 	while (count <= len + 1)
 	{
-		if (ft_strncmp(tab[i], tab[i + 1], INT_MAX) <= 0)
+		if (ft_strncmp(tabl[i], tabl[i + 1], INT_MAX) <= 0)
 		{
 			if (i < len - 2)
 				i++;
@@ -100,9 +100,9 @@ void	double_tab_sort(char **tab)
 		}
 		else
 		{
-			temp = tab[i];
-			tab[i] = tab[i + 1];
-			tab[i + 1] = temp;
+			temp = tabl[i];
+			tabl[i] = tabl[i + 1];
+			tabl[i + 1] = temp;
 			count = 0;
 		}
 	}
@@ -160,16 +160,16 @@ void	supp_env(char ***env, char *str)
 	free(tmp);
 }
 
-int		in_db_tab(char **tab, char *str)
+int		in_db_tab(char **tabl, char *str)
 {
 	int i;
 	int	len;
 
 	i = 0;
 	len = ft_strlen(str);
-	while (tab[i] != NULL)
+	while (tabl[i] != NULL)
 	{
-		if (ft_strncmp(tab[i], str, len - 1) == 0 && tab[i][len] == '=')
+		if (ft_strncmp(tabl[i], str, len - 1) == 0 && tabl[i][len] == '=')
 			return (1);
 		i++;
 	}

@@ -18,8 +18,7 @@ LINK = ar rc
 
 CC = clang
 
-FLAGS = 
-
+FLAGS = -ltermcap
 RM = rm -rf
 
 PATH_HEADER = ./minishell_utils.h

@@ -7,10 +7,99 @@
 #include "../minishell_utils.h"
 #include <signal.h>
 #include <curses.h>
-#include <term.h>
 #include <stdlib.h>
+#include <term.h>
 #include <ncurses.h>
+#include <curses.h>
+#include <term.h>
+#include <termios.h>
 
+void	test()
+{
+  printf("on sort pas ouai\n");
+}
+/*
+int main()
+{
+	char *line;
+	signal(SIGQUIT, test);
+	while(1)
+	{
+		get_next_line(0, &line);
+		printf("line = %s\n", line);
+	}
+}
+*/
+int main(int argc, char **argv)
+{
+  struct termios s_termios;
+  struct termios s_termios_backup;
+  int ret = 0;
+
+  (void)argc;
+  (void)argv;
+  char *term_type = getenv("TERM");
+
+  signal(SIGQUIT, test);
+  if (tgetent(NULL, term_type))// Fonction que vous aurez créé avec un tgetent dedans. 
+ {
+      if (tcgetattr(0, &s_termios) == -1)
+          return (-1);
+
+      if (tcgetattr(0, &s_termios_backup) == -1)
+          return (-1);
+
+      s_termios.c_lflag &= ~(ICANON); /* Met le terminal en mode non canonique. La fonction read recevra les entrées clavier en direct sans attendre qu'on appuie sur Enter */
+      s_termios.c_lflag &= ~(ECHO); /* Les touches tapées au clavier ne s'affficheront plus dans le terminal */
+
+      if (tcsetattr(0, 0, &s_termios) == -1)
+          return (-1);
+
+	  char *BUF = NULL;
+
+	  while (1)
+	  {
+		BUF = malloc(2);
+		read(0, BUF, 2);
+		BUF[1] = 0;
+		printf("buf = %s|\n", BUF);
+		
+		signal(SIGQUIT, test);
+		free(BUF);
+		BUF = NULL;
+	  }
+
+      if (tcsetattr(0, 0, &s_termios_backup) == -1)
+          return (-1);
+  }
+
+  return ret;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 t_sig g_sig;
 
 int	alrdy;
@@ -69,4 +158,4 @@ int main()
 		ft_signal();
 		wait(NULL);
 	}
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/19 11:44:49 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/20 01:00:38 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 #include <limits.h>
 #include <errno.h>
 #include <sys/wait.h>
+#include <term.h>
+#include <ncurses.h>
+#include <curses.h>
+#include <term.h>
+#include <termios.h>
 
 typedef struct	s_parsing
 {
@@ -42,11 +47,14 @@ typedef struct	s_utils
 	t_parsing	*parsing_start;
 	char		result;
 	char		**data;
+  	struct		termios s_termios;
+	struct		termios s_termios_backup;
 }				t_utils;
 
 typedef struct	s_sig
 {
 	pid_t	pid;
+	char	*objet;
 }				t_sig;
 
 extern t_sig g_sig;
@@ -55,6 +63,7 @@ extern t_sig g_sig;
 # define OPEN_DQUOTE -3
 # define TEST printf("ON VA LA\n")
 
+int		ft_signal();
 void		test_struct(t_parsing *parsing);
 void		data_formation(t_parsing *parsing, char ***env);
 void		ft_cpy(char **res, char c);

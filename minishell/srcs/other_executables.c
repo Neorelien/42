@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/18 14:28:02 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/20 01:20:49 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,23 +225,37 @@ int			next_path(t_parsing *parsing, char **env)
 	return (0);
 }
 
+char		*ft_get_shell_name(char **env)
+{
+	char	*res;
+	int		i;
+	int		o;
+
+	i = 0;
+	res = getenv("SHELL");
+	while (res[i])
+	{
+		if (res[i] == '/')
+			o = i;
+		i++;
+	}
+	return (&res[o + 1]);
+}
+
 void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 {
 	char	*tmp;
-	(void)env;
-	(void)parsing;
+	int		temp;
+	char	*shell;
+
 	if (pipe(utils->pipefd) == -1)
 		printf("error pipe");
-//if (utils->cpid != -2)
 	utils->cpid = fork();
-//else
-//	utils->cpid = 0;
-g_sig.pid = utils->cpid;
-
+	g_sig.pid = utils->cpid;
 	if (utils->cpid == 0) // lecture du fils
 	{
 		close(utils->pipefd[1]);
-		parsing = get_pipe(utils);
+//		parsing = get_pipe(utils); FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus
 		if (parsing->data == NULL)
 		{
 			parsing->data = malloc(sizeof(char*));
@@ -252,6 +266,9 @@ g_sig.pid = utils->cpid;
 		close(utils->pipefd[0]);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
 			parsing->objet = ft_strdup(tmp);
+	shell = ft_get_shell_name(env);
+	printf("%s: command not found: %s\n", shell, tmp);
+	exit(0);
 	//	clean_parsing(parsing);
 	}
 	else // lecture du pere
@@ -259,6 +276,9 @@ g_sig.pid = utils->cpid;
 		close(utils->pipefd[0]);
 		send_in_pipe(utils->pipefd[1], parsing);
 		close(utils->pipefd[1]);
+		g_sig.objet = parsing->objet;
+		temp = g_sig.pid;
 		wait(NULL);
+		g_sig.pid = -1;
 	}
 }
