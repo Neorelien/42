@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/20 01:24:11 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/21 02:29:37 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 
 t_sig g_sig;
 
-void	test_struct(t_parsing *parsing);
-
-void	get_quote(char **line, int quote)
-{
-  free(*line);
-  if (quote == OPEN_DQUOTE)
-    write(1, "dquote> ", 8);
-  else
-    write(1, "quote> ", 8);
-  if (!get_next_line(0, line))
-    ft_error("unexpected EOF while looking for matching", "\'\"\'");
-}
 
 char	*ft_str_erase_set(char *str, char quote)
 {
@@ -276,17 +264,6 @@ int		clean_parsing(t_parsing *parsing)
   return (ex);
 }
 
-void	get_open_quote(int *i, char **line, t_parsing *parsing)
-{
-  char *tmp;
-
-  get_quote(line, *i);
-  tmp = *line;
-  *line = ft_strjoin("\n", *line);
-  *i = 0;
-  free(tmp);
-  *i = recursive_parsing(line, ft_lstlast(parsing), *i);
-}
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
@@ -325,24 +302,70 @@ int	ft_signal()
   return (1);
 }
 
+void	refresh_screen(char **print, int back)
+{
+  int	i;
+
+  i = 0;
+  if (print[0][0] != 0)
+    while (i++ < (int)ft_strlen(*print) - back)
+      ft_putchar_fd('\b', 0);
+  ft_putstr_fd(*print, 0);
+}
+
+int	free_ret(void *to_free)
+{
+  free(to_free);
+  return (1);
+}
+/*
+void	add_to_history(char **line)
+{
+  if ()
+}*/
+
 int	 ft_recup_line(char **line)
 {
-  char	buf[2];
+  char		buf[2];
   int		ret;
+  int		i;
+  static int	h_index;
 
+  i = 0;
   buf[1] = 0;
   buf[0] = 0;
   ret = read(0, &buf, 1);
   if (ret != -1 && buf[0] != 0)
   {
     if (buf[0] == 10)
+    {
+   //   add_to_hstory(line);
+      refresh_screen(line, 0);
+      write(0, "\n", 1);
+      h_index = -1;
       return (0);
+    }
     if (ft_isprint(buf[0]))
-      ft_cpy(line, buf[0]);
+    {
+  	ft_cpy(line, buf[0]);    
+	refresh_screen(line, 1);
+    }
+    else if (buf[0] == 127)
+    {
+        if (line[0][0] != 0)
+        while (i++ < (int)ft_strlen(*line))
+	  ft_putchar_fd('\b', 0);
+	line[0][ft_strlen(*line) - 1] = 0;
+	ft_putstr_fd(*line, 0);
+	write(0, " ", 1);
+	ft_putchar_fd('\b', 0);
+    }
+    h_index = -1;
     if (ret = 0)
       return (-1);
     return (1);
   }
+  h_index = -1;
   if (ret == -1)
     return (-2);
 }
@@ -357,7 +380,7 @@ int		shelline_gestion(char **env, t_utils utils, char **line)
   if (prefix == 0)
   {
     ft_display_rep(env, utils);
-    write(1, "-> ", 3);
+    write(0, "-> ", 3);
     *line = ft_strdup("");
     prefix = 1;
   }
@@ -378,7 +401,7 @@ int term_init(t_utils *utils)
 
   char *term_type = getenv("TERM");
 
-  if (tgetent(NULL, term_type))// Fonction que vous aurez créé avec un tgetent dedans. 
+  if ((ret = tgetent(NULL, term_type)))// Fonction que vous aurez créé avec un tgetent dedans. 
   {
     if (tcgetattr(0, &utils->s_termios) == -1)
       return (-1);
@@ -394,7 +417,35 @@ int term_init(t_utils *utils)
   }
 //  if (term_type != NULL)
   //  free(term_type);
-  return ret;
+  return (ret);
+}
+
+void	get_quote(char **line, int quote)
+{
+  int	ret;
+
+  free(*line);
+  *line = ft_strdup("");
+  if (quote == OPEN_DQUOTE)
+    write(1, "dquote> ", 8);
+  else
+    write(1, "quote> ", 8);
+  while (ret = ft_recup_line(line))
+    ;
+  if (ret == -1)
+    ft_error("unexpected EOF while looking for matching", "\'\"\'");
+}
+
+void	get_open_quote(int *i, char **line, t_parsing *parsing)
+{
+  char *tmp;
+
+  get_quote(line, *i);
+  tmp = *line;
+  *line = ft_strjoin("\n", *line);
+  *i = 0;
+  free(tmp);
+  *i = recursive_parsing(line, ft_lstlast(parsing), *i);
 }
 
 void	init_utils(t_utils *utils, t_parsing *parsing)
@@ -421,7 +472,7 @@ int		main(int argc, char **argv, char **env)
   i = 0;
   line = NULL;
   g_sig.pid = -1;
-  if (term_init(&utils));
+  if (term_init(&utils))
   {
     while (shelline_gestion(env, utils, &line))
     {	      
@@ -440,7 +491,8 @@ int		main(int argc, char **argv, char **env)
     free(line);
     if (tcsetattr(0, 0, &utils.s_termios_backup) == -1)
       return (-1);
+    ft_putstr_fd("exit\n", 1);
   }
-  ft_putstr_fd("exit\n", 1);
+  ft_putstr_fd("termcaps init fail\n", STDERR_FILENO);
   return (0);
 }
