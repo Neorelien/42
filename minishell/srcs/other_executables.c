@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/21 02:18:38 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/22 12:03:35 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	if (utils->cpid == 0) // lecture du fils
 	{
 		close(utils->pipefd[1]);
-//		parsing = get_pipe(utils); FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus
+		parsing = get_pipe(utils); //FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus
 		if (parsing->data == NULL)
 		{
 			parsing->data = malloc(sizeof(char*));
