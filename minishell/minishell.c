@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 16:09:44 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/22 23:42:00 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,65 +318,120 @@ int	free_ret(void *to_free)
   free(to_free);
   return (1);
 }
-/*
-void	add_to_history(char **line)
-{
-  int	fd;
 
-  fd = open(info.next->objet, O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
-}*/
-
-int	 ft_recup_line(char **line)
+char	    *ft_up_histo(t_utils *utils, char **line)
 {
-  char		buf[2];
+  char	*line_ret;
+
+  if (**line == 0 && utils->com_history_end->command != NULL)
+  {
+    free(*line);
+    line_ret = ft_strdup(utils->com_history_end->command); 
+    utils->com_history_end = utils->com_history->previous;
+    return (line_ret);
+  }
+  /*
+  else if (utils->com_history_end->command != NULL)
+    return (*line);
+  else
+  {
+    if (utils->com_history->command != NULL)
+    {
+      while (ft_strncmp(*line, utils->com_history->command, ft_strlen(*line) - 1) != 0 || ft_strlen(*line) == ft_strlen(utils->com_history->command))
+      {
+	if (utils->com_history->previous != NULL)
+	  utils->com_history_end = utils->com_history->previous;
+	else
+	  return (*line);
+      }
+      free(*line);
+      line_ret = ft_strdup(utils->com_history_end->command);
+      return (line_ret);
+    }
+    else
+      return (*line);
+  }*/
+}
+
+char	    *ft_down_histo(t_utils *utils, char **line)
+{
+  char	*line_ret;
+
+  if (utils->com_history->command != NULL)
+  {
+    while (ft_strncmp(*line, utils->com_history->command, ft_strlen(*line) - 1) != 0)
+    {
+      if (utils->com_history->next != NULL)
+	utils->com_history_end = utils->com_history->next; 
+      else
+	return (*line);
+    }
+    line_ret = ft_strdup(utils->com_history_end->command);
+    return (line_ret);
+  }
+  else
+    return (*line);
+}
+
+int	    ft_recup_line(char **line, t_utils *utils)
+{
+  char		buf[4];
   int		ret;
   int		i;
-  static int	h_index;
 
   i = 0;
+  buf[3] = 0;
+  buf[2] = 0;
   buf[1] = 0;
   buf[0] = 0;
-  ret = read(0, &buf, 1);
+  ret = read(0, &buf, 3);
   if (ret != -1 && buf[0] != 0)
   {
-    if (buf[0] == 10)
+    // printf("buf[0] = %d || buf[1] = %d || buf[2] = %d || buf[3] = %d \n", buf[0], buf[1],  buf[2], buf[3]);
+    if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
-      //add_to_hstory(line);
+      *line = ft_up_histo(utils, line);
+      ft_putstr_fd(*line, 0);
+    }
+    else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
+    {
+      *line = ft_down_histo(utils, line);
+      ft_putstr_fd(*line, 0);
+    }
+    else if (buf[0] == 10)
+    {
+      if (**line != 0)
+	new_hlist(*line, utils);
       refresh_screen(line, 0);
       write(0, "\n", 1);
-      h_index = -1;
       return (0);
     }
-    if (ft_isprint(buf[0]))
+    else if (ft_isprint(buf[0]))
     {
       ft_cpy(line, buf[0]);    
       refresh_screen(line, 1);
     }
     else if (buf[0] == 127)
     {
-        if (line[0][0] != 0)
-        while (i++ < (int)ft_strlen(*line))
-			ft_putchar_fd('\b', 0);
-		line[0][ft_strlen(*line) - 1] = 0;
-		ft_putstr_fd(*line, 0);
-		write(0, " ", 1);
-		ft_putchar_fd('\b', 0);
+      if (line[0][0] != 0)
+	while (i++ < (int)ft_strlen(*line))
+	  ft_putchar_fd('\b', 0);
+      line[0][ft_strlen(*line) - 1] = 0;
+      ft_putstr_fd(*line, 0);
+      write(0, " ", 1);
+      ft_putchar_fd('\b', 0);
     }
-	else if (buf[0] == 4)
-	{
-		if (**line == 0)
-			return (-1);
-	}
-    h_index = -1;
+    else if (buf[0] == 4)
+      if (**line == 0)
+	return (-1);
     if (ret == 0)
       return (-1);
     return (1);
   }
-  h_index = -1;
   return (-2);
 }
 
-int		shelline_gestion(char **env, t_utils utils, char **line)
+int		shelline_gestion(char **env, t_utils *utils, char **line)
 {
   int	prefix;
   int	ret;
@@ -385,13 +440,13 @@ int		shelline_gestion(char **env, t_utils utils, char **line)
   ft_signal();
   if (prefix == 0)
   {
-    ft_display_rep(env, utils);
+    ft_display_rep(env, *utils);
     write(0, "-> ", 3);
     *line = ft_strdup("");
     prefix = 1;
   }
-  while ((ret = ft_recup_line(line)) > 0)
-	  ;
+  while ((ret = ft_recup_line(line, utils)) > 0)
+    ;
   prefix = 0;
   if (ret == 0)
     return (1);
@@ -420,12 +475,12 @@ int	term_init(t_utils *utils)
     if (tcsetattr(0, 0, &utils->s_termios) == -1)
       return (-1);
   }
-//  if (term_type != NULL)
+  //  if (term_type != NULL)
   //  free(term_type);
   return (ret);
 }
 
-void	get_quote(char **line, int quote)
+void	get_quote(char **line, int quote, t_utils *utils)
 {
   int	ret;
 
@@ -435,17 +490,17 @@ void	get_quote(char **line, int quote)
     write(1, "dquote> ", 8);
   else
     write(1, "quote> ", 8);
-  while ((ret = ft_recup_line(line)))
+  while ((ret = ft_recup_line(line, utils)))
     ;
   if (ret == -1)
     ft_error("unexpected EOF while looking for matching", "\'\"\'");
 }
 
-void	get_open_quote(int *i, char **line, t_parsing *parsing)
+void	get_open_quote(int *i, char **line, t_parsing *parsing, t_utils *utils)
 {
   char *tmp;
 
-  get_quote(line, *i);
+  get_quote(line, *i, utils);
   tmp = *line;
   *line = ft_strjoin("\n", *line);
   *i = 0;
@@ -466,10 +521,37 @@ t_historical	*add_next_command(t_historical *previous, char *line)
 
 void		test_cfile(t_historical *list)
 {
+  printf("line =%s|\n", list->command);
   while (list->next != NULL)
   {
-    printf("line =%s|\n", list->command);
     list = list->next;
+    if (list->command != NULL)
+      printf("line =%s|\n", list->command);
+    else
+      printf("command = NULL\n");
+  }
+}
+
+void		new_hlist(char *line, t_utils *utils)
+{
+  if (utils->history_len == 0)
+  {
+    if (*line != 0)
+    {
+      utils->com_history = add_next_command(NULL, line);
+      utils->com_history_start = utils->com_history;
+      utils->history_len++;
+    }
+  }
+  else
+  {
+    if (*line != 0)
+    {
+      utils->com_history->next = add_next_command(utils->com_history, line);
+      utils->com_history = utils->com_history->next;
+      utils->com_history_end = utils->com_history;
+      utils->history_len++;
+    }
   }
 }
 
@@ -482,18 +564,8 @@ void		get_command_file(t_utils *utils)
   utils->history_len = 0;
   while (get_next_line(fd, &line))
   {
-      	if (utils->history_len == 0)
-      	{
-			utils->com_history = add_next_command(NULL, line);
-			utils->com_history_start = utils->com_history;
-		}
-      else
-      {
-	utils->com_history->next = add_next_command(utils->com_history, line);
-	utils->com_history = utils->com_history->next;
-      }
-      free(line);
-      utils->history_len++;
+    new_hlist(line, utils);
+    free(line);
   }
 }
 
@@ -524,12 +596,12 @@ int		main(int argc, char **argv, char **env)
   g_sig.pid = -1;
   if (term_init(&utils))
   {
-
-    while (shelline_gestion(env, utils, &line))
-    {	      
+    while (shelline_gestion(env, &utils, &line))
+    {
+   //   test_cfile(utils.com_history_start); 
       i = recursive_parsing(&line, parsing, i);
-	  while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
-get_open_quote(&i, &line, parsing);
+      while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
+	get_open_quote(&i, &line, parsing, &utils);
       fonction_router(parsing, &env, &utils);
       //	if (clean_parsing(utils.parsing_start))
       //		exit(1);
@@ -545,6 +617,6 @@ get_open_quote(&i, &line, parsing);
     ft_putstr_fd("exit\n", 1);
   }
   else
-  	ft_putstr_fd("termcaps init fail\n", STDERR_FILENO);
+    ft_putstr_fd("termcaps init fail\n", STDERR_FILENO);
   return (0);
 }

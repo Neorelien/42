@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 15:00:00 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/22 22:40:58 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct	s_utils
 	struct			termios s_termios_backup;
 	t_historical		*com_history;
 	t_historical		*com_history_start;
+	t_historical		*com_history_end;
 	int			history_len;
 }		t_utils;
 
@@ -71,8 +72,10 @@ extern t_sig g_sig;
 # define OPEN_DQUOTE -3
 # define TEST printf("ON VA LA\n")
 
-int		term_init(t_utils *utils);
-int		ft_signal();
+void			new_hlist(char *line, t_utils *utils);
+t_historical	*add_next_command(t_historical *previous, char *line);
+int				term_init(t_utils *utils);
+int				ft_signal();
 void		test_struct(t_parsing *parsing);
 void		data_formation(t_parsing *parsing, char ***env);
 void		ft_cpy(char **res, char c);
