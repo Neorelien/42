@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/22 13:35:26 by awery            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/22 13:25:15 by cmoyal           ###   ########.fr       */
+>>>>>>> e766683f5452192e4f6b06f46535305df347dbdf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,19 +351,24 @@ int	 ft_recup_line(char **line)
     }
     if (ft_isprint(buf[0]))
     {
-  	ft_cpy(line, buf[0]);    
-	refresh_screen(line, 1);
+		ft_cpy(line, buf[0]);    
+		refresh_screen(line, 1);
     }
     else if (buf[0] == 127)
     {
         if (line[0][0] != 0)
         while (i++ < (int)ft_strlen(*line))
-	  ft_putchar_fd('\b', 0);
-	line[0][ft_strlen(*line) - 1] = 0;
-	ft_putstr_fd(*line, 0);
-	write(0, " ", 1);
-	ft_putchar_fd('\b', 0);
+			ft_putchar_fd('\b', 0);
+		line[0][ft_strlen(*line) - 1] = 0;
+		ft_putstr_fd(*line, 0);
+		write(0, " ", 1);
+		ft_putchar_fd('\b', 0);
     }
+	else if (buf[0] == 4)
+	{
+		if (**line == 0)
+			return (-1);
+	}
     h_index = -1;
     if (ret == 0)
       return (-1);
@@ -383,8 +392,8 @@ int		shelline_gestion(char **env, t_utils utils, char **line)
     *line = ft_strdup("");
     prefix = 1;
   }
-  while ((ret = ft_recup_line(line)))
-    ;
+  while ((ret = ft_recup_line(line)) > 0)
+	  ;
   prefix = 0;
   if (ret == 0)
     return (1);
@@ -492,6 +501,7 @@ int		main(int argc, char **argv, char **env)
       return (-1);
     ft_putstr_fd("exit\n", 1);
   }
-  ft_putstr_fd("termcaps init fail\n", STDERR_FILENO);
+  else
+  	ft_putstr_fd("termcaps init fail\n", STDERR_FILENO);
   return (0);
 }
