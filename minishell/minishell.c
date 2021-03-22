@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 13:25:15 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:16:51 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
   else if (parsing->objet != NULL)
     ft_other_exc(parsing, *env, utils);
   check_to_next(*parsing, env, utils);
-  if (utils->cpid == -2)
+  if (g_sig.pid == -2)
     exit(1);
 }
 
@@ -455,7 +455,7 @@ void	init_utils(t_utils *utils, t_parsing *parsing)
 {
   utils->pwd = NULL;
   utils->parsing_start = parsing;
-  utils->cpid = -1;
+  g_sig.pid = -1;
 }
 
 int		main(int argc, char **argv, char **env)
