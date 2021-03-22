@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 14:27:49 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/22 15:00:00 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct	s_utils
 	struct			termios s_termios;
 	struct			termios s_termios_backup;
 	t_historical		*com_history;
+	t_historical		*com_history_start;
 	int			history_len;
 }		t_utils;
 
