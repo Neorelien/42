@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 13:37:08 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:25:27 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,7 +321,9 @@ int	free_ret(void *to_free)
 /*
 void	add_to_history(char **line)
 {
-  if ()
+  int	fd;
+
+  fd = open(info.next->objet, O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
 }*/
 
 int	 ft_recup_line(char **line)
@@ -339,7 +341,7 @@ int	 ft_recup_line(char **line)
   {
     if (buf[0] == 10)
     {
-   //   add_to_hstory(line);
+      //add_to_hstory(line);
       refresh_screen(line, 0);
       write(0, "\n", 1);
       h_index = -1;
@@ -347,8 +349,8 @@ int	 ft_recup_line(char **line)
     }
     if (ft_isprint(buf[0]))
     {
-		ft_cpy(line, buf[0]);    
-		refresh_screen(line, 1);
+      ft_cpy(line, buf[0]);    
+      refresh_screen(line, 1);
     }
     else if (buf[0] == 127)
     {
@@ -451,11 +453,38 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
   *i = recursive_parsing(line, ft_lstlast(parsing), *i);
 }
 
+void	ft_init_hist(t_utils *utils)
+{
+  utils->com_history = malloc(sizeof(t_historical));
+  utils->com_history->previous = NULL;
+  utils->com_history->command = NULL;
+  utils->com_history->next = NULL;
+}
+/*
+void	get_command_file(t_utils *utils)
+{
+  int	fd;
+  int	i;
+  char	*line;
+
+  i = 0;
+  fd = open("p_command.hst", O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
+  ft_init_hist(utils);
+  while (get_next_line(fd, &line))
+  {
+    if (i == 0)
+    utils->com_history->command = ft_strdup(line);
+    utils->com_history->next 
+  }
+
+}*/
+
 void	init_utils(t_utils *utils, t_parsing *parsing)
 {
   utils->pwd = NULL;
   utils->parsing_start = parsing;
   utils->cpid = -1;
+//  get_command_file(utils);
 }
 
 int		main(int argc, char **argv, char **env)

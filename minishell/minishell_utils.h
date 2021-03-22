@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 13:16:53 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:10:33 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,39 @@
 
 typedef struct	s_parsing
 {
-	char				*objet;
-	char				**data;
-	char				separator[3];
-	struct s_parsing	*next;
-}				t_parsing;
+	char	    		*objet;
+	char	    		**data;
+	char	    		separator[3];
+	struct	s_parsing	*next;
+}	    	t_parsing;
+
+typedef struct	s_historical
+{
+	struct	s_historical		*previous;
+	char			*command;
+	struct	s_historical		*next;
+}		t_historical;
 
 typedef struct	s_utils
 {
-	char		*pwd;
-	char		**tmp;
-	pid_t		cpid;
+	char			*pwd;
+	char			**tmp;
+	pid_t			cpid;
 	int			pipefd[2];
-	t_parsing	*parsing_start;
-	char		result;
-	char		**data;
-  	struct		termios s_termios;
-	struct		termios s_termios_backup;
-	char		*os_cap;
-}				t_utils;
+	t_parsing		*parsing_start;
+	char			result;
+	char			**data;
+	struct			termios s_termios;
+	struct			termios s_termios_backup;
+	t_historical		*com_history;
+	int			history_len;
+}		t_utils;
 
 typedef struct	s_sig
 {
-	pid_t	pid;
-	char	*objet;
-}				t_sig;
+	pid_t			pid;
+	char			*objet;
+}		t_sig;
 
 extern t_sig g_sig;
 
