@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/17 16:04:30 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:17:21 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	if ((oldpath = getcwd(path, 0)) == NULL)
 		oldpath = utils->pwd;
 	oldpath = ft_strjoin("OLDPWD=", oldpath);
-//	write_with_separator(info, *env, utils, 1);
+	write_with_separator(info, *env, utils, 1);
 	if (ft_doubletab_len(info.data) > 1)
 		return (ft_error("string not in pwd: ", info.data[0]));
 	if (info.data == NULL)
@@ -121,9 +121,23 @@ int ft_pwd(t_parsing info,char ***env, t_utils *utils)
 	if (ft_doubletab_len(info.data) > 0)
 		return (ft_error("too many arguments", NULL));
 	fd = write_with_separator(info, *env, utils, 1);
-	if ((path = getcwd(path, 0)) == NULL)
-		path = utils->pwd;
-	ft_putstr_fd(path, fd);
+	if (g_sig.pid == 0)
+	{
+		g_sig.pid = -2;
+		fonction_router(info.next, env, utils);
+	}
+	else if (g_sig.pid < 0)
+	{
+		if ((path = getcwd(path, 0)) == NULL)
+			path = utils->pwd;
+		ft_putstr_fd(path, fd);
+	}
+	else
+	{
+		wait(NULL);
+		g_sig.pid = -1;
+		return (0);
+	}
 	ft_putchar_fd('\n', fd);
 	if (path != NULL)
 		free(path);

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 13:17:40 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:22:59 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,10 +250,11 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 
 	if (pipe(utils->pipefd) == -1)
 		printf("error pipe");
-	utils->cpid = fork();
-	g_sig.pid = utils->cpid;
-	tcsetattr(0, 0, &utils->s_termios_backup);
-	if (utils->cpid == 0) // lecture du fils
+	if (g_sig.pid != -2)
+		g_sig.pid = fork();
+	else
+		g_sig.pid = 0;
+	if (g_sig.pid == 0) // lecture du fils
 	{
 		close(utils->pipefd[1]);
 		parsing = get_pipe(utils); //FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus

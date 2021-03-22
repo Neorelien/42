@@ -133,8 +133,8 @@ t_parsing	*ft_lstlast(t_parsing *lst)
 int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 {
 	pipe(utils->pipefd);
-	utils->cpid = fork();
-	if (utils->cpid == 0)
+	g_sig.pid = fork();
+	if (g_sig.pid == 0)
 	{
 		if (utils->pipefd[1] > 0)
 			close(utils->pipefd[1]);
