@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/22 14:25:27 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/22 14:22:00 by cmoyal           ###   ########.fr       */
->>>>>>> 784c0712179b42e76909db67b551644c5f0ba4f9
+/*   Updated: 2021/03/22 14:29:35 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,22 +473,20 @@ void	get_command_file(t_utils *utils)
   while (get_next_line(fd, &line))
   {
     if (i == 0)
-    utils->com_history->command = ft_strdup(line);
-    utils->com_history->next 
+    {
+      utils->com_history->command = ft_strdup(line);
+      utils->com_history->next 
+    }
   }
 
-}*/
-
+}
+*/
 void	init_utils(t_utils *utils, t_parsing *parsing)
 {
   utils->pwd = NULL;
   utils->parsing_start = parsing;
-<<<<<<< HEAD
-  utils->cpid = -1;
-//  get_command_file(utils);
-=======
+  //get_command_file(utils);
   g_sig.pid = -1;
->>>>>>> 784c0712179b42e76909db67b551644c5f0ba4f9
 }
 
 int		main(int argc, char **argv, char **env)

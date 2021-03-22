@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 14:10:33 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:27:49 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_parsing
 typedef struct	s_historical
 {
 	struct	s_historical		*previous;
-	char			*command;
+	char				*command;
 	struct	s_historical		*next;
 }		t_historical;
 
@@ -49,7 +49,6 @@ typedef struct	s_utils
 {
 	char			*pwd;
 	char			**tmp;
-	pid_t			cpid;
 	int			pipefd[2];
 	t_parsing		*parsing_start;
 	char			result;
@@ -63,8 +62,7 @@ typedef struct	s_utils
 typedef struct	s_sig
 {
 	pid_t			pid;
-	char			*objet;
-}		t_sig;
+	char			*objet;	}		t_sig;
 
 extern t_sig g_sig;
 
