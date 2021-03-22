@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/18 13:13:03 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/22 11:55:30 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int		ft_echo(t_parsing info, char ***env, t_utils *utils)
 	flag = 0;
 	i = 0;
 	fd = write_with_separator(info, *env, utils, 1);
-	if (utils->cpid == 0)
+	if (g_sig.pid == 0)
 	{
-		utils->cpid = -2;
+		g_sig.pid = -2;
 		fonction_router(info.next, env, utils);
 	}
-	else if (info.data && utils->cpid < 0)
+	else if (info.data && g_sig.pid < 0)
 	{
 		if (ft_strncmp(info.data[i], "-n", 3) == 0 && ++i)
 			flag = 1;
@@ -42,7 +42,7 @@ int		ft_echo(t_parsing info, char ***env, t_utils *utils)
 	else
 	{
 		wait(NULL);
-		utils->cpid = -1;
+		g_sig.pid = -1;
 		return (0);
 	}
 	if (flag == 0)
