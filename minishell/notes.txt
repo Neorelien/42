@@ -3,6 +3,9 @@
 			- etre un chiffre/nombre seul
 			- compose d'un char special tel que
 				- ~ ? ! # { } [] \ ^ @ ° £ % §
+
+- UNSET 
+		suppression d'un var global qui etait deja la 
 -------------------------------------------------------------
 -PARSING
 	- $ renvoi le contenu d'une ENV
