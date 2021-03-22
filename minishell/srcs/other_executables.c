@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 14:33:32 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:34:41 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		g_sig.pid = fork();
 	else
 		g_sig.pid = 0;
+	tcsetattr(0, 0, &utils->s_termios_backup);
 	if (g_sig.pid == 0) // lecture du fils
 	{
 		close(utils->pipefd[1]);
