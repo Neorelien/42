@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 14:29:35 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/22 15:19:19 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -453,39 +453,55 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing)
   *i = recursive_parsing(line, ft_lstlast(parsing), *i);
 }
 
-void	ft_init_hist(t_utils *utils)
+t_historical	*add_next_command(t_historical *previous, char *line)
 {
-  utils->com_history = malloc(sizeof(t_historical));
-  utils->com_history->previous = NULL;
-  utils->com_history->command = NULL;
-  utils->com_history->next = NULL;
+  t_historical *new;
+
+  new = malloc(sizeof(t_historical));
+  new->command = ft_strdup(line);
+  new->next = NULL;
+  new->previous = previous;
+  return (new);
 }
-/*
-void	get_command_file(t_utils *utils)
+
+void		test_cfile(t_historical *list)
+{
+  while (list->next != NULL)
+  {
+    printf("line =%s|\n", list->command);
+    list = list->next;
+  }
+}
+
+void		get_command_file(t_utils *utils)
 {
   int	fd;
-  int	i;
   char	*line;
 
-  i = 0;
   fd = open("p_command.hst", O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
-  ft_init_hist(utils);
+  utils->history_len = 0;
   while (get_next_line(fd, &line))
   {
-    if (i == 0)
-    {
-      utils->com_history->command = ft_strdup(line);
-      utils->com_history->next 
-    }
+      if (utils->history_len == 0)
+      {
+	utils->com_history = add_next_command(NULL, line);
+	utils->com_history_start = utils->com_history;
+      }
+      else
+      {
+	utils->com_history->next = add_next_command(utils->com_history, line);
+	utils->com_history = utils->com_history->next;
+      }
+      free(line);
+      utils->history_len++;
   }
-
 }
-*/
-void	init_utils(t_utils *utils, t_parsing *parsing)
+
+void		init_utils(t_utils *utils, t_parsing *parsing)
 {
   utils->pwd = NULL;
   utils->parsing_start = parsing;
-  //get_command_file(utils);
+  get_command_file(utils);
   g_sig.pid = -1;
 }
 
