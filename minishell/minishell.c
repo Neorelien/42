@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/22 13:35:26 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/22 13:25:15 by cmoyal           ###   ########.fr       */
->>>>>>> e766683f5452192e4f6b06f46535305df347dbdf
+/*   Updated: 2021/03/22 13:37:08 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,11 +318,11 @@ int	free_ret(void *to_free)
   free(to_free);
   return (1);
 }
-
+/*
 void	add_to_history(char **line)
 {
   if ()
-}
+}*/
 
 int	 ft_recup_line(char **line)
 {
@@ -343,7 +339,7 @@ int	 ft_recup_line(char **line)
   {
     if (buf[0] == 10)
     {
-      add_to_hstory(line);
+   //   add_to_hstory(line);
       refresh_screen(line, 0);
       write(0, "\n", 1);
       h_index = -1;
