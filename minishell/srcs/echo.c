@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/22 11:55:30 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:29:40 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int		ft_echo(t_parsing info, char ***env, t_utils *utils)
 	if (g_sig.pid == 0)
 	{
 		g_sig.pid = -2;
-		fonction_router(info.next, env, utils);
+		fonction_router(&info, env, utils);
 	}
 	else if (info.data && g_sig.pid < 0)
-	{
+	{	
 		if (ft_strncmp(info.data[i], "-n", 3) == 0 && ++i)
 			flag = 1;
 		while (info.data[i])

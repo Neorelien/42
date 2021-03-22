@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 15:19:19 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/22 16:09:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -482,11 +482,11 @@ void		get_command_file(t_utils *utils)
   utils->history_len = 0;
   while (get_next_line(fd, &line))
   {
-      if (utils->history_len == 0)
-      {
-	utils->com_history = add_next_command(NULL, line);
-	utils->com_history_start = utils->com_history;
-      }
+      	if (utils->history_len == 0)
+      	{
+			utils->com_history = add_next_command(NULL, line);
+			utils->com_history_start = utils->com_history;
+		}
       else
       {
 	utils->com_history->next = add_next_command(utils->com_history, line);
@@ -528,8 +528,8 @@ int		main(int argc, char **argv, char **env)
     while (shelline_gestion(env, utils, &line))
     {	      
       i = recursive_parsing(&line, parsing, i);
-      while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
-	get_open_quote(&i, &line, parsing);
+	  while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
+get_open_quote(&i, &line, parsing);
       fonction_router(parsing, &env, &utils);
       //	if (clean_parsing(utils.parsing_start))
       //		exit(1);

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 15:48:54 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:19:25 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			len_in_pipe(char sep, char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != sep)
+	while (str[i] && str[i] != sep)
 		i++;
 	return (i);
 }
@@ -254,7 +254,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		g_sig.pid = fork();
 	else
 		g_sig.pid = 0;
-	tcsetattr(0, 0, &utils->s_termios_backup); // produit un bug a corriger 
+//	tcsetattr(0, 0, &utils->s_termios_backup); // produit un bug a corriger 
 	if (g_sig.pid == 0) // lecture du fils
 	{
 		close(utils->pipefd[1]);
