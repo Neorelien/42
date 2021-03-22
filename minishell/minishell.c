@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/21 02:29:37 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/22 10:56:21 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,13 +361,12 @@ int	 ft_recup_line(char **line)
 	ft_putchar_fd('\b', 0);
     }
     h_index = -1;
-    if (ret = 0)
+    if (ret == 0)
       return (-1);
     return (1);
   }
   h_index = -1;
-  if (ret == -1)
-    return (-2);
+  return (-2);
 }
 
 int		shelline_gestion(char **env, t_utils utils, char **line)
@@ -384,15 +383,14 @@ int		shelline_gestion(char **env, t_utils utils, char **line)
     *line = ft_strdup("");
     prefix = 1;
   }
-  while (ret = ft_recup_line(line))
+  while ((ret = ft_recup_line(line)))
     ;
   prefix = 0;
   if (ret == 0)
     return (1);
   if (ret == -1)
     return (0);
-  if (ret == -2)
-    return (-1);
+  return (-1);
 }
 
 int term_init(t_utils *utils)
@@ -430,7 +428,7 @@ void	get_quote(char **line, int quote)
     write(1, "dquote> ", 8);
   else
     write(1, "quote> ", 8);
-  while (ret = ft_recup_line(line))
+  while ((ret = ft_recup_line(line)))
     ;
   if (ret == -1)
     ft_error("unexpected EOF while looking for matching", "\'\"\'");
