@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 14:16:51 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:22:00 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,7 +398,7 @@ int		shelline_gestion(char **env, t_utils utils, char **line)
   return (-1);
 }
 
-int term_init(t_utils *utils)
+int	term_init(t_utils *utils)
 {
   int ret = 0;
 
@@ -477,6 +477,7 @@ int		main(int argc, char **argv, char **env)
   g_sig.pid = -1;
   if (term_init(&utils))
   {
+
     while (shelline_gestion(env, utils, &line))
     {	      
       i = recursive_parsing(&line, parsing, i);

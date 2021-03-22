@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/21 01:15:31 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/22 13:16:53 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ extern t_sig g_sig;
 # define OPEN_DQUOTE -3
 # define TEST printf("ON VA LA\n")
 
+int		term_init(t_utils *utils);
 int		ft_signal();
 void		test_struct(t_parsing *parsing);
 void		data_formation(t_parsing *parsing, char ***env);
