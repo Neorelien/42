@@ -1,0 +1,19 @@
+echo oui
+echo non 
+ls
+echo oui
+echo oui
+echo non 
+ls
+echo oui
+ls
+echo oui
+echo non 
+ls
+echo oui
+echo oui
+echo non 
+ls
+echo oui
+ls
+echo lol | cat

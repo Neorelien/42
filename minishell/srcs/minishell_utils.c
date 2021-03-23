@@ -138,8 +138,8 @@ int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 	{
 		if (utils->pipefd[1] > 0)
 			close(utils->pipefd[1]);
-		utils->savefd = dup(0);
-		dup2(utils->pipefd[0], 0);
+//		utils->savefd = dup(0);
+//		dup2(utils->pipefd[0], 0);
 		return (0);
 	}
 	else

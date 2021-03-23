@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/23 11:56:03 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/23 13:55:44 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,12 @@ char	    *ft_up_histo(t_utils *utils, char **line)
   char	*tmp;
 
   if (utils->position == NULL)
-    utils->position = utils->com_history_end;
+  {
+    if (utils->com_history_end != NULL)
+      utils->position = utils->com_history_end;
+    else
+      return (*line);
+  }
   else
   {
     if (utils->position->previous != NULL)
@@ -576,14 +581,17 @@ void		get_command_file(t_utils *utils)
   int	fd;
   char	*line;
 
-  fd = open("p_command.hst", O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
+  fd = open(".p_command.hst", O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
   utils->history_len = 0;
   utils->position = NULL;
+  utils->com_history_end = NULL;
+  utils->com_history_start = NULL;
   while (get_next_line(fd, &line))
   {
     new_hlist(line, utils);
     free(line);
   }
+  close(fd);
 }
 
 void		init_utils(t_utils *utils, t_parsing *parsing)
@@ -592,6 +600,33 @@ void		init_utils(t_utils *utils, t_parsing *parsing)
   utils->parsing_start = parsing;
   get_command_file(utils);
   g_sig.pid = -1;
+}
+
+void		write_down_cfile(t_utils *utils, int fd)
+{
+  if (utils->com_history_start->command != NULL)
+  {
+    ft_putstr_fd(utils->com_history_start->command, fd);
+    ft_putchar_fd(10, fd);
+    while (utils->com_history_start->next != NULL)
+    {
+      utils->com_history_start = utils->com_history_start->next; 
+      if (utils->com_history_start->command != NULL)
+      {
+	ft_putstr_fd(utils->com_history_start->command, fd);
+	ft_putchar_fd(10, fd);
+      }
+    }
+  }
+}
+
+void		put_histo_in_file(t_utils *utils)
+{
+  int	fd;
+
+  fd = open(".p_command.hst", O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
+  write_down_cfile(utils, fd);
+  close(fd);
 }
 
 int		main(int argc, char **argv, char **env)
@@ -628,6 +663,7 @@ int		main(int argc, char **argv, char **env)
       free(line);
       g_sig.pid = -1;
     }
+    put_histo_in_file(&utils);
     free(line);
     if (tcsetattr(0, 0, &utils.s_termios_backup) == -1)
       return (-1);

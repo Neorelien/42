@@ -30,14 +30,29 @@ void	test()
    }
    }
    */
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **env)
 {
-
-  char line[5] = "abcd";
-  char	*test = NULL;
-
-  printf("%d\n", ft_strncmp(line, test, 3));
-
+	char buffer[12];
+	int fd[2];
+	int forked;
+	pipe(fd);
+	forked = fork();
+	if (forked > 0)
+	{
+		close(fd[0]);
+		dup2(fd[1], 1);
+		close(fd[1]);
+		write(1, "Hello World", 11);
+		wait(NULL);
+	}
+	else
+	{
+		close(fd[1]);
+		dup2(fd[0], 0);
+		close(fd[0]);
+		execve("/bin/cat", argv, env);
+	}
+	
   return (0);
   /*
 	 struct termios s_termios;
