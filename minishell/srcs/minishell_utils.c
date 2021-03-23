@@ -133,7 +133,7 @@ t_parsing	*ft_lstlast(t_parsing *lst)
 int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 {
 	pipe(utils->fd);
-	g_sig.pid = fork();
+/*	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
 		close(utils->fd[1]);
@@ -143,10 +143,9 @@ int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 		return (0);
 	}
 	else
-	{
-		close(utils->fd[0]);
+	{*/
+//		close(utils->fd[0]);
 		return (utils->fd[1]);
-	}
 }
 
 void ft_env_fd(t_parsing *info, char **env)
