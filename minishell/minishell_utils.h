@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/23 11:48:23 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/23 12:05:20 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ typedef struct	s_utils
 	t_historical		*com_history;
 	t_historical		*com_history_start;
 	t_historical		*com_history_end;
+	t_historical		*position;
 	int			history_len;
+	int		savefd;
 }		t_utils;
 
 typedef struct	s_sig

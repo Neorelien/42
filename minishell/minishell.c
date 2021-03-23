@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/23 11:47:56 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/23 11:56:03 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,15 +302,22 @@ int	ft_signal()
   return (1);
 }
 
-void	refresh_screen(char **print, int back)
+void	refresh_screen(char **print, int *print_char)
 {
-  int	i;
+  int	    i;
 
   i = 0;
-  if (print[0][0] != 0)
-    while (i++ < (int)ft_strlen(*print) - back)
+  if (*print_char > 0)
+  {
+    while (i++ < *print_char)
       ft_putchar_fd('\b', 0);
+    while (i-- > 0)
+      ft_putchar_fd(' ', 0);
+    while (i++ < *print_char)
+      ft_putchar_fd('\b', 0);
+  }
   ft_putstr_fd(*print, 0);
+  *print_char = ft_strlen(*print);
 }
 
 int	free_ret(void *to_free)
@@ -322,55 +329,52 @@ int	free_ret(void *to_free)
 char	    *ft_up_histo(t_utils *utils, char **line)
 {
   char	*line_ret;
+  char	*tmp;
 
-  if (**line == 0 && utils->com_history_end->command != NULL)
-  {
-    free(*line);
-    line_ret = ft_strdup(utils->com_history_end->command); 
-    utils->com_history_end = utils->com_history->previous;
-    return (line_ret);
-  }
-  /*
-  else if (utils->com_history_end->command != NULL)
-    return (*line);
+  if (utils->position == NULL)
+    utils->position = utils->com_history_end;
   else
   {
-    if (utils->com_history->command != NULL)
-    {
-      while (ft_strncmp(*line, utils->com_history->command, ft_strlen(*line) - 1) != 0 || ft_strlen(*line) == ft_strlen(utils->com_history->command))
-      {
-	if (utils->com_history->previous != NULL)
-	  utils->com_history_end = utils->com_history->previous;
-	else
-	  return (*line);
-      }
-      free(*line);
-      line_ret = ft_strdup(utils->com_history_end->command);
-      return (line_ret);
-    }
+    if (utils->position->previous != NULL)
+      utils->position = utils->position->previous;
     else
       return (*line);
-  }*/
+  }
+  line_ret = ft_strdup(utils->position->command);
+  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
+  {
+    tmp =  ft_strdup(*line);
+    line_ret = ft_up_histo(utils, &tmp);
+  }
+  free(*line);
+  return (line_ret);
 }
 
 char	    *ft_down_histo(t_utils *utils, char **line)
 {
   char	*line_ret;
+  char	*tmp;
 
-  if (utils->com_history->command != NULL)
-  {
-    while (ft_strncmp(*line, utils->com_history->command, ft_strlen(*line) - 1) != 0)
-    {
-      if (utils->com_history->next != NULL)
-	utils->com_history_end = utils->com_history->next; 
-      else
-	return (*line);
-    }
-    line_ret = ft_strdup(utils->com_history_end->command);
-    return (line_ret);
-  }
-  else
+  if (utils->position == NULL)
     return (*line);
+  else
+  {
+    if (utils->position->next != NULL)
+      utils->position = utils->position->next;
+    else
+    {
+      free(*line);
+      return (ft_strdup(""));
+    }
+  }
+  line_ret = ft_strdup(utils->position->command);
+  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
+  {
+    tmp =  ft_strdup(*line);
+    line_ret = ft_down_histo(utils, &tmp);
+  }
+  free(*line);
+  return (line_ret);
 }
 
 int	    ft_recup_line(char **line, t_utils *utils)
@@ -378,6 +382,7 @@ int	    ft_recup_line(char **line, t_utils *utils)
   char		buf[4];
   int		ret;
   int		i;
+  static int	print_char;
 
   i = 0;
   buf[3] = 0;
@@ -391,35 +396,32 @@ int	    ft_recup_line(char **line, t_utils *utils)
     if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
       *line = ft_up_histo(utils, line);
-      ft_putstr_fd(*line, 0);
+      refresh_screen(line, &print_char);
     }
     else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
     {
       *line = ft_down_histo(utils, line);
-      ft_putstr_fd(*line, 0);
+      refresh_screen(line, &print_char);
     }
     else if (buf[0] == 10)
     {
       if (**line != 0)
 	new_hlist(*line, utils);
-      refresh_screen(line, 0);
+      refresh_screen(line, &print_char);
       write(0, "\n", 1);
+      print_char = 0;
+      utils->position = NULL;
       return (0);
     }
     else if (ft_isprint(buf[0]))
     {
       ft_cpy(line, buf[0]);    
-      refresh_screen(line, 1);
+      refresh_screen(line, &print_char);
     }
     else if (buf[0] == 127)
     {
-      if (line[0][0] != 0)
-	while (i++ < (int)ft_strlen(*line))
-	  ft_putchar_fd('\b', 0);
       line[0][ft_strlen(*line) - 1] = 0;
-      ft_putstr_fd(*line, 0);
-      write(0, " ", 1);
-      ft_putchar_fd('\b', 0);
+      refresh_screen(line, &print_char);
     }
     else if (buf[0] == 4)
       if (**line == 0)
@@ -519,7 +521,20 @@ t_historical	*add_next_command(t_historical *previous, char *line)
   return (new);
 }
 
-void		test_cfile(t_historical *list)
+void		test_up_cfile(t_historical *list)
+{
+  printf("line =%s|\n", list->command);
+  while (list->previous != NULL)
+  {
+    list = list->previous;
+    if (list->command != NULL)
+      printf("line =%s|\n", list->command);
+    else
+      printf("command = NULL\n");
+  }
+}
+
+void		test_down_cfile(t_historical *list)
 {
   printf("line =%s|\n", list->command);
   while (list->next != NULL)
@@ -540,6 +555,7 @@ void		new_hlist(char *line, t_utils *utils)
     {
       utils->com_history = add_next_command(NULL, line);
       utils->com_history_start = utils->com_history;
+      utils->com_history_end = utils->com_history;
       utils->history_len++;
     }
   }
@@ -562,6 +578,7 @@ void		get_command_file(t_utils *utils)
 
   fd = open("p_command.hst", O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
   utils->history_len = 0;
+  utils->position = NULL;
   while (get_next_line(fd, &line))
   {
     new_hlist(line, utils);
@@ -598,7 +615,7 @@ int		main(int argc, char **argv, char **env)
   {
     while (shelline_gestion(env, &utils, &line))
     {
-   //   test_cfile(utils.com_history_start); 
+      //  test_up_cfile(utils.com_history_end); 
       i = recursive_parsing(&line, parsing, i);
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 	get_open_quote(&i, &line, parsing, &utils);
