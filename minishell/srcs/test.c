@@ -35,6 +35,7 @@ int main(int argc, char **argv, char **env)
 	char buffer[12];
 	int fd[2];
 	int forked;
+	char	t[1];
 	pipe(fd);
 	forked = fork();
 	if (forked > 0)
@@ -47,10 +48,17 @@ int main(int argc, char **argv, char **env)
 	}
 	else
 	{
+		t[0] = 0;
 		close(fd[1]);
+<<<<<<< HEAD
+		dup2(fd[0], 0);
+		close(fd[0]);
+		execve("/bin/cat", , env);
+=======
 //		dup2(fd[0], 0);
 //		close(fd[0]);
 		execve("/bin/cat", argv, env);
+>>>>>>> e2a42a8e7808c3cf05b1828bab494d8ab5767423
 	}
 	
   return (0);
