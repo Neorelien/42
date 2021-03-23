@@ -41,18 +41,24 @@ int main(int argc, char **argv, char **env)
 	if (forked > 0)
 	{
 		close(fd[0]);
-		dup2(fd[1], 1);
-		close(fd[1]);
-		write(1, "Hello World", 11);
+//		dup2(fd[1], 1);
+//		close(fd[1]);
+		write(fd[1], "Hello World", 11);
 		wait(NULL);
 	}
 	else
 	{
 		t[0] = 0;
 		close(fd[1]);
+<<<<<<< HEAD
 		dup2(fd[0], 0);
 		close(fd[0]);
 		execve("/bin/cat", , env);
+=======
+//		dup2(fd[0], 0);
+//		close(fd[0]);
+		execve("/bin/cat", argv, env);
+>>>>>>> e2a42a8e7808c3cf05b1828bab494d8ab5767423
 	}
 	
   return (0);

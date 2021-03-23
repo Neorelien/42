@@ -136,17 +136,16 @@ int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
-		if (utils->pipefd[1] > 0)
-			close(utils->pipefd[1]);
-//		utils->savefd = dup(0);
-//		dup2(utils->pipefd[0], 0);
+		close(utils->pipefd[1]);
+		utils->savefd = dup(0);
+		dup2(utils->pipefd[0], 0);
+		close(utils->pipefd[0]);
 		return (0);
 	}
 	else
 	{
-		if (utils->pipefd[0] > 0)
-			close(utils->pipefd[0]);
-		return(utils->pipefd[1]);
+		close(utils->pipefd[0]);
+		return (utils->pipefd[1]);
 	}
 }
 
