@@ -35,7 +35,12 @@ int main(int argc, char **argv, char **env)
 	char buffer[12];
 	int fd[2];
 	int forked;
-	char	t[1];
+	char test = EOF;
+	char test2[4];
+	test2[0] = 'l';
+	test2[1] = 'o';
+	test2[2] = 'l';
+	test2[3] = EOF;
 	pipe(fd);
 	forked = fork();
 	if (forked > 0)
@@ -43,22 +48,15 @@ int main(int argc, char **argv, char **env)
 		close(fd[0]);
 //		dup2(fd[1], 1);
 //		close(fd[1]);
-		write(fd[1], "Hello World", 11);
+		write(fd[1], &test, 1);
 		wait(NULL);
 	}
 	else
 	{
-		t[0] = 0;
 		close(fd[1]);
-<<<<<<< HEAD
 		dup2(fd[0], 0);
 		close(fd[0]);
-		execve("/bin/cat", , env);
-=======
-//		dup2(fd[0], 0);
-//		close(fd[0]);
 		execve("/bin/cat", argv, env);
->>>>>>> e2a42a8e7808c3cf05b1828bab494d8ab5767423
 	}
 	
   return (0);
