@@ -40,16 +40,16 @@ int main(int argc, char **argv, char **env)
 	if (forked > 0)
 	{
 		close(fd[0]);
-		dup2(fd[1], 1);
-		close(fd[1]);
-		write(1, "Hello World", 11);
+//		dup2(fd[1], 1);
+//		close(fd[1]);
+		write(fd[1], "Hello World", 11);
 		wait(NULL);
 	}
 	else
 	{
 		close(fd[1]);
-		dup2(fd[0], 0);
-		close(fd[0]);
+//		dup2(fd[0], 0);
+//		close(fd[0]);
 		execve("/bin/cat", argv, env);
 	}
 	
