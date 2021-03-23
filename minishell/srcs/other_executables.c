@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2021/03/23 15:18:38 by aurelien         ###   ########.fr       */
+=======
 /*   Updated: 2021/03/23 11:56:57 by cmoyal           ###   ########.fr       */
+>>>>>>> 2c132f30378aefb162ec4fa463e7ba24e01a7524
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +194,7 @@ void		ft_free(char **str)
 	i = 0;
 	while (str[i] != NULL)
 		free(str[i++]);
-//	free(str);
+	//	free(str);
 }
 
 int			next_path(t_parsing *parsing, char **env)
@@ -218,7 +222,7 @@ int			next_path(t_parsing *parsing, char **env)
 		tmp = parsing->objet;
 		parsing->objet = ft_strjoin(path[p], parsing->objet);
 		free(tmp);
-	//	ft_free(path);
+		//	ft_free(path);
 		p++;
 		return (1);
 	}
@@ -255,7 +259,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	else
 		g_sig.pid = 0;
 	tcsetattr(0, 0, &utils->s_termios_backup); // produit un bug a corriger 
-	if (g_sig.pid == 0) // lecture du fils
+	if (g_sig.pid == 0) // lecture de l'enfant
 	{
 		close(utils->pipefd[1]);
 		parsing = get_pipe(utils); //FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus
@@ -269,12 +273,12 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		close(utils->pipefd[0]);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
 			parsing->objet = ft_strdup(tmp);
-	shell = ft_get_shell_name(env);
-	printf("%s: command not found: %s\n", shell, tmp);
-	exit(0);	
-	//	clean_parsing(parsing);
+		shell = ft_get_shell_name(env);
+		printf("%s: command not found: %s\n", shell, tmp);
+		exit(0);
+		//	clean_parsing(parsing);
 	}
-	else // lecture du pere
+	else // lecture du parent
 	{
 		close(utils->pipefd[0]);
 		send_in_pipe(utils->pipefd[1], parsing);

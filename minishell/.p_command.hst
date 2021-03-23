@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+echo lol
+echo lol
+echo bjr
+echo ouauuuuuai
+echo lol
+echo ouaicamarche
+echo ouaicamarche
+=======
 echo oui
 echo non 
 ls
@@ -17,6 +26,7 @@ ls
 echo oui
 ls
 echo lol | cat
+<<<<<<< HEAD
 echo oui
 echo non 
 ls
@@ -5406,3 +5416,6 @@ echo lol
 echo lol
 echo lol lol
 echo lol | cat
+=======
+>>>>>>> 2c132f30378aefb162ec4fa463e7ba24e01a7524
+>>>>>>> a555f2d24555294c967c527d125b6ba7fd3d86a9
