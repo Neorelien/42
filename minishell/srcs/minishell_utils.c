@@ -22,6 +22,8 @@ void handler_quit(int sign)
 {
 	if (g_sig.pid != -1)
 		printf("Quit: %d\n", sign);
+//	else
+//		ft_putstr_fd("\b\b  \b\b", 0);
 }
 
 char *find_in_env(char **env, char *name)
@@ -136,7 +138,9 @@ int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 	{
 		if (utils->pipefd[1] > 0)
 			close(utils->pipefd[1]);
-		return (utils->pipefd[0]);
+//		utils->savefd = dup(0);
+//		dup2(utils->pipefd[0], 0);
+		return (0);
 	}
 	else
 	{
