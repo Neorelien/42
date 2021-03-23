@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:16:17 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/23 16:30:09 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/23 19:19:16 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ int		ft_echo(t_parsing info, char ***env, t_utils *utils)
 		g_sig.pid = -1;
 		close(fd);
 		return (0);
-	}*/
-//	if (fd != 1)
-//		close(fd);
+	}*/	
 	return (1);
 }

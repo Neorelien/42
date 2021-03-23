@@ -40,7 +40,6 @@ int main(int argc, char **argv, char **env)
 	test2[0] = 'l';
 	test2[1] = 'o';
 	test2[2] = 'l';
-	test2[3] = EOF;
 	pipe(fd);
 	forked = fork();
 	if (forked > 0)
@@ -48,8 +47,8 @@ int main(int argc, char **argv, char **env)
 		close(fd[0]);
 //		dup2(fd[1], 1);
 //		close(fd[1]);
-		write(fd[1], &test, 1);
-		wait(NULL);
+		write(fd[1], test2, 1);
+		close(fd[1]);
 	}
 	else
 	{

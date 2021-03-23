@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/23 16:26:08 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/23 19:35:33 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		g_sig.pid = fork();
 	else
 		g_sig.pid = 0;
-	tcsetattr(0, 0, &utils->s_termios_backup); // produit un bug a corriger 
+	tcsetattr(0, 0, &utils->s_termios_backup);
 	if (g_sig.pid == 0) // lecture de l'enfant
 	{
 		close(utils->fd[1]);
@@ -278,7 +278,12 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	}
 	else // lecture du parent
 	{
-		close(utils->fd[0]);
+		if (utils->fd[1] != -1)
+		{
+			close(utils->fd[0]);
+			close(utils->fd[1]);
+			utils->fd[1] = -1;
+		}
 		close(utils->pipefd[0]);
 		send_in_pipe(utils->pipefd[1], parsing);
 		close(utils->pipefd[1]);

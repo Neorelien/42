@@ -5430,3 +5430,14 @@ echo lol
 echo lol | cat
 echo lol
 echo lol | cat
+echo lol
+echo lol | cat
+echo lol
+echo lol | cat
+echo lol | cat -e
+cat Makefile
+cat Makefile
+echo lol
+echo lol | cqt
+cat
+cat
