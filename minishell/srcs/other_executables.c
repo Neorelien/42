@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/23 15:18:38 by aurelien         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/23 11:56:57 by cmoyal           ###   ########.fr       */
->>>>>>> 2c132f30378aefb162ec4fa463e7ba24e01a7524
+/*   Updated: 2021/03/23 16:05:03 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +17,7 @@ int			len_in_pipe(char sep, char *str)
 	int	i;
 
 	i = 0;
+	printf("%s\n", str);
 	while (str[i] && str[i] != sep)
 		i++;
 	return (i);

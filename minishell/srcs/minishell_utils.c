@@ -132,20 +132,20 @@ t_parsing	*ft_lstlast(t_parsing *lst)
 
 int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 {
-	pipe(utils->pipefd);
+	pipe(utils->fd);
 	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
-		close(utils->pipefd[1]);
+		close(utils->fd[1]);
 		utils->savefd = dup(0);
-		dup2(utils->pipefd[0], 0);
-		close(utils->pipefd[0]);
+		dup2(utils->fd[0], 0);
+		close(utils->fd[0]);
 		return (0);
 	}
 	else
 	{
-		close(utils->pipefd[0]);
-		return (utils->pipefd[1]);
+		close(utils->fd[0]);
+		return (utils->fd[1]);
 	}
 }
 
