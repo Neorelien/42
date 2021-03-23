@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/23 16:14:05 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/23 16:23:40 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	tcsetattr(0, 0, &utils->s_termios_backup); // produit un bug a corriger 
 	if (g_sig.pid == 0) // lecture de l'enfant
 	{
+		close(utils->fd[1]);
 		close(utils->pipefd[1]);
 		parsing = get_pipe(utils); //FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus
 		if (parsing->data == NULL)
@@ -268,6 +269,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		tmp = ft_strdup(parsing->objet);
 		close(utils->pipefd[0]);
+		dup2(utils->fd[0], 0);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
 			parsing->objet = ft_strdup(tmp);
 		shell = ft_get_shell_name(env);
@@ -277,6 +279,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	}
 	else // lecture du parent
 	{
+		close(utils->fd[0]);
 		close(utils->pipefd[0]);
 		send_in_pipe(utils->pipefd[1], parsing);
 		close(utils->pipefd[1]);
