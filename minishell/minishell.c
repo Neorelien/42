@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/23 12:13:14 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:11:50 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -581,7 +581,7 @@ void		get_command_file(t_utils *utils)
   int	fd;
   char	*line;
 
-  fd = open(".p_command.hst", O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
+  fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
   utils->history_len = 0;
   utils->position = NULL;
   utils->com_history_end = NULL;
@@ -591,6 +591,7 @@ void		get_command_file(t_utils *utils)
     new_hlist(line, utils);
     free(line);
   }
+  free(line);
   close(fd);
 }
 
@@ -623,9 +624,10 @@ void		write_down_cfile(t_utils *utils, int fd)
 void		put_histo_in_file(t_utils *utils)
 {
   int	fd;
-
-  fd = open(".p_command.hst", O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
-  write_down_cfile(utils, fd);
+  
+  fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+  if (utils->com_history_start->command != NULL)
+    write_down_cfile(utils, fd);
   close(fd);
 }
 
