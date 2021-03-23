@@ -5424,3 +5424,7 @@ echo lol | cat
 =======
 cat 
 >>>>>>> 1e3f608096fc91d23e837c3bf0706218c55efff1
+echo lol
+echo lol | cat
+echo lol
+echo lol | cat
