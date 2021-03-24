@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 01:45:11 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 15:29:34 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,14 +268,15 @@ int		clean_parsing(t_parsing *parsing)
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
   data_formation(parsing, env);
-  if (ft_sep(*parsing) <= 0)
-    ;
-  else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
-    ft_echo(*parsing, env, utils);	
-  else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
-    ft_cd(*parsing, env, utils);
-  else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
-    ft_pwd(*parsing, env, utils);
+	if (ft_sep(*parsing) <= 0)
+		;
+	write_with_separator(
+	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
+		ft_echo(*parsing, env, utils);	
+	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
+		ft_cd(*parsing, env, utils);
+	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
+    	ft_pwd(*parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "export", 6) == 0)
     ft_export(parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "env", 3) == 0)
@@ -601,10 +602,10 @@ void		init_utils(t_utils *utils, t_parsing *parsing)
   	utils->parsing_start = parsing;
   	get_command_file(utils);
   	g_sig.pid = -1;
-	utils->fd[0] = 0;
-	utils->fd[1] = 1;
-	utils->reversefd[0] = 0;
-	utils->reversefd[1] = 1;
+	utils->fdin[0] = 0;
+	utils->fdin[1] = 1;
+	utils->fdout[0] = 0;
+	utils->fdout[1] = 1;
 }
 
 void		write_down_cfile(t_utils *utils, int fd)

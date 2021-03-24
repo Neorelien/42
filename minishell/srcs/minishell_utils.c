@@ -132,21 +132,21 @@ t_parsing	*ft_lstlast(t_parsing *lst)
 
 int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 {	
-	pipe(utils->fd);
-	return (utils->fd[1]);
+	pipe(utils->fdin);
+	return (utils->fdin[1]);
 	
 /*	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
-		close(utils->fd[1]);
+		close(utils->fdin[1]);
 		utils->savefd = dup(0);
-		dup2(utils->fd[0], 0);
-		close(utils->fd[0]);
+		dup2(utils->fdin[0], 0);
+		close(utils->fdin[0]);
 		return (0);
 	}
 	else
 	{*/
-//		close(utils->fd[0]);
+//		close(utils->fdin[0]);
 }
 
 void ft_env_fd(t_parsing *info, char **env)
@@ -207,6 +207,8 @@ void ft_reroll(t_parsing info, char **env, t_utils *utils)
 	utils->data = info.data;
 }
 
+
+
 int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 {
 	int sep;
@@ -231,7 +233,7 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 	}
 	else if (sep == 4)
 		fd = write_with_separator(*info.next, env, utils, fd);
-	else
+	else if (sep == 5)
 	{
 		if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)
 			ft_reroll(info, env, utils);

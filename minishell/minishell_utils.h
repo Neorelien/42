@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 00:39:44 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 15:23:49 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ typedef struct	s_utils
 {
 	char			*pwd;
 	char			**tmp;
-	int			pipefd[2];
-	int			reversefd[2];
-	int			fd[2];
+	int			pipefork[2];
+	int			fdout[2];
+	int			fdin[2];
 	t_parsing		*parsing_start;
 	char			result;
 	char			**data;
