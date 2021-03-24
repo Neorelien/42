@@ -130,11 +130,13 @@ t_parsing	*ft_lstlast(t_parsing *lst)
 	return (lst);
 }
 
-int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
+void			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 {	
-	pipe(utils->fdin);
-	return (utils->fdin[1]);
-	
+	pipe(utils->fdout);
+	if (utils->savefd == -1)
+		utils->savefd = dup(1);
+	dup2(utils->fdout[1], 1);
+	close(utils->fdout[1]);
 /*	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
@@ -217,8 +219,8 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 	flag_pipe = ft_next_is_pipe(info, env, utils, 0);
 	if ((sep = is_separator(info.separator)) == 0 || sep == 1)
 		return (fd);
-	else if (sep == 2)
-		return (ft_pipe_settings(info, env, utils));
+//	else if (sep == 2)
+//		return (ft_pipe_settings(info, env, utils));
 	else if (sep == 3)
 	{
 		if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)

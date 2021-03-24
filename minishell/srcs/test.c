@@ -35,18 +35,22 @@ int main(int argc, char **argv, char **env)
 	char buffer[12];
 	int fd[2];
 	int forked;
-	char test = EOF;
 	char test2[4];
 	test2[0] = 'l';
 	test2[1] = 'o';
 	test2[2] = 'l';
 	pipe(fd);
-	forked = fork();
+	write(fd[1], test2, 3);
+	close(fd[1]);
+	dup2(fd[0], 0);
+	close(fd[0]);
+	execve("/bin/cat", argv, env);
+/*	forked = fork();
 	if (forked > 0)
 	{
 		close(fd[0]);
-//		dup2(fd[1], 1);
-//		close(fd[1]);
+		dup2(fd[1], 1);
+		close(fd[1]);
 		write(fd[1], test2, 1);
 		close(fd[1]);
 	}
@@ -57,7 +61,7 @@ int main(int argc, char **argv, char **env)
 		close(fd[0]);
 		execve("/bin/cat", argv, env);
 	}
-	
+*/	
   return (0);
   /*
 	 struct termios s_termios;

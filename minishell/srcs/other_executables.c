@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 15:27:32 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 17:20:02 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,8 +248,6 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	int		temp;
 	char	*shell;
 	
-	if (ft_next_is_pipe(*parsing, env, utils, 0))
-		pipe(utils->fdout);
 	if (pipe(utils->pipefork) == -1)
 		printf("error pipe");
 	if (g_sig.pid != -2)
@@ -266,11 +264,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			close(utils->fdin[0]);
 		}
 		if (utils->fdout[1] != 1 && utils->fdout[0] != 0)
-		{
 			close(utils->fdout[0]);
-			dup2(utils->fdout[1], 1);
-			close(utils->fdout[1]);
-		}
 		close(utils->pipefork[1]);
 		parsing = get_pipe(utils); //FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus
 		if (parsing->data == NULL)
@@ -298,11 +292,13 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			utils->fdin[1] = 1;
 			utils->fdin[0] = 0;
 		}
-		if (utils->fdout[1] != 1 && utils->fdout[0] != 0)
-		{
-			close(utils->fdout[1]);
-			utils->fdout[1] = 1;
-		}	
+	    if (utils->fdout[1] != 1)                                                   
+	    {                                                                           
+        	close(1);                                                               
+        	dup2(utils->savefd, 1);                                                 
+        	utils->savefd = -1;                                                     
+        	utils->fdout[1] = 1;                                                    
+   		}
 		close(utils->pipefork[0]);
 		send_in_pipe(utils->pipefork[1], parsing);
 		close(utils->pipefork[1]);

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 15:29:34 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 18:16:07 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,10 +268,8 @@ int		clean_parsing(t_parsing *parsing)
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
   data_formation(parsing, env);
-	if (ft_sep(*parsing) <= 0)
-		;
-	write_with_separator(
-	else if (ft_strncmp(parsing->objet, "echo", 4) == 0)
+	ft_redir(*parsing, *env, utils);
+	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
 		ft_echo(*parsing, env, utils);	
 	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
 		ft_cd(*parsing, env, utils);
@@ -285,7 +283,26 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
     ft_unset(parsing, env);
   else if (parsing->objet != NULL)
     ft_other_exc(parsing, *env, utils);
+	if (utils->fdout[1] != 1)
+	{
+		close(1);
+		dup2(utils->savefd, 1);
+		utils->savefd = -1;
+		utils->fdout[1] = 1;
+	}
+    if (utils->fdin[1] != 1)                         
+    {                                              
+        close(utils->fdin[1]);                                              
+	    utils->fdin[1] = 1;                                                 
+    }
+	if (utils->fdin[0] != 0)                         
+    {                                              
+        close(utils->fdin[0]);                                              
+        utils->fdin[0] = 0;                                                 
+    }
   check_to_next(*parsing, env, utils);
+	if (ft_next_is_pipe(*parsing, *env, utils, 0))
+		fonction_router(parsing->next, env, utils);
   if (g_sig.pid == -2)
     exit(1);
 }
@@ -606,6 +623,7 @@ void		init_utils(t_utils *utils, t_parsing *parsing)
 	utils->fdin[1] = 1;
 	utils->fdout[0] = 0;
 	utils->fdout[1] = 1;
+	utils->savefd = -1;
 }
 
 void		write_down_cfile(t_utils *utils, int fd)
@@ -661,7 +679,10 @@ int		main(int argc, char **argv, char **env)
       i = recursive_parsing(&line, parsing, i);
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 	get_open_quote(&i, &line, parsing, &utils);
-      fonction_router(parsing, &env, &utils);
+	if (ft_sep(*parsing) > 0)
+	{	
+		fonction_router(parsing, &env, &utils);
+	}
       //	if (clean_parsing(utils.parsing_start))
       //		exit(1);
       //	system("leaks minishell\n");

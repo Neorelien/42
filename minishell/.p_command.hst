@@ -5471,3 +5471,23 @@ cat
 ls | wc
 wc
 cat Makefile
+echo lol | cat 
+echo lol | cat 
+echo lol | cat 
+echo lol
+cat
+echo lol | cat 
+echo lol | cat
+echo lol | cat
+echo lol | cat
+cat
+cat
+echo lol | cat
+ls | wc
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
