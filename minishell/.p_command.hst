@@ -5491,3 +5491,28 @@ echo lol | cat
 echo lol | cat
 echo lol | cat
 echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo -n lol
+echo lol
+echo lol | echo mdr
+echo lol | grep lol
+echo lol | grep mdr
+echo lol | cat
+echo lol | cat -e
+echo -n lol | cat -e
+echo lol | cat
+echo lol
+echo lol
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
