@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 16:55:04 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 23:56:23 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct	s_utils
 	t_historical		*position;
 	int			history_len;
 	int		savefd;
+	int		return_value;
 }		t_utils;
 
 typedef struct	s_sig
@@ -81,7 +82,7 @@ t_historical	*add_next_command(t_historical *previous, char *line);
 int				term_init(t_utils *utils);
 int				ft_signal();
 void		test_struct(t_parsing *parsing);
-void		data_formation(t_parsing *parsing, char ***env);
+void		data_formation(t_parsing *parsing, char ***env, t_utils *utils);
 void		ft_cpy(char **res, char c);
 int			ft_lstsize(t_parsing *lst);
 t_parsing	*ft_lstlast(t_parsing *lst);

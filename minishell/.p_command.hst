@@ -5515,4 +5515,11 @@ echo lol | cat
 echo lol | cat
 echo lol | cat
 echo lol | cat
-               
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo $?
+echo lol | cat
+echo $?
+echo $?oui
