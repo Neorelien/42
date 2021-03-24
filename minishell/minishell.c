@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 00:12:04 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 00:20:17 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,20 +267,20 @@ int		clean_parsing(t_parsing *parsing)
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
-  data_formation(parsing, env);
-	ft_redir(*parsing, *env, utils);
-	if (ft_strncmp(parsing->objet, "echo", 4) == 0)
-		ft_echo(*parsing, env, utils);	
-	else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
-		ft_cd(*parsing, env, utils);
-	else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
-    	ft_pwd(*parsing, env, utils);
+  data_formation(parsing, env, utils);
+  ft_redir(*parsing, *env, utils);
+  if (ft_strncmp(parsing->objet, "echo", 4) == 0)
+    utils->return_value = ft_echo(*parsing, env, utils);	
+  else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
+    utils->return_value = ft_cd(*parsing, env, utils);
+  else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
+    utils->return_value = ft_pwd(*parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "export", 6) == 0)
-    ft_export(parsing, env, utils);
+   utils->return_value = ft_export(parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "env", 3) == 0)
-    ft_env(parsing, *env, utils);
+    utils->return_value = ft_env(parsing, *env, utils);
   else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
-    ft_unset(parsing, env);
+    utils->return_value = ft_unset(parsing, env);
   else if (parsing->objet != NULL)
     ft_other_exc(parsing, *env, utils);
 	if (utils->fdout[1] != 1)
@@ -305,8 +305,8 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
     }
 	reset_fd_one(utils);
   check_to_next(*parsing, env, utils);
-	if (ft_next_is_pipe(*parsing, *env, utils, 0))
-		fonction_router(parsing->next, env, utils);
+  if (ft_next_is_pipe(*parsing, *env, utils, 0))
+    fonction_router(parsing->next, env, utils);
   if (g_sig.pid == -2)
     exit(1);
 }
@@ -619,15 +619,16 @@ void		get_command_file(t_utils *utils)
 
 void		init_utils(t_utils *utils, t_parsing *parsing)
 {
-  	utils->pwd = NULL;
-  	utils->parsing_start = parsing;
-  	get_command_file(utils);
-  	g_sig.pid = -1;
-	utils->fdin[0] = 0;
-	utils->fdin[1] = 1;
-	utils->fdout[0] = 0;
-	utils->fdout[1] = 1;
-	utils->savefd = -1;
+  utils->pwd = NULL;
+  utils->parsing_start = parsing;
+  get_command_file(utils);
+  g_sig.pid = -1;
+  utils->fdin[0] = 0;
+  utils->fdin[1] = 1;
+  utils->fdout[0] = 0;
+  utils->fdout[1] = 1;
+  utils->savefd = -1;
+  utils->return_value = 0;
 }
 
 void		write_down_cfile(t_utils *utils, int fd)
@@ -651,7 +652,7 @@ void		write_down_cfile(t_utils *utils, int fd)
 void		put_histo_in_file(t_utils *utils)
 {
   int	fd;
-  
+
   fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
   if (utils->com_history_start->command != NULL)
     write_down_cfile(utils, fd);
@@ -683,10 +684,10 @@ int		main(int argc, char **argv, char **env)
       i = recursive_parsing(&line, parsing, i);
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 	get_open_quote(&i, &line, parsing, &utils);
-	if (ft_sep(*parsing) > 0)
-	{	
-		fonction_router(parsing, &env, &utils);
-	}
+      if (ft_sep(*parsing) > 0)
+      {	
+	fonction_router(parsing, &env, &utils);
+      }
       //	if (clean_parsing(utils.parsing_start))
       //		exit(1);
       //	system("leaks minishell\n");

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 17:20:02 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 23:30:34 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,12 +275,11 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		tmp = ft_strdup(parsing->objet);
 		close(utils->pipefork[0]);
-
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
 			parsing->objet = ft_strdup(tmp);
 		shell = ft_get_shell_name(env);
 		printf("%s: command not found: %s\n", shell, tmp);
-		exit(0);
+		exit(127);
 		//	clean_parsing(parsing);
 	}
 	else // lecture du parent
@@ -304,7 +303,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		close(utils->pipefork[1]);
 		g_sig.objet = parsing->objet;
 		temp = g_sig.pid;
-		wait(NULL);
+		wait(&utils->return_value);
 //		char buff[10];
 //		read(utils->fdout[0], buff, 10);
 //		printf("%s\n", buff);

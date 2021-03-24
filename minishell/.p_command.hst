@@ -5515,6 +5515,7 @@ echo lol | cat
 echo lol | cat
 echo lol | cat
 echo lol | cat
+<<<<<<< HEAD
 echo lol
 echo lol
 echo lol > mdr
@@ -5544,3 +5545,13 @@ ls >> mdr
 cat mdr
 rm mdr
 ls
+=======
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo $?
+echo lol | cat
+echo $?
+echo $?oui
+>>>>>>> c7393b525a27cbcf308c57fa78d6a4299f306c4a
