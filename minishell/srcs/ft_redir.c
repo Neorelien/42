@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:20:01 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/24 18:58:05 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 23:47:24 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,18 @@ char	*ft_read_fd(t_utils *utils)
 	return (result);
 }
 */
+
+void	ft_redir_second(t_parsing info, char **env, t_utils *utils)
+{
+
+}
+
 void	ft_redir(t_parsing info, char **env, t_utils *utils)
 {
 	int sep;
 	int flag_pipe;
 	char *result;
+	int fd;
 	
 	if (utils->fdout[0] != 0)
 	{
@@ -80,5 +87,37 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
 		return ;
     else if (sep == 2)
         ft_pipe_settings(info, env, utils);
+    else if (sep == 3)                                                          
+    {                                                                           
+        if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)
+            ft_reroll(info, env, utils);                                        
+        else                                                                    
+        {	
+            fd = open(info.next->objet, O_WRONLY | O_CREAT, 0644 | O_DIRECTORY);
+            if (fd < 0)
+                ft_error(strerror(errno), info.next->objet);
+			utils->savefd = dup(1);
+			dup2(fd, 1);
+        }                                                                       
+        ft_redir(*info.next, env, utils);                  
+    }                                                                           
+    else if (sep == 4)                                                          
+        ft_redir(*info.next, env, utils);                  
+    else if (sep == 5)                                                          
+    {                                                                           
+        if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)
+            ft_reroll(info, env, utils);                                        
+        else                                                                    
+        {                      
+            fd = open(info.next->objet, O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
+            if (fd < 0)                                                         
+                ft_error(strerror(errno), info.next->objet);
+			utils->savefd = dup(1);
+			dup2(fd, 1);                 
+        }                                                                       
+        ft_redir(*info.next, env, utils);                  
+    }	
+/*	else
+		ft_redir_second(info, env, utils);*/
 	
 }

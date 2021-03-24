@@ -5515,4 +5515,32 @@ echo lol | cat
 echo lol | cat
 echo lol | cat
 echo lol | cat
-               
+echo lol
+echo lol
+echo lol > mdr
+cat mdr
+echo lol
+echo lol > mdr
+echo lol >> ptr
+cat ptr
+cat mdr
+ls > mdr
+echo lol
+ls > lol
+echo lol | cat
+echo lol
+ls
+ls > mdr
+echo lol
+cat mdr
+echo lol
+ls > mdr
+cat mdr
+echo lol
+ls | wc
+ls | cat -e
+ls > mdr
+ls >> mdr
+cat mdr
+rm mdr
+ls

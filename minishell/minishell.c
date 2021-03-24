@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 18:16:07 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 00:12:04 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,9 +285,12 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
     ft_other_exc(parsing, *env, utils);
 	if (utils->fdout[1] != 1)
 	{
-		close(1);
-		dup2(utils->savefd, 1);
-		utils->savefd = -1;
+		if (utils->savefd != -1)
+		{
+			close(1);
+			dup2(utils->savefd, 1);
+			utils->savefd = -1;
+		}
 		utils->fdout[1] = 1;
 	}
     if (utils->fdin[1] != 1)                         
@@ -300,6 +303,7 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
         close(utils->fdin[0]);                                              
         utils->fdin[0] = 0;                                                 
     }
+	reset_fd_one(utils);
   check_to_next(*parsing, env, utils);
 	if (ft_next_is_pipe(*parsing, *env, utils, 0))
 		fonction_router(parsing->next, env, utils);

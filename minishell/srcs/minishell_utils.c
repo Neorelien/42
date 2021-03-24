@@ -259,3 +259,15 @@ int	ft_error(char *str, char *strbis)
 	ft_putchar_fd('\n', 1);
 	return (-1);
 }
+
+int reset_fd_one(t_utils *utils)
+{
+	if (utils->savefd != -1)
+	{
+		close(1);
+		dup2(utils->savefd, 1);
+		utils->savefd = -1;
+		return (1);
+	}
+	return (0);
+}
