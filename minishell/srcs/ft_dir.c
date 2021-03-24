@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/22 16:03:17 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/23 23:18:59 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,23 +121,9 @@ int ft_pwd(t_parsing info,char ***env, t_utils *utils)
 	if (ft_doubletab_len(info.data) > 0)
 		return (ft_error("too many arguments", NULL));
 	fd = write_with_separator(info, *env, utils, 1);
-	if (g_sig.pid == 0)
-	{
-		g_sig.pid = -2;
-		fonction_router(info.next, env, utils);
-	}
-	else if (g_sig.pid < 0)
-	{
-		if ((path = getcwd(path, 0)) == NULL)
-			path = utils->pwd;
-		ft_putstr_fd(path, fd);
-	}
-	else
-	{
-		wait(NULL);
-		g_sig.pid = -1;
-		return (0);
-	}
+	if ((path = getcwd(path, 0)) == NULL)
+		path = utils->pwd;
+	ft_putstr_fd(path, fd);
 	ft_putchar_fd('\n', fd);
 	if (path != NULL)
 		free(path);

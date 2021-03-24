@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/23 19:35:33 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 01:51:34 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,9 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	char	*tmp;
 	int		temp;
 	char	*shell;
-
+	
+	if (ft_next_is_pipe(*parsing, env, utils, 0))
+		pipe(utils->reversefd);
 	if (pipe(utils->pipefd) == -1)
 		printf("error pipe");
 	if (g_sig.pid != -2)
@@ -257,7 +259,18 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	tcsetattr(0, 0, &utils->s_termios_backup);
 	if (g_sig.pid == 0) // lecture de l'enfant
 	{
-		close(utils->fd[1]);
+		if (utils->fd[1] != 1 && utils->fd[0] != 0)
+		{	
+			close(utils->fd[1]);
+			dup2(utils->fd[0], 0);
+			close(utils->fd[0]);
+		}
+		if (utils->reversefd[1] != 1 && utils->reversefd[0] != 0)
+		{
+			close(utils->reversefd[0]);
+			dup2(utils->reversefd[1], 1);
+			close(utils->reversefd[1]);
+		}
 		close(utils->pipefd[1]);
 		parsing = get_pipe(utils); //FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus
 		if (parsing->data == NULL)
@@ -268,7 +281,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		tmp = ft_strdup(parsing->objet);
 		close(utils->pipefd[0]);
-		dup2(utils->fd[0], 0);
+
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
 			parsing->objet = ft_strdup(tmp);
 		shell = ft_get_shell_name(env);
@@ -278,18 +291,27 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	}
 	else // lecture du parent
 	{
-		if (utils->fd[1] != -1)
+		if (utils->fd[1] != 1 && utils->fd[0] != 0)
 		{
 			close(utils->fd[0]);
 			close(utils->fd[1]);
-			utils->fd[1] = -1;
+			utils->fd[1] = 1;
+			utils->fd[0] = 0;
 		}
+		if (utils->reversefd[1] != 1 && utils->reversefd[0] != 0)
+		{
+			close(utils->reversefd[1]);
+			utils->reversefd[1] = 1;
+		}	
 		close(utils->pipefd[0]);
 		send_in_pipe(utils->pipefd[1], parsing);
 		close(utils->pipefd[1]);
 		g_sig.objet = parsing->objet;
 		temp = g_sig.pid;
 		wait(NULL);
+//		char buff[10];
+//		read(utils->reversefd[0], buff, 10);
+//		printf("%s\n", buff);
 		g_sig.pid = -1;
 		term_init(utils);
 	}

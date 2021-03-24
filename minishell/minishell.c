@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/23 19:23:30 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/24 01:45:11 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -597,11 +597,14 @@ void		get_command_file(t_utils *utils)
 
 void		init_utils(t_utils *utils, t_parsing *parsing)
 {
-  utils->pwd = NULL;
-  utils->parsing_start = parsing;
-  get_command_file(utils);
-  g_sig.pid = -1;
-	utils->fd[1] = -1;
+  	utils->pwd = NULL;
+  	utils->parsing_start = parsing;
+  	get_command_file(utils);
+  	g_sig.pid = -1;
+	utils->fd[0] = 0;
+	utils->fd[1] = 1;
+	utils->reversefd[0] = 0;
+	utils->reversefd[1] = 1;
 }
 
 void		write_down_cfile(t_utils *utils, int fd)

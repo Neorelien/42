@@ -5441,3 +5441,33 @@ echo lol
 echo lol | cqt
 cat
 cat
+ls | wc
+pwd | cat
+ls
+pwd | cat
+pwd | cat
+echo lol | echo mdr
+echo lol | echo mdr | cat
+cat Makefile
+cat
+cat Makefile
+cat Makefile
+cat Makefile
+cat Makefile
+echo lol | cat
+echo lol | cat
+echo lol | cat
+ls | wc
+ls | cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+cat
+echo lol | cat
+echo lol | cat
+echo lol | cat
+echo lol 
+cat
+ls | wc
+wc
+cat Makefile

@@ -131,8 +131,10 @@ t_parsing	*ft_lstlast(t_parsing *lst)
 }
 
 int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
-{
+{	
 	pipe(utils->fd);
+	return (utils->fd[1]);
+	
 /*	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
@@ -145,7 +147,6 @@ int			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
 	else
 	{*/
 //		close(utils->fd[0]);
-		return (utils->fd[1]);
 }
 
 void ft_env_fd(t_parsing *info, char **env)
@@ -198,7 +199,7 @@ void ft_reroll(t_parsing info, char **env, t_utils *utils)
 	info.next->separator[1] = 0;
 	info.next->separator[2] = 0;
 	info.next->next = NULL;
-	ft_echo(info, &env, utils);
+	fonction_router(&info, &env, utils);
 	info.next->separator[0] = tmp_sep[0];
 	info.next->separator[1] = tmp_sep[1];
 	info.next->separator[2] = tmp_sep[2];
