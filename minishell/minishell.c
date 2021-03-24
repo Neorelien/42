@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 23:56:42 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/25 00:03:08 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,17 +270,17 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
   data_formation(parsing, env, utils);
   ft_redir(*parsing, *env, utils);
   if (ft_strncmp(parsing->objet, "echo", 4) == 0)
-    ft_echo(*parsing, env, utils);	
+    utils->return_value = ft_echo(*parsing, env, utils);	
   else if (ft_strncmp(parsing->objet, "cd", 2) == 0)
-    ft_cd(*parsing, env, utils);
+    utils->return_value = ft_cd(*parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
-    ft_pwd(*parsing, env, utils);
+    utils->return_value = ft_pwd(*parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "export", 6) == 0)
-    ft_export(parsing, env, utils);
+   utils->return_value = ft_export(parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "env", 3) == 0)
-    ft_env(parsing, *env, utils);
+    utils->return_value = ft_env(parsing, *env, utils);
   else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
-    ft_unset(parsing, env);
+    utils->return_value = ft_unset(parsing, env);
   else if (parsing->objet != NULL)
     ft_other_exc(parsing, *env, utils);
   if (utils->fdout[1] != 1)
