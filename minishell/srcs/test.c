@@ -32,7 +32,9 @@ void	test()
    */
 int main(int argc, char **argv, char **env)
 {
-	char buffer[12];
+  while(1)
+    ;
+/*	char buffer[12];
 	int fd[2];
 	int forked;
 	char test2[4];
@@ -44,7 +46,7 @@ int main(int argc, char **argv, char **env)
 	close(fd[1]);
 	dup2(fd[0], 0);
 	close(fd[0]);
-	execve("/bin/cat", argv, env);
+	execve("/bin/cat", argv, env);*/
 /*	forked = fork();
 	if (forked > 0)
 	{

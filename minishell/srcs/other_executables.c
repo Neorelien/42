@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/24 23:30:34 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/25 17:04:11 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	char	*tmp;
 	int		temp;
 	char	*shell;
-	
+
 	if (pipe(utils->pipefork) == -1)
 		printf("error pipe");
 	if (g_sig.pid != -2)
@@ -275,11 +275,13 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		tmp = ft_strdup(parsing->objet);
 		close(utils->pipefork[0]);
+		if (parsing->objet[0] == '.' && parsing->objet[1] == '/')
+			execve(&parsing->objet[2], parsing->data, env);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
 			parsing->objet = ft_strdup(tmp);
 		shell = ft_get_shell_name(env);
 		printf("%s: command not found: %s\n", shell, tmp);
-		exit(127);
+		exit(1);
 		//	clean_parsing(parsing);
 	}
 	else // lecture du parent
@@ -291,22 +293,23 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			utils->fdin[1] = 1;
 			utils->fdin[0] = 0;
 		}
-	    if (utils->fdout[1] != 1)                                                   
-	    {                                                                           
-        	close(1);                                                               
-        	dup2(utils->savefd, 1);                                                 
-        	utils->savefd = -1;                                                     
-        	utils->fdout[1] = 1;                                                    
-   		}
+		if (utils->fdout[1] != 1)                                                   
+		{                                                                           
+			close(1);                                                               
+			dup2(utils->savefd, 1);                                                 
+			utils->savefd = -1;                                                     
+			utils->fdout[1] = 1;                                                    
+		}
 		close(utils->pipefork[0]);
 		send_in_pipe(utils->pipefork[1], parsing);
 		close(utils->pipefork[1]);
 		g_sig.objet = parsing->objet;
 		temp = g_sig.pid;
 		wait(&utils->return_value);
-//		char buff[10];
-//		read(utils->fdout[0], buff, 10);
-//		printf("%s\n", buff);
+		if (WIFEXITED(utils->return_value))
+			utils->return_value = WEXITSTATUS(utils->return_value);
+		else
+			utils->return_value = 128 + WTERMSIG(utils->return_value);
 		g_sig.pid = -1;
 		term_init(utils);
 	}
