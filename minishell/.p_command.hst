@@ -5555,3 +5555,15 @@ echo lol | cat
 echo $?
 echo $?oui
 >>>>>>> c7393b525a27cbcf308c57fa78d6a4299f306c4a
+export
+export 5=3
+echo $?
+echo $?
+>>>>> c7393b525a27cbc
+env lol
+env lol
+env lol
+echo $?
+env lol
+echo $?
+env

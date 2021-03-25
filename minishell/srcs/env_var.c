@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/22 14:17:13 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 11:57:19 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,13 @@ int		ft_env(t_parsing *parsing, char **env, t_utils *utils)
 	int		fd;
 
 	i = 0;
+	while (parsing->data != NULL && parsing->data[i] != NULL)
+		if (ft_strncmp("env", parsing->data[i++], 2) != 0)
+		{
+			printf("env: %s: No such file or directory\n", parsing->data[--i]);
+			return (127);
+		}
+	i = 0;
 	fd = write_with_separator(*parsing, env, utils, 1);
 	while (env[i] != NULL)
 	{
@@ -203,7 +210,7 @@ int		ft_env(t_parsing *parsing, char **env, t_utils *utils)
 		write(fd, "\n", 1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
@@ -211,6 +218,7 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 	int			i;
 	int			fd;
 	int			o;
+	char		*error_ret;
 
 	o = 0;
 	i = 0;
@@ -221,10 +229,23 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 		{
 			while (parsing->data[i][o] && parsing->data[i][o] != '=')
 				if (!ft_isalnum(parsing->data[i][o++]))
-					return (0);
+				{
+					error_ret = malloc(o + 1);
+					ft_strlcpy(parsing->data[i], error_ret, o);
+					ft_error("export: not valid in this context", error_ret);
+					free(error_ret);
+					return (1);
+				}
 			if (i == 0 && parsing->data[i][0] >= '0' &&
 					parsing->data[i][0] <= '9')
-				return (0);
+			{
+				error_ret = malloc(2);
+				error_ret[0] = parsing->data[i][0];
+				error_ret[1] = 0;
+				ft_error("export: not an identifier", error_ret);
+				free(error_ret);
+				return (1);
+			}
 			if (egal_in(parsing->data[i]) > -1)
 				add_env(i, parsing, env);
 			i++;
@@ -233,7 +254,7 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 	else
 	{
 		display_env_sort(*env, fd);
-		return (1);
+		return (0);
 	}
-	return (1);
+	return (0);
 }
