@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/03/24 23:59:43 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/25 11:07:15 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int		is_token_remplace(char c, char **objet)
 		ft_cpy(objet, 13);
 	else
 		return (0);
+	return (1);
 }
 
 int		look_for_BS_token(char **objet, int quote, int i, char **new_obj)
