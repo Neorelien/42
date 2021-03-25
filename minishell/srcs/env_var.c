@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 11:57:19 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/25 13:07:22 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,13 +181,18 @@ int		ft_unset(t_parsing *parsing, char ***env)
 	int	i;
 
 	i = 0;
+	if (parsing->data == NULL || parsing->data[0] == NULL)
+	{
+		printf("unset: not enough arguments\n");
+		return (1);
+	}
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
 		if (in_db_tab(*env, parsing->data[i]))
 			supp_env(env, parsing->data[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int		ft_env(t_parsing *parsing, char **env, t_utils *utils)
