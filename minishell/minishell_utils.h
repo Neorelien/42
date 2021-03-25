@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/25 16:18:40 by awery            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/25 14:04:00 by cmoyal           ###   ########.fr       */
+>>>>>>> 435f01cb2b1dcf8b1122b38e93b6318efdd17680
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +53,7 @@ typedef struct	s_historical
 typedef struct	s_utils
 {
 	char			*pwd;
+	char			*oldpwd;
 	char			**tmp;
 	int			pipefork[2];
 	int			fdout[2];

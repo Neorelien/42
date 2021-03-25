@@ -5576,6 +5576,7 @@ env lol
 echo $?
 env
 >>>>>>> 010401fb8388a9b8aaa0dc8ce332f339773ff24e
+<<<<<<< HEAD
 unset
 export
 ls plus
@@ -5658,3 +5659,16 @@ git
 echo $?
 cat
 echo $?
+=======
+cd ..
+cd minishell
+ls
+rm -
+rm -r -f -
+ls
+unset PWD
+pwd
+cd ..
+ls
+cd -
+>>>>>>> 435f01cb2b1dcf8b1122b38e93b6318efdd17680

@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/25 11:09:45 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 15:13:16 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,23 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 {
 	char *path;
 	char *oldpath;
+	char *tmp;
 
 	if (ft_next_is_pipe(info, *env, utils, 0) == 1)
-		;
+	{
+		ft_putstr_fd(utils->oldpwd, 1);
+		ft_putchar_fd('\n', 1);
+		return (0);
+	}
 	path = NULL;
 	oldpath = NULL;
 	if ((oldpath = getcwd(path, 0)) == NULL)
-		oldpath = utils->pwd;
-	oldpath = ft_strjoin("OLDPWD=", oldpath);
+		oldpath = utils->pwd;	
 	if (ft_doubletab_len(info.data) > 1)
+	{
+		free(oldpath);
 		return (ft_error("string not in pwd: ", info.data[0]));
+	}
 	if (info.data == NULL)
 		chdir(ft_home_dir(*env));
 	else if (info.data[0][0] == '~')
@@ -95,6 +102,16 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 		chdir(ft_home_dir(*env));
 		if (chdir(info.data[0] + 2) < 0)
 			return (ft_error(strerror(errno), info.data[0]));
+	}
+	else if (info.data[0][0] == '-')
+	{
+		if (chdir(utils->oldpwd) == -1)
+		{
+			ft_error(strerror(errno), NULL);
+			return (1);
+		}
+		ft_putstr_fd(utils->oldpwd, 1);
+		ft_putchar_fd('\n', 1);
 	}
 	else
 	{
@@ -104,8 +121,12 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	path = getcwd(path, 0);
 	if (utils->pwd != NULL)
 		free(utils->pwd);
+	if (utils->oldpwd != NULL)
+		free(utils->oldpwd);
 	utils->pwd = path;
+	utils->oldpwd = oldpath;
 	path = ft_strjoin("PWD=", path);
+	oldpath = ft_strjoin("OLDPWD=", oldpath);
 	add_env_pwd(path, env);
 	add_env_pwd(oldpath, env);
 	return (0);
