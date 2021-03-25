@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 11:43:01 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 15:16:41 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -618,9 +618,10 @@ void		get_command_file(t_utils *utils)
   close(fd);
 }
 
-void		init_utils(t_utils *utils, t_parsing *parsing)
+void		init_utils(t_utils *utils, t_parsing *parsing, char **env)
 {
   utils->pwd = NULL;
+  utils->oldpwd = find_in_env(env, "OLDPWD");
   utils->parsing_start = parsing;
   get_command_file(utils);
   g_sig.pid = -1;
@@ -669,7 +670,7 @@ int		main(int argc, char **argv, char **env)
   static t_utils	utils;
 
   parsing = new_list(NULL);
-  init_utils(&utils, parsing);
+  init_utils(&utils, parsing, env);
   argc = 0;
   argv = NULL;
   utils.tmp = malloc(sizeof(char*) * (ft_doubletab_len(env) + 1));
