@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 00:20:17 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 11:43:01 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,7 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
         utils->fdin[0] = 0;                                                 
     }
 	reset_fd_one(utils);
+	reset_fd_zero(utils);
   check_to_next(*parsing, env, utils);
   if (ft_next_is_pipe(*parsing, *env, utils, 0))
     fonction_router(parsing->next, env, utils);
@@ -628,6 +629,7 @@ void		init_utils(t_utils *utils, t_parsing *parsing)
   utils->fdout[0] = 0;
   utils->fdout[1] = 1;
   utils->savefd = -1;
+  utils->savefdout = -1;
   utils->return_value = 0;
 }
 
@@ -684,7 +686,7 @@ int		main(int argc, char **argv, char **env)
       i = recursive_parsing(&line, parsing, i);
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 	get_open_quote(&i, &line, parsing, &utils);
-      if (ft_sep(*parsing) > 0)
+      if (!ft_sep(*parsing))
       {	
 	fonction_router(parsing, &env, &utils);
       }

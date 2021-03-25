@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:20:01 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/24 23:47:24 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 11:41:34 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,6 @@ char	*ft_read_fd(t_utils *utils)
 	}	
 	return (result);
 }
-/*
-char	*ft_read_fd(t_utils *utils)
-{
-	int ret;
-	int i;
-	char *buff;
-	char *result;
-	char *temp;
-
-	ret = 1;
-	i = 0;
-	result = ft_strdup("");
-	while (ret)
-	{
-		if ((ret = get_next_line(utils->fdout[0], &buff)) == -1)
-			break ;
-		temp = ft_strjoin(result, buff);
-		free(result);
-		result = temp;
-		free(buff);
-		i++;
-	}
-	if (i > 1)
-	{
-		temp = ft_strjoin(result, "\n");
-		free(result);
-		result = temp;
-	}
-	return (result);
-}
-*/
 
 void	ft_redir_second(t_parsing info, char **env, t_utils *utils)
 {
@@ -101,8 +70,18 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
         }                                                                       
         ft_redir(*info.next, env, utils);                  
     }                                                                           
-    else if (sep == 4)                                                          
-        ft_redir(*info.next, env, utils);                  
+    else if (sep == 4)
+	{
+		if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)
+            ft_reroll(info, env, utils);                                        
+        else                                                                    
+        {                      
+            fd = open(info.next->objet, O_RDONLY);
+			utils->savefdout = dup(0);
+			dup2(fd, 0);
+        }	
+        ft_redir(*info.next, env, utils);      
+	}
     else if (sep == 5)                                                          
     {                                                                           
         if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)

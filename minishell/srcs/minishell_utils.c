@@ -227,7 +227,7 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 			ft_reroll(info, env, utils);
 		else
 		{
-			fd = open(info.next->objet, O_WRONLY | O_CREAT, 0644 | O_DIRECTORY);
+			fd = open(info.next->objet, O_WRONLY | O_TRUNC | O_CREAT, 0644 | O_DIRECTORY);
 			if (fd < 0)
 				ft_error(strerror(errno), info.next->objet);
 		}
@@ -252,12 +252,14 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 
 int	ft_error(char *str, char *strbis)
 {
-	ft_putstr_fd(str, 1);
-	ft_putstr_fd(": ", 1);
+	ft_putstr_fd(str, 1);	
 	if (strbis != NULL)
+	{
+		ft_putstr_fd(": ", 1);
 		ft_putstr_fd(strbis, 1);
+	}
 	ft_putchar_fd('\n', 1);
-	return (-1);
+	return (1);
 }
 
 int reset_fd_one(t_utils *utils)
@@ -267,6 +269,18 @@ int reset_fd_one(t_utils *utils)
 		close(1);
 		dup2(utils->savefd, 1);
 		utils->savefd = -1;
+		return (1);
+	}
+	return (0);
+}
+
+int reset_fd_zero(t_utils *utils)
+{
+	if (utils->savefdout != -1)
+	{
+		close(0);
+		dup2(utils->savefdout, 0);
+		utils->savefdout = -1;
 		return (1);
 	}
 	return (0);

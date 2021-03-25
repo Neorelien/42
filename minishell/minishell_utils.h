@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 00:21:26 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 11:47:59 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct	s_utils
 	t_historical		*position;
 	int			history_len;
 	int		savefd;
+	int		savefdout;
 	int		return_value;
 }		t_utils;
 
@@ -115,4 +116,5 @@ void    ft_redir(t_parsing info, char **env, t_utils *utils);
 void            ft_pipe_settings(t_parsing info, char **env, t_utils *utils);
 void ft_reroll(t_parsing info, char **env, t_utils *utils);
 int reset_fd_one(t_utils *utils);
+int reset_fd_zero(t_utils *utils);
 #endif

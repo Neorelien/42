@@ -5555,3 +5555,9 @@ echo lol | cat
 echo $?
 echo $?oui
 >>>>>>> c7393b525a27cbcf308c57fa78d6a4299f306c4a
+echo lol > mdr
+cat mdr
+echo mdr > mdr
+cat mdr
+cat < Makefile
+cat < Makefile
