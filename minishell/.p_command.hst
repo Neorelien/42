@@ -5576,3 +5576,85 @@ env lol
 echo $?
 env
 >>>>>>> 010401fb8388a9b8aaa0dc8ce332f339773ff24e
+unset
+export
+ls plus
+echo $?
+ls plus
+echo $?
+grep lo
+echo $?
+grep lo
+echo $?
+cqt
+echo $?
+cqt
+cqt
+cqt
+cqt
+echo $?
+echo $?
+echo $?
+echo $?
+cqt
+cqt
+cqt
+cat
+cat
+cat 
+cat
+cat 
+cat 
+cat
+cat
+cat 
+top
+top
+cat
+lil
+lul
+lil
+lil
+lil
+lil
+lil
+lil
+cat
+cat 
+cat
+cat
+cat 
+cat 
+cat
+grep
+cat makefile
+grep
+ls
+grep mylib makefile
+ls
+make re
+./minishell
+./minishell
+./minishell
+cat
+grep
+git
+mkdir
+mkdir
+grep
+cat Makefile
+cat
+cat
+cat
+cat lol
+grep
+cat 
+echo $?
+cat lol
+echo $?
+grep
+echo $?
+git
+echo $?
+cat
+echo $?

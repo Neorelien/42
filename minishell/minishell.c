@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 11:43:01 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 16:22:09 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,10 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 void	ft_quit()
 {
   if (g_sig.pid != -1)
+  {
     printf("[1] %d quit (core dumped) (%s)\n", g_sig.pid, g_sig.objet);
+    kill(g_sig.pid, SIGKILL);
+  }
 }
 
 int	ft_signal()

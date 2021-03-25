@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 11:47:59 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/25 16:18:40 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #include <curses.h>
 #include <term.h>
 #include <termios.h>
+#include <signal.h>
 
 typedef struct	s_parsing
 {
