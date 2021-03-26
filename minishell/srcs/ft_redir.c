@@ -14,7 +14,6 @@
 char	*ft_read_fd(t_utils *utils)
 {
 	int ret;
-	int i;
 	char buff[2];
 	char *result;
 	char *temp;
@@ -31,10 +30,10 @@ char	*ft_read_fd(t_utils *utils)
 	return (result);
 }
 
-void	ft_redir_second(t_parsing info, char **env, t_utils *utils)
+/*void	ft_redir_second(t_parsing info, char **env, t_utils *utils)
 {
 
-}
+}*/
 
 void	ft_redir(t_parsing info, char **env, t_utils *utils)
 {
@@ -55,7 +54,7 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
 	if ((sep = is_separator(info.separator)) == 0 || sep == 1)
 		return ;
     else if (sep == 2)
-        ft_pipe_settings(info, env, utils);
+        ft_pipe_settings(utils);
     else if (sep == 3)                                                          
     {                                                                           
         if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)

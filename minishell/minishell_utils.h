@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/26 14:57:52 by awery            ###   ########.fr       */
+=======
+/*   Updated: 2021/03/25 14:04:00 by cmoyal           ###   ########.fr       */
+>>>>>>> 84c9a82087089ec32f14249d0c1224355425fd1c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +121,7 @@ int			ft_next_is_pipe(t_parsing info, char **env, t_utils *utils, int flag);
 void		handler_next(int sign);
 void		handler_quit(int sign);
 void    ft_redir(t_parsing info, char **env, t_utils *utils);
-void            ft_pipe_settings(t_parsing info, char **env, t_utils *utils);
+void            ft_pipe_settings(t_utils *utils);
 void ft_reroll(t_parsing info, char **env, t_utils *utils);
 int reset_fd_one(t_utils *utils);
 int reset_fd_zero(t_utils *utils);
