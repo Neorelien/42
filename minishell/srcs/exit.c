@@ -58,6 +58,7 @@ void	ft_clean_env(char ***env)
 
 void		ft_exit(t_parsing *parsing, char ***env, t_utils *utils, int ret)
 {
+	(void)parsing;
 	put_histo_in_file(utils);
 	ft_clean_parsing(utils->parsing_start);
 	ft_clean_historical(utils->com_history_start);

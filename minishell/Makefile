@@ -39,11 +39,7 @@ ${NAME}:	${OBJ_MAIN} ${OBJS}
 			${LINK} ${MYLIB} ${OBJS}
 			ranlib ${MYLIB}
 			make -C ${PATH_LIBFT}
-<<<<<<< HEAD
-			${CC} ${FLAGS}  ${OBJ_MAIN} ${MYLIB} ${LIBFT} -o ${NAME}
-=======
 			${CC} ${FLAGS} -ltermcap ${OBJ_MAIN} ${MYLIB} ${LIBFT} -o ${NAME}
->>>>>>> 84c9a82087089ec32f14249d0c1224355425fd1c
 
 clean:
 			${RM} ${OBJ_MAIN} ${OBJS}
