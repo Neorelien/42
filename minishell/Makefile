@@ -6,7 +6,7 @@ OBJ_MAIN = ${MAIN:.c=.o}
 
 SRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
 echo.c minishell_utils.c ft_dir.c env_var.c other_executables.c ft_sep.c \
-data_formation.c ft_redir.c
+data_formation.c ft_redir.c exit.c
 
 PATH_SRCS = ./srcs/
 
@@ -38,7 +38,7 @@ ${NAME}:	${OBJ_MAIN} ${OBJS}
 			${LINK} ${MYLIB} ${OBJS}
 			ranlib ${MYLIB}
 			make -C ${PATH_LIBFT}
-			${CC} ${FLAGS} -fsanitize=address ${OBJ_MAIN} ${MYLIB} ${LIBFT} -o ${NAME}
+			${CC} ${FLAGS}  ${OBJ_MAIN} ${MYLIB} ${LIBFT} -o ${NAME}
 
 clean:
 			${RM} ${OBJ_MAIN} ${OBJS}

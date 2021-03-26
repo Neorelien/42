@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/25 16:22:09 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/25 15:16:41 by cmoyal           ###   ########.fr       */
->>>>>>> 435f01cb2b1dcf8b1122b38e93b6318efdd17680
+/*   Updated: 2021/03/26 15:48:09 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +199,7 @@ char	**recopy_data(char **data, char **temp)
   i = 0;
   while (temp[i] != NULL)
   {
-    data[i] = temp[i];
+    data[i] = ft_strdup(temp[i]);
     i++;
   }
   data[i] = NULL;
@@ -242,33 +238,6 @@ void	test_struct(t_parsing *parsing)
     test_struct(parsing->next);
 }
 
-int		clean_parsing(t_parsing *parsing)
-{
-  int i;
-  int ex;
-
-  i= 0;
-  ex = 0;
-  if (parsing->objet != NULL)
-  {
-    if (ft_strncmp(parsing->objet, "exit", 5) == 0)
-      ex = 1;
-    free(parsing->objet);
-  }
-  while (parsing->data != NULL && parsing->data[i] != NULL)
-  {
-    free(parsing->data[i]);
-    i++;
-  }
-  if (parsing->data != NULL)
-    free(parsing->data);
-  if (parsing->next != NULL)
-    ex = clean_parsing(parsing->next);
-  free(parsing);
-  return (ex);
-}
-
-
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
   data_formation(parsing, env, utils);
@@ -280,35 +249,37 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
   else if (ft_strncmp(parsing->objet, "pwd", 3) == 0)
     utils->return_value = ft_pwd(*parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "export", 6) == 0)
-   utils->return_value = ft_export(parsing, env, utils);
+    utils->return_value = ft_export(parsing, env, utils);
   else if (ft_strncmp(parsing->objet, "env", 3) == 0)
     utils->return_value = ft_env(parsing, *env, utils);
   else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
     utils->return_value = ft_unset(parsing, env);
+  else if (ft_strncmp(parsing->objet, "exit", 5) == 0)
+    ft_exit(parsing, env, utils, 0);
   else if (parsing->objet != NULL)
     ft_other_exc(parsing, *env, utils);
-	if (utils->fdout[1] != 1)
-	{
-		if (utils->savefd != -1)
-		{
-			close(1);
-			dup2(utils->savefd, 1);
-			utils->savefd = -1;
-		}
-		utils->fdout[1] = 1;
-	}
-    if (utils->fdin[1] != 1)                         
-    {                                              
-        close(utils->fdin[1]);                                              
-	    utils->fdin[1] = 1;                                                 
+  if (utils->fdout[1] != 1)
+  {
+    if (utils->savefd != -1)
+    {
+      close(1);
+      dup2(utils->savefd, 1);
+      utils->savefd = -1;
     }
-	if (utils->fdin[0] != 0)                         
-    {                                              
-        close(utils->fdin[0]);                                              
-        utils->fdin[0] = 0;                                                 
-    }
-	reset_fd_one(utils);
-	reset_fd_zero(utils);
+    utils->fdout[1] = 1;
+  }
+  if (utils->fdin[1] != 1)                         
+  {                                              
+    close(utils->fdin[1]);                                              
+    utils->fdin[1] = 1;                                                 
+  }
+  if (utils->fdin[0] != 0)                         
+  {                                              
+    close(utils->fdin[0]);                                              
+    utils->fdin[0] = 0;                                                 
+  }
+  reset_fd_one(utils);
+  reset_fd_zero(utils);
   check_to_next(*parsing, env, utils);
   if (ft_next_is_pipe(*parsing, *env, utils, 0))
     fonction_router(parsing->next, env, utils);
@@ -316,19 +287,10 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
     exit(1);
 }
 
-void	ft_quit()
-{
-  if (g_sig.pid != -1)
-  {
-    printf("[1] %d quit (core dumped) (%s)\n", g_sig.pid, g_sig.objet);
-    kill(g_sig.pid, SIGKILL);
-  }
-}
-
 int	ft_signal()
 {
   signal(SIGINT, handler_next);
-  signal(SIGQUIT, ft_quit);
+  signal(SIGQUIT, handler_quit);
   return (1);
 }
 
@@ -427,7 +389,6 @@ int	    ft_recup_line(char **line, t_utils *utils)
   ret = read(0, &buf, 3);
   if (ret != -1 && buf[0] != 0)
   {
-    // printf("buf[0] = %d || buf[1] = %d || buf[2] = %d || buf[3] = %d \n", buf[0], buf[1],  buf[2], buf[3]);
     if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
       *line = ft_up_histo(utils, line);
@@ -475,6 +436,7 @@ int		shelline_gestion(char **env, t_utils *utils, char **line)
 
   prefix = 0;
   ft_signal();
+  
   if (prefix == 0)
   {
     ft_display_rep(env, *utils);
@@ -614,6 +576,7 @@ void		get_command_file(t_utils *utils)
   fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
   utils->history_len = 0;
   utils->position = NULL;
+  utils->com_history = NULL;
   utils->com_history_end = NULL;
   utils->com_history_start = NULL;
   while (get_next_line(fd, &line))
@@ -690,29 +653,27 @@ int		main(int argc, char **argv, char **env)
   {
     while (shelline_gestion(env, &utils, &line))
     {
-      //  test_up_cfile(utils.com_history_end); 
       i = recursive_parsing(&line, parsing, i);
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 	get_open_quote(&i, &line, parsing, &utils);
       if (!ft_sep(*parsing))
-      {	
 	fonction_router(parsing, &env, &utils);
-      }
-      //	if (clean_parsing(utils.parsing_start))
-      //		exit(1);
-      //	system("leaks minishell\n");
       parsing = new_list(NULL);
       i = 0;
       free(line);
       g_sig.pid = -1;
     }
-    put_histo_in_file(&utils);
-    free(line);
-    if (tcsetattr(0, 0, &utils.s_termios_backup) == -1)
-      return (-1);
+    if (line != NULL)
+      free(line);
+    line = NULL;
+    tcsetattr(0, 0, &utils.s_termios_backup);
     ft_putstr_fd("exit\n", 1);
   }
   else
+  {
     ft_putstr_fd("termcaps init fail\n", STDERR_FILENO);
+    ft_exit(parsing, &env, &utils, 1);
+  }
+  ft_exit(parsing, &env, &utils, 0);
   return (0);
 }

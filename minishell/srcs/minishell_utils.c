@@ -21,11 +21,7 @@ void handler_next(int sign)
 void handler_quit(int sign)
 {
 	if (g_sig.pid != -1)
-	{
 		printf("Quit: %d\n", sign);
-	}
-//	else
-//		ft_putstr_fd("\b\b  \b\b", 0);
 }
 
 char *find_in_env(char **env, char *name)

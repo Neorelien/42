@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 17:04:11 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/26 14:30:30 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,6 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		close(utils->pipefork[0]);
 		send_in_pipe(utils->pipefork[1], parsing);
 		close(utils->pipefork[1]);
-		g_sig.objet = parsing->objet;
 		temp = g_sig.pid;
 		wait(&utils->return_value);
 		if (WIFEXITED(utils->return_value))

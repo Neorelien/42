@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/25 16:18:40 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/25 14:04:00 by cmoyal           ###   ########.fr       */
->>>>>>> 435f01cb2b1dcf8b1122b38e93b6318efdd17680
+/*   Updated: 2021/03/26 14:57:52 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +72,7 @@ typedef struct	s_utils
 typedef struct	s_sig
 {
 	pid_t			pid;
-	char			*objet;	}		t_sig;
+}		t_sig;
 
 extern t_sig g_sig;
 
@@ -84,6 +80,9 @@ extern t_sig g_sig;
 # define OPEN_DQUOTE -3
 # define TEST printf("ON VA LA\n")
 
+
+void			put_histo_in_file(t_utils *utils);
+void			ft_exit(t_parsing *parsing, char ***env, t_utils *utils, int ret);
 void			new_hlist(char *line, t_utils *utils);
 t_historical	*add_next_command(t_historical *previous, char *line);
 int				term_init(t_utils *utils);
@@ -94,7 +93,6 @@ void		ft_cpy(char **res, char c);
 int			ft_lstsize(t_parsing *lst);
 t_parsing	*ft_lstlast(t_parsing *lst);
 int			is_separator_parsing(char *str, int i);
-int			clean_parsing(t_parsing *parsing);
 t_parsing	*new_list(t_parsing *previous_lst);
 void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils);
 int			ft_unset(t_parsing *parsing, char ***env);

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 13:07:22 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/26 14:47:18 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,7 @@ void	recopy_less_data(char ***data, char **temp, char *str)
 	while (temp[i] != NULL)
 	{
 		if (ft_strncmp(temp[i], str, len - 1) == 0 && temp[i][len] == '=')
-		{
-		//	free(temp[i]);
-			i++;
-		}
+			free(temp[i++]);
 		else
 		{
 			data[0][o] = temp[i];
