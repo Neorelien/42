@@ -35,7 +35,7 @@ void		cpy_from_pipe(char *from, char **to, char sep)
 	to[0][i] = 0;
 }
 
-void		mall_data_fr_pipe(t_parsing *parsing, t_utils *utils, int *len, char *line)
+void		mall_data_fr_pipe(t_parsing *parsing, int *len, char *line)
 {
 	int	i;
 	int	o;
@@ -54,7 +54,7 @@ void		mall_data_fr_pipe(t_parsing *parsing, t_utils *utils, int *len, char *line
 	}
 }
 
-void		copy_data_fr_pipe(t_parsing *parsing, t_utils *utils, int *len, char *line)
+void		copy_data_fr_pipe(t_parsing *parsing, int *len, char *line)
 {
 	int	o;
 	int	p;
@@ -90,7 +90,6 @@ int			ft_data_count(char *line)
 
 void		ft_gmalloc_pars(t_parsing *parsing, t_utils *utils)
 {
-	int		tmp;
 	int		len;
 	char	*line;
 	int		i;
@@ -115,8 +114,8 @@ void		ft_gmalloc_pars(t_parsing *parsing, t_utils *utils)
 		parsing->data = malloc(sizeof(char*) * (ft_data_count(line) + 2));
 		parsing->data[ft_data_count(line) + 1] = NULL;
 		len = len + 1;
-		mall_data_fr_pipe(parsing, utils, &len, line);
-		copy_data_fr_pipe(parsing, utils, &len, line);
+		mall_data_fr_pipe(parsing, &len, line);
+		copy_data_fr_pipe(parsing, &len, line);
 	}
 	if (line[len] == -3)
 	{
@@ -204,6 +203,8 @@ int			next_path(t_parsing *parsing, char **env)
 	i = ft_find_env(env);
 	if (i > -1)
 		path = ft_split(env[i], ':');
+	else
+		return (0);
 	while (path[p])
 	{
 		tmp = path[p];
@@ -225,7 +226,7 @@ int			next_path(t_parsing *parsing, char **env)
 	return (0);
 }
 
-char		*ft_get_shell_name(char **env)
+char		*ft_get_shell_name(void)
 {
 	char	*res;
 	int		i;
@@ -279,7 +280,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			execve(&parsing->objet[2], parsing->data, env);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
 			parsing->objet = ft_strdup(tmp);
-		shell = ft_get_shell_name(env);
+		shell = ft_get_shell_name();
 		printf("%s: command not found: %s\n", shell, tmp);
 		exit(1);
 		//	clean_parsing(parsing);

@@ -17,6 +17,7 @@ int		ft_echo(t_parsing info, char ***env, t_utils *utils)
 	int		i;
 	int		flag;
 
+	(void)env;
 	flag = 0;
 	i = 0;
 	if (info.data)

@@ -18,7 +18,8 @@ LINK = ar rc
 
 CC = clang
 
-FLAGS = -ltermcap
+FLAGS = -Wall -Werror -Wextra
+
 RM = rm -rf
 
 PATH_HEADER = ./minishell_utils.h
@@ -38,7 +39,7 @@ ${NAME}:	${OBJ_MAIN} ${OBJS}
 			${LINK} ${MYLIB} ${OBJS}
 			ranlib ${MYLIB}
 			make -C ${PATH_LIBFT}
-			${CC} ${FLAGS} -fsanitize=address ${OBJ_MAIN} ${MYLIB} ${LIBFT} -o ${NAME}
+			${CC} ${FLAGS} -ltermcap ${OBJ_MAIN} ${MYLIB} ${LIBFT} -o ${NAME}
 
 clean:
 			${RM} ${OBJ_MAIN} ${OBJS}

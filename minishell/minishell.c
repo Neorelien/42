@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2021/03/25 16:22:09 by awery            ###   ########.fr       */
-=======
-/*   Updated: 2021/03/25 15:16:41 by cmoyal           ###   ########.fr       */
->>>>>>> 435f01cb2b1dcf8b1122b38e93b6318efdd17680
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +117,6 @@ void	ft_cpy(char **res, char c)
 int		get_objet(char **line, int i, t_parsing *parsing)
 {
   char		**res;
-  char		*tmp;
   char		to_join[2];
   static char	quote;
 

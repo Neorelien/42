@@ -78,7 +78,6 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 {
 	char *path;
 	char *oldpath;
-	char *tmp;
 
 	if (ft_next_is_pipe(info, *env, utils, 0) == 1)
 	{
@@ -134,9 +133,9 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 
 int ft_pwd(t_parsing info,char ***env, t_utils *utils)
 {
-	int fd;
 	char *path;
 
+	(void)env;
 	path = NULL;
 	if (ft_doubletab_len(info.data) > 0)
 		return (ft_error("pwd: too many arguments", NULL));

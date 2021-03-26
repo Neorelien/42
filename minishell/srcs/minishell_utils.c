@@ -5,6 +5,7 @@ void handler_next(int sign)
 	char 	*printed;
 	int		len;
 
+	(void)sign;
 	ft_putstr_fd("\n", 0);
 	if (g_sig.pid == -1)
 	{
@@ -132,25 +133,13 @@ t_parsing	*ft_lstlast(t_parsing *lst)
 	return (lst);
 }
 
-void			ft_pipe_settings(t_parsing info, char **env, t_utils *utils)
+void			ft_pipe_settings(t_utils *utils)
 {	
 	pipe(utils->fdout);
 	if (utils->savefd == -1)
 		utils->savefd = dup(1);
 	dup2(utils->fdout[1], 1);
 	close(utils->fdout[1]);
-/*	g_sig.pid = fork();
-	if (g_sig.pid == 0)
-	{
-		close(utils->fdin[1]);
-		utils->savefd = dup(0);
-		dup2(utils->fdin[0], 0);
-		close(utils->fdin[0]);
-		return (0);
-	}
-	else
-	{*/
-//		close(utils->fdin[0]);
 }
 
 void ft_env_fd(t_parsing *info, char **env)

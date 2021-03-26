@@ -134,7 +134,7 @@ int		is_token_remplace(char c, char **objet)
 	return (1);
 }
 
-int		look_for_BS_token(char **objet, int quote, int i, char **new_obj)
+int		look_for_BS_token(char **objet, int i, char **new_obj)
 {
 	if (is_token_remplace(objet[0][i + 1], new_obj))
 		i = i + 2;
@@ -175,6 +175,7 @@ void	trans_BS_quote(char **objet, char ***env, int token)
 	int		quote;
 	char	*new_obj;
 
+	(void)env;
 	quote = 0;
 	i = 0;
 	new_obj = ft_strdup("");
@@ -189,7 +190,7 @@ void	trans_BS_quote(char **objet, char ***env, int token)
 		else if (objet[0][i] == 92)
 		{
 			if (token)
-				i = look_for_BS_token(objet, quote, i, &new_obj);
+				i = look_for_BS_token(objet, i, &new_obj);
 			else
 				i = look_for_BS(objet, quote, i, &new_obj);
 		}
