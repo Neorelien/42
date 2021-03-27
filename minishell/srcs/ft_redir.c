@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:20:01 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/25 11:41:34 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/27 01:04:50 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
 		result = ft_read_fd(utils);
 		pipe(utils->fdin);
 		write(utils->fdin[1], result, ft_strlen(result));
+		free(result);
 		close(utils->fdout[0]);
 		utils->fdout[0] = 0;
 	}

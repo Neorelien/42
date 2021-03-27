@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 16:22:09 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/27 01:46:08 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,11 @@ int		get_objet(char **line, int i, t_parsing *parsing)
     }
     i++;
   }
+  if (*res != NULL && res[0][0] == 0)
+  {
+    free(*res);
+    *res = NULL;
+  }
   if (quote == 39)
     return (OPEN_SQUOTE);
   if (quote == 34)
@@ -175,10 +180,20 @@ int		get_objet(char **line, int i, t_parsing *parsing)
   return (i);
 }
 
-t_parsing *new_list(t_parsing *previous_lst)
+t_parsing   *ft_last_pars(t_parsing *parsing)
+{
+  if (parsing == NULL)
+    return (NULL);
+  while (parsing->next != NULL)
+    parsing = parsing->next;
+  return (parsing);
+}
+
+t_parsing   *new_list(t_parsing *previous_lst)
 {
   t_parsing	*parsing;
-
+  
+  previous_lst = ft_last_pars(previous_lst);
   parsing = malloc(sizeof(t_parsing));
   parsing->separator[0] = 0;
   parsing->separator[1] = 0;
@@ -605,16 +620,19 @@ void		init_utils(t_utils *utils, t_parsing *parsing, char **env)
 
 void		write_down_cfile(t_utils *utils, int fd)
 {
-  if (utils->com_history_start->command != NULL)
+  t_historical *histo;
+
+  histo = utils->com_history_start;
+  if (histo->command != NULL)
   {
-    ft_putstr_fd(utils->com_history_start->command, fd);
+    ft_putstr_fd(histo->command, fd);
     ft_putchar_fd(10, fd);
-    while (utils->com_history_start->next != NULL)
+    while (histo->next != NULL)
     {
-      utils->com_history_start = utils->com_history_start->next; 
-      if (utils->com_history_start->command != NULL)
+      histo = histo->next; 
+      if (histo->command != NULL)
       {
-	ft_putstr_fd(utils->com_history_start->command, fd);
+	ft_putstr_fd(histo->command, fd);
 	ft_putchar_fd(10, fd);
       }
     }
@@ -654,10 +672,10 @@ int		main(int argc, char **argv, char **env)
     {
       i = recursive_parsing(&line, parsing, i);
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
-	get_open_quote(&i, &line, parsing, &utils);
+	get_open_quote(&i, &line, ft_last_pars(parsing), &utils);
       if (!ft_sep(*parsing))
 	fonction_router(parsing, &env, &utils);
-      parsing = new_list(NULL);
+      parsing = new_list(parsing);
       i = 0;
       free(line);
       g_sig.pid = -1;

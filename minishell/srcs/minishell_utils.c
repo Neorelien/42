@@ -43,10 +43,12 @@ char *find_in_env(char **env, char *name)
 		if (ft_strncmp(tmp, env[i], ft_strlen(tmp) - 1) == 0)
 		{
 			path = ft_strdup(env[i] + ft_strlen(tmp));
+			free(tmp);
 			return (path);
 		}
 		i++;
 	}
+	free(tmp);
 	return (NULL);
 }
 

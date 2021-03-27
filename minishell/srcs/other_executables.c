@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/26 14:30:30 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/27 00:55:44 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ t_parsing	*get_pipe(t_utils *utils)
 
 	i = 0;
 	parsing = new_list(NULL);
-	utils->parsing_start = parsing;
 	ft_gmalloc_pars(parsing, utils);
 	return (parsing);
 }

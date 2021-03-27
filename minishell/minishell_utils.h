@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/25 14:04:00 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/03/27 00:35:28 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct	s_utils
 	char			**data;
 	struct			termios s_termios;
 	struct			termios s_termios_backup;
+	char				*tgetent_var;
 	t_historical		*com_history;
 	t_historical		*com_history_start;
 	t_historical		*com_history_end;
