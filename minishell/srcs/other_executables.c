@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/27 00:55:44 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:48:52 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ int			next_path(t_parsing *parsing, char **env)
 		tmp = parsing->objet;
 		parsing->objet = ft_strjoin(path[p], parsing->objet);
 		free(tmp);
-		//	ft_free(path);
+	//	ft_free(path); INVALID POINTER ASKIP
 		p++;
 		return (1);
 	}
@@ -277,7 +277,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		close(utils->pipefork[0]);
 		if (parsing->objet[0] == '.' && parsing->objet[1] == '/')
 			execve(&parsing->objet[2], parsing->data, env);
-		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, env) == -1)
+		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, NULL) == -1)
 			parsing->objet = ft_strdup(tmp);
 		shell = ft_get_shell_name();
 		printf("%s: command not found: %s\n", shell, tmp);
