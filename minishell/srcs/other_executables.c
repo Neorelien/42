@@ -182,14 +182,17 @@ int			ft_find_env(char **env)
 	return (i);
 }
 
-void		ft_free(char **str)
+void		ft_free(char ***str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != NULL)
-		free(str[i++]);
-	//	free(str);
+	while (str[0][i] != NULL)
+	{
+		TEST;
+		//printf("str = %s\n", str[0][i]);
+		free(str[0][i++]);
+	}
 }
 
 int			next_path(t_parsing *parsing, char **env)
@@ -202,10 +205,16 @@ int			next_path(t_parsing *parsing, char **env)
 
 	i = ft_find_env(env);
 	if (i > -1)
+	{
 		path = ft_split(env[i], ':');
+		printf("p = %d\n", p);
+		int o = 0;
+		while (path[o] != NULL)
+			printf("path = %s\n", path[o++]);
+	}
 	else
 		return (0);
-	while (path[p])
+	if	(path[p])
 	{
 		tmp = path[p];
 		path[p] = ft_strjoin(path[p], "/");
@@ -213,16 +222,19 @@ int			next_path(t_parsing *parsing, char **env)
 		if (p == 0)
 		{
 			tmp = path[p];
-			path[p] = path[p] + 5;
+			path[p] = ft_strdup(path[p] + 5);
 			free(tmp);
 		}
 		tmp = parsing->objet;
 		parsing->objet = ft_strjoin(path[p], parsing->objet);
 		free(tmp);
-	//	ft_free(path); INVALID POINTER ASKIP
+		ft_free(&path);// INVALID POINTER ASKIP
+		free(path);
 		p++;
 		return (1);
 	}
+	ft_free(&path);
+	free(free);
 	return (0);
 }
 

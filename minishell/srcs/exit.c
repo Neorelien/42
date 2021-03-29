@@ -64,6 +64,6 @@ void		ft_exit(t_parsing *parsing, char ***env, t_utils *utils, int ret)
 	ft_clean_historical(utils->com_history_start);
 	ft_clean_utils(utils);
 	ft_clean_env(env);
-	system("leaks minishell");
+//	system("leaks minishell");
 	exit(ret);
 }
