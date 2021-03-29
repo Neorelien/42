@@ -63,7 +63,7 @@ static void    add_env_pwd(char *str, char ***env)
     len = ft_doubletab_len(*env);                                               
     tmp = *env;                                                                 
     *env = malloc(sizeof(char*) * (len + 2));                                   
-    *env = recopy_data(*env, tmp);                                              
+    *env = recopy_data(*env, tmp, 1);                                              
     free(tmp);                                                                  
     if (env_in_env(*env, str))                                     
         ;                                                                       
@@ -128,6 +128,8 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	oldpath = ft_strjoin("OLDPWD=", oldpath);
 	add_env_pwd(path, env);
 	add_env_pwd(oldpath, env);
+	free(path);
+	free(oldpath);
 	return (0);
 }
 

@@ -95,7 +95,25 @@ echo mdr
 echo lol ;
 echo lol
 echo
+<<<<<<< HEAD
 echolol
 echlol
 echo lol ;
 echo mdr ;
+=======
+echo lol
+echolol
+echolol
+echo lol | cat ; echo oui
+ec
+>>>>>>> 5b739d5ca70b6022ff0531ef959b53105e9504ff
+echo
+echo lol
+echo lol | cat
+jj
+jj
+jj
+o lol
+echo lol
+export LOL=5
+export PWD=/lol/

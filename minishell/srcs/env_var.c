@@ -39,6 +39,7 @@ int		env_in_env(char **env, char *str)
 	{
 		if (ft_strncmp(env[i], str, len - 1) == 0 && env[i][len] == '=')
 		{
+			free(env[i]);
 			env[i] = ft_strdup(str);
 			return (1);
 		}
@@ -55,7 +56,7 @@ void	add_env(int i, t_parsing *parsing, char ***env)
 	len = ft_doubletab_len(*env);
 	tmp = *env;
 	*env = malloc(sizeof(char*) * (len + 2));
-	*env = recopy_data(*env, tmp);
+	*env = recopy_data(*env, tmp, 1);
 	free(tmp);
 	if (env_in_env(*env, parsing->data[i]))
 		;
@@ -73,7 +74,7 @@ char	**mall_env(char **env)
 
 	len = ft_doubletab_len(env);
 	res = malloc(sizeof(char*) * (len + 1));
-	recopy_data(res, env);
+	recopy_data(res, env, 1);
 	res[len] = NULL;
 	return (res);
 }
