@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 11:58:52 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/29 17:59:22 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,19 @@ char	**add_string_to_tab(char **tab_string, char *str)
 	return (tab_string);
 }
 
+void	ft_clean_fork(t_parsing *parsing)
+{
+	int	i;
+
+	i = 0;
+	if (parsing->objet != NULL)
+		free(parsing->objet);
+	while (parsing->data != NULL && parsing->data[i] != NULL)
+		free(parsing->data[i++]);
+	if (i > 0)
+		free(parsing->data);
+}
+
 void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 {
 	char	*tmp;
@@ -307,8 +320,9 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		shell = ft_get_shell_name();
 		printf("%s: command not found: %s\n", shell, tmp);
+		ft_clean_fork(parsing);
 		exit(1);
-		//	clean_parsing(parsing);
+			//	clean_parsing(parsing);
 	}
 	else // lecture du parent
 	{

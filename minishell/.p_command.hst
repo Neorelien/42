@@ -157,3 +157,55 @@ lol
 echo lol
 cat Makefile
 >>>>>>> 94cf6b62f2411d16f11b14f19f1f53bc9cdafe4d
+echo lol
+echo lol | cat
+echo 
+echo lol ; echo lol
+echo lol ; cat
+jj
+jj
+echo lol
+echo lol | cat
+echo lol ; 
+echo lol
+echo lol
+mkdir oui
+env
+export l=3
+export
+ls 
+echo oui et non
+ls 
+echo $?
+mdkir
+echo lol
+echo $?
+echo lol
+echo $?
+echo lol
+echo $?
+echo lol
+echo $?
+mkdir
+echo $?
+mdkir srcs
+ls
+echo lol
+mkdir
+mkdir lol
+mkdir srcs
+echo lol
+echo $?
+ls lol
+ls
+ls lol
+echo $?
+mkdir scrs
+ls
+rm scrs
+rm -r scrs
+ls
+mdkir srcs
+echo lol
+echo $?
+mdkir lol

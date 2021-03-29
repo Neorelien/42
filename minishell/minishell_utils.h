@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/27 00:35:28 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:58:00 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ extern t_sig g_sig;
 
 
 void			put_histo_in_file(t_utils *utils);
-void			ft_exit(t_parsing *parsing, char ***env, t_utils *utils, int ret);
+void			ft_exit(char ***env, t_utils *utils, int ret);
 void			new_hlist(char *line, t_utils *utils);
 t_historical	*add_next_command(t_historical *previous, char *line);
 int				term_init(t_utils *utils);

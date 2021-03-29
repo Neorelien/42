@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 14:16:58 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/29 17:58:37 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
   else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
     utils->return_value = ft_unset(parsing, env);
   else if (ft_strncmp(parsing->objet, "exit", 5) == 0)
-    ft_exit(parsing, env, utils, 0);
+    ft_exit(env, utils, 0);
   else if (parsing->objet != NULL)
     ft_other_exc(parsing, *env, utils);
   if (utils->fdout[1] != 1)
@@ -705,8 +705,8 @@ int		main(int argc, char **argv, char **env)
   else
   {
     ft_putstr_fd("termcaps init fail\n", STDERR_FILENO);
-    ft_exit(parsing, &env, &utils, 1);
+    ft_exit(&env, &utils, 1);
   }
-  ft_exit(parsing, &env, &utils, 0);
+  ft_exit(&env, &utils, 0);
   return (0);
 }

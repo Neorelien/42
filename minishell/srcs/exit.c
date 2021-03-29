@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 13:41:11 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 14:08:38 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/29 17:54:03 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,18 @@ void	ft_clean_env(char ***env)
 		free(env[0]);
 }
 
-void		ft_exit(t_parsing *parsing, char ***env, t_utils *utils, int ret)
+void		ft_exit(char ***env, t_utils *utils, int ret)
 {
-	(void)parsing;
-	put_histo_in_file(utils);
-	ft_clean_parsing(utils->parsing_start);
-	ft_clean_historical(utils->com_history_start);
-	ft_clean_utils(utils);
-	ft_clean_env(env);
-//	system("leaks minishell");
+	if (utils!= NULL)
+		put_histo_in_file(utils);
+	if (utils != NULL)
+		ft_clean_parsing(utils->parsing_start);
+	if (utils != NULL)
+		ft_clean_historical(utils->com_history_start);
+	if (utils != NULL)
+		ft_clean_utils(utils);
+	if (env != NULL)
+		ft_clean_env(env);
+	//	system("leaks minishell");
 	exit(ret);
 }
