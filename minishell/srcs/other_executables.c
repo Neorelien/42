@@ -249,6 +249,13 @@ char	**add_string_to_tab(char **tab_string, char *str)
 	int i;
 
 	i = 0;
+	if (tab_string == NULL)
+	{
+		tab_tmp = (char**)malloc(sizeof(char*) * 2);
+		tab_tmp[i] = ft_strdup(str);
+		tab_tmp[i + 1] = NULL;
+		return (tab_tmp);
+	}
 	tab_tmp = (char**)malloc(sizeof(char*) * (ft_doubletab_len(tab_string) + 2));
 	tab_tmp[i] = ft_strdup(str);
 	while(tab_string[i] != NULL)
