@@ -189,6 +189,8 @@ void		ft_free(char ***str)
 	i = 0;
 	while (str[0][i] != NULL)
 	{
+		TEST;
+		//printf("str = %s\n", str[0][i]);
 		free(str[0][i++]);
 	}
 }
@@ -200,11 +202,15 @@ int			next_path(t_parsing *parsing, char **env)
 	static int	p;
 	char		*tmp;
 
-printf("first: %s\n", parsing->objet);
+
 	i = ft_find_env(env);
 	if (i > -1)
 	{
 		path = ft_split(env[i], ':');
+		printf("p = %d\n", p);
+		int o = 0;
+		while (path[o] != NULL)
+			printf("path = %s\n", path[o++]);
 	}
 	else
 		return (0);
@@ -220,18 +226,15 @@ printf("first: %s\n", parsing->objet);
 			free(tmp);
 		}
 		tmp = parsing->objet;
-		printf("second: %s\n", parsing->objet);
 		parsing->objet = ft_strjoin(path[p], parsing->objet);
-printf("third: %s\n", parsing->objet);
 		free(tmp);
 		ft_free(&path);// INVALID POINTER ASKIP
 		free(path);
 		p++;
-printf("fourth: %s\n", parsing->objet);
 		return (1);
 	}
 	ft_free(&path);
-	free(path);
+	free(free);
 	return (0);
 }
 
@@ -283,6 +286,8 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	int		temp;
 	char	*shell;
 
+	if (pipe(utils->pipefork) == -1)
+		printf("error pipe");
 	parsing->data = add_string_to_tab(parsing->data, parsing->objet);
 	tmp = ft_strdup(parsing->objet);
 	if (g_sig.pid != -2)
@@ -300,13 +305,12 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		if (utils->fdout[1] != 1 && utils->fdout[0] != 0)
 			close(utils->fdout[0]);
+		close(utils->pipefork[1]);	
+		close(utils->pipefork[0]);
 		if (parsing->objet[0] == '.' && parsing->objet[1] == '/')
 			execve(&parsing->objet[2], parsing->data, env);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, NULL) == -1)
-		{
-			printf("%s\n", parsing->objet);
 			parsing->objet = ft_strdup(tmp);
-		}
 		shell = ft_get_shell_name();
 		printf("%s: command not found: %s\n", shell, tmp);
 		exit(1);
@@ -328,6 +332,9 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			utils->savefd = -1;                                                     
 			utils->fdout[1] = 1;                                                    
 		}
+		close(utils->pipefork[0]);
+		send_in_pipe(utils->pipefork[1], parsing);
+		close(utils->pipefork[1]);
 		temp = g_sig.pid;
 		wait(&utils->return_value);
 		if (WIFEXITED(utils->return_value))
