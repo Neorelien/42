@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 13:54:58 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/29 14:16:58 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,7 +443,8 @@ int	    ft_recup_line(char **line, t_utils *utils)
     }
     else if (buf[0] == 127)
     {
-      line[0][ft_strlen(*line) - 1] = 0;
+      if (ft_strlen(*line) > 0)
+	line[0][ft_strlen(*line) - 1] = 0;
       refresh_screen(line, &print_char);
     }
     else if (buf[0] == 4)
@@ -463,7 +464,6 @@ int		shelline_gestion(char **env, t_utils *utils, char **line)
 
   prefix = 0;
   ft_signal();
-  
   if (prefix == 0)
   {
     ft_display_rep(env, *utils);

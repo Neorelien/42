@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 13:41:11 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 12:05:07 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/29 14:08:38 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void		ft_clean_parsing(t_parsing *parsing)
 	if (parsing->objet != NULL)
 		free(parsing->objet);
 	while (parsing->data != NULL && parsing->data[i] != NULL)
-	{
-		printf("on clen  = %s|\n", parsing->data[i]);
 		free(parsing->data[i++]);
-	}
 	if (parsing->data != NULL)
 		free(parsing->data);
 	if (parsing->next != NULL)
@@ -67,5 +64,6 @@ void		ft_exit(t_parsing *parsing, char ***env, t_utils *utils, int ret)
 	ft_clean_historical(utils->com_history_start);
 	ft_clean_utils(utils);
 	ft_clean_env(env);
+	system("leaks minishell");
 	exit(ret);
 }
