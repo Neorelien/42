@@ -55,6 +55,7 @@ echo lol ; echo lol
 echo lol ; echo lol
 echo lol ; echo lol
 echo lol > test
+<<<<<<< HEAD
 echo lol | cat
 echo cat lol | cat
 echo lol ; 
@@ -65,3 +66,29 @@ echo lol ;
 echo lol ;
 echo lol ;
 echo lol | cat
+=======
+cat
+cat Makefile
+cat
+cat Makefile
+cat Makefile
+echo lol | cat
+cat lol
+cat Makeile
+cat Makefile
+cat lol
+echo lol |cat
+cat Makefile
+cat Makefile
+cat Makefile
+cat Makefile
+echo lol ;
+echo lol ;
+echo lol;
+echo lol ;
+echo lol ;
+echo lol ;
+echo mdr
+echo lol
+echo mdr
+>>>>>>> 90b12e0763722f8c1caf61b1dd96a22d95bf52d4
