@@ -209,3 +209,67 @@ mdkir srcs
 echo lol
 echo $?
 mdkir lol
+mdkir lol
+mkdir lol
+mkdir lil
+mdkir lol
+mdkir lol
+lol lol
+lol lol
+lol lol
+lol lol
+lol lol
+env
+echo lol ; echo lol > test ; echo |mkdir
+test
+;;;;;
+cat
+echo pute > test
+cat < test
+export lol=365
+export 54l=12
+echo $lol
+env
+export
+export lol=3
+export
+echop $lol
+export lol=3
+echo $lol
+export lol=3
+echo $lol
+"echo" lol
+echo "lol in da basse"
+echo lol | "cat"
+echo "oui
+non"
+echo "oui
+ls
+non"
+echo "oui
+non"
+echo "oui
+non" | cat
+echo "oui
+non" | cat
+echo 
+echo 
+echo 
+echo 
+echo lol
+echo lol
+echo 
+echo lol | cat
+echo lol ; cat
+echo 
+echo lolc
+echo lol lol
+echo
+echo
+echo
+echo
+echo 
+echo
+echo 
+echo 
+echo 

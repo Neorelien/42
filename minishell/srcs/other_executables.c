@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 17:59:22 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:28:02 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,8 +290,6 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 	int		temp;
 	char	*shell;
 
-//	if (pipe(utils->pipefork) == -1)
-//		printf("error pipe");
 	parsing->data = add_string_to_tab(parsing->data, parsing->objet);
 	tmp = ft_strdup(parsing->objet);
 	if (g_sig.pid != -2)
@@ -309,8 +307,6 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		if (utils->fdout[1] != 1 && utils->fdout[0] != 0)
 			close(utils->fdout[0]);
-//		close(utils->pipefork[1]);	
-//		close(utils->pipefork[0]);
 		if (parsing->objet[0] == '.' && parsing->objet[1] == '/')
 			execve(&parsing->objet[2], parsing->data, env);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, NULL) == -1)
@@ -320,9 +316,9 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		shell = ft_get_shell_name();
 		printf("%s: command not found: %s\n", shell, tmp);
-		ft_clean_fork(parsing);
-		exit(1);
-			//	clean_parsing(parsing);
+		free(tmp);
+		free(*utils->line_p);
+		ft_exit(&env, utils, 1);
 	}
 	else // lecture du parent
 	{
@@ -340,9 +336,6 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			utils->savefd = -1;                                                     
 			utils->fdout[1] = 1;                                                    
 		}
-//		close(utils->pipefork[0]);
-//		send_in_pipe(utils->pipefork[1], parsing);
-//		close(utils->pipefork[1]);
 		temp = g_sig.pid;
 		wait(&utils->return_value);
 		if (WIFEXITED(utils->return_value))

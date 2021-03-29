@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/03/29 17:45:27 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:36:54 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,11 @@ int		look_for_env(char **objet, int quote, int i, char **new_obj, char ***env, t
 		if (env_cont == NULL)
 			;
 		else
+		{
 			while (env_cont[o])
 				ft_cpy(new_obj, env_cont[o++]);
+			free(env_cont);
+		}
 	}
 	free(env_name);
 	return (i);

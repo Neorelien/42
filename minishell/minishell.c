@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 17:58:37 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/29 21:46:33 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ int		recursive_parsing(char **line, t_parsing *parsing, int i)
   i = get_objet(line, i, parsing);
   if (parsing->separator[0] != 0)
     i = recursive_parsing(line, new_list(parsing), i);
-  else if (line[0][i])
+  else if (i >= 0 && line[0][i])
     i = recursive_parsing(line, parsing, i);
   return (i);
 }
@@ -321,6 +321,7 @@ int	ft_signal()
 {
   signal(SIGINT, handler_next);
   signal(SIGQUIT, handler_quit);
+  ft_putstr_fd("fin de si\n", 1);
   return (1);
 }
 
@@ -462,21 +463,28 @@ int	    ft_recup_line(char **line, t_utils *utils)
 
 int		shelline_gestion(char **env, t_utils *utils, char **line)
 {
-  int	prefix;
   int	ret;
 
-  prefix = 0;
+  g_sig.prefix = 0;
+  g_sig.env = &env;
+  g_sig.utils = &utils;
+  g_sig.line = &line;
   ft_signal();
-  if (prefix == 0)
+  if (g_sig.prefix == 0 || g_sig.prefix == -1)
   {
+    if (g_sig.prefix == -1)
+    {
+      printf("line = %s\n", *line);
+      free(*line);
+    }
     ft_display_rep(env, *utils);
     write(0, "-> ", 3);
     *line = ft_strdup("");
-    prefix = 1;
+    g_sig.prefix = 1;
   }
   while ((ret = ft_recup_line(line, utils)) > 0)
     ;
-  prefix = 0;
+  g_sig.prefix = 0;
   if (ret == 0)
     return (1);
   if (ret == -1)
@@ -599,6 +607,7 @@ void		new_hlist(char *line, t_utils *utils)
 }
 
 void		get_command_file(t_utils *utils)
+
 {
   int	fd;
   char	*line;
@@ -674,6 +683,7 @@ int		main(int argc, char **argv, char **env)
 
   parsing = new_list(NULL);
   init_utils(&utils, parsing, env);
+  utils.line_p = &line;
   argc = 0;
   argv = NULL;
   utils.tmp = malloc(sizeof(char*) * (ft_doubletab_len(env) + 1));
