@@ -135,3 +135,4 @@ echo lol
 export LOL=5
 export PWD=/lol/
 >>>>>>> 517d2646ba6a0ae3c47f8cc2c47ce3c507722a20
+cat Makefile

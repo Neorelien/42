@@ -234,7 +234,7 @@ int			next_path(t_parsing *parsing, char **env)
 		return (1);
 	}
 	ft_free(&path);
-	free(free);
+	free(path);
 	return (0);
 }
 
