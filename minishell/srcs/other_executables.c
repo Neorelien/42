@@ -145,6 +145,7 @@ void		send_in_pipe(int fd, t_parsing *parsing)
 	int		i;
 
 	i = 0;
+	c = 0;
 	if (parsing->objet != NULL)
 	{
 		write(fd, parsing->objet, ft_strlen(parsing->objet));
@@ -242,7 +243,25 @@ char		*ft_get_shell_name(void)
 	return (&res[o + 1]);
 }
 
-void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
+char	**add_string_to_tab(char **tab_string, char *str)
+{
+	char **tab_tmp;
+	int i;
+
+	i = 0;
+	tab_tmp = (char**)malloc(sizeof(char*) * (ft_doubletab_len(tab_string) + 2));
+	tab_tmp[i] = ft_strdup(str);
+	while(tab_string[i] != NULL)
+	{
+		tab_tmp[i + 1] = tab_string[i];
+		i++;
+	}
+	free(tab_string);
+	tab_string = tab_tmp;
+	return (tab_string);
+}
+
+void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 {
 	char	*tmp;
 	int		temp;
@@ -250,6 +269,8 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 
 	if (pipe(utils->pipefork) == -1)
 		printf("error pipe");
+	parsing->data = add_string_to_tab(parsing->data, parsing->objet);
+	tmp = ft_strdup(parsing->objet);
 	if (g_sig.pid != -2)
 		g_sig.pid = fork();
 	else
@@ -265,15 +286,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 		}
 		if (utils->fdout[1] != 1 && utils->fdout[0] != 0)
 			close(utils->fdout[0]);
-		close(utils->pipefork[1]);
-		parsing = get_pipe(utils); //FONCTION INUTILE APPAREMENT, meme si j'ai passe 1 journee dessus
-		if (parsing->data == NULL)
-		{
-			parsing->data = malloc(sizeof(char*));
-			*parsing->data = malloc(1);
-			parsing->data[0][0] = 0;
-		}
-		tmp = ft_strdup(parsing->objet);
+		close(utils->pipefork[1]);	
 		close(utils->pipefork[0]);
 		if (parsing->objet[0] == '.' && parsing->objet[1] == '/')
 			execve(&parsing->objet[2], parsing->data, env);
@@ -311,5 +324,6 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			utils->return_value = 128 + WTERMSIG(utils->return_value);
 		g_sig.pid = -1;
 		term_init(utils);
+		free(tmp);
 	}
 }

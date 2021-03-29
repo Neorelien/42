@@ -164,7 +164,10 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 	ft_cpy(res, line[0][i]);
       }
       else
+      {
+printf("lol\n");
 	ft_cpy(res, line[0][i]);
+      }
     }
     i++;
   }
