@@ -99,7 +99,7 @@ void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils);
 int			ft_unset(t_parsing *parsing, char ***env);
 int			ft_env(t_parsing *parsing, char **env, t_utils *utils);
 int			ft_error(char *str, char *strbis);
-char		**recopy_data(char **data, char **temp);
+char		**recopy_data(char **data, char **temp, int freed);
 int			ft_export(t_parsing *parsing, char ***env, t_utils *utils);
 char		*ft_str_erase_set(char *str, char quote);
 int			ft_echo(t_parsing info, char ***env, t_utils *utils);

@@ -95,7 +95,7 @@ char	**selec_dest(t_parsing *parsing, char quote)
     i++;
   tmp = parsing->data;
   parsing->data = malloc(sizeof(char*) * (i + 2));
-  recopy_data(parsing->data, tmp);
+  recopy_data(parsing->data, tmp, 1);
   free(tmp);
   parsing->data[i] = ft_strdup("");
   parsing->data[i + 1] = NULL;
@@ -219,14 +219,17 @@ t_parsing   *new_list(t_parsing *previous_lst)
   return (parsing);
 }
 
-char	**recopy_data(char **data, char **temp)
+char	**recopy_data(char **data, char **temp, int freed)
 {
   int	i;
 
   i = 0;
   while (temp[i] != NULL)
   {
-    data[i] = ft_strdup(temp[i]);
+	if (freed == 0)
+		data[i] = ft_strdup(temp[i]);
+	else
+		data[i] = temp[i];
     i++;
   }
   data[i] = NULL;
@@ -617,7 +620,7 @@ void		get_command_file(t_utils *utils)
 
 void		init_utils(t_utils *utils, t_parsing *parsing, char **env)
 {
-  utils->pwd = NULL;
+  utils->pwd = find_in_env(env, "PWD");
   utils->oldpwd = find_in_env(env, "OLDPWD");
   utils->parsing_start = parsing;
   get_command_file(utils);
@@ -674,7 +677,7 @@ int		main(int argc, char **argv, char **env)
   argc = 0;
   argv = NULL;
   utils.tmp = malloc(sizeof(char*) * (ft_doubletab_len(env) + 1));
-  recopy_data(utils.tmp, env);
+  recopy_data(utils.tmp, env, 0);
   env = utils.tmp;
   i = 0;
   line = NULL;
