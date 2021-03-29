@@ -21,7 +21,6 @@ void		ft_clean_parsing(t_parsing *parsing)
 		free(parsing->objet);
 	while (parsing->data != NULL && parsing->data[i] != NULL)
 	{
-		printf("on clen  = %s|\n", parsing->data[i]);
 		free(parsing->data[i++]);
 	}
 	if (parsing->data != NULL)
