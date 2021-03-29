@@ -265,6 +265,7 @@ char	**add_string_to_tab(char **tab_string, char *str)
 		tab_tmp[i + 1] = tab_string[i];
 		i++;
 	}
+	tab_tmp[i + 1] = NULL;
 	free(tab_string);
 	tab_string = tab_tmp;
 	return (tab_string);
@@ -301,7 +302,7 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			execve(&parsing->objet[2], parsing->data, env);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, NULL) == -1)
 		{
-			printf("%s   %s\n", parsing->objet, parsing->data[0]);
+			free(parsing->objet);
 			parsing->objet = ft_strdup(tmp);
 		}
 		shell = ft_get_shell_name();
