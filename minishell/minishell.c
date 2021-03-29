@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/27 01:46:08 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:54:58 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,25 @@ void	ft_cpy(char **res, char c)
 int		get_objet(char **line, int i, t_parsing *parsing)
 {
   char		**res;
-  char		to_join[2];
   static char	quote;
-
+ 
   if (line[0][i])
+  {
+    if (is_separator_parsing(line[0], i))
+    {
+      if (is_separator_parsing(line[0], i) > 4)
+      {
+	parsing->separator[0] = '>';
+	parsing->separator[1] = '>';
+	parsing->separator[2] = 0;
+	i = i + 2;
+      }
+      else
+	parsing->separator[0] = line[0][i++];
+      return (i);
+    }
     res = selec_dest(parsing, quote);
-  to_join[1] = 0;
+  }
   while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != 0) ) &&
       line[0][i])
   {
