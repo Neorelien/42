@@ -137,4 +137,23 @@ export PWD=/lol/
 >>>>>>> 517d2646ba6a0ae3c47f8cc2c47ce3c507722a20
 cat Makefile
 cat Makefile
+<<<<<<< HEAD
 echo lol | cat
+=======
+cat clem
+cat lol
+cat lol
+exit
+cat Makefile
+cat Makefle
+cat Makefile
+cat Makefile
+grep main minishell.c
+jj
+cat lol
+cat Makefile
+jj
+lol
+echo lol
+cat Makefile
+>>>>>>> 94cf6b62f2411d16f11b14f19f1f53bc9cdafe4d
