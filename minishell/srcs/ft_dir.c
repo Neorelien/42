@@ -44,7 +44,10 @@ int	ft_display_rep(char **env, t_utils utils)
 	temp = path;
 	size = (int)ft_strlen(path);
 	if (ft_strncmp(path, ft_home_dir(env), 4096) == 0)
+	{
+		size = 2;
 		path = "/~";
+	}
 	while (size >= 0 && path[size] != '/')
 		size--;
 	path += size + 1;

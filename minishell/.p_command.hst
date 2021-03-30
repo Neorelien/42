@@ -321,3 +321,9 @@ cat
 cat 
 >>>>>>> 3afc80a77b4aca1a9b5f58e5b6628bfcef141599
 cat
+echo lol
+\\\\\lol
+echo mdr | lol
+echo lol
+echo mdr
+exit
