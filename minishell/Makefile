@@ -18,7 +18,7 @@ LINK = ar rc
 
 CC = clang
 
-FLAGS =
+FLAGS = -Wall -Werror -Wextra
 
 RM = rm -rf
 
