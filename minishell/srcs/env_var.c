@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/26 14:47:18 by awery            ###   ########.fr       */
+/*   Updated: 2021/03/30 16:58:50 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 			if (egal_in(parsing->data[i]) > -1)
 				add_env(i, parsing, env);
 			i++;
+			o = 0;
 		}
 	}
 	else
