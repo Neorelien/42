@@ -27,6 +27,10 @@ void handler_next(int sign)
 		g_sig.prefix = -1;
 		ft_print_prefix(1, NULL, NULL);
 	}
+	else
+	{
+		ft_putstr_fd("\n", 1);
+	}
 }
 
 void handler_quit(int sign)

@@ -315,4 +315,9 @@ echo lolilol
 cat
 echo lol
 echo lol
+<<<<<<< HEAD
+=======
+cat 
+cat 
+>>>>>>> 3afc80a77b4aca1a9b5f58e5b6628bfcef141599
 cat

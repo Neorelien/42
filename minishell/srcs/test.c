@@ -13,27 +13,80 @@
 #include <curses.h>
 #include <term.h>
 #include <termios.h>
-
+int main();
 void	test()
 {
   printf("on sort pas ouai\n");
 }
-/*
+
+char *ft_ctrlc(int nb, char *str)
+{
+	static int tocome;
+
+	if (nb == 1 && tocome == 0)
+		tocome = 1;
+	else if (nb != 1 && tocome == 1)
+	{
+		tocome = 0;
+		free(str);
+		str = ft_strdup("");
+	}
+	return (str);
+}
+
+void	test2(int sign)
+{
+	lol(1, NULL);
+}
    int main()
    {
-   char *line;
+	   int ret = 10;
+	   char *linesave;
+		   char *tmp;
+		   char *term_type = getenv("TERM");
+   char line[4];
+struct termios s_termios;
+        struct termios s_termios_backup;
+   tgetent(NULL, term_type);
+if (tcgetattr(0, &s_termios) == -1)
+      return (-1);
+if (tcgetattr(0, &s_termios_backup) == -1)
+      return (-1);
+s_termios.c_lflag &= ~(ICANON);
+s_termios.c_lflag &= ~(ECHO);
+tcsetattr(0, 0, &s_termios);
    signal(SIGQUIT, test);
-   while(1)
-   {
-   get_next_line(0, &line);
-   printf("line = %s\n", line);
+   signal(SIGINT, test2);
+linesave = ft_strdup("");
+   while(ret)
+   {	
+	  line[0] = 0;
+	line[1] = 0;
+	line[2] = 0;
+	line[3] = 0;
+    	ret = read(0, &line, 3);
+linesave = lol(0, linesave);
+	if (*line == 10)
+	{
+	  	line[0] = 0;
+		line[1] = 0;
+		line[2] = 0;
+		line[3] = 0;
+		linesave = ft_strdup("");
+	}
+	if (*line == 4)
+		break;	
+	tmp = linesave;
+	linesave = ft_strjoin(linesave, line);
+	free(tmp);
+   	printf("line = %s\n", linesave);
    }
    }
-   */
-int main(int argc, char **argv, char **env)
-{
-  while(1)
-    ;
+  
+//int main(int argc, char **argv, char **env)
+//{
+//  while(1)
+  //  ;
 /*	char buffer[12];
 	int fd[2];
 	int forked;
@@ -64,7 +117,7 @@ int main(int argc, char **argv, char **env)
 		execve("/bin/cat", argv, env);
 	}
 */	
-  return (0);
+  //return (0);
   /*
 	 struct termios s_termios;
 	 struct termios s_termios_backup;
@@ -109,7 +162,7 @@ int main(int argc, char **argv, char **env)
 	 }
 
 	 return ret;*/
-}
+//}
 
 
 
