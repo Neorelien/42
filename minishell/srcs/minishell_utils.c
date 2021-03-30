@@ -1,12 +1,31 @@
 #include "../minishell_utils.h"
 
+void	ft_print_prefix(int	activate, char ***env, t_utils *utils)
+{
+	static char		***env_stat;
+	static t_utils	*utils_stat;
+
+	if (activate)
+	{
+		ft_putstr_fd("\n", 1);
+		ft_display_rep(*env_stat, *utils_stat);
+		ft_putstr_fd("-> ", 1);
+	}
+	else
+	{
+		env_stat = env;
+		utils_stat = utils;
+	}
+}
+
+
 void handler_next(int sign)
 {
 	if (g_sig.pid == -1)
 	{
 		(void)sign;
 		g_sig.prefix = -1;
-		ft_putstr_fd("\nminishell -> ", 1);
+		ft_print_prefix(1, NULL, NULL);
 	}
 }
 

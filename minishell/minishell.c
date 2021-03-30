@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/30 15:26:33 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:48:11 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -473,7 +473,6 @@ int		shelline_gestion(char ***env, t_utils *utils, char **line)
 {
   int	ret;
 
-  ft_signal();
   if (g_sig.prefix == 0 || g_sig.prefix == -1)
   {
     ft_display_rep(*env, *utils);
@@ -681,6 +680,7 @@ int		main(int argc, char **argv, char **env)
   int				i;
   static t_utils	utils;
 
+  ft_signal();
   parsing = new_list(NULL);
   init_utils(&utils, parsing, env);
   utils.line_p = &line;
@@ -692,6 +692,7 @@ int		main(int argc, char **argv, char **env)
   i = 0;
   line = NULL;
   g_sig.pid = -1;
+  ft_print_prefix(0, &env, &utils);
   if (term_init(&utils))
   {
     while (shelline_gestion(&env, &utils, &line) > 0)
