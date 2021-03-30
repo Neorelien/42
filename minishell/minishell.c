@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 21:46:33 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:26:33 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,7 +321,6 @@ int	ft_signal()
 {
   signal(SIGINT, handler_next);
   signal(SIGQUIT, handler_quit);
-  ft_putstr_fd("fin de si\n", 1);
   return (1);
 }
 
@@ -420,6 +419,13 @@ int	    ft_recup_line(char **line, t_utils *utils)
   ret = read(0, &buf, 3);
   if (ret != -1 && buf[0] != 0)
   {
+    if (g_sig.prefix == -1)
+    {
+      free(*line);
+      *line = ft_strdup("");
+      print_char = 0;
+      g_sig.prefix = 1;
+    }
     if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
       *line = ft_up_histo(utils, line);
@@ -452,8 +458,10 @@ int	    ft_recup_line(char **line, t_utils *utils)
       refresh_screen(line, &print_char);
     }
     else if (buf[0] == 4)
+    {
       if (**line == 0)
 	return (-1);
+    }
     if (ret == 0)
       return (-1);
     return (1);
@@ -461,29 +469,20 @@ int	    ft_recup_line(char **line, t_utils *utils)
   return (-2);
 }
 
-int		shelline_gestion(char **env, t_utils *utils, char **line)
+int		shelline_gestion(char ***env, t_utils *utils, char **line)
 {
   int	ret;
 
-  g_sig.prefix = 0;
-  g_sig.env = &env;
-  g_sig.utils = &utils;
-  g_sig.line = &line;
   ft_signal();
   if (g_sig.prefix == 0 || g_sig.prefix == -1)
   {
-    if (g_sig.prefix == -1)
-    {
-      printf("line = %s\n", *line);
-      free(*line);
-    }
-    ft_display_rep(env, *utils);
+    ft_display_rep(*env, *utils);
     write(0, "-> ", 3);
     *line = ft_strdup("");
     g_sig.prefix = 1;
   }
   while ((ret = ft_recup_line(line, utils)) > 0)
-    ;
+      ;
   g_sig.prefix = 0;
   if (ret == 0)
     return (1);
@@ -641,6 +640,7 @@ void		init_utils(t_utils *utils, t_parsing *parsing, char **env)
   utils->savefd = -1;
   utils->savefdout = -1;
   utils->return_value = 0;
+  g_sig.prefix = 0;
 }
 
 void		write_down_cfile(t_utils *utils, int fd)
@@ -694,7 +694,7 @@ int		main(int argc, char **argv, char **env)
   g_sig.pid = -1;
   if (term_init(&utils))
   {
-    while (shelline_gestion(env, &utils, &line))
+    while (shelline_gestion(&env, &utils, &line) > 0)
     {
       i = recursive_parsing(&line, parsing, i);
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
@@ -704,6 +704,7 @@ int		main(int argc, char **argv, char **env)
       parsing = new_list(parsing);
       i = 0;
       free(line);
+      line = NULL;
       g_sig.pid = -1;
     }
     if (line != NULL)

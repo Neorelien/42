@@ -2,25 +2,12 @@
 
 void handler_next(int sign)
 {
-
-	/*
-	char 	*printed;
-	int		len;
-*/
-	ft_putstr_fd("on va la OUIII\n", 1);
-	(void)sign;
-	ft_putstr_fd("\n", 0);
+	if (g_sig.pid == -1)
+	{
+		(void)sign;
 		g_sig.prefix = -1;
-	ft_putstr_fd("on va lai\n", 1);
-	shelline_gestion(*g_sig.env, *g_sig.utils, *g_sig.line);
-	/*	printed = getenv("PWD");
-		len = ft_strlen(printed);
-		while (len >= 0 && printed[len] != '/')
-			len--;
-		printed += len + 1;
-		ft_putstr_fd(printed, 0);
-		ft_putstr_fd(" -> ", 0);*/
-	
+		ft_putstr_fd("\nminishell -> ", 1);
+	}
 }
 
 void handler_quit(int sign)

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 21:13:40 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:26:51 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct	s_sig
 	pid_t			pid;
 	int				prefix;
 	char			***env;
-	t_utils			**utils;
+	t_utils			*utils;
 	char			***line;
 }		t_sig;
 
@@ -87,7 +87,7 @@ extern t_sig g_sig;
 # define TEST printf("ON VA LA\n")
 
 
-int				shelline_gestion(char **env, t_utils *utils, char **line);
+int				shelline_gestion(char ***env, t_utils *utils, char **line);
 void			put_histo_in_file(t_utils *utils);
 void			ft_exit(char ***env, t_utils *utils, int ret);
 void			new_hlist(char *line, t_utils *utils);
