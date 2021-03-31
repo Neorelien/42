@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/30 15:48:11 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/03/31 11:55:54 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -610,7 +610,8 @@ void		get_command_file(t_utils *utils)
   int	fd;
   char	*line;
 
-  fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+  if ((fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
+    exit(1);
   utils->history_len = 0;
   utils->position = NULL;
   utils->com_history = NULL;
@@ -667,7 +668,8 @@ void		put_histo_in_file(t_utils *utils)
 {
   int	fd;
 
-  fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY);
+  if ((fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
+    exit(1);
   if (utils->com_history_start->command != NULL)
     write_down_cfile(utils, fd);
   close(fd);
