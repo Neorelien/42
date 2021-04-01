@@ -55,9 +55,10 @@ int	ft_display_rep(char **env, t_utils utils)
 	path += size + 1;
 	ft_putstr_fd(path, 1);
 	ft_putchar_fd(' ', 1);
+	size = (int)ft_strlen(path) + 1;
 	if (temp != NULL)
 		free(temp);
-	return (1);
+	return (size);
 }
 
 static void    add_env_pwd(char *str, char ***env)                         
@@ -152,16 +153,20 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 int ft_pwd(t_parsing info,char ***env, t_utils *utils)
 {
 	char *path;
+	char *temp;
 
 	(void)env;
 	path = NULL;
+	temp = NULL;
 	if (ft_doubletab_len(info.data) > 0)
 		return (ft_error("pwd: too many arguments", NULL));
 	if ((path = getcwd(path, 0)) == NULL)
 		path = utils->pwd;
+	else
+		temp = path;
 	ft_putstr_fd(path, 1);
 	ft_putchar_fd('\n', 1);
-	if (path != NULL)
-		free(path);
+	if (temp != NULL)
+		free(temp);
 	return (0);
 }
