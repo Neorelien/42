@@ -376,7 +376,7 @@ int	free_ret(void *to_free)
 char	    *ft_up_histo(t_utils *utils, char **line)
 {
   char	*line_ret;
-  char	*tmp;
+//  char	*tmp;
 
   if (utils->position == NULL)
   {
@@ -393,11 +393,11 @@ char	    *ft_up_histo(t_utils *utils, char **line)
       return (*line);
   }
   line_ret = ft_strdup(utils->position->command);
-  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
+/*  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
   {
     tmp =  ft_strdup(*line);
     line_ret = ft_up_histo(utils, &tmp);
-  }
+  }*/
   free(*line);
   return (line_ret);
 }
@@ -717,6 +717,29 @@ void		put_histo_in_file(t_utils *utils)
   close(fd);
 }
 
+void	ft_start_by_pipe(char ***env, t_utils *utils, char *line, t_parsing *parsing)
+{
+	int i;
+
+	i = 0;
+	if (isatty(0) == 1)
+		return ;
+	while (get_next_line(0, &line))
+	{
+		i = recursive_parsing(&line, parsing, i);
+		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
+			get_open_quote(&i, &line, ft_last_pars(parsing), utils);
+		if (!ft_sep(*parsing))
+			fonction_router(parsing, env, utils);
+		parsing = new_list(parsing);
+		i = 0;
+		free(line);
+		line = NULL;
+		g_sig.pid = -1;
+	}
+	ft_exit(env, utils, 0);
+}
+
 int		main(int argc, char **argv, char **env)
 {
   char			*line;
@@ -743,6 +766,7 @@ int		main(int argc, char **argv, char **env)
   line = NULL;
   g_sig.pid = -1;
   ft_print_prefix(0, &env, &utils);
+  ft_start_by_pipe(&env, &utils, line, parsing);
   if (term_init(&utils))
   {
     while (shelline_gestion(&env, &utils, &line) > 0)
