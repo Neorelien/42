@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/03/31 11:55:54 by awery            ###   ########.fr       */
+/*   Updated: 2021/04/01 13:02:42 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,10 +324,13 @@ int	ft_signal()
   return (1);
 }
 
-void	refresh_screen(char **print, int *print_char)
+void	refresh_screen(char **print, int *print_char, int *pos_in_line)
 {
   int	    i;
+  int	    column_count;
 
+   
+  column_count = tgetnum("co");
   i = 0;
   if (*print_char > 0)
   {
@@ -404,7 +407,7 @@ char	    *ft_down_histo(t_utils *utils, char **line)
   return (line_ret);
 }
 
-int	    ft_recup_line(char **line, t_utils *utils)
+int	    ft_recup_line(char **line, t_utils *utils, int *pos_in_line)
 {
   char		buf[4];
   int		ret;
@@ -429,18 +432,18 @@ int	    ft_recup_line(char **line, t_utils *utils)
     if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
       *line = ft_up_histo(utils, line);
-      refresh_screen(line, &print_char);
+      refresh_screen(line, &print_char, pos_in_line);
     }
     else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
     {
       *line = ft_down_histo(utils, line);
-      refresh_screen(line, &print_char);
+      refresh_screen(line, &print_char, pos_in_line);
     }
     else if (buf[0] == 10)
     {
       if (**line != 0)
 	new_hlist(*line, utils);
-      refresh_screen(line, &print_char);
+      refresh_screen(line, &print_char, pos_in_line);
       write(0, "\n", 1);
       print_char = 0;
       utils->position = NULL;
@@ -449,13 +452,13 @@ int	    ft_recup_line(char **line, t_utils *utils)
     else if (ft_isprint(buf[0]))
     {
       ft_cpy(line, buf[0]);    
-      refresh_screen(line, &print_char);
+      refresh_screen(line, &print_char, pos_in_line);
     }
     else if (buf[0] == 127)
     {
       if (ft_strlen(*line) > 0)
 	line[0][ft_strlen(*line) - 1] = 0;
-      refresh_screen(line, &print_char);
+      refresh_screen(line, &print_char, pos_in_line);
     }
     else if (buf[0] == 4)
     {
@@ -471,16 +474,17 @@ int	    ft_recup_line(char **line, t_utils *utils)
 
 int		shelline_gestion(char ***env, t_utils *utils, char **line)
 {
-  int	ret;
+  int		ret;
+  static int	pos_in_line;
 
   if (g_sig.prefix == 0 || g_sig.prefix == -1)
   {
-    ft_display_rep(*env, *utils);
-    write(1, "-> ", 3);
+    pos_in_line = ft_display_rep(*env, *utils) + 3;
+    write(0, "-> ", 3);
     *line = ft_strdup("");
     g_sig.prefix = 1;
   }
-  while ((ret = ft_recup_line(line, utils)) > 0)
+  while ((ret = ft_recup_line(line, utils, &pos_in_line)) > 0)
       ;
   g_sig.prefix = 0;
   if (ret == 0)
@@ -518,15 +522,23 @@ int	term_init(t_utils *utils)
 void	get_quote(char **line, int quote, t_utils *utils)
 {
   int	ret;
+  static int	pos_in_line;
 
   free(*line);
   *line = ft_strdup("");
   if (quote == OPEN_DQUOTE)
+  {
+    pos_in_line = 8;
     write(1, "dquote> ", 8);
+  }
   else
+  {
+    pos_in_line = 7;
     write(1, "quote> ", 8);
-  while ((ret = ft_recup_line(line, utils)))
+  }
+  while ((ret = ft_recup_line(line, utils, &pos_in_line)))
     ;
+
   if (ret == -1)
     ft_error("unexpected EOF while looking for matching", "\'\"\'");
 }
@@ -611,7 +623,10 @@ void		get_command_file(t_utils *utils)
   char	*line;
 
   if ((fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
+  {
+    ft_error(strerror(errno), NULL);
     exit(1);
+  }
   utils->history_len = 0;
   utils->position = NULL;
   utils->com_history = NULL;
@@ -669,7 +684,10 @@ void		put_histo_in_file(t_utils *utils)
   int	fd;
 
   if ((fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
+  {
+    ft_error(strerror(errno), NULL);
     exit(1);
+  }
   if (utils->com_history_start->command != NULL)
     write_down_cfile(utils, fd);
   close(fd);
@@ -705,6 +723,12 @@ int		main(int argc, char **argv, char **env)
   int				i;
   static t_utils	utils;
 
+
+  if (*env == NULL)
+  {
+    ft_putstr_fd("ERROR, no env\n", 1);
+    exit(1);
+  }
   ft_signal();
   parsing = new_list(NULL);
   init_utils(&utils, parsing, env);
