@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/01 13:02:42 by awery            ###   ########.fr       */
+/*   Updated: 2021/04/01 15:31:16 by awery            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,22 +327,44 @@ int	ft_signal()
 void	refresh_screen(char **print, int *print_char, int *pos_in_line)
 {
   int	    i;
+  int	    p;
   int	    column_count;
-
+  int	    pos_bis;
    
+  pos_bis = *pos_in_line;
   column_count = tgetnum("co");
+  printf("col = %d\n", column_count);
+//  printf("il y a %d colonnes\n", column_count);
+  p = 0;
   i = 0;
-  if (*print_char > 0)
+/*  if (*print_char > 0)
   {
     while (i++ < *print_char)
       ft_putchar_fd('\b', 0);
-    while (i-- > 0)
-      ft_putchar_fd(' ', 0);
-    while (i++ < *print_char)
-      ft_putchar_fd('\b', 0);
+  //  while (i-- > 0)
+  //  {
+   //   
+   //   ft_putchar_fd(' ', 0);
+  //  }
+ //   while (i++ < *print_char)
+  //    ft_putchar_fd('\b', 0);
+  }*/
+//  *print_char = 0;
+  while (print[0][p])
+  {
+    p++;
   }
-  ft_putstr_fd(*print, 0);
-  *print_char = ft_strlen(*print);
+  if (p > 0)
+    p--;
+    if (*pos_in_line == column_count)
+    {
+      ft_putchar_fd(10, 1);
+      *print_char = *print_char + 1;
+      *pos_in_line = 0;
+    }
+    ft_putchar_fd(print[0][p], 1);
+    *print_char = *print_char + 1;
+    *pos_in_line = *pos_in_line + 1;
 }
 
 int	free_ret(void *to_free)
@@ -447,6 +469,7 @@ int	    ft_recup_line(char **line, t_utils *utils, int *pos_in_line)
       write(0, "\n", 1);
       print_char = 0;
       utils->position = NULL;
+
       return (0);
     }
     else if (ft_isprint(buf[0]))
@@ -486,6 +509,7 @@ int		shelline_gestion(char ***env, t_utils *utils, char **line)
   }
   while ((ret = ft_recup_line(line, utils, &pos_in_line)) > 0)
       ;
+
   g_sig.prefix = 0;
   if (ret == 0)
     return (1);
@@ -733,6 +757,8 @@ int		main(int argc, char **argv, char **env)
       free(line);
       line = NULL;
       g_sig.pid = -1;
+      int column_count = tgetnum("co");
+  printf("col fin main = %d\n", column_count);
     }
     if (line != NULL)
       free(line);
