@@ -61,3 +61,17 @@ cd ..
 cd -lol
 dc
 pwd
+export BONJOURJESUIS=a; echo $BONJOURJESUIS
+export BONJOURJESUIS =a
+env
+export BONJOURJESUIS= a
+env
+export BONJOURJESUIS= a
+echo $BONJOURJESUIS
+echo $BONJOURJESUIS | cat -e
+echo lol
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+eo NU\SS
+exit; echo lol
+exit;echo lol
+lol

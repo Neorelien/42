@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/01 15:31:16 by awery            ###   ########.fr       */
+/*   Updated: 2021/04/02 20:54:34 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,7 +333,7 @@ void	refresh_screen(char **print, int *print_char, int *pos_in_line)
    
   pos_bis = *pos_in_line;
   column_count = tgetnum("co");
-  printf("col = %d\n", column_count);
+//  printf("col = %d\n", column_count);
 //  printf("il y a %d colonnes\n", column_count);
   p = 0;
   i = 0;
@@ -508,8 +508,7 @@ int		shelline_gestion(char ***env, t_utils *utils, char **line)
     g_sig.prefix = 1;
   }
   while ((ret = ft_recup_line(line, utils, &pos_in_line)) > 0)
-      ;
-
+     ;
   g_sig.prefix = 0;
   if (ret == 0)
     return (1);
@@ -782,7 +781,7 @@ int		main(int argc, char **argv, char **env)
       line = NULL;
       g_sig.pid = -1;
       int column_count = tgetnum("co");
-  printf("col fin main = %d\n", column_count);
+//  printf("col fin main = %d\n", column_count);
     }
     if (line != NULL)
       free(line);
