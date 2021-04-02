@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/25 15:13:16 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/02 15:44:54 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,21 +108,25 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	if (ft_doubletab_len(info.data) > 1)
 	{
 		free(oldpath);
-		return (ft_error("string not in pwd: ", info.data[0]));
+		return (ft_error("cd: Too much args", NULL));
 	}
 	if (info.data == NULL)
 		chdir(ft_home_dir(*env));
-	else if (info.data[0][0] == '~')
+	else if (info.data[0][0] == '~' && (info.data[0][0] == '/'|| info.data[0][0] == 0))
 	{
 		chdir(ft_home_dir(*env));
 		if (chdir(info.data[0] + 2) < 0)
+		{
+			free(oldpath);
 			return (ft_error(strerror(errno), info.data[0]));
+		}
 	}
-	else if (info.data[0][0] == '-')
+	else if (info.data[0][0] == '-' && info.data[0][1] == 0)
 	{
-		if (chdir(utils->oldpwd) == -1)
+		if (chdir(utils->oldpwd) < 0)
 		{
 			ft_error(strerror(errno), NULL);
+			free(oldpath);
 			return (1);
 		}
 		ft_putstr_fd(utils->oldpwd, 1);
@@ -131,7 +135,10 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	else
 	{
 		if (chdir(info.data[0]) < 0)
+		{
+			free(oldpath);
 			return (ft_error(strerror(errno), info.data[0]));
+		}
 	}
 	if ((path = getcwd(path, 0)) == NULL)
 		path = ft_strjoin_slash(utils->pwd, info.data[0]);

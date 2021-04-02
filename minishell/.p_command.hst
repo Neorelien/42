@@ -43,3 +43,21 @@ lil
 echo lol 
 echo mdr
 >>>>>>> 83eee49c46621597f3fb3d3c25e4f387e5f16a35
+echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD
+eoOP;d.p;c W h$DD
+mdkir d
+mkdir d
+ls
+echo $PWD
+echo $OLDPWD
+cd d
+echo $OLDPWD
+cd d
+echo lol
+cd "~lol"
+cd ..
+cd ~lol
+cd ..
+cd -lol
+dc
+pwd
