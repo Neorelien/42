@@ -75,3 +75,67 @@ eo NU\SS
 exit; echo lol
 exit;echo lol
 lol
+export BONJOURJESUIS =a
+export
+export BONJOUR=a
+BONJOU2R=a
+export
+export A=1 B=2
+export
+export LOL =a
+export A=1 B=2
+export
+export ZZ=1 ZX=2
+export
+env
+env
+export A=1 B=2
+env
+export
+env
+export A=1 B=2
+env
+export A=1
+env
+export C=3
+env
+export CC=3
+env
+export DD=3
+env
+export KK=4
+env
+env LL=5
+export LL=5
+env
+echo lol
+export LO\'L=3
+BON\0JOUR=2
+export BONJ\0JOUR
+export
+export
+export AA\0AA=a
+export
+export BONJ\0OUR=1
+export
+export A=1 B=2
+export
+export LOL=2
+env
+echo $B
+echo $A
+export A=1
+export B=2
+export
+export AA=54
+export
+export A=5
+export
+unset A
+export A=1
+export
+export TEST=21
+export TES=1
+export
+export TESTT=5
+export

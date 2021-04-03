@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/02 20:48:57 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/03 13:21:02 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ extern t_sig g_sig;
 
 
 void		ft_print_prefix(int	activate, char ***env, t_utils *utils);
-//int				shelline_gestion(char ***env, t_utils *utils, char **line);
+int				shelline_gestion(char ***env, t_utils *utils, char **line);
 void			put_histo_in_file(t_utils *utils);
 void			ft_exit(char ***env, t_utils *utils, int ret);
 void			new_hlist(char *line, t_utils *utils);

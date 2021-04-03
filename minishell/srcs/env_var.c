@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/03/30 16:58:50 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/03 14:53:28 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int		env_in_env(char **env, char *str)
 
 	len = 0;
 	i = 0;
-	while (str[len] != '=' && str[i])
+	while (str[len] && str[len] != '=')
 		len++;
 	i = 0;
 	while (env[i] != NULL)
 	{
-		if (ft_strncmp(env[i], str, len - 1) == 0 && env[i][len] == '=')
+		if (ft_strncmp(env[i], str, len) == 0 && env[i][len] == '=')
 		{
 			free(env[i]);
 			env[i] = ft_strdup(str);
@@ -226,6 +226,7 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 	o = 0;
 	i = 0;
 	fd = write_with_separator(*parsing, *env, utils, 1);
+//	printf("%s   %s\n", parsing->data[0], parsing->data[1]);
 	if (parsing->data != NULL && parsing->data[0] != NULL)
 	{
 		while (parsing->data[i] != NULL)
@@ -233,14 +234,14 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 			while (parsing->data[i][o] && parsing->data[i][o] != '=')
 				if (!ft_isalnum(parsing->data[i][o++]))
 				{
-					error_ret = malloc(o + 1);
-					ft_strlcpy(parsing->data[i], error_ret, o);
-					ft_error("export: not valid in this context", error_ret);
-					free(error_ret);
+//					error_ret = malloc(o + 1);
+//					ft_strlcpy(parsing->data[i], error_ret, o);
+					ft_error("export: not valid in this context", parsing->data[i]);
+//					free(error_ret);
 					return (1);
 				}
-			if (i == 0 && parsing->data[i][0] >= '0' &&
-					parsing->data[i][0] <= '9')
+			if ((i == 0 && parsing->data[i][0] >= '0' &&
+				parsing->data[i][0] <= '9') || parsing->data[i][0] == '=')
 			{
 				error_ret = malloc(2);
 				error_ret[0] = parsing->data[i][0];

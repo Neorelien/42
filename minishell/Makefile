@@ -18,7 +18,7 @@ LINK = ar rc
 
 CC = clang
 
-FLAGS =
+FLAGS = -fsanitize=address -g3
 
 RM = rm -rf
 
