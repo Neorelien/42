@@ -156,3 +156,34 @@ eeeeeee
 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 paiement
 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+echo lol
+grep getenv *
+grep getenv minishell.c
+'echo' 'bonjour'
+"echo" 'je'"suis"charles
+echo "\""
+echo "\$"
+echo "\""
+''echo bonjour
+""echo bonjour
+"         echo" hello
+"echo     " bonjour
+\t\t\t\t\t\t\t\t\t\t\t
+                 echo                 foo
+export TEST='bonjour'
+echo $TEST
+echo $TES
+echo $TEST_
+echo "$TEST_"
+echo "|TEST|"
+echo |$TEST|
+echo "|$TEST|"
+whoami
+export PATH='_______'
+whoami
+unset PATH; whoami
+echo "\""
+echo "\\"
+"
+echo "\\"
+"

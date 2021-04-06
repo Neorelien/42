@@ -1,8 +1,16 @@
-- cd -
-\b
-SIG_ING = le signal est ignoré
-SIG_DFL = faire quelque chose
 ls 1>2 (redirection de STDIN(1) sur le fichier nomme 2)
 ls 0>2 (redirection de STDOUT(0) sur le fichier nomme 2)
 ls 15>2 = ls 15 > 2
 ls 1> 2 = ls 1>2 != ls 1 >2 = ls 1 > 2
+
+echo -n -n -n lol
+echo -nnnnnnnnnnnnnnn lol
+
+export \B\O\N\ \ \JOUR=a
+
+echo "\""
+echo "\\"
+
+export TEST='bonjour'
+echo $TEST_
+echo "|$TEST|"
