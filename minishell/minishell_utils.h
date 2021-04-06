@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 16:35:17 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:47:32 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_utils
 	int		savefdout;
 	int		return_value;
 	char				**line_p;
+	char				*line_EOF;
 	int					column_count;
 	int					redir;
 }		t_utils;
@@ -89,7 +90,7 @@ extern t_sig g_sig;
 # define TEST printf("ON VA LA\n")
 
 
-void	refresh_screen(char **print, char *prefix, t_utils *utils);
+void	refresh_screen(char **print, char *prefix, t_utils *utils, int histo);
 void		ft_print_prefix(int	activate, char ***env, t_utils *utils);
 int				shelline_gestion(char ***env, t_utils *utils, char **line);
 void			put_histo_in_file(t_utils *utils);

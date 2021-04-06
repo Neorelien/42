@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 16:53:19 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:15:49 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,7 @@ int	ft_signal()
 }
 
 void	refresh_screen(char **print, char *prefix,
-    t_utils *utils)
+    t_utils *utils, int histo)
 {
   static int	    i;
   static int	    p;
@@ -344,7 +344,18 @@ void	refresh_screen(char **print, char *prefix,
     line_old_len = 0;
     return;
   }
-  if (ft_strlen(*print) < line_old_len && ft_strlen(*print))
+  if (histo)
+  {
+    while (p)
+    {
+      write(1, "\b", 1);
+      write(1, " ", 1);
+      write(1, "\b", 1);
+      p--;
+    }
+    i = 0;
+  }
+  else if ((int)ft_strlen(*print) < line_old_len && p)
   {
     write(1, "\b", 1);
     write(1, " ", 1);
@@ -389,7 +400,7 @@ int	free_ret(void *to_free)
 char	    *ft_up_histo(t_utils *utils, char **line)
 {
   char	*line_ret;
-  //  char	*tmp;
+  char	*tmp;
 
   if (utils->position == NULL)
   {
@@ -398,6 +409,8 @@ char	    *ft_up_histo(t_utils *utils, char **line)
     else
       return (*line);
   }
+  else if (line[0][0] == 0)
+    ;
   else
   {
     if (utils->position->previous != NULL)
@@ -406,11 +419,12 @@ char	    *ft_up_histo(t_utils *utils, char **line)
       return (*line);
   }
   line_ret = ft_strdup(utils->position->command);
-  /*  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
-      {
-      tmp =  ft_strdup(*line);
-      line_ret = ft_up_histo(utils, &tmp);
-      }*/
+  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
+  {
+    tmp =  ft_strdup(*line);
+    free(line_ret);
+    line_ret = ft_up_histo(utils, &tmp);
+  }
   free(*line);
   return (line_ret);
 }
@@ -436,6 +450,7 @@ char	    *ft_down_histo(t_utils *utils, char **line)
   if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
   {
     tmp =  ft_strdup(*line);
+    free(line_ret);
     line_ret = ft_down_histo(utils, &tmp);
   }
   free(*line);
@@ -466,38 +481,44 @@ int	    ft_recup_line(char **line, t_utils *utils,
     if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
       *line = ft_up_histo(utils, line);
-      refresh_screen(line, prefix, utils);
+      utils->line_EOF = *line;
+      refresh_screen(line, prefix, utils, 1);
     }
     else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
     {
       *line = ft_down_histo(utils, line);
-      refresh_screen(line, prefix, utils);
+      utils->line_EOF = *line;
+      refresh_screen(line, prefix, utils, 1);
     }
     else if (buf[0] == 10)
     {
+      utils->line_EOF = NULL;
       if (**line != 0)
 	new_hlist(*line, utils);
-      refresh_screen(NULL, NULL, NULL);
+      refresh_screen(NULL, NULL, NULL, 0);
       write(0, "\n", 1);
       utils->position = NULL;
       return (0);
     }
     else if (ft_isprint(buf[0]))
     {
+      utils->line_EOF = NULL;
       ft_cpy(line, buf[0]);    
-      refresh_screen(line, prefix, utils);
+      refresh_screen(line, prefix, utils, 0);
     }
     else if (buf[0] == 127)
     {
       if (ft_strlen(*line) > 0)
 	line[0][ft_strlen(*line) - 1] = 0;
-      refresh_screen(line, prefix, utils);
+      refresh_screen(line, prefix, utils, 0);
     }
     else if (buf[0] == 4)
     {
+      utils->line_EOF = NULL;
       if (**line == 0)
 	return (-1);
     }
+    utils->line_EOF = NULL;
     if (ret == 0)
       return (-1);
     return (1);
@@ -521,7 +542,7 @@ int		shelline_gestion(char ***env, t_utils *utils, char **line)
     free(tmp);
     *line = ft_strdup("");
     g_sig.prefix = 1;
-    refresh_screen(line, prefix, utils);
+    refresh_screen(line, prefix, utils, 0);
   }
   while ((ret = ft_recup_line(line, utils, prefix)) > 0)
     ;
@@ -572,14 +593,14 @@ void	get_quote(char **line, int quote, t_utils *utils)
   if (quote == OPEN_DQUOTE)
   {
     prefix = ft_strdup("dquote> ");
-    refresh_screen(line, prefix, utils);
+    refresh_screen(line, prefix, utils, 0);
     while ((ret = ft_recup_line(line, utils, prefix)))
       ;
   }
   else
   {
     prefix = ft_strdup("quote> ");
-    refresh_screen(line, prefix, utils);
+    refresh_screen(line, prefix, utils, 0);
     while ((ret = ft_recup_line(line, utils, prefix)))
       ;
   }
@@ -703,6 +724,7 @@ void		init_utils(t_utils *utils, t_parsing *parsing, char **env)
   utils->return_value = 0;
   g_sig.prefix = 0;
   utils->redir = 1;
+  utils->line_EOF = NULL;
 }
 
 void		write_down_cfile(t_utils *utils, int fd)
@@ -717,7 +739,7 @@ void		write_down_cfile(t_utils *utils, int fd)
     while (histo->next != NULL)
     {
       histo = histo->next; 
-      if (histo->command != NULL)
+      if (histo->command != NULL && histo->command[0] != 0)
       {
 	ft_putstr_fd(histo->command, fd);
 	ft_putchar_fd(10, fd);
@@ -804,8 +826,6 @@ int		main(int argc, char **argv, char **env)
       free(line);
       line = NULL;
       g_sig.pid = -1;
-      int column_count = tgetnum("co");
-      //  printf("col fin main = %d\n", column_count);
     }
     if (line != NULL)
       free(line);

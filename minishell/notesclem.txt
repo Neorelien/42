@@ -1,10 +1,4 @@
 ls 1>2 (redirection de STDIN(1) sur le fichier nomme 2)
-:q!
-
-:q!
-:q!
-:wq
-
 ls 0>2 (redirection de STDOUT(0) sur le fichier nomme 2)
 ls 15>2 = ls 15 > 2
 ls 1> 2 = ls 1>2 != ls 1 >2 = ls 1 > 2
@@ -12,13 +6,15 @@ ls 1> 2 = ls 1>2 != ls 1 >2 = ls 1 > 2
 echo -n -n -n lol
 echo -nnnnnnnnnnnnnnn lol
 
-export \B\O\N\ \ \JOUR=a
+export \B\O\N\ \ \JOUR=a  --> PROBLEME QUAND  \ tt seul ca segv 
 
-echo "\""
-echo "\\"
+echo "\""  REVOIR PARSING
+echo "\\" REVOIR PARSING
 
-export TEST='bonjour'
+export TEST='bonjour' REVOIR PARSING
 echo $TEST_
 echo "|$TEST|"
 
-quand on est en dessous de la racine un message s'affiche
+VOIR env et export qui renvoi la meme chose, apres avoir effectué un export, env renvoi les env sort alors qu'il ne devrait aps 
+
+regler PB de la permission denied quand on quitte le programme alors qu'on est pas de le repo de .p...
