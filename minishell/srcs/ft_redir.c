@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:20:01 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/03/27 01:04:50 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:40:13 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
             fd = open(info.next->objet, O_WRONLY | O_CREAT, 0644 | O_DIRECTORY);
             if (fd < 0)
                 ft_error(strerror(errno), info.next->objet);
-			utils->savefd = dup(1);
-			dup2(fd, 1);
+			utils->savefd = dup(utils->redir);
+			dup2(fd, utils->redir);
         }                                                                       
         ft_redir(*info.next, env, utils);                  
     }                                                                           
@@ -91,8 +91,8 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
             fd = open(info.next->objet, O_RDWR | O_APPEND | O_CREAT, 0644 | O_DIRECTORY);
             if (fd < 0)                                                         
                 ft_error(strerror(errno), info.next->objet);
-			utils->savefd = dup(1);
-			dup2(fd, 1);                 
+			utils->savefd = dup(utils->redir);
+			dup2(fd, utils->redir);                 
         }                                                                       
         ft_redir(*info.next, env, utils);                  
     }	

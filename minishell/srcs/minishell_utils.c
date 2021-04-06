@@ -278,9 +278,10 @@ int reset_fd_one(t_utils *utils)
 {
 	if (utils->savefd != -1)
 	{
-		close(1);
-		dup2(utils->savefd, 1);
+		close(utils->redir);
+		dup2(utils->savefd, utils->redir);
 		utils->savefd = -1;
+		utils->redir = 1;
 		return (1);
 	}
 	return (0);
