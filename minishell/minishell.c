@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 15:24:29 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:35:45 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,18 @@ int		no_escape(char **line, int i)
   return (0);
 }
 
-char	**selec_dest(t_parsing *parsing, char quote)
+char	**selec_dest(t_parsing *parsing, char quote, char **line, int *p)
 {
   int		i;
   char	**tmp;
 
   i = 0;
+  if ((line[0][*p] == '1' || line[0][*p] == '2' || line[0][*p] == '0') && line[0][*p + 1] == '>')
+  {
+    utils->redir = line[0][*p] - 48;
+    *p = *p + 1;
+    return (NULL);
+  }
   if (parsing->objet == NULL)
   {
     parsing->objet = ft_strdup("");
@@ -118,7 +124,7 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 {
   char		**res;
   static char	quote;
- 
+
   if (line[0][i])
   {
     if (is_separator_parsing(line[0], i))
@@ -134,7 +140,7 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 	parsing->separator[0] = line[0][i++];
       return (i);
     }
-    res = selec_dest(parsing, quote);
+    res = selec_dest(parsing, quote, line, &i);
   }
   while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != 0) ) &&
       line[0][i])
@@ -205,7 +211,7 @@ t_parsing   *ft_last_pars(t_parsing *parsing)
 t_parsing   *new_list(t_parsing *previous_lst)
 {
   t_parsing	*parsing;
-  
+
   previous_lst = ft_last_pars(previous_lst);
   parsing = malloc(sizeof(t_parsing));
   parsing->separator[0] = 0;
@@ -226,10 +232,10 @@ char	**recopy_data(char **data, char **temp, int freed)
   i = 0;
   while (temp[i] != NULL)
   {
-	if (freed == 0)
-		data[i] = ft_strdup(temp[i]);
-	else
-		data[i] = temp[i];
+    if (freed == 0)
+      data[i] = ft_strdup(temp[i]);
+    else
+      data[i] = temp[i];
     i++;
   }
   data[i] = NULL;
@@ -349,22 +355,22 @@ void	refresh_screen(char **print, char *prefix,
       p--;
     return ;
   }
- if (p == 0 && i == 0)
-  while (*prefix)
-  {
+  if (p == 0 && i == 0)
+    while (*prefix)
+    {
       ft_putchar_fd(*prefix, 1);
       prefix++;
       p++;
-    if (p == utils->column_count)
-    {
-      ft_putchar_fd(10, 1);
-      p = 0;
+      if (p == utils->column_count)
+      {
+	ft_putchar_fd(10, 1);
+	p = 0;
+      }
     }
-  }
   while (print[0][i])
   {
-      ft_putchar_fd(print[0][i++], 1);
-      p++;
+    ft_putchar_fd(print[0][i++], 1);
+    p++;
     if (p == utils->column_count)
     {
       ft_putchar_fd(10, 1);
@@ -383,7 +389,7 @@ int	free_ret(void *to_free)
 char	    *ft_up_histo(t_utils *utils, char **line)
 {
   char	*line_ret;
-//  char	*tmp;
+  //  char	*tmp;
 
   if (utils->position == NULL)
   {
@@ -400,11 +406,11 @@ char	    *ft_up_histo(t_utils *utils, char **line)
       return (*line);
   }
   line_ret = ft_strdup(utils->position->command);
-/*  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
-  {
-    tmp =  ft_strdup(*line);
-    line_ret = ft_up_histo(utils, &tmp);
-  }*/
+  /*  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
+      {
+      tmp =  ft_strdup(*line);
+      line_ret = ft_up_histo(utils, &tmp);
+      }*/
   free(*line);
   return (line_ret);
 }
@@ -518,7 +524,7 @@ int		shelline_gestion(char ***env, t_utils *utils, char **line)
     refresh_screen(line, prefix, utils);
   }
   while ((ret = ft_recup_line(line, utils, prefix)) > 0)
-      ;
+    ;
   free(prefix);
   g_sig.prefix = 0;
   if (ret == 0)
@@ -547,7 +553,7 @@ int	term_init(t_utils *utils)
 
     if (tcsetattr(0, 0, &utils->s_termios) == -1)
       return (-1);
-     utils->column_count = tgetnum("co");
+    utils->column_count = tgetnum("co");
   }
   //  if (term_type != NULL)
   //  free(term_type);
@@ -696,6 +702,7 @@ void		init_utils(t_utils *utils, t_parsing *parsing, char **env)
   utils->savefdout = -1;
   utils->return_value = 0;
   g_sig.prefix = 0;
+  utils->redir = 1;
 }
 
 void		write_down_cfile(t_utils *utils, int fd)
@@ -735,25 +742,25 @@ void		put_histo_in_file(t_utils *utils)
 
 void	ft_start_by_pipe(char ***env, t_utils *utils, char *line, t_parsing *parsing)
 {
-	int i;
+  int i;
 
-	i = 0;
-	if (isatty(0) == 1)
-		return ;
-	while (get_next_line(0, &line))
-	{
-		i = recursive_parsing(&line, parsing, i);
-		while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
-			get_open_quote(&i, &line, ft_last_pars(parsing), utils);
-		if (!ft_sep(*parsing))
-			fonction_router(parsing, env, utils);
-		parsing = new_list(parsing);
-		i = 0;
-		free(line);
-		line = NULL;
-		g_sig.pid = -1;
-	}
-	ft_exit(env, utils, 0);
+  i = 0;
+  if (isatty(0) == 1)
+    return ;
+  while (get_next_line(0, &line))
+  {
+    i = recursive_parsing(&line, parsing, i);
+    while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
+      get_open_quote(&i, &line, ft_last_pars(parsing), utils);
+    if (!ft_sep(*parsing))
+      fonction_router(parsing, env, utils);
+    parsing = new_list(parsing);
+    i = 0;
+    free(line);
+    line = NULL;
+    g_sig.pid = -1;
+  }
+  ft_exit(env, utils, 0);
 }
 
 int		main(int argc, char **argv, char **env)
@@ -798,7 +805,7 @@ int		main(int argc, char **argv, char **env)
       line = NULL;
       g_sig.pid = -1;
       int column_count = tgetnum("co");
-//  printf("col fin main = %d\n", column_count);
+      //  printf("col fin main = %d\n", column_count);
     }
     if (line != NULL)
       free(line);
