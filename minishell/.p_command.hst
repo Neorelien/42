@@ -156,7 +156,6 @@ eeeeeee
 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 paiement
 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-<<<<<<< HEAD
 echo lol
 grep getenv *
 grep getenv minishell.c
@@ -188,7 +187,10 @@ echo "\\"
 "
 echo "\\"
 "
-=======
+ls
+ls 1>2
+ls 1>2
+===
 eeeee
 eeeee
 aaaaaaaaaaa
@@ -205,3 +207,6 @@ ee
 echo lol
 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 >>>>>>> 6f1d024f8253b7d9c046e88d023b0ecda59ba249
+ls bla > 2
+ls
+cat 2

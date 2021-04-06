@@ -14,3 +14,5 @@ echo "\\"
 export TEST='bonjour'
 echo $TEST_
 echo "|$TEST|"
+
+quand on est en dessous de la racine un message s'affiche
