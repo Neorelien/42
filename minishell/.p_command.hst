@@ -216,3 +216,6 @@ echo
 >>>>>>> fa787c4a74f4fabbc2e904cfebe7606e57b62301
 ls 1>2
 ls
+ls 1>2
+cat 2
+echo lol

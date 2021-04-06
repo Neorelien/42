@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/04/06 13:02:43 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:57:18 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ char	*ft_display_rep(char **env, t_utils utils)
 		size--;
 	path += size + 1;
 	path = ft_strdup(path);
+	free(temp);
+	temp = path;
+	path = ft_strjoin(path, " ");
 	free(temp);
 	return (path);
 }

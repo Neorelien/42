@@ -5,6 +5,7 @@ libft
 minishell
 minishell.c
 minishell.o
+minishell_test.log
 minishell_utils.h
 mylib.a
 notes.txt
