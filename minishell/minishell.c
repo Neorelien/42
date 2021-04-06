@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/02 20:54:34 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/06 12:55:25 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,47 +324,34 @@ int	ft_signal()
   return (1);
 }
 
-void	refresh_screen(char **print, int *print_char, int *pos_in_line)
+void	refresh_screen(char **print, int prefix, t_utils *utils)
 {
   int	    i;
   int	    p;
-  int	    column_count;
-  int	    pos_bis;
-   
-  pos_bis = *pos_in_line;
-  column_count = tgetnum("co");
-//  printf("col = %d\n", column_count);
-//  printf("il y a %d colonnes\n", column_count);
-  p = 0;
-  i = 0;
-/*  if (*print_char > 0)
+
+ /* if (*print_char > 0)
   {
     while (i++ < *print_char)
       ft_putchar_fd('\b', 0);
-  //  while (i-- > 0)
-  //  {
-   //   
-   //   ft_putchar_fd(' ', 0);
-  //  }
- //   while (i++ < *print_char)
-  //    ft_putchar_fd('\b', 0);
+    while (i-- > 0)
+      ft_putchar_fd(' ', 0);
+    while (i++ < *print_char)
+      ft_putchar_fd('\b', 0);
   }*/
-//  *print_char = 0;
-  while (print[0][p])
+  while (print[0][i]) 
   {
-    p++;
-  }
-  if (p > 0)
-    p--;
-    if (*pos_in_line == column_count)
+    if (p < utils->column_count)
+    {
+      ft_putchar_fd(print[0][i++], 1);
+      p++;
+    }
+    else if (p == utils->column_count)
     {
       ft_putchar_fd(10, 1);
-      *print_char = *print_char + 1;
-      *pos_in_line = 0;
+      ft_putchar_fd(print[0][i++], 1);
+      p = 0;
     }
-    ft_putchar_fd(print[0][p], 1);
-    *print_char = *print_char + 1;
-    *pos_in_line = *pos_in_line + 1;
+  }
 }
 
 int	free_ret(void *to_free)
@@ -429,12 +416,11 @@ char	    *ft_down_histo(t_utils *utils, char **line)
   return (line_ret);
 }
 
-int	    ft_recup_line(char **line, t_utils *utils, int *pos_in_line)
+int	    ft_recup_line(char **line, t_utils *utils, int prefix)
 {
   char		buf[4];
   int		ret;
   int		i;
-  static int	print_char;
 
   i = 0;
   buf[3] = 0;
@@ -448,40 +434,38 @@ int	    ft_recup_line(char **line, t_utils *utils, int *pos_in_line)
     {
       free(*line);
       *line = ft_strdup("");
-      print_char = 0;
+    //  print_char = 0; REMETTRE A 0 dans refressh screen
       g_sig.prefix = 1;
     }
     if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
       *line = ft_up_histo(utils, line);
-      refresh_screen(line, &print_char, pos_in_line);
+      refresh_screen(line, prefix, utils);
     }
     else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
     {
       *line = ft_down_histo(utils, line);
-      refresh_screen(line, &print_char, pos_in_line);
+      refresh_screen(line, prefix, utils);
     }
     else if (buf[0] == 10)
     {
       if (**line != 0)
 	new_hlist(*line, utils);
-      refresh_screen(line, &print_char, pos_in_line);
+      refresh_screen(line, prefix, utils);
       write(0, "\n", 1);
-      print_char = 0;
       utils->position = NULL;
-
       return (0);
     }
     else if (ft_isprint(buf[0]))
     {
       ft_cpy(line, buf[0]);    
-      refresh_screen(line, &print_char, pos_in_line);
+      refresh_screen(line, prefix, utils);
     }
     else if (buf[0] == 127)
     {
       if (ft_strlen(*line) > 0)
 	line[0][ft_strlen(*line) - 1] = 0;
-      refresh_screen(line, &print_char, pos_in_line);
+      refresh_screen(line, prefix, utils);
     }
     else if (buf[0] == 4)
     {
@@ -497,18 +481,19 @@ int	    ft_recup_line(char **line, t_utils *utils, int *pos_in_line)
 
 int		shelline_gestion(char ***env, t_utils *utils, char **line)
 {
-  int		ret;
-  static int	pos_in_line;
+  int	ret;
+  int	prefix_len;
 
+  prefix_len = 0;
   if (g_sig.prefix == 0 || g_sig.prefix == -1)
   {
-    pos_in_line = ft_display_rep(*env, *utils) + 3;
+    prefix_len = ft_display_rep(*env, *utils);
     write(0, "-> ", 3);
     *line = ft_strdup("");
     g_sig.prefix = 1;
   }
-  while ((ret = ft_recup_line(line, utils, &pos_in_line)) > 0)
-     ;
+  while ((ret = ft_recup_line(line, utils, prefix_len)) > 0)
+      ;
   g_sig.prefix = 0;
   if (ret == 0)
     return (1);
@@ -536,6 +521,7 @@ int	term_init(t_utils *utils)
 
     if (tcsetattr(0, 0, &utils->s_termios) == -1)
       return (-1);
+     utils->column_count = tgetnum("co");
   }
   //  if (term_type != NULL)
   //  free(term_type);
@@ -545,26 +531,25 @@ int	term_init(t_utils *utils)
 void	get_quote(char **line, int quote, t_utils *utils)
 {
   int	ret;
-  static int	pos_in_line;
 
   free(*line);
   *line = ft_strdup("");
   if (quote == OPEN_DQUOTE)
   {
-    pos_in_line = 8;
     write(1, "dquote> ", 8);
+    while ((ret = ft_recup_line(line, utils, 8)))
+      ;
   }
   else
   {
-    pos_in_line = 7;
     write(1, "quote> ", 8);
+    while ((ret = ft_recup_line(line, utils, 7)))
+      ;
   }
-  while ((ret = ft_recup_line(line, utils, &pos_in_line)))
-    ;
-
   if (ret == -1)
     ft_error("unexpected EOF while looking for matching", "\'\"\'");
 }
+
 
 void	get_open_quote(int *i, char **line, t_parsing *parsing, t_utils *utils)
 {
