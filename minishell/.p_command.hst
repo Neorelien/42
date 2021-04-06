@@ -207,6 +207,10 @@ ee
 echo lol
 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 >>>>>>> 6f1d024f8253b7d9c046e88d023b0ecda59ba249
+<<<<<<< HEAD
 ls bla > 2
 ls
 cat 2
+=======
+echo
+>>>>>>> fa787c4a74f4fabbc2e904cfebe7606e57b62301
