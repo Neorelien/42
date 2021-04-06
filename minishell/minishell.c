@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 16:35:45 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:42:41 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		no_escape(char **line, int i)
   return (0);
 }
 
-char	**selec_dest(t_parsing *parsing, char quote, char **line, int *p)
+char	**selec_dest(t_parsing *parsing, char quote, char **line, int *p, t_utils *utils)
 {
   int		i;
   char	**tmp;
@@ -120,7 +120,7 @@ void	ft_cpy(char **res, char c)
   free(tmp);
 }
 
-int		get_objet(char **line, int i, t_parsing *parsing)
+int		get_objet(char **line, int i, t_parsing *parsing, t_utils *utils)
 {
   char		**res;
   static char	quote;
@@ -140,7 +140,7 @@ int		get_objet(char **line, int i, t_parsing *parsing)
 	parsing->separator[0] = line[0][i++];
       return (i);
     }
-    res = selec_dest(parsing, quote, line, &i);
+    res = selec_dest(parsing, quote, line, &i, utils);
   }
   while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != 0) ) &&
       line[0][i])
@@ -242,17 +242,17 @@ char	**recopy_data(char **data, char **temp, int freed)
   return (data);
 }
 
-int		recursive_parsing(char **line, t_parsing *parsing, int i)
+int		recursive_parsing(char **line, t_parsing *parsing, int i, t_utils *utils)
 {
   while (line[0][i] == ' ')
     i++;
   if (!line[0][i])
     return (i);
-  i = get_objet(line, i, parsing);
+  i = get_objet(line, i, parsing, utils);
   if (parsing->separator[0] != 0)
-    i = recursive_parsing(line, new_list(parsing), i);
+    i = recursive_parsing(line, new_list(parsing), i, utils);
   else if (i >= 0 && line[0][i])
-    i = recursive_parsing(line, parsing, i);
+    i = recursive_parsing(line, parsing, i, utils);
   return (i);
 }
 
@@ -598,7 +598,7 @@ void	get_open_quote(int *i, char **line, t_parsing *parsing, t_utils *utils)
   *line = ft_strjoin("\n", *line);
   *i = 0;
   free(tmp);
-  *i = recursive_parsing(line, ft_lstlast(parsing), *i);
+  *i = recursive_parsing(line, ft_lstlast(parsing), *i, utils);
 }
 
 t_historical	*add_next_command(t_historical *previous, char *line)
@@ -749,7 +749,7 @@ void	ft_start_by_pipe(char ***env, t_utils *utils, char *line, t_parsing *parsin
     return ;
   while (get_next_line(0, &line))
   {
-    i = recursive_parsing(&line, parsing, i);
+    i = recursive_parsing(&line, parsing, i, utils);
     while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
       get_open_quote(&i, &line, ft_last_pars(parsing), utils);
     if (!ft_sep(*parsing))
@@ -794,7 +794,7 @@ int		main(int argc, char **argv, char **env)
   {
     while (shelline_gestion(&env, &utils, &line) > 0)
     {
-      i = recursive_parsing(&line, parsing, i);
+      i = recursive_parsing(&line, parsing, i, &utils);
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 	get_open_quote(&i, &line, ft_last_pars(parsing), &utils);
       if (!ft_sep(*parsing))
