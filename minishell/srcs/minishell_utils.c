@@ -15,8 +15,8 @@ void	ft_print_prefix(int	activate, char ***env, t_utils *utils)
 		prefix = ft_strjoin(prefix, "-> ");
 		free(tmp);
 		tmp = ft_strdup("");
-		refresh_screen(NULL, NULL, NULL);
-		refresh_screen(&tmp, prefix, utils_stat);
+		refresh_screen(NULL, NULL, NULL, 0);
+		refresh_screen(&tmp, prefix, utils_stat, 0);
 		free(tmp);
 		free(prefix);
 	}
