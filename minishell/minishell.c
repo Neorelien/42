@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 16:50:21 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/06 16:53:19 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int		get_objet(char **line, int i, t_parsing *parsing, t_utils *utils)
       }
       else
 	parsing->separator[0] = line[0][i++];
-      if (*res != NULL && res[0][0] == 0)
+      if (res != NULL && *res != NULL && res[0][0] == 0)
       {
 	free(*res);
 	*res = NULL;
@@ -187,7 +187,7 @@ int		get_objet(char **line, int i, t_parsing *parsing, t_utils *utils)
     }
     i++;
   }
-  if (*res != NULL && res[0][0] == 0)
+  if (res != NULL && *res != NULL && res[0][0] == 0)
   {
     free(*res);
     *res = NULL;
