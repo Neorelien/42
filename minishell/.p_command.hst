@@ -139,3 +139,5 @@ export TES=1
 export
 export TESTT=5
 export
+echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD
+eoP;c LW  ;w h$DeoOP

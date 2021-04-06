@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/04/02 15:44:54 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/06 12:59:09 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char *ft_home_dir(char **env)
 	return (NULL);
 }
 
-int	ft_display_rep(char **env, t_utils utils)
+char	**ft_display_rep(char **env, t_utils utils)
 {
 	char	*path;
 	int		size;
@@ -41,9 +41,8 @@ int	ft_display_rep(char **env, t_utils utils)
 	path = NULL;
 	temp = NULL;
 	if ((path = getcwd(path, 0)) == NULL)
-		path = utils.pwd;
-	else
-		temp = path;
+		path = ft_strdup(utils.pwd);
+	temp = path;
 	size = (int)ft_strlen(path);
 	if (ft_strncmp(path, ft_home_dir(env), 4096) == 0)
 	{
@@ -53,12 +52,9 @@ int	ft_display_rep(char **env, t_utils utils)
 	while (size >= 0 && path[size] != '/')
 		size--;
 	path += size + 1;
-	ft_putstr_fd(path, 1);
-	ft_putchar_fd(' ', 1);
-	size = (int)ft_strlen(path) + 1;
-	if (temp != NULL)
-		free(temp);
-	return (size);
+	path = ft_strdup(path);
+	free(temp);
+	return (path);
 }
 
 static void    add_env_pwd(char *str, char ***env)                         
@@ -112,7 +108,7 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 	}
 	if (info.data == NULL)
 		chdir(ft_home_dir(*env));
-	else if (info.data[0][0] == '~' && (info.data[0][0] == '/'|| info.data[0][0] == 0))
+	else if (info.data[0][0] == '~' && (info.data[0][0] == '/' || info.data[0][0] == 0))
 	{
 		chdir(ft_home_dir(*env));
 		if (chdir(info.data[0] + 2) < 0)
@@ -132,6 +128,8 @@ int ft_cd(t_parsing info, char ***env, t_utils *utils)
 		ft_putstr_fd(utils->oldpwd, 1);
 		ft_putchar_fd('\n', 1);
 	}
+	else if (info.data[0][0] == 0)
+		;
 	else
 	{
 		if (chdir(info.data[0]) < 0)
