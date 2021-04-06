@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/04/06 12:59:09 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/06 13:02:43 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char *ft_home_dir(char **env)
 	return (NULL);
 }
 
-char	**ft_display_rep(char **env, t_utils utils)
+char	*ft_display_rep(char **env, t_utils utils)
 {
 	char	*path;
 	int		size;

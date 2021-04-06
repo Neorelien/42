@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 12:55:25 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/06 13:38:32 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,12 +324,15 @@ int	ft_signal()
   return (1);
 }
 
-void	refresh_screen(char **print, int prefix, t_utils *utils)
+void	refresh_screen(char **print, char *prefix,
+    t_utils *utils, int *print_char)
 {
   int	    i;
   int	    p;
 
- /* if (*print_char > 0)
+  i = 0;
+  p = 0;
+ if (*print_char > 0)
   {
     while (i++ < *print_char)
       ft_putchar_fd('\b', 0);
@@ -337,18 +340,29 @@ void	refresh_screen(char **print, int prefix, t_utils *utils)
       ft_putchar_fd(' ', 0);
     while (i++ < *print_char)
       ft_putchar_fd('\b', 0);
-  }*/
-  while (print[0][i]) 
+  }
+ *print_char = 0;
+ i = 0;
+  while (*prefix)
   {
-    if (p < utils->column_count)
-    {
-      ft_putchar_fd(print[0][i++], 1);
+      ft_putchar_fd(*prefix, 1);
+      *print_char = *print_char + 1;
+      prefix++;
       p++;
-    }
-    else if (p == utils->column_count)
+    if (p == utils->column_count)
     {
       ft_putchar_fd(10, 1);
+      p = 0;
+    }
+  }
+  while (print[0][i]) 
+  {
       ft_putchar_fd(print[0][i++], 1);
+      *print_char = *print_char + 1;
+      p++;
+    if (p == utils->column_count)
+    {
+      ft_putchar_fd(10, 1);
       p = 0;
     }
   }
@@ -416,7 +430,8 @@ char	    *ft_down_histo(t_utils *utils, char **line)
   return (line_ret);
 }
 
-int	    ft_recup_line(char **line, t_utils *utils, int prefix)
+int	    ft_recup_line(char **line, t_utils *utils,
+    char *prefix, int *print_char)
 {
   char		buf[4];
   int		ret;
@@ -434,24 +449,24 @@ int	    ft_recup_line(char **line, t_utils *utils, int prefix)
     {
       free(*line);
       *line = ft_strdup("");
-    //  print_char = 0; REMETTRE A 0 dans refressh screen
+      print_char = 0;
       g_sig.prefix = 1;
     }
     if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
       *line = ft_up_histo(utils, line);
-      refresh_screen(line, prefix, utils);
+      refresh_screen(line, prefix, utils, print_char);
     }
     else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
     {
       *line = ft_down_histo(utils, line);
-      refresh_screen(line, prefix, utils);
+      refresh_screen(line, prefix, utils, print_char);
     }
     else if (buf[0] == 10)
     {
       if (**line != 0)
 	new_hlist(*line, utils);
-      refresh_screen(line, prefix, utils);
+      refresh_screen(line, prefix, utils, print_char);
       write(0, "\n", 1);
       utils->position = NULL;
       return (0);
@@ -459,13 +474,13 @@ int	    ft_recup_line(char **line, t_utils *utils, int prefix)
     else if (ft_isprint(buf[0]))
     {
       ft_cpy(line, buf[0]);    
-      refresh_screen(line, prefix, utils);
+      refresh_screen(line, prefix, utils, print_char);
     }
     else if (buf[0] == 127)
     {
       if (ft_strlen(*line) > 0)
 	line[0][ft_strlen(*line) - 1] = 0;
-      refresh_screen(line, prefix, utils);
+      refresh_screen(line, prefix, utils, print_char);
     }
     else if (buf[0] == 4)
     {
@@ -482,18 +497,26 @@ int	    ft_recup_line(char **line, t_utils *utils, int prefix)
 int		shelline_gestion(char ***env, t_utils *utils, char **line)
 {
   int	ret;
-  int	prefix_len;
+  char	*prefix;
+  char	*tmp;
+  int	print_char;
 
-  prefix_len = 0;
+  print_char = 0;
+  prefix = ft_strdup(""); 
   if (g_sig.prefix == 0 || g_sig.prefix == -1)
   {
-    prefix_len = ft_display_rep(*env, *utils);
-    write(0, "-> ", 3);
+    free(prefix);
+    prefix = ft_display_rep(*env, *utils);
+    tmp = prefix;
+    prefix = ft_strjoin(prefix, "-> ");
+    free(tmp);
     *line = ft_strdup("");
     g_sig.prefix = 1;
+    refresh_screen(line, prefix, utils, &print_char);
   }
-  while ((ret = ft_recup_line(line, utils, prefix_len)) > 0)
+  while ((ret = ft_recup_line(line, utils, prefix, &print_char)) > 0)
       ;
+  free(prefix);
   g_sig.prefix = 0;
   if (ret == 0)
     return (1);
@@ -531,21 +554,28 @@ int	term_init(t_utils *utils)
 void	get_quote(char **line, int quote, t_utils *utils)
 {
   int	ret;
+  char	*prefix;
+  int	print_char;
 
+  print_char = 0;
   free(*line);
   *line = ft_strdup("");
   if (quote == OPEN_DQUOTE)
   {
-    write(1, "dquote> ", 8);
-    while ((ret = ft_recup_line(line, utils, 8)))
+    prefix = ft_strdup("dquote> ");
+    refresh_screen(line, prefix, utils, &print_char);
+    while ((ret = ft_recup_line(line, utils, prefix, &print_char)))
+    refresh_screen(line, prefix, utils, &print_char);
       ;
   }
   else
   {
-    write(1, "quote> ", 8);
-    while ((ret = ft_recup_line(line, utils, 7)))
+    prefix = ft_strdup("quote> ");
+    refresh_screen(line, prefix, utils, &print_char);
+    while ((ret = ft_recup_line(line, utils, prefix, &print_char)))
       ;
   }
+  free(prefix);
   if (ret == -1)
     ft_error("unexpected EOF while looking for matching", "\'\"\'");
 }
