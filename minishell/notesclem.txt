@@ -6,7 +6,7 @@ ls 1> 2 = ls 1>2 != ls 1 >2 = ls 1 > 2
 echo -n -n -n lol
 echo -nnnnnnnnnnnnnnn lol
 
-export \B\O\N\ \ \JOUR=a  --> PROBLEME QUAND  \ tt seul ca segv 
+VOIR EXPORT mauvais mesage erreur not valid in this context, on doit s'arreter avant le '='
 
 echo "\""  REVOIR PARSING
 echo "\\" REVOIR PARSING
