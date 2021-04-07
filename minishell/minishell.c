@@ -6,7 +6,8 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/07 14:13:19 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:36:43 by aurelien         ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -687,7 +688,7 @@ void		get_command_file(t_utils *utils)
   int	fd;
   char	*line;
 
-  if ((fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
+  if ((fd = open(utils->path, O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
   {
     ft_error(strerror(errno), NULL);
     exit(1);
@@ -706,11 +707,56 @@ void		get_command_file(t_utils *utils)
   close(fd);
 }
 
+void		get_p_file_path(t_utils *utils)
+{
+  int	i;
+  char	*path;
+  char	*tmp;
+  int	p;
+
+  p = -1;
+  i = 0;
+  path = getenv("_");
+  if (ft_strncmp(path, "/usr/bin/valgrind", 16) == 0)
+    utils->path = ft_strdup(".p_command.hst");
+  else
+  {
+    utils->path = ft_strdup(path);
+    if (ft_strncmp(path, "//.", 2) == 0)
+    {
+      free(utils->path);
+      utils->path = ft_strdup(&path[3]);
+      while (utils->path[i])
+      {
+	if (ft_strncmp(&utils->path[i], "minishell", 8) == 0)
+	  p = i;
+	i++;
+      }
+    }
+    else
+      while (utils->path[i] != '.')
+      {
+	i++;
+	p = i;
+      }
+    if (p == -1)
+    {
+      printf("problem with the directory name, has to be \"minishell\" \n");
+      exit(1);
+    }
+    utils->path[p] = 0;
+    tmp = utils->path;
+    utils->path = ft_strjoin_gnl(utils->path, ".p_command.hst");
+    free(tmp);
+  }
+}
+
 void		init_utils(t_utils *utils, t_parsing *parsing, char **env)
 {
   utils->pwd = find_in_env(env, "PWD");
   utils->oldpwd = find_in_env(env, "OLDPWD");
   utils->parsing_start = parsing;
+  get_p_file_path(utils);
   get_command_file(utils);
   g_sig.pid = -1;
   utils->fdin[0] = 0;
@@ -750,7 +796,7 @@ void		put_histo_in_file(t_utils *utils)
 {
   int	fd;
 
-  if ((fd = open(".p_command.hst", O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
+  if ((fd = open(utils->path, O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
   {
     ft_error(strerror(errno), NULL);
     exit(1);

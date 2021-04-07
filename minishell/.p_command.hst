@@ -104,3 +104,30 @@ export
 export
 env
 cat 
+export TEST=bjr
+export
+export TEST='bjr'
+export
+export TEST='LOOOOOL'
+export
+export TEST='BONJOUR'
+export
+echo $TEST_
+azaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+export lol=3
+echo $lol_
+env
+env
+echo $lol_
+echo $lol_
+echo $lol_
+echo LOOOOOOOOOOOOOOOOOOOOOOOL
+echo LOOOOOOOOOOOOOOOOOOOOOOOL
+echo $lol_
+echo $lol_
+echo $lol_
+echo $lol_
+ech olol
+echo lol
+ech olol
+echo lol

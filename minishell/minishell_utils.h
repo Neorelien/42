@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 18:47:32 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:06:26 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct	s_utils
 	char				*line_EOF;
 	int					column_count;
 	int					redir;
+	char				*path;
 }		t_utils;
 
 typedef struct	s_sig
