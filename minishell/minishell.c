@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 20:15:49 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:13:19 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,7 @@ int		get_objet(char **line, int i, t_parsing *parsing, t_utils *utils)
     }
     res = selec_dest(parsing, quote, line, &i, utils);
   }
-  while ((line[0][i] != ' ' || (line[0][i] == ' ' && quote != 0) ) &&
-      line[0][i])
+  while (((line[0][i] != ' ' || (line[0][i] == ' ' && quote != 0) || (line[0][i] == ' ' && line[0][i - 1] == 92)) && line[0][i]))
   {
     if (quote != 0)
     {
@@ -192,10 +191,7 @@ int		get_objet(char **line, int i, t_parsing *parsing, t_utils *utils)
     free(*res);
     *res = NULL;
   }
-  if (quote == 39)
-    return (OPEN_SQUOTE);
-  if (quote == 34)
-    return (OPEN_DQUOTE);
+  quote = 0;
   return (i);
 }
 
@@ -419,7 +415,8 @@ char	    *ft_up_histo(t_utils *utils, char **line)
       return (*line);
   }
   line_ret = ft_strdup(utils->position->command);
-  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
+  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0 &&
+      ft_strlen(*line) == ft_strlen(line_ret))
   {
     tmp =  ft_strdup(*line);
     free(line_ret);
@@ -447,7 +444,8 @@ char	    *ft_down_histo(t_utils *utils, char **line)
     }
   }
   line_ret = ft_strdup(utils->position->command);
-  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0)
+  if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0 &&
+      ft_strlen(*line) == ft_strlen(line_ret))
   {
     tmp =  ft_strdup(*line);
     free(line_ret);

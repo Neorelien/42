@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/04/03 14:53:28 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/07 14:36:31 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,21 @@ void	double_tab_sort(char **tabl)
 	}
 }
 
-void	display_env_sort(char **env, int fd)
+void	display_env_sort(char ***env, int fd)
 {
 	int		i;
 
-	double_tab_sort(env);
+	double_tab_sort(*env);
 	i = 0;
-	while (env[i] != NULL)
+	while (env[0][i] != NULL)
 	{
-		ft_putstr_fd(env[i], fd);
+		ft_putstr_fd(env[0][i], fd);
+		free(env[0][i]);
 		write(fd, "\n", 1);
 		i++;
 	}
+	free(env[0][i]);
+	free(*env);
 }
 
 void	recopy_less_data(char ***data, char **temp, char *str)
@@ -226,7 +229,6 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 	o = 0;
 	i = 0;
 	fd = write_with_separator(*parsing, *env, utils, 1);
-//	printf("%s   %s\n", parsing->data[0], parsing->data[1]);
 	if (parsing->data != NULL && parsing->data[0] != NULL)
 	{
 		while (parsing->data[i] != NULL)
@@ -258,7 +260,9 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 	}
 	else
 	{
-		display_env_sort(*env, fd);
+		utils->tmp = malloc(sizeof(char*) * (ft_doubletab_len(*env) + 1));
+		recopy_data(utils->tmp, *env, 0);
+		display_env_sort(&utils->tmp, fd);
 		return (0);
 	}
 	return (0);
