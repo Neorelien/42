@@ -119,3 +119,16 @@ export
 env
 cat 
 >>>>>>> 8a84e085b7e6228005f471a1fb831e1557204424
+echo lol
+echo -n -n lol
+echo -nnnnnnn lol
+echo -nnnnnnn lol
+echo -n lol
+echo -n -n -n lol
+echo -nnnnnn lol
+echo -nnnnn lol
+echo -nnnnnn lol
+echo -lol
+echo - lol
+echo -n -nnnnnn -n -nnnn lol
+echo -nnnnnnlol
