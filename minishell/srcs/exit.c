@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 13:41:11 by awery             #+#    #+#             */
-/*   Updated: 2021/04/06 19:31:35 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:13:58 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void		ft_clean_utils(t_utils *utils)
 		free(utils->oldpwd);
 	if (utils->line_EOF != NULL)
 		free(utils->line_EOF);
+	free(utils->path);
 }
 
 void	ft_clean_env(char ***env)

@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/07 12:38:30 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:02:34 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		look_for_env(char **objet, int quote, int i, char **new_obj, char ***env, t
 		ft_cpy(new_obj, objet[0][i++]);
 	else if (quote == 0 && objet[0][i + 1] == 39)
 		i++;
-	else if (!ft_isalnum(objet[0][i + 1]))
+	else if (!ft_isalnum(objet[0][i + 1]) && objet[0][i + 1] != '_')
 	{
 		if (objet[0][i + 1] == '?')
 		{	
@@ -75,7 +75,7 @@ int		look_for_env(char **objet, int quote, int i, char **new_obj, char ***env, t
 	else
 	{
 		i++;
-		while (ft_isalnum(objet[0][i]))
+		while (ft_isalnum(objet[0][i]) || objet[0][i] == '_')
 			ft_cpy(&env_name, objet[0][i++]);
 		env_cont = find_in_env(*env, env_name);
 		if (env_cont == NULL)

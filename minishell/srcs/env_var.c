@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/04/07 14:36:31 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:21:54 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,14 +234,14 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 		while (parsing->data[i] != NULL)
 		{
 			while (parsing->data[i][o] && parsing->data[i][o] != '=')
-				if (!ft_isalnum(parsing->data[i][o++]))
+			{
+				if (!ft_isalnum(parsing->data[i][o]) && parsing->data[i][o] != '_')
 				{
-//					error_ret = malloc(o + 1);
-//					ft_strlcpy(parsing->data[i], error_ret, o);
 					ft_error("export: not valid in this context", parsing->data[i]);
-//					free(error_ret);
 					return (1);
 				}
+				o++;
+			}
 			if ((i == 0 && parsing->data[i][0] >= '0' &&
 				parsing->data[i][0] <= '9') || parsing->data[i][0] == '=')
 			{
