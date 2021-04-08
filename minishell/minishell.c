@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/04/08 18:31:49 by aurelien         ###   ########.fr       */
-=======
 /*   Updated: 2021/04/08 23:41:47 by cmoyal           ###   ########.fr       */
->>>>>>> e42d6396a452e848a99b5779e3577eefceb293d7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -754,7 +750,6 @@ void		get_command_file(t_utils *utils)
   close(fd);
 }
 
-
 void		get_p_file_path(t_utils *utils)
 {
   int	i;
@@ -827,7 +822,6 @@ void		write_down_cfile(t_utils *utils, int fd)
 
   histo = utils->com_history_start;
   if (histo->command != NULL)
-
   {
     ft_putstr_fd(histo->command, fd);
     ft_putchar_fd(10, fd);
@@ -884,8 +878,9 @@ int		main(int argc, char **argv, char **env)
 {
   char			*line;
   t_parsing		*parsing;
-  int			i;
+  int				i;
   static t_utils	utils;
+
 
   if (*env == NULL)
   {
