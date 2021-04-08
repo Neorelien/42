@@ -49,3 +49,15 @@ ls
 ls
 >toto echo lol
 cat toto
+ls
+echo lol > ls
+ls
+echo lol > lol
+echo lol > lol
+echo lol > lol
+echo lol > lol
+echo proute > lol
+cat lol
+echo lol > lol
+echo >> lol 
+cat lol

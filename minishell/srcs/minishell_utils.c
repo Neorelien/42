@@ -280,6 +280,7 @@ int reset_fd_one(t_utils *utils)
 	{
 		close(utils->redir);
 		dup2(utils->savefd, utils->redir);
+		close(utils->savefd);
 		utils->savefd = -1;
 		utils->redir = 1;
 		return (1);
@@ -293,6 +294,7 @@ int reset_fd_zero(t_utils *utils)
 	{
 		close(0);
 		dup2(utils->savefdout, 0);
+		close(utils->savefdout);
 		utils->savefdout = -1;
 		return (1);
 	}
