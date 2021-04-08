@@ -59,9 +59,27 @@ ls
 ls
 >toto echo lol
 cat toto
+<<<<<<< HEAD
+ls
+echo lol > ls
+ls
+echo lol > lol
+echo lol > lol
+echo lol > lol
+echo lol > lol
+echo proute > lol
+cat lol
+echo lol > lol
+echo >> lol 
+cat lol
+=======
 >>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
+<<<<<<< HEAD
 echo lol
 ls
 ls > oui
 echo lol
 echo lol > pute > non | cat > mega
+=======
+>>>>>>> 6c72ac6a6642d1d3f9298e96e576506910cb78c8
+>>>>>>> e42d6396a452e848a99b5779e3577eefceb293d7

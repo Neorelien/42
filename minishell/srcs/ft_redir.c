@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:20:01 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/04/08 16:23:43 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/08 23:36:22 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
                 ft_error(strerror(errno), info.next->objet);
 			utils->savefd = dup(utils->redir);
 			dup2(fd, utils->redir);
+			close(fd);
         }                                                                       
         ft_redir(*info.next, env, utils);                  
     }                                                                           
@@ -150,8 +151,9 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
             fd = open(info.next->objet, O_RDONLY);
 			utils->savefdout = dup(0);
 			dup2(fd, 0);
-        }	
-        ft_redir(*info.next, env, utils);      
+			close(fd);
+        }
+        ft_redir(*info.next, env, utils);
 	}
     else if (sep == 5)                                                          
     {                                                                           
@@ -164,9 +166,10 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
                 ft_error(strerror(errno), info.next->objet);
 			utils->savefd = dup(utils->redir);
 			dup2(fd, utils->redir);                 
+			close(fd);
         }                                                                       
         ft_redir(*info.next, env, utils);                  
-    }	
+    }
 /*	else
 		ft_redir_second(info, env, utils);*/
 	
