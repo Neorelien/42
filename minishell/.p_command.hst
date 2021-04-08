@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+YGÈ_YO	GUYTOVFGOYUISG	GERZGQ
+zsh:1: command not found: :_uyerth	uiphbstdegiouy	upibhdestiyopg
+				unbhqsdergpuiyqguipqerhbg		qeudhng
+rugohizeiupgh				duiogĥjnzret
+hdkibgpiyuqerbghperuyhirqeyugbhfielyqurghbfipreghbfèufhqipb_uèersykyqfvluiq			iuybgerqyufi	œ		vbdiuybg		disbngiuesbnhgvw
+				unbhqsdergpuiyqguipqerhbg		qeudhng
+YGÈ_YO	GUYTOVFGOYUISG	GERZGQ
+ls |
+=======
 toto echo i
 >toto echo hi
 ls
@@ -49,6 +59,7 @@ ls
 ls
 >toto echo lol
 cat toto
+<<<<<<< HEAD
 ls
 echo lol > ls
 ls
@@ -61,3 +72,6 @@ cat lol
 echo lol > lol
 echo >> lol 
 cat lol
+=======
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
+>>>>>>> 6c72ac6a6642d1d3f9298e96e576506910cb78c8

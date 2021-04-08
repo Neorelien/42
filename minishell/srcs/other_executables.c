@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2021/04/08 14:53:37 by aurelien         ###   ########.fr       */
+=======
 /*   Updated: 2021/04/08 15:12:00 by cmoyal           ###   ########.fr       */
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +240,8 @@ char		*ft_get_shell_name(void)
 
 	i = 0;
 	res = getenv("SHELL");
+	if (res == NULL)
+		exit(1);
 	while (res[i])
 	{
 		if (res[i] == '/')
@@ -288,7 +294,6 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 {
 	char	*tmp;
 	int		temp;
-	char	*shell;
 
 	parsing->data = add_string_to_tab(parsing->data, parsing->objet);
 	tmp = ft_strdup(parsing->objet);
@@ -315,8 +320,7 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			free(parsing->objet);
 			parsing->objet = ft_strdup(tmp);
 		}
-		shell = ft_get_shell_name();
-		printf("%s: command not found: %s\n", shell, tmp);
+		printf("minishell : command not found: %s\n", tmp);
 		free(tmp);
 		free(*utils->line_p);
 		ft_exit(&env, utils, 1);

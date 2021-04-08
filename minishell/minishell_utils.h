@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2021/04/08 14:54:32 by aurelien         ###   ########.fr       */
+=======
 /*   Updated: 2021/04/08 14:45:27 by cmoyal           ###   ########.fr       */
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +68,10 @@ typedef struct	s_utils
 	t_historical		*com_history_start;
 	t_historical		*com_history_end;
 	t_historical		*position;
-	int			history_len;
-	int		savefd;
-	int		savefdout;
-	int		return_value;
+	int					history_len;
+	int					savefd;
+	int					savefdout;
+	int					return_value;
 	char				**line_p;
 	char				*line_EOF;
 	int					column_count;

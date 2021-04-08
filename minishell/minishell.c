@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2021/04/08 15:58:16 by aurelien         ###   ########.fr       */
+=======
 /*   Updated: 2021/04/08 14:41:10 by cmoyal           ###   ########.fr       */
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 
 /*                                                                            */
 /* ************************************************************************** */
@@ -271,11 +275,26 @@ void	test_struct(t_parsing *parsing)
     test_struct(parsing->next);
 }
 
+<<<<<<< HEAD
+int	check_return(char*str)
+{
+  int i;
+
+  i = 0;
+  while (str[i])
+    if (!ft_isalnum(str[i++]))
+    {
+      printf("minishell: exit: lol : argument numérique nécessaire\n");
+      return (2);
+    }
+  return (ft_atoi(str));
+=======
 void 	ft_prefonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
 	data_formation(parsing, env, utils);
 	ft_reparse(parsing);
 	fonction_router(parsing, env, utils);
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 }
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
@@ -294,7 +313,12 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
   else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
     utils->return_value = ft_unset(parsing, env);
   else if (ft_strncmp(parsing->objet, "exit", 5) == 0)
-    ft_exit(env, utils, 0);
+  {
+    if (parsing->data != NULL && parsing->data[0] != NULL)
+      ft_exit(env, utils, check_return(parsing->data[0]));
+    else
+      ft_exit(env, utils, 0);
+  }
   else if (parsing->objet != NULL)
     ft_other_exc(parsing, *env, utils);
   if (utils->fdout[1] != 1)
@@ -339,7 +363,9 @@ void	refresh_screen(char **print, char *prefix,
   static int	    i;
   static int	    p;
   static int	    line_old_len;
+  int		    spec;
 
+  spec = 0;
   if (print == NULL && prefix == NULL)
   {
     i = 0;
@@ -383,12 +409,26 @@ void	refresh_screen(char **print, char *prefix,
     }
   while (print[0][i])
   {
-    ft_putchar_fd(print[0][i++], 1);
-    p++;
-    if (p == utils->column_count)
-    {
+    if (p == utils->column_count && (p = 0) == 0)
       ft_putchar_fd(10, 1);
-      p = 0;
+    if (print[0][i] == 9)
+    {
+      while (spec++ < 4)
+      {
+	ft_putchar_fd(' ', 1);
+	p++;
+	if (p == utils->column_count && (p = 0) == 0)
+	  ft_putchar_fd(10, 1);
+      }
+      spec = 0;
+      i++;
+    }
+    else
+    {
+      ft_putchar_fd(print[0][i++], 1);
+      p++;
+      if (p == utils->column_count && (p = 0) == 0)
+	ft_putchar_fd(10, 1);
     }
   }
   line_old_len = ft_strlen(*print);
@@ -564,8 +604,11 @@ int	term_init(t_utils *utils)
 {
   int ret = 0;
 
-  char *term_type = getenv("TERM");
+  char *term_type;
 
+  term_type = getenv("TERM");
+  if (term_type == NULL)
+    exit(1);
   if ((ret = tgetent(NULL, term_type)))// Fonction que vous aurez créé avec un tgetent dedans. 
   {
     if (tcgetattr(0, &utils->s_termios) == -1)
@@ -694,7 +737,7 @@ void		get_command_file(t_utils *utils)
   int	fd;
   char	*line;
 
-  if ((fd = open(utils->path, O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
+  if ((fd = open(utils->path, O_RDWR | O_CREAT, 0644 | O_DIRECTORY | O_NOFOLLOW)) == -1)
   {
     ft_error(strerror(errno), NULL);
     exit(1);
@@ -723,6 +766,8 @@ void		get_p_file_path(t_utils *utils)
   p = -1;
   i = 0;
   path = getenv("_");
+  if (path == NULL)
+    exit(1);
   if (ft_strncmp(path, "/usr/bin/valgrind", 16) == 0)
     utils->path = ft_strdup(".p_command.hst");
   else
@@ -802,7 +847,7 @@ void		put_histo_in_file(t_utils *utils)
 {
   int	fd;
 
-  if ((fd = open(utils->path, O_RDWR | O_CREAT, 0644 | O_DIRECTORY)) == -1)
+  if ((fd = open(utils->path, O_RDWR | O_CREAT, 0644 | O_DIRECTORY | O_NOFOLLOW)) == -1)
   {
     ft_error(strerror(errno), NULL);
     exit(1);
