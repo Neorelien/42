@@ -6,7 +6,7 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:20:01 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/04/06 16:40:13 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/08 16:23:43 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,84 @@ char	*ft_read_fd(t_utils *utils)
 
 }*/
 
+int	ft_reparse_count(t_parsing *info, int add)
+{
+	int i;
+	t_parsing *parse;
+	
+	parse = info;
+	while(parse->next != NULL && is_separator(parse->separator) > 2)
+	{
+		i = 0;
+		parse = parse->next;
+		while (parse->data != NULL && parse->data[i])
+		{
+			add++;
+			i++;
+		}
+	}
+	return (add + 1);
+}
+
+void ft_reparse_malloc(t_parsing *info, int add)
+{
+	char **doubletab;
+	int i;
+
+	i = 0;
+	add = ft_reparse_count(info, add);
+	doubletab = (char**)malloc(sizeof(char*) * add);
+	while (info->data != NULL && info->data[i])
+	{
+		doubletab[i] = info->data[i];
+		i++;
+	}
+	free(info->data);
+	info->data = doubletab;	
+}
+
+void ft_reparse(t_parsing *info)
+{
+	int sep;
+	int i;
+	int add;
+	t_parsing *parse;
+	
+	add = 0;
+	while (info->data && info->data[add] != NULL)
+		add++;	
+	if ((sep = is_separator(info->separator)) == 0 || sep == 1 || sep == 2)
+		return ;
+	else if (sep == 3 || sep == 4 || sep == 5)
+	{
+		ft_reparse_malloc(info, add);
+		parse = info;
+		while(parse->next != NULL && is_separator(parse->separator) > 2)
+		{
+			i = 0;
+			parse = parse->next;
+			while (parse->data != NULL && parse->data[i])
+			{
+				if (info->objet == NULL)
+					info->objet = ft_strdup(parse->data[i]);
+				else
+				{
+					info->data[add] = ft_strdup(parse->data[i]);
+					add++;
+				}
+				i++;
+			}
+		}
+		info->data[add] = NULL;
+	}
+}
+
 void	ft_redir(t_parsing info, char **env, t_utils *utils)
 {
 	int sep;
 	int flag_pipe;
 	char *result;
 	int fd;
-	
 	if (utils->fdout[0] != 0)
 	{
 		result = ft_read_fd(utils);
@@ -57,7 +128,7 @@ void	ft_redir(t_parsing info, char **env, t_utils *utils)
     else if (sep == 2)
         ft_pipe_settings(utils);
     else if (sep == 3)                                                          
-    {                                                                           
+    {
         if (flag_pipe == 0 && is_separator(info.separator) != 0 && is_separator(info.next->separator) != 0 && is_separator(info.next->separator) != 1)
             ft_reroll(info, env, utils);                                        
         else                                                                    
