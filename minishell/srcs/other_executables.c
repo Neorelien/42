@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:55:18 by awery             #+#    #+#             */
-/*   Updated: 2021/03/29 19:28:02 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/08 12:16:32 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,7 @@ void	ft_other_exc(t_parsing *parsing, char **env, t_utils *utils)
 			close(utils->fdout[0]);
 		if (parsing->objet[0] == '.' && parsing->objet[1] == '/')
 			execve(&parsing->objet[2], parsing->data, env);
+		execve(parsing->objet, parsing->data, NULL);
 		while (next_path(parsing, env) && execve(parsing->objet, parsing->data, NULL) == -1)
 		{
 			free(parsing->objet);

@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 13:41:11 by awery             #+#    #+#             */
-/*   Updated: 2021/04/07 16:13:58 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/08 12:22:31 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ void		ft_clean_parsing(t_parsing *parsing)
 
 void		ft_clean_historical(t_historical *histo)
 {
-	if (histo->command != NULL)
-		free(histo->command);
-	if (histo->next != NULL)
-		ft_clean_historical(histo->next);
-	free(histo);
+	if (histo != NULL)
+	{
+		if (histo->command != NULL)
+			free(histo->command);
+		if (histo->next != NULL)
+			ft_clean_historical(histo->next);
+		free(histo);
+	}
 }
 
 void		ft_clean_utils(t_utils *utils)

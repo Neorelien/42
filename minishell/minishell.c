@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/07 16:36:43 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/08 12:18:54 by aurelien         ###   ########.fr       */
 
 /*                                                                            */
 /* ************************************************************************** */
@@ -801,7 +801,7 @@ void		put_histo_in_file(t_utils *utils)
     ft_error(strerror(errno), NULL);
     exit(1);
   }
-  if (utils->com_history_start->command != NULL)
+  if (utils->com_history != NULL && utils->com_history_start->command != NULL)
     write_down_cfile(utils, fd);
   close(fd);
 }
