@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/08 15:58:16 by aurelien         ###   ########.fr       */
+=======
+/*   Updated: 2021/04/08 14:41:10 by cmoyal           ###   ########.fr       */
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 
 /*                                                                            */
 /* ************************************************************************** */
@@ -271,6 +275,7 @@ void	test_struct(t_parsing *parsing)
     test_struct(parsing->next);
 }
 
+<<<<<<< HEAD
 int	check_return(char*str)
 {
   int i;
@@ -283,11 +288,17 @@ int	check_return(char*str)
       return (2);
     }
   return (ft_atoi(str));
+=======
+void 	ft_prefonction_router(t_parsing *parsing, char ***env, t_utils *utils)
+{
+	data_formation(parsing, env, utils);
+	ft_reparse(parsing);
+	fonction_router(parsing, env, utils);
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 }
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
-  data_formation(parsing, env, utils);
   ft_redir(*parsing, *env, utils);
   if (ft_strncmp(parsing->objet, "echo", 4) == 0)
     utils->return_value = ft_echo(*parsing, env, utils);	
@@ -904,7 +915,7 @@ int		main(int argc, char **argv, char **env)
       while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
 	get_open_quote(&i, &line, ft_last_pars(parsing), &utils);
       if (!ft_sep(*parsing))
-	fonction_router(parsing, &env, &utils);
+	ft_prefonction_router(parsing, &env, &utils);
       parsing = new_list(parsing);
       i = 0;
       free(line);

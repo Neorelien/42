@@ -180,7 +180,7 @@ void	check_to_next(t_parsing info, char ***env, t_utils *utils)
 	if (is_separator(info.separator) == 0 || is_separator(info.separator) == 2)	
 		return ;
 	if (is_separator(info.separator) == 1)
-		fonction_router(info.next, env, utils);
+		ft_prefonction_router(info.next, env, utils);
 	else
 	{
 		check_to_next(*info.next, env, utils);

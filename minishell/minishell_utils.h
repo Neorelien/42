@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/08 14:54:32 by aurelien         ###   ########.fr       */
+=======
+/*   Updated: 2021/04/08 14:45:27 by cmoyal           ###   ########.fr       */
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,4 +138,6 @@ void            ft_pipe_settings(t_utils *utils);
 void ft_reroll(t_parsing info, char **env, t_utils *utils);
 int reset_fd_one(t_utils *utils);
 int reset_fd_zero(t_utils *utils);
+void ft_reparse(t_parsing *info);
+void	ft_prefonction_router(t_parsing *parsing, char ***env, t_utils *utils);
 #endif
