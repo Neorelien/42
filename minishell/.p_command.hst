@@ -60,3 +60,8 @@ ls
 >toto echo lol
 cat toto
 >>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
+echo lol
+ls
+ls > oui
+echo lol
+echo lol > pute > non | cat > mega

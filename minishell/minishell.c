@@ -6,12 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/04/08 15:58:16 by aurelien         ###   ########.fr       */
-=======
-/*   Updated: 2021/04/08 14:41:10 by cmoyal           ###   ########.fr       */
->>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
-
+/*   Updated: 2021/04/08 18:31:49 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +270,6 @@ void	test_struct(t_parsing *parsing)
     test_struct(parsing->next);
 }
 
-<<<<<<< HEAD
 int	check_return(char*str)
 {
   int i;
@@ -288,13 +282,13 @@ int	check_return(char*str)
       return (2);
     }
   return (ft_atoi(str));
-=======
+}
+
 void 	ft_prefonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
 	data_formation(parsing, env, utils);
 	ft_reparse(parsing);
 	fonction_router(parsing, env, utils);
->>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 }
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
@@ -756,6 +750,7 @@ void		get_command_file(t_utils *utils)
   close(fd);
 }
 
+
 void		get_p_file_path(t_utils *utils)
 {
   int	i;
@@ -828,6 +823,7 @@ void		write_down_cfile(t_utils *utils, int fd)
 
   histo = utils->com_history_start;
   if (histo->command != NULL)
+
   {
     ft_putstr_fd(histo->command, fd);
     ft_putchar_fd(10, fd);
@@ -884,9 +880,8 @@ int		main(int argc, char **argv, char **env)
 {
   char			*line;
   t_parsing		*parsing;
-  int				i;
+  int			i;
   static t_utils	utils;
-
 
   if (*env == NULL)
   {
