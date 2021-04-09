@@ -120,3 +120,7 @@ echo lol
 echo lol 
 echo lol > mdr > ptr | cat
 cat ptr
+echo lol > mdr > ptr | cat
+cat ptr
+ls | cat
+ls
