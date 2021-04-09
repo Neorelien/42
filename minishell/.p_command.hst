@@ -75,3 +75,48 @@ cat lol
 =======
 >>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
 >>>>>>> 6c72ac6a6642d1d3f9298e96e576506910cb78c8
+echo lol > mdr > ptr | ls
+cat ptr
+cat mdr
+echo lol > mdr > ptr
+echo proute > mdr > ptr | ls
+cat mdr
+cat ptr
+echo lol > mdr > ptr
+cat ptr
+echo proute > mdr > ptr | ls
+cat ptr
+echo lol > mdr > ptr
+cat ptr
+echo lol > mdr > ptr | ls
+cat ptr
+echo lol > mdr > ptr | ls
+cat lol
+cat ptr
+echo lol > mdr > ptr | ls
+cat ptr
+echo lol > mdr > ptr | cat
+echo lol > ptr > mdr | ls
+cat mdr
+echo lol > ptr > mdr | cat
+cat mdr
+echo lol | cat
+echo lol > mdr > ptr | cat
+echo lol | cat
+echo | cat
+echo -n | cat
+echo lol > mdr > ptr | cat
+echo lol > mdr > ptr | cat
+echo lol > mdr > ptr | cat
+echo lol > mdr > ptr
+echo lol > mdr > ptr | cat
+ls
+echo lol > cat
+echo lol | cat
+echo lol > lol > mdr | cat
+ls
+echo lol
+| cat
+echo lol 
+echo lol > mdr > ptr | cat
+cat ptr

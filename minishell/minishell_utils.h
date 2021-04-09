@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/08 23:39:02 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/09 02:27:13 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,5 @@ int reset_fd_one(t_utils *utils);
 int reset_fd_zero(t_utils *utils);
 void ft_reparse(t_parsing *info);
 void	ft_prefonction_router(t_parsing *parsing, char ***env, t_utils *utils);
+void	ft_start_by_pipe(char ***env, t_utils *utils, char *line, t_parsing *parsing);
 #endif

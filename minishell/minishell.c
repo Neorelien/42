@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/08 23:41:47 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/09 02:28:58 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,32 @@ void 	ft_prefonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 	fonction_router(parsing, env, utils);
 }
 
+void	ft_restart_on_pipe(t_parsing *parsing, char ***env, t_utils *utils)
+{
+	int try = 0;
+	t_parsing *info;
+	char *line = NULL;
+
+	info = NULL;
+	while (parsing->separator[0] != '|')
+	{
+		if (try == 0)
+			try = 1;
+		parsing = parsing->next;
+	}
+	parsing = parsing->next;
+	if (try == 1)
+	{
+		info = new_list(NULL);
+		info->next = parsing;
+		info->separator[0] = '|';
+		info->separator[1] = 0;
+		ft_start_by_pipe(env, utils, line, parsing);
+		return ;
+	}
+	fonction_router(info, env, utils);
+}
+
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
 {
   ft_redir(*parsing, *env, utils);
@@ -339,7 +365,7 @@ void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
   reset_fd_zero(utils);
   check_to_next(*parsing, env, utils);
   if (ft_next_is_pipe(*parsing, *env, utils, 0))
-    fonction_router(parsing->next, env, utils);
+    ft_restart_on_pipe(parsing, env, utils);
   if (g_sig.pid == -2)
     exit(1);
 }
