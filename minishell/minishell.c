@@ -6,11 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/04/09 11:19:18 by aurelien         ###   ########.fr       */
-=======
-/*   Updated: 2021/04/09 11:32:06 by cmoyal           ###   ########.fr       */
->>>>>>> 9c6f6291002d3cbe402221d2a0c36507e919c6e1
+/*   Updated: 2021/04/09 11:43:50 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -652,40 +648,10 @@ int	term_init(t_utils *utils)
   return (ret);
 }
 
-void	get_quote(char **line, int quote, t_utils *utils)
-{
-  int	ret;
-  char	*prefix;
-  int	print_char;
-
-  print_char = 0;
-  free(*line);
-  *line = ft_strdup("");
-  if (quote == OPEN_DQUOTE)
-  {
-    prefix = ft_strdup("dquote> ");
-    refresh_screen(line, prefix, utils, 0);
-    while ((ret = ft_recup_line(line, utils, prefix)))
-      ;
-  }
-  else
-  {
-    prefix = ft_strdup("quote> ");
-    refresh_screen(line, prefix, utils, 0);
-    while ((ret = ft_recup_line(line, utils, prefix)))
-      ;
-  }
-  free(prefix);
-  if (ret == -1)
-    ft_error("unexpected EOF while looking for matching", "\'\"\'");
-}
-
-
 void	get_open_quote(int *i, char **line, t_parsing *parsing, t_utils *utils)
 {
   char *tmp;
 
-  get_quote(line, *i, utils);
   tmp = *line;
   *line = ft_strjoin("\n", *line);
   *i = 0;
@@ -890,8 +856,6 @@ void	ft_start_by_pipe(char ***env, t_utils *utils, char *line, t_parsing *parsin
   while (get_next_line(0, &line))
   {
     i = recursive_parsing(&line, parsing, i, utils);
-    while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
-      get_open_quote(&i, &line, ft_last_pars(parsing), utils);
     if (!ft_sep(*parsing))
       fonction_router(parsing, env, utils);
     parsing = new_list(parsing);
@@ -935,8 +899,6 @@ int		main(int argc, char **argv, char **env)
     while (shelline_gestion(&env, &utils, &line) > 0)
     {
       i = recursive_parsing(&line, parsing, i, &utils);
-      while (i == OPEN_SQUOTE || i == OPEN_DQUOTE)
-	get_open_quote(&i, &line, ft_last_pars(parsing), &utils);
       if (!ft_sep(*parsing))
 	ft_prefonction_router(parsing, &env, &utils);
       parsing = new_list(parsing);

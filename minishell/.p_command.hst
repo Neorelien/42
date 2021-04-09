@@ -116,3 +116,5 @@ ls
 | ls
 ls |
 >>>>>>> 1397fecb0dee58b58d739e839a36628b21552b82
+echo lol
+echo "lol
