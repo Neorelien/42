@@ -109,4 +109,10 @@ echo lol > mdr > ptr | cat
 cat ptr
 ls | cat
 ls
+<<<<<<< HEAD
 >>>>>>> 9c6f6291002d3cbe402221d2a0c36507e919c6e1
+=======
+| ls
+| ls
+ls |
+>>>>>>> 1397fecb0dee58b58d739e839a36628b21552b82
