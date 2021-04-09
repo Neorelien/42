@@ -124,3 +124,6 @@ echo lol > mdr > ptr | cat
 cat ptr
 ls | cat
 ls
+| ls
+| ls
+ls |
