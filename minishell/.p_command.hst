@@ -118,3 +118,14 @@ ls |
 >>>>>>> 1397fecb0dee58b58d739e839a36628b21552b82
 echo lol
 echo "lol
+>toto echo lol mdr
+cat toto
+echo mdr > lol mdr
+cat lol
+cat < lol
+echo 1>2 lol
+cat 2
+echo 1>>2 lol lol
+cat lol
+cat 2
+rm lol 2

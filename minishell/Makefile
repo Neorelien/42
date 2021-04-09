@@ -6,7 +6,7 @@ OBJ_MAIN = ${MAIN:.c=.o}
 
 SRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
 echo.c minishell_utils.c ft_dir.c env_var.c other_executables.c ft_sep.c \
-data_formation.c ft_redir.c exit.c
+data_formation.c ft_redir.c exit.c ft_reparse.c
 
 PATH_SRCS = ./srcs/
 
