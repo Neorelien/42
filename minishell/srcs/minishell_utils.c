@@ -1,12 +1,17 @@
 #include "../minishell_utils.h"
 
-void	ft_print_prefix(int	activate, char ***env, t_utils *utils)
+int		ft_print_prefix(int check_prefix, int activate, char ***env, t_utils *utils)
 {
 	static char		***env_stat;
 	static t_utils	*utils_stat;
-	char	*prefix;
-	char	*tmp;
+	char			*prefix;
+	char			*tmp;
+	static int		alrd_activate;
 
+	if (check_prefix && alrd_activate && (alrd_activate = 0) == 0)
+		return (1);
+	else if (check_prefix && !alrd_activate)
+		return (0);
 	if (activate)
 	{
 		ft_putstr_fd("\n", 1);
@@ -19,12 +24,14 @@ void	ft_print_prefix(int	activate, char ***env, t_utils *utils)
 		refresh_screen(&tmp, prefix, utils_stat, 0);
 		free(tmp);
 		free(prefix);
+		alrd_activate = 1;
 	}
 	else
 	{
 		env_stat = env;
 		utils_stat = utils;
 	}
+	return (0);
 }
 
 
@@ -33,13 +40,10 @@ void handler_next(int sign)
 	if (g_sig.pid == -1)
 	{
 		(void)sign;
-		g_sig.prefix = -1;
-		ft_print_prefix(1, NULL, NULL);
+		ft_print_prefix(0, 1, NULL, NULL);
 	}
 	else
-	{
 		ft_putstr_fd("\n", 1);
-	}
 }
 
 void handler_quit(int sign)

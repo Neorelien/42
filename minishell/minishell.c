@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
-/*   Updated: 2021/04/09 02:28:58 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/09 11:19:18 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -537,11 +537,10 @@ int	    ft_recup_line(char **line, t_utils *utils,
   ret = read(0, &buf, 3);
   if (ret != -1 && buf[0] != 0)
   {
-    if (g_sig.prefix == -1)
+    if (ft_print_prefix(1, 0, NULL, NULL))
     {
       free(*line);
       *line = ft_strdup("");
-      g_sig.prefix = 1;
     }
     if (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
     {
@@ -598,21 +597,21 @@ int		shelline_gestion(char ***env, t_utils *utils, char **line)
   char	*tmp;
 
   prefix = ft_strdup(""); 
-  if (g_sig.prefix == 0 || g_sig.prefix == -1)
-  {
+//  if (g_sig.prefix == 0 || g_sig.prefix == -1)
+//  {
     free(prefix);
     prefix = ft_display_rep(*env, *utils);
     tmp = prefix;
     prefix = ft_strjoin(prefix, "-> ");
     free(tmp);
     *line = ft_strdup("");
-    g_sig.prefix = 1;
+ //   g_sig.prefix = 1;
     refresh_screen(line, prefix, utils, 0);
-  }
+//  }
   while ((ret = ft_recup_line(line, utils, prefix)) > 0)
     ;
   free(prefix);
-  g_sig.prefix = 0;
+//  g_sig.prefix = 0;
   if (ret == 0)
     return (1);
   if (ret == -1)
@@ -837,7 +836,7 @@ void		init_utils(t_utils *utils, t_parsing *parsing, char **env)
   utils->savefd = -1;
   utils->savefdout = -1;
   utils->return_value = 0;
-  g_sig.prefix = 0;
+ // g_sig.prefix = 0;
   utils->redir = 1;
   utils->line_EOF = NULL;
 }
@@ -910,7 +909,7 @@ int		main(int argc, char **argv, char **env)
 
   if (*env == NULL)
   {
-    ft_putstr_fd("ERROR, no env\n", 1);
+    ft_putstr_fd("ERROR, no env\n", 2);
     exit(1);
   }
   ft_signal();
@@ -925,7 +924,7 @@ int		main(int argc, char **argv, char **env)
   i = 0;
   line = NULL;
   g_sig.pid = -1;
-  ft_print_prefix(0, &env, &utils);
+  ft_print_prefix(0, 0, &env, &utils);
   ft_start_by_pipe(&env, &utils, line, parsing);
   if (term_init(&utils))
   {

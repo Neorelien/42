@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/09 02:27:13 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/09 11:36:52 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,15 @@ typedef struct	s_utils
 typedef struct	s_sig
 {
 	pid_t			pid;
-	int				prefix;
-	char			***env;
-	t_utils			*utils;
-	char			***line;
 }		t_sig;
 
 extern t_sig g_sig;
 
-# define OPEN_SQUOTE -2
-# define OPEN_DQUOTE -3
 # define TEST printf("ON VA LA\n")
 
 
 void	refresh_screen(char **print, char *prefix, t_utils *utils, int histo);
-void		ft_print_prefix(int	activate, char ***env, t_utils *utils);
+int		ft_print_prefix(int check, int	activate, char ***env, t_utils *utils);
 int				shelline_gestion(char ***env, t_utils *utils, char **line);
 void			put_histo_in_file(t_utils *utils);
 void			ft_exit(char ***env, t_utils *utils, int ret);
