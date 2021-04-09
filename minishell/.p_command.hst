@@ -129,3 +129,7 @@ echo 1>>2 lol lol
 cat lol
 cat 2
 rm lol 2
+echo lol
+echo mdr
+echo -nnnnnn lol
+echo -n -n lol
