@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:25:08 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/09 11:19:18 by aurelien         ###   ########.fr       */
+=======
+/*   Updated: 2021/04/09 11:32:06 by cmoyal           ###   ########.fr       */
+>>>>>>> 9c6f6291002d3cbe402221d2a0c36507e919c6e1
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,14 +311,14 @@ void	ft_restart_on_pipe(t_parsing *parsing, char ***env, t_utils *utils)
 	parsing = parsing->next;
 	if (try == 1)
 	{
-		info = new_list(NULL);
+/*		info = new_list(NULL);
 		info->next = parsing;
 		info->separator[0] = '|';
-		info->separator[1] = 0;
+		info->separator[1] = 0;*/
 		ft_start_by_pipe(env, utils, line, parsing);
 		return ;
 	}
-	fonction_router(info, env, utils);
+	fonction_router(parsing, env, utils);
 }
 
 void	fonction_router(t_parsing *parsing, char ***env, t_utils *utils)
