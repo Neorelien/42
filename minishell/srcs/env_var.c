@@ -6,42 +6,46 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/04/12 20:09:19 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 20:12:02 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell_utils.h"
 
-void	double_tab_sort(char **tbl)
+void	double_tab_sort(char **tabl, int i, int len)
 {
 	char	*temp;
 	int		count;
-	int		i;
-	int		len;
 
-	i = 0;
 	count = 0;
-	len = ft_doubletab_len(tbl);
+	len = ft_doubletab_len(tabl);
 	while (count <= len + 1)
 	{
-		if (ft_strncmp(tbl[i], tbl[i + 1], INT_MAX) <= 0 &&
-				double_tab_sort_supp_1(&count) && (i < len - 2) && (i = 0))
-			i++;
+		if (ft_strncmp(tabl[i], tabl[i + 1], INT_MAX) <= 0)
+		{
+			if (i < len - 2)
+				i++;
+			else
+				i = 0;
+			count++;
+		}
 		else
 		{
-			temp = tbl[i];
-			tbl[i] = tbl[i + 1];
-			tbl[i + 1] = temp;
+			temp = tabl[i];
+			tabl[i] = tabl[i + 1];
+			tabl[i + 1] = temp;
 			count = 0;
 		}
 	}
 }
 
+
+
 void	display_env_sort(char ***env, int fd)
 {
 	int		i;
 
-	double_tab_sort(*env);
+	double_tab_sort(*env, 0, 0);
 	i = 0;
 	while (env[0][i] != NULL)
 	{

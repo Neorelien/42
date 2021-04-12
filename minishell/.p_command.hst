@@ -250,3 +250,18 @@ export lol=3
 echo $lol
 export lol=63 lollol=2
 export
+export
+export lol=63 lollol=2
+echo $lol
+env
+export
+export lol=3
+unset lol
+export
+cat
+cat 
+cat 
+ls
+cat
+ls
+ls
