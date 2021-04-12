@@ -252,4 +252,17 @@ echo $lol!
 echo $lol_
 echo $lol_
 echo lol
+<<<<<<< HEAD
 >>>>>>> 4872daf24746981d8c931dc42f6da88291d1e15e
+=======
+echo lol
+export lol=3
+echo $lol
+echo $"lol"
+echo $'lol'
+echo '$lol'
+gg=G:w
+echo "oui bjr" | cat
+echo "oui bjr" | cat
+echo "oui bjr" | cat
+>>>>>>> d3f421f3b196348392f03922e30639ed789c68b6

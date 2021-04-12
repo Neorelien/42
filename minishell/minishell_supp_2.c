@@ -6,13 +6,13 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:35:53 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 12:06:29 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:58:07 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_utils.h"
 
-void		ft_cpy(char **res, char c)
+int		ft_cpy(char **res, char c)
 {
 	char	to_join[2];
 	char	*tmp;
@@ -22,6 +22,7 @@ void		ft_cpy(char **res, char c)
 	tmp = *res;
 	*res = ft_strjoin_gnl(*res, to_join);
 	free(tmp);
+	return (1);
 }
 
 t_parsing	*new_list(t_parsing *previous_lst)
