@@ -213,3 +213,40 @@ gg=G:w
 echo "oui bjr" | cat
 echo "oui bjr" | cat
 echo "oui bjr" | cat
+echo "oui bjr" | cat
+echo lol
+echo "oui bjr" | cat
+echo oui bojr | cat
+echo \oui
+echo "\oui\etnon"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\\\\\\\\\\\\"
+echo "\lol\\"
+echo "\lol"
+echo "\lol\\"
+echo "\\\\\\\\\\\\"
+echo lol
+export
+export lol=3
+ech $lol
+echo $lol
+eexport
+export
+env
+export lol=3
+ech $lol
+echo $lol
+export
+env
+export lol=3
+echo $lol
+export lol=63 lollol=2
+export

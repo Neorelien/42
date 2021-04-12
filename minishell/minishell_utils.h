@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/12 16:57:32 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 20:00:47 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,16 @@ typedef	struct	s_look
 
 extern t_sig g_sig;
 
+int		double_tab_sort_supp_1(int *count);
+void	add_env(int i, t_parsing *parsing, char ***env);
+int		egal_in(char *str);
+void	recopy_less_data(char ***data, char **temp, char *str);
+int		look_for_bs_token(char **objet, int i, char **new_obj);
+int		look_for_bs(char **objet, int quote, int i, char **new_obj);
+void	trans_env(char **objet, char ***env, t_utils *utils);
+int		is_token_remplace(char c, char **objet);
+int		look_for_env(char **objet, char ***env, t_utils *utils);
+int		quote_status(char **objet, int *quote, int i);
 int				ft_up_histo_supp_1(t_utils *utils);
 void			main_supp_4(int *argc, char ***argv, t_main *main);
 void		write_down_cfile(t_utils *utils, int fd);
@@ -170,7 +180,6 @@ char		**recopy_data(char **data, char **temp, int freed);
 int			ft_export(t_parsing *parsing, char ***env, t_utils *utils);
 char		*ft_str_erase_set(char *str, char quote);
 int			ft_echo(t_parsing info, char ***env, t_utils *utils);
-size_t		ft_doubletab_len(char **doubletab);
 int			is_separator(char *str);
 int			write_with_separator(t_parsing info, char **env, t_utils *utils, int fd);
 char		*ft_display_rep(char **env, t_utils utils);
@@ -196,4 +205,5 @@ void	ft_reparse(t_parsing *info);
 void    add_env_pwd(char *str, char ***env);
 char *ft_strjoin_slash(char *str, char *str_bis);
 char *ft_home_dir(char **env);
+size_t	ft_doubletab_len(char **tabl);
 #endif
