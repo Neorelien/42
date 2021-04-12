@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 16:36:32 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:49:02 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ void	look_for_env_supp_1(char **objet, char **new_obj, t_utils *utils,
 		ft_cpy(new_obj, objet[0][utils->i++]);
 }
 
+void	look_for_env_supp_2(char **objet, char ***env, t_utils *utils,
+		t_look *tls)
+{
+	utils->i++;
+	while (ft_isalnum(objet[0][utils->i]) || objet[0][utils->i] == '_')
+		ft_cpy(&tls->env_name, objet[0][utils->i++]);
+	tls->env_cont = find_in_env(*env, tls->env_name);
+	if (tls->env_cont == NULL)
+		;
+	else
+	{
+		while (tls->env_cont[tls->o])
+			ft_cpy(&utils->new_obj, tls->env_cont[tls->o++]);
+		free(tls->env_cont);
+	}
+}
+
 int		look_for_env(char **objet, char ***env, t_utils *utils)
 {
 	t_look	tls;
@@ -54,20 +71,7 @@ int		look_for_env(char **objet, char ***env, t_utils *utils)
 	else if (!ft_isalnum(objet[0][utils->i + 1]) && objet[0][utils->i + 1] != '_')
 		look_for_env_supp_1(objet, &utils->new_obj, utils, &tls);
 	else
-	{
-		utils->i++;
-		while (ft_isalnum(objet[0][utils->i]) || objet[0][utils->i] == '_')
-			ft_cpy(&tls.env_name, objet[0][utils->i++]);
-		tls.env_cont = find_in_env(*env, tls.env_name);
-		if (tls.env_cont == NULL)
-			;
-		else
-		{
-			while (tls.env_cont[tls.o])
-				ft_cpy(&utils->new_obj, tls.env_cont[tls.o++]);
-			free(tls.env_cont);
-		}
-	}
+		look_for_env_supp_2(objet, env, utils, &tls);
 	free(tls.env_name);
 	return (utils->i);
 }
