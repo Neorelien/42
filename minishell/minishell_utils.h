@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/12 14:14:12 by aurelien         ###   ########.fr       */
+=======
+/*   Updated: 2021/04/09 13:34:50 by cmoyal           ###   ########.fr       */
+>>>>>>> 03bbf9b01de1474b3058e14f7ecc1aa5e7417e1a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +34,13 @@
 #include <term.h>
 #include <termios.h>
 #include <signal.h>
+
+typedef struct	s_redir
+{
+	int			sep;
+	char		*result;
+	int			fd;
+}				t_redir;
 
 typedef struct	s_parsing
 {
@@ -167,4 +178,5 @@ int reset_fd_zero(t_utils *utils);
 void ft_reparse(t_parsing *info);
 void	ft_prefonction_router(t_parsing *parsing, char ***env, t_utils *utils);
 void	ft_start_by_pipe(char ***env, t_utils *utils, char *line, t_parsing *parsing);
+void	ft_reparse(t_parsing *info);
 #endif
