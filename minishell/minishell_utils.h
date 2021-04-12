@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/12 16:42:49 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:57:32 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int				term_init(t_utils *utils);
 int				ft_signal();
 void		test_struct(t_parsing *parsing);
 void		data_formation(t_parsing *parsing, char ***env, t_utils *utils);
-void		ft_cpy(char **res, char c);
+int			ft_cpy(char **res, char c);
 int			ft_lstsize(t_parsing *lst);
 t_parsing	*ft_lstlast(t_parsing *lst);
 int			is_separator_parsing(char *str, int i);

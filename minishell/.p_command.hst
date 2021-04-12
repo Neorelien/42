@@ -203,3 +203,13 @@ echo $lol!
 echo $lol_
 echo $lol_
 echo lol
+echo lol
+export lol=3
+echo $lol
+echo $"lol"
+echo $'lol'
+echo '$lol'
+gg=G:w
+echo "oui bjr" | cat
+echo "oui bjr" | cat
+echo "oui bjr" | cat
