@@ -1,7 +1,6 @@
 NAME = minishell
 
-MAIN = ./minishell.c
-
+MAIN = ./minishell.c ./minishell_supp_1.c ./minishell_supp_2.c ./minishell_supp_3.c ./minishell_supp_5.c ./minishell_supp_6.c ./minishell_supp_7.c ./minishell_supp_8.c ./minishell_supp_9.c ./minishell_supp_10.c ./minishell_supp_4.c 
 OBJ_MAIN = ${MAIN:.c=.o}
 
 SRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
