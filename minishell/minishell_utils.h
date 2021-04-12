@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/12 13:05:43 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/12 14:25:25 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ typedef struct	s_historical
 	struct	s_historical		*next;
 }		t_historical;
 
+typedef	struct	s_get_objet
+{
+	char		**res;
+	int			quote;
+}				t_get_objet;
+
 typedef struct	s_utils
 {
 	char			*pwd;
@@ -88,6 +94,21 @@ typedef struct	s_utils
 	char				*path;
 }		t_utils;
 
+typedef	struct	s_main
+{
+	char		*line;
+	t_parsing	*parsing;
+	int			i;
+	t_utils		utils;
+}				t_main;
+
+typedef	struct	s_refresh
+{
+	int	i;
+	int	p;
+	int	line_old_len;
+}		t_refresh;
+
 typedef struct	s_sig
 {
 	pid_t			pid;
@@ -95,9 +116,24 @@ typedef struct	s_sig
 
 extern t_sig g_sig;
 
-# define TEST printf("ON VA LA\n")
-
-
+int				ft_up_histo_supp_1(t_utils *utils);
+void			main_supp_4(int *argc, char ***argv, t_main *main);
+void		write_down_cfile(t_utils *utils, int fd);
+void		init_utils(t_utils *utils, t_parsing *parsing, char **env,
+		char **line);
+char	    *ft_down_histo(t_utils *utils, char **line);
+char	    *ft_up_histo(t_utils *utils, char **line);
+void	    recup_line_supp_1(char **line);
+void	    recup_line_supp_2(char **line, t_utils *utils, char *prefix);
+void	    recup_line_supp_3(char **line, t_utils *utils, char *prefix);
+int	    ft_recup_line(char **line, t_utils *utils, char *prefix);
+int		get_objet(char **line, int i,
+		t_parsing *parsing, t_utils *utils);
+int	check_return(char *str);
+int		recursive_parsing(char **line, t_parsing *parsing, int i,
+		t_utils *utils);
+t_parsing   *ft_last_pars(t_parsing *parsing);
+char	**selec_dest(t_parsing *parsing, char **line, int *p, t_utils *utils);
 void	refresh_screen(char **print, char *prefix, t_utils *utils, int histo);
 int		ft_print_prefix(int check, int	activate, char ***env, t_utils *utils);
 int				shelline_gestion(char ***env, t_utils *utils, char **line);
