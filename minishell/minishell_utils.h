@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/09 13:34:50 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/12 13:05:43 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ typedef struct	s_redir
 	char		*result;
 	int			fd;
 }				t_redir;
+
+typedef struct	s_cd
+{
+	char	*path;
+	char	*oldpath;
+}				t_cd;
 
 typedef struct	s_parsing
 {
@@ -139,4 +145,7 @@ void ft_reparse(t_parsing *info);
 void	ft_prefonction_router(t_parsing *parsing, char ***env, t_utils *utils);
 void	ft_start_by_pipe(char ***env, t_utils *utils, char *line, t_parsing *parsing);
 void	ft_reparse(t_parsing *info);
+void    add_env_pwd(char *str, char ***env);
+char *ft_strjoin_slash(char *str, char *str_bis);
+char *ft_home_dir(char **env);
 #endif

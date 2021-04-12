@@ -133,3 +133,41 @@ echo lol
 echo mdr
 echo -nnnnnn lol
 echo -n -n lol
+cd | cat
+cd | cat
+cd | cat
+cd | pwd
+cd .. | pwd
+cd -
+cd 
+cd 42
+ls
+cd minish
+cd minishelle
+mkdir -p 1/2/3
+cd 1/2/3
+rm ../../../1
+rm -rf ../../../1
+cd ..
+cd ..
+cd ..
+ls
+cd
+cd 42
+cd minishell
+cd ~
+cd ~/
+cd ~/42
+cd ~
+cd ~
+cd ~/42
+cd ~
+cd ~/
+cd ~53
+cd ~42
+cd ~
+cd ~/
+cd ~
+cd ~/
+cd ~/42
+cd ~/
