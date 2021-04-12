@@ -135,3 +135,71 @@ cd ~/
 =======
 >>>>>>> 03bbf9b01de1474b3058e14f7ecc1aa5e7417e1a
 >>>>>>> 1dda6ec469b7f349cffd4f84700d9ef48cf0659b
+export
+env
+export lol=3
+env
+export
+unset lol
+export
+env
+echo lol
+echo lol
+export
+env
+export lol=3
+env
+export
+unset lol
+export
+env
+export
+env
+export lol=3
+env
+env
+export
+unset lol
+export
+env
+unset lol
+unset lol
+env
+export lol=3
+env
+export
+unset lol
+export
+echo lol
+env
+export 
+export lol=3
+export lol='loiiio  kbujyv'
+export
+unset lol
+export
+export
+export
+env
+export lol=3
+unset lol
+export
+export 1lol=3
+export lol1=3
+export lol!=3
+export lol!=3
+export 1lol=3
+echo lol
+export
+env
+export lol=3
+unset lol=3
+echo $lol
+echo $lol..
+echo $lol_
+echo $lol3
+echo $lol.
+echo $lol!
+echo $lol_
+echo $lol_
+echo lol

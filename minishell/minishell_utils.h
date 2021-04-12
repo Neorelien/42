@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/12 15:18:53 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:42:49 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ typedef struct	s_utils
 	int					column_count;
 	int					redir;
 	char				*path;
+	int					i;
+	int					quote;
+	char				*new_obj;
 }		t_utils;
 
 typedef	struct	s_main
@@ -161,7 +164,7 @@ int			is_separator_parsing(char *str, int i);
 t_parsing	*new_list(t_parsing *previous_lst);
 void		ft_other_exc(t_parsing *parsing, char **env, t_utils *utils);
 int			ft_unset(t_parsing *parsing, char ***env);
-int			ft_env(t_parsing *parsing, char **env, t_utils *utils);
+int			ft_env(t_parsing *parsing, char **env);
 int			ft_error(char *str, char *strbis);
 char		**recopy_data(char **data, char **temp, int freed);
 int			ft_export(t_parsing *parsing, char ***env, t_utils *utils);

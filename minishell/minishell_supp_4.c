@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 19:05:27 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 13:56:20 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:43:09 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		find_the_true_way(t_parsing *parsing, char ***env, t_utils *utils)
 	else if (ft_strncmp(parsing->objet, "export", 6) == 0)
 		utils->return_value = ft_export(parsing, env, utils);
 	else if (ft_strncmp(parsing->objet, "env", 3) == 0)
-		utils->return_value = ft_env(parsing, *env, utils);
+		utils->return_value = ft_env(parsing, *env);
 	else if (ft_strncmp(parsing->objet, "unset", 5) == 0)
 		utils->return_value = ft_unset(parsing, env);
 	else if (ft_strncmp(parsing->objet, "exit", 5) == 0)

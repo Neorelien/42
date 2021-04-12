@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:54:22 by awery             #+#    #+#             */
-/*   Updated: 2021/04/07 15:21:54 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:42:16 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,10 +196,9 @@ int		ft_unset(t_parsing *parsing, char ***env)
 	return (0);
 }
 
-int		ft_env(t_parsing *parsing, char **env, t_utils *utils)
+int		ft_env(t_parsing *parsing, char **env)
 {
 	int		i;
-	int		fd;
 
 	i = 0;
 	while (parsing->data != NULL && parsing->data[i] != NULL)
@@ -209,11 +208,10 @@ int		ft_env(t_parsing *parsing, char **env, t_utils *utils)
 			return (127);
 		}
 	i = 0;
-	fd = write_with_separator(*parsing, env, utils, 1);
 	while (env[i] != NULL)
 	{
-		ft_putstr_fd(env[i], fd);
-		write(fd, "\n", 1);
+		ft_putstr_fd(env[i], 1);
+	write(1, "\n", 1);
 		i++;
 	}
 	return (0);
@@ -222,13 +220,11 @@ int		ft_env(t_parsing *parsing, char **env, t_utils *utils)
 int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 {
 	int			i;
-	int			fd;
 	int			o;
 	char		*error_ret;
 
 	o = 0;
 	i = 0;
-	fd = write_with_separator(*parsing, *env, utils, 1);
 	if (parsing->data != NULL && parsing->data[0] != NULL)
 	{
 		while (parsing->data[i] != NULL)
@@ -262,7 +258,7 @@ int		ft_export(t_parsing *parsing, char ***env, t_utils *utils)
 	{
 		utils->tmp = malloc(sizeof(char*) * (ft_doubletab_len(*env) + 1));
 		recopy_data(utils->tmp, *env, 0);
-		display_env_sort(&utils->tmp, fd);
+		display_env_sort(&utils->tmp, 1);
 		return (0);
 	}
 	return (0);
