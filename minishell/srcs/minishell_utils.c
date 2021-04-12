@@ -1,39 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 15:36:12 by cmoyal            #+#    #+#             */
+/*   Updated: 2021/04/12 16:38:00 by cmoyal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell_utils.h"
-
-int		ft_print_prefix(int check_prefix, int activate, char ***env, t_utils *utils)
-{
-	static char		***env_stat;
-	static t_utils	*utils_stat;
-	char			*prefix;
-	char			*tmp;
-	static int		alrd_activate;
-
-	if (check_prefix && alrd_activate && (alrd_activate = 0) == 0)
-		return (1);
-	else if (check_prefix && !alrd_activate)
-		return (0);
-	if (activate)
-	{
-		ft_putstr_fd("\n", 1);
-		prefix = ft_display_rep(*env_stat, *utils_stat);
-		tmp = prefix;
-		prefix = ft_strjoin(prefix, "-> ");
-		free(tmp);
-		tmp = ft_strdup("");
-		refresh_screen(NULL, NULL, NULL, 0);
-		refresh_screen(&tmp, prefix, utils_stat, 0);
-		free(tmp);
-		free(prefix);
-		alrd_activate = 1;
-	}
-	else
-	{
-		env_stat = env;
-		utils_stat = utils;
-	}
-	return (0);
-}
-
 
 void handler_next(int sign)
 {
@@ -201,7 +178,7 @@ int		ft_next_is_pipe(t_parsing info, char **env, t_utils *utils, int flag)
 		flag = ft_next_is_pipe(*info.next, env, utils, flag);
 	return (flag);
 }
-
+/*
 void ft_reroll(t_parsing info, char **env, t_utils *utils)
 {
 	char tmp_sep[3];
@@ -264,7 +241,7 @@ int	write_with_separator(t_parsing info, char **env, t_utils *utils, int fd)
 		fd = write_with_separator(*info.next, env, utils, fd);
 	}
 	return (fd);
-}
+}*/
 
 int	ft_error(char *str, char *strbis)
 {
