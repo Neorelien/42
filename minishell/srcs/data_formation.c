@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/08 14:45:05 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 15:21:19 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,26 @@
 int		quote_status(char **objet, int *quote, int i)
 {
 	if (*quote == 0 && objet[0][i] == 34)
-	{
-		//		if (i == 0)
 		*quote = objet[0][i];
-		//		else if (i > 0 && objet[0][i - 1] != 92)
-		//			*quote = objet[0][i];
-		//		else
-		//			return (1);
-	}
 	else if (*quote == 0 && objet[0][i] == 39)
-	{
-		//		if (i > 0 && objet[0][i - 1] != 92)
-		//			*quote = objet[0][i];
-		//		else if (i == 0)
 		*quote = objet[0][i];
-		//		else
-		//			return (1);
-	}
 	else if (objet[0][i] == *quote)
-	{
-		//		if (i > 0 && objet[0][i - 1] == 92 && *quote == 34)
-		//			return (1);
-		//		else
 		*quote = 0;
-	}
 	return (0);
 }
 
 int		look_for_env(char **objet, int quote, int i, char **new_obj, char ***env, t_utils *utils)
 {
-	char	*env_name;
+	t_look	tls;
+
+
 	char	*env_cont;
 	int		o;
 	char	*tmp;
 	char	*ret;
 
 	o = 0;
-	env_name = ft_strdup("");
+	tls.env_name = ft_strdup("");
 	if (i > 0 && objet[0][i - 1] == 92)
 		ft_cpy(new_obj, objet[0][i++]);
 	else if (quote == 39)
@@ -76,8 +59,8 @@ int		look_for_env(char **objet, int quote, int i, char **new_obj, char ***env, t
 	{
 		i++;
 		while (ft_isalnum(objet[0][i]) || objet[0][i] == '_')
-			ft_cpy(&env_name, objet[0][i++]);
-		env_cont = find_in_env(*env, env_name);
+			ft_cpy(&tls.env_name, objet[0][i++]);
+		env_cont = find_in_env(*env, tls.env_name);
 		if (env_cont == NULL)
 			;
 		else
@@ -87,7 +70,7 @@ int		look_for_env(char **objet, int quote, int i, char **new_obj, char ***env, t
 			free(env_cont);
 		}
 	}
-	free(env_name);
+	free(tls.env_name);
 	return (i);
 }
 

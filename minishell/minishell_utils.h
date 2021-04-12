@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/12 14:26:57 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/12 15:18:53 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,15 @@ typedef struct	s_sig
 {
 	pid_t			pid;
 }		t_sig;
+
+typedef	struct	s_look
+{
+	char	*env_name;
+	char	*env_cont;
+	int		o;
+	char	*tmp;
+	char	*ret;
+}				t_look;
 
 extern t_sig g_sig;
 
