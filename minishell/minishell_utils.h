@@ -6,7 +6,11 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/12 20:41:26 by aurelien         ###   ########.fr       */
+=======
+/*   Updated: 2021/04/12 17:08:35 by cmoyal           ###   ########.fr       */
+>>>>>>> 62dac1633b89353bd88940f40bd056ae004d55ca
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +100,13 @@ typedef struct	s_utils
 	int					quote;
 	char				*new_obj;
 }		t_utils;
+
+typedef struct	s_prefix
+{
+	char			***env_stat;
+	t_utils			*utils_stat;
+	int				alrd_activate;
+}				t_prefix;
 
 typedef	struct	s_main
 {

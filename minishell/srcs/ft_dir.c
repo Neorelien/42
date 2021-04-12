@@ -6,16 +6,16 @@
 /*   By: cmoyal <cmoyal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 17:57:18 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/04/12 12:45:49 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/12 15:23:40 by cmoyal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell_utils.h"
 
-char *ft_home_dir(char **env)
+char	*ft_home_dir(char **env)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -60,25 +60,26 @@ char	*ft_display_rep(char **env, t_utils utils)
 	return (path);
 }
 
-void    add_env_pwd(char *str, char ***env)
+void	add_env_pwd(char *str, char ***env)
 {
-    int     len;
-    char    **tmp;
+	int		len;
+	char	**tmp;
 
-    len = ft_doubletab_len(*env);
-    tmp = *env;
-    *env = malloc(sizeof(char*) * (len + 2));
-    *env = recopy_data(*env, tmp, 1);
-    free(tmp);
-    if (env_in_env(*env, str))
-        ;
-    else
-    {
-        env[0][len] = ft_strdup(str);
-        env[0][len + 1] = NULL;
-    }
+	len = ft_doubletab_len(*env);
+	tmp = *env;
+	*env = malloc(sizeof(char*) * (len + 2));
+	*env = recopy_data(*env, tmp, 1);
+	free(tmp);
+	if (env_in_env(*env, str))
+		;
+	else
+	{
+		env[0][len] = ft_strdup(str);
+		env[0][len + 1] = NULL;
+	}
 }
-char *ft_strjoin_slash(char *str, char *str_bis)
+
+char	*ft_strjoin_slash(char *str, char *str_bis)
 {
 	char *temp;
 	char *result;
@@ -87,11 +88,9 @@ char *ft_strjoin_slash(char *str, char *str_bis)
 	result = ft_strjoin(temp, str_bis);
 	free(temp);
 	return (result);
-
 }
 
-
-int ft_pwd(t_parsing info,char ***env, t_utils *utils)
+int		ft_pwd(t_parsing info, char ***env, t_utils *utils)
 {
 	char *path;
 	char *temp;
