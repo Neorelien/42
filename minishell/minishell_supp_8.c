@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 17:39:21 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 14:20:27 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 15:28:00 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char			*ft_up_histo(t_utils *utils, char **line)
 	{
 		if (ft_up_histo_supp_1(utils))
 			return (*line);
-		else if (line[0][0] != 0)
-		{
-			if (utils->position->previous != NULL)
-				utils->position = utils->position->previous;
-			else
-				return (*line);
-		}
+	}
+	else if (line[0][0] != 0)
+	{
+		if (utils->position->previous != NULL)
+			utils->position = utils->position->previous;
+		else
+			return (*line);
 	}
 	line_ret = ft_strdup(utils->position->command);
 	if (ft_strncmp(*line, line_ret, ft_strlen(*line) - 1) == 0 &&

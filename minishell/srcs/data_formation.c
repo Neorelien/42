@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 15:36:09 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/08 14:45:05 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:36:32 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,105 +15,82 @@
 int		quote_status(char **objet, int *quote, int i)
 {
 	if (*quote == 0 && objet[0][i] == 34)
-	{
-		//		if (i == 0)
 		*quote = objet[0][i];
-		//		else if (i > 0 && objet[0][i - 1] != 92)
-		//			*quote = objet[0][i];
-		//		else
-		//			return (1);
-	}
 	else if (*quote == 0 && objet[0][i] == 39)
-	{
-		//		if (i > 0 && objet[0][i - 1] != 92)
-		//			*quote = objet[0][i];
-		//		else if (i == 0)
 		*quote = objet[0][i];
-		//		else
-		//			return (1);
-	}
 	else if (objet[0][i] == *quote)
-	{
-		//		if (i > 0 && objet[0][i - 1] == 92 && *quote == 34)
-		//			return (1);
-		//		else
 		*quote = 0;
-	}
 	return (0);
 }
 
-int		look_for_env(char **objet, int quote, int i, char **new_obj, char ***env, t_utils *utils)
+void	look_for_env_supp_1(char **objet, char **new_obj, t_utils *utils,
+		t_look *tls)
 {
-	char	*env_name;
-	char	*env_cont;
-	int		o;
-	char	*tmp;
-	char	*ret;
-
-	o = 0;
-	env_name = ft_strdup("");
-	if (i > 0 && objet[0][i - 1] == 92)
-		ft_cpy(new_obj, objet[0][i++]);
-	else if (quote == 39)
-		ft_cpy(new_obj, objet[0][i++]);
-	else if (quote == 0 && objet[0][i + 1] == 39)
-		i++;
-	else if (!ft_isalnum(objet[0][i + 1]) && objet[0][i + 1] != '_')
-	{
-		if (objet[0][i + 1] == '?')
-		{	
-			ret = ft_itoa(utils->return_value);
-			tmp = ft_strjoin(*new_obj, ret);
-			free(ret);
-			free(*new_obj);
-			*new_obj = tmp;
-			i = i + 2;	
-		}
-		else
-			ft_cpy(new_obj, objet[0][i++]);
+	if (objet[0][utils->i + 1] == '?')
+	{	
+		tls->ret = ft_itoa(utils->return_value);
+		tls->tmp = ft_strjoin(*new_obj, tls->ret);
+		free(tls->ret);
+		free(*new_obj);
+		*new_obj = tls->tmp;
+		utils->i = utils->i + 2;	
 	}
 	else
+		ft_cpy(new_obj, objet[0][utils->i++]);
+}
+
+int		look_for_env(char **objet, char ***env, t_utils *utils)
+{
+	t_look	tls;
+
+	tls.o = 0;
+	tls.env_name = ft_strdup("");
+	if (utils->i > 0 && objet[0][utils->i - 1] == 92)
+		ft_cpy(&utils->new_obj, objet[0][utils->i++]);
+	else if (utils->quote == 39)
+		ft_cpy(&utils->new_obj, objet[0][utils->i++]);
+	else if (utils->quote == 0 && objet[0][utils->i + 1] == 39)
+		utils->i++;
+	else if (!ft_isalnum(objet[0][utils->i + 1]) && objet[0][utils->i + 1] != '_')
+		look_for_env_supp_1(objet, &utils->new_obj, utils, &tls);
+	else
 	{
-		i++;
-		while (ft_isalnum(objet[0][i]) || objet[0][i] == '_')
-			ft_cpy(&env_name, objet[0][i++]);
-		env_cont = find_in_env(*env, env_name);
-		if (env_cont == NULL)
+		utils->i++;
+		while (ft_isalnum(objet[0][utils->i]) || objet[0][utils->i] == '_')
+			ft_cpy(&tls.env_name, objet[0][utils->i++]);
+		tls.env_cont = find_in_env(*env, tls.env_name);
+		if (tls.env_cont == NULL)
 			;
 		else
 		{
-			while (env_cont[o])
-				ft_cpy(new_obj, env_cont[o++]);
-			free(env_cont);
+			while (tls.env_cont[tls.o])
+				ft_cpy(&utils->new_obj, tls.env_cont[tls.o++]);
+			free(tls.env_cont);
 		}
 	}
-	free(env_name);
-	return (i);
+	free(tls.env_name);
+	return (utils->i);
 }
 
 void	trans_env(char **objet, char ***env, t_utils *utils)
 {
-	int		i;
-	int		quote;
-	char	*new_obj;
-
-	new_obj = ft_strdup("");
-	quote = 0;
-	i = 0;
-	while (objet[0][i])
+	utils->new_obj = ft_strdup("");
+	utils->quote = 0;
+	utils->i = 0;
+	while (objet[0][utils->i])
 	{
-		if (objet[0][i] == 34 || objet[0][i] == 39)
+		if (objet[0][utils->i] == 34 || objet[0][utils->i] == 39)
 		{
-			quote_status(objet, &quote, i);
-			ft_cpy(&new_obj, objet[0][i++]);
+			quote_status(objet, &utils->quote, utils->i);
+			ft_cpy(&utils->new_obj, objet[0][utils->i++]);
 		}
-		else if (objet[0][i] == '$')
-			i = look_for_env(objet, quote, i, &new_obj, env, utils);
+		else if (objet[0][utils->i] == '$')
+			utils->i = look_for_env(objet, env, utils);
 		else
-			ft_cpy(&new_obj, objet[0][i++]);
+			ft_cpy(&utils->new_obj, objet[0][utils->i++]);
 	}
 	free(objet[0]);
-	objet[0] = new_obj;
+	objet[0] = utils->new_obj;
 }
 
 int		is_token_remplace(char c, char **objet)
