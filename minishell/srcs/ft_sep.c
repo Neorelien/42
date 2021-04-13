@@ -6,7 +6,7 @@
 /*   By: cmoyal <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:03:05 by cmoyal            #+#    #+#             */
-/*   Updated: 2021/04/12 16:50:37 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/13 10:14:35 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ int		is_separator_parsing(char *str, int i)
 		return (1);
 	if (str[i] == '|')
 		return (2);
+	if (str[i] == '>' && str[i + 1] == '>')
+		return (5);
 	if (str[i] == '>')
 		return (3);
 	if (str[i] == '<')
 		return (4);
-	if (str[i] == '>' && str[i + 1] == '>')
-		return (5);
 	return (0);
 }
 

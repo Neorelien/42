@@ -6,11 +6,82 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:40:20 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 13:51:57 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/13 10:33:37 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_utils.h"
+
+void	virpoin_error(char *line, int i)
+{
+	if (line[i] == ' ')
+		;
+	if (!line[i])
+		printf("minishell: parse error near ';'\n");
+	else if (is_separator_parsing(line, i))
+	{
+		if (line[i] == ';')
+			printf("minishell: parse error near ';;'\n");
+		else
+			printf("minishell: parse error near ';'\n");
+		exit(130);
+	}
+}
+
+void	pipe_error(char *line, int i, t_parsing *parsing)
+{
+	int o;
+
+	o = i;
+	if (parsing->objet != NULL)
+		return ;
+	while (line[o] == ' ' && line[o])
+		o++;
+	if (!line[o])
+		printf("minishell: parse error near '|'\n");
+	if (is_separator_parsing(line, o))
+	{
+		if (line[o] == '|')
+			printf("minishell: parse error near '||'\n");
+		else
+			printf("minishell: parse error near '|'\n");
+		exit(130);
+	}
+}
+
+void	redir_error(char *line, int i)
+{
+	int o;
+
+	o = i;
+	while (line[o] == ' ' && line[o])
+		o++;
+	if (!line[o])
+	{
+		printf("minishell: parse error near 'newline'\n");
+		exit(130);
+	}
+	if (is_separator_parsing(line, o) > 4)
+	{
+		printf("minishell: parse error near '%c%c'\n", line[o], line[o + 1]);
+		exit(130);
+	}
+	else if (is_separator_parsing(line, o))
+	{
+		printf("minishell: parse error near '%c'\n", line[o]);
+		exit(130);
+	}
+}
+
+void	check_pars_error(char *line, int i, t_parsing *parsing, int p)
+{
+	if (line[p] == ';')
+		virpoin_error(line, i);
+	if (line[p] == '|')
+		pipe_error(line, i, parsing);
+	if (line[p] == '>')
+		redir_error(line, i);
+}
 
 int		get_objet_spp_1(int *i, t_parsing *parsing, char **line)
 {
@@ -22,11 +93,13 @@ int		get_objet_spp_1(int *i, t_parsing *parsing, char **line)
 			parsing->separator[1] = '>';
 			parsing->separator[2] = 0;
 			*i = *i + 2;
+			check_pars_error(line[0], *i, parsing, *i - 2);
 		}
 		else
 		{
 			parsing->separator[0] = line[0][*i];
 			*i = *i + 1;
+			check_pars_error(line[0], *i, parsing, *i - 1);
 		}
 		return (1);
 	}
@@ -52,11 +125,13 @@ int		gt3(char **line, int *i, t_get_objet *objet,
 		parsing->separator[1] = '>';
 		parsing->separator[2] = 0;
 		*i = *i + 2;
+		check_pars_error(line[0], *i, parsing, *i - 2);
 	}
 	else
 	{
 		parsing->separator[0] = line[0][*i];
 		*i = *i + 1;
+		check_pars_error(line[0], *i, parsing, *i - 1);
 	}
 	if (objet->res != NULL && *objet->res != NULL && objet->res[0][0] == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:35:53 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 16:58:07 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/13 09:22:55 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int			check_return(char *str)
 
 	i = 0;
 	while (str[i])
-		if (!ft_isalnum(str[i++]))
+		if (!ft_isdigit(str[i++]))
 		{
-			printf("minishell: exit: lol : argument numérique nécessaire\n");
+			printf("minishell: exit: %s: argument numérique nécessaire\n", str);
 			return (2);
 		}
 	return (ft_atoi(str));

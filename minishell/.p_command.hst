@@ -326,3 +326,13 @@ echo lol || lol
 echo lol || echo mdr
 echo lol || cat
 echo lol | | cat
+exit bonjour
+exit bonjour
+exit bonjour
+exit bonjour
+exit 10b
+;
+;
+|
+echo lol | lol
+echo lol | cat
