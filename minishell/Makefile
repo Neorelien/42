@@ -10,7 +10,9 @@ utils/data_formation.c utils/data_formation_supp_1.c use_sep/ft_redir.c exit_n_e
 use_sep/ft_reset_fd.c utils/ft_lst_utils.c exit_n_error/ft_error.c use_sep/ft_checknsettings_sep.c exit_n_error/ft_signal.c utils/ft_print_prefix.c \
 builtin/env_var_supp_1.c builtin/env_var_supp_2.c other_exec/other_executables_supp_1.c \
 minishell_supp/minishell_supp_1.c minishell_supp/minishell_supp_2.c minishell_supp/minishell_supp_3.c minishell_supp/minishell_supp_5.c minishell_supp/minishell_supp_6.c \
-minishell_supp/minishell_supp_7.c minishell_supp/minishell_supp_8.c minishell_supp/minishell_supp_9.c minishell_supp/minishell_supp_10.c minishell_supp/minishell_supp_4.c
+minishell_supp/minishell_supp_7.c minishell_supp/minishell_supp_8.c minishell_supp/minishell_supp_9.c minishell_supp/minishell_supp_10.c minishell_supp/minishell_supp_4.c \
+minishell_supp/minishell_supp_11.c
+
 
 PATH_SRCS = ./srcs/
 
