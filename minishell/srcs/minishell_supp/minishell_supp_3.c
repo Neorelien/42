@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:40:20 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/13 14:00:00 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/13 14:20:34 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ int		get_objet_spp_1(int *i, t_parsing *parsing, char **line)
 			parsing->separator[1] = '>';
 			parsing->separator[2] = 0;
 			*i = *i + 2;
+			check_pars_error(line[0], *i, parsing, *i - 2);
 		}
 		else
 		{
 			parsing->separator[0] = line[0][*i];
 			*i = *i + 1;
+			check_pars_error(line[0], *i, parsing, *i - 1);
 		}
 		return (1);
 	}
@@ -52,11 +54,13 @@ int		gt3(char **line, int *i, t_get_objet *objet,
 		parsing->separator[1] = '>';
 		parsing->separator[2] = 0;
 		*i = *i + 2;
+		check_pars_error(line[0], *i, parsing, *i - 2);
 	}
 	else
 	{
 		parsing->separator[0] = line[0][*i];
 		*i = *i + 1;
+		check_pars_error(line[0], *i, parsing, *i - 1);
 	}
 	if (objet->res != NULL && *objet->res != NULL && objet->res[0][0] == 0)
 	{

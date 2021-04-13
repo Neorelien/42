@@ -6,7 +6,7 @@
 /*   By: awery <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:29:02 by awery             #+#    #+#             */
-/*   Updated: 2021/04/13 13:34:25 by cmoyal           ###   ########.fr       */
+/*   Updated: 2021/04/13 14:20:29 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef	struct	s_look
 
 extern t_sig g_sig;
 
+void			check_pars_error(char *line, int i, t_parsing *parsing, int p);
 int				next_path(t_parsing *parsing, char **env);
 int				double_tab_sort_supp_1(int *count);
 void			add_env(int i, t_parsing *parsing, char ***env);
