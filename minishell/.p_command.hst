@@ -1,1 +1,322 @@
 ls
+<<<<<<< HEAD
+=======
+echo lol > lol lol > mdr lol
+echo lol > kk nn 
+echo lol > kk nn > mm ll
+echo lol > kk nn > mm ll
+echo lol > kk ll mm pp oo > ww xx cc
+echo lol
+echo lol > lol
+echo lol > lol lol
+cat lol
+echo lol > lol lol > ech echo mdr
+cat ech
+cat lol
+echo lol > mdr mdr
+cat mdr
+echo lol > mdr mdr mdr
+cat mdr
+>toto echo lol
+cat toto
+ls
+rm nn mm ld kk lol ech toto
+ls
+rm ww
+ls
+ls
+>toto echo lol
+cat toto
+<<<<<<< HEAD
+ls
+echo lol > ls
+ls
+echo lol > lol
+echo lol > lol
+echo lol > lol
+echo lol > lol
+echo proute > lol
+cat lol
+echo lol > lol
+echo >> lol 
+cat lol
+=======
+>>>>>>> 8d1b6149e846976c675eaeabae349eb43a1cdea7
+>>>>>>> 6c72ac6a6642d1d3f9298e96e576506910cb78c8
+echo lol > mdr > ptr | ls
+cat ptr
+cat mdr
+echo lol > mdr > ptr
+echo proute > mdr > ptr | ls
+cat mdr
+cat ptr
+echo lol > mdr > ptr
+cat ptr
+echo proute > mdr > ptr | ls
+cat ptr
+echo lol > mdr > ptr
+cat ptr
+echo lol > mdr > ptr | ls
+cat ptr
+echo lol > mdr > ptr | ls
+cat lol
+cat ptr
+echo lol > mdr > ptr | ls
+cat ptr
+echo lol > mdr > ptr | cat
+echo lol > ptr > mdr | ls
+cat mdr
+echo lol > ptr > mdr | cat
+cat mdr
+echo lol | cat
+echo lol > mdr > ptr | cat
+echo lol | cat
+echo | cat
+echo -n | cat
+echo lol > mdr > ptr | cat
+echo lol > mdr > ptr | cat
+echo lol > mdr > ptr | cat
+echo lol > mdr > ptr
+echo lol > mdr > ptr | cat
+ls
+echo lol > cat
+echo lol | cat
+echo lol > lol > mdr | cat
+ls
+echo lol
+| cat
+echo lol 
+echo lol > mdr > ptr | cat
+cat ptr
+echo lol > mdr > ptr | cat
+cat ptr
+ls | cat
+ls
+<<<<<<< HEAD
+>>>>>>> 9c6f6291002d3cbe402221d2a0c36507e919c6e1
+=======
+| ls
+| ls
+ls |
+>>>>>>> 1397fecb0dee58b58d739e839a36628b21552b82
+echo lol
+echo "lol
+>toto echo lol mdr
+cat toto
+echo mdr > lol mdr
+cat lol
+cat < lol
+echo 1>2 lol
+cat 2
+echo 1>>2 lol lol
+cat lol
+cat 2
+rm lol 2
+echo lol
+echo mdr
+echo -nnnnnn lol
+echo -n -n lol
+cd | cat
+cd | cat
+cd | cat
+cd | pwd
+cd .. | pwd
+cd -
+cd 
+cd 42
+ls
+cd minish
+cd minishelle
+mkdir -p 1/2/3
+cd 1/2/3
+rm ../../../1
+rm -rf ../../../1
+cd ..
+cd ..
+cd ..
+ls
+cd
+cd 42
+cd minishell
+cd ~
+cd ~/
+cd ~/42
+cd ~
+cd ~
+cd ~/42
+cd ~
+cd ~/
+cd ~53
+cd ~42
+cd ~
+cd ~/
+cd ~
+cd ~/
+cd ~/42
+cd ~/
+<<<<<<< HEAD
+cd ~/
+echo lol > lol
+chmod 0 lol
+echo lol > mdr > dr > lol
+cat lol
+ls
+rm dr mdr lol
+ls
+=======
+=======
+>>>>>>> 03bbf9b01de1474b3058e14f7ecc1aa5e7417e1a
+>>>>>>> 1dda6ec469b7f349cffd4f84700d9ef48cf0659b
+export
+env
+export lol=3
+env
+export
+unset lol
+export
+env
+echo lol
+echo lol
+export
+env
+export lol=3
+env
+export
+unset lol
+export
+env
+export
+env
+export lol=3
+env
+env
+export
+unset lol
+export
+env
+unset lol
+unset lol
+env
+export lol=3
+env
+export
+unset lol
+export
+echo lol
+env
+export 
+export lol=3
+export lol='loiiio  kbujyv'
+export
+unset lol
+export
+export
+export
+env
+export lol=3
+unset lol
+export
+export 1lol=3
+export lol1=3
+export lol!=3
+export lol!=3
+export 1lol=3
+echo lol
+export
+env
+export lol=3
+unset lol=3
+echo $lol
+echo $lol..
+echo $lol_
+echo $lol3
+echo $lol.
+echo $lol!
+echo $lol_
+echo $lol_
+echo lol
+<<<<<<< HEAD
+>>>>>>> 4872daf24746981d8c931dc42f6da88291d1e15e
+=======
+echo lol
+export lol=3
+echo $lol
+echo $"lol"
+echo $'lol'
+echo '$lol'
+gg=G:w
+echo "oui bjr" | cat
+echo "oui bjr" | cat
+echo "oui bjr" | cat
+<<<<<<< HEAD
+echo "oui bjr" | cat
+echo lol
+echo "oui bjr" | cat
+echo oui bojr | cat
+echo \oui
+echo "\oui\etnon"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\lol"
+echo "\\\\\\\\\\\\"
+echo "\lol\\"
+echo "\lol"
+echo "\lol\\"
+echo "\\\\\\\\\\\\"
+echo lol
+export
+export lol=3
+ech $lol
+echo $lol
+eexport
+export
+env
+export lol=3
+ech $lol
+echo $lol
+export
+env
+export lol=3
+echo $lol
+export lol=63 lollol=2
+export
+export
+export lol=63 lollol=2
+echo $lol
+env
+export
+export lol=3
+unset lol
+export
+cat
+cat 
+cat 
+ls
+cat
+ls
+ls
+=======
+>>>>>>> d3f421f3b196348392f03922e30639ed789c68b6
+>>>>>>> 62dac1633b89353bd88940f40bd056ae004d55ca
+ls
+echo lol || lol
+echo lol || echo mdr
+echo lol || cat
+echo lol | | cat
+exit bonjour
+exit bonjour
+exit bonjour
+exit bonjour
+exit 10b
+;
+;
+|
+echo lol | lol
+echo lol | cat
+>>>>>>> b8006acc39caae00faa868699a3b198c4bd53e89
