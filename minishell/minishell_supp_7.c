@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 17:30:59 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 14:09:17 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:04:30 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	recup_line_supp_1(char **line)
 void	recup_line_supp_2(char **line, t_utils *utils, char *prefix)
 {
 	*line = ft_up_histo(utils, line);
-	utils->line_EOF = *line;
+	utils->line_eof = *line;
 	refresh_screen(line, prefix, utils, 1);
 }
 
 void	recup_line_supp_3(char **line, t_utils *utils, char *prefix)
 {
 	*line = ft_down_histo(utils, line);
-	utils->line_EOF = *line;
+	utils->line_eof = *line;
 	refresh_screen(line, prefix, utils, 1);
 }

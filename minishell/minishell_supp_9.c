@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 17:41:35 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 14:17:05 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:04:44 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		init_utils(t_utils *utils, t_parsing *parsing, char **env,
 	utils->savefdout = -1;
 	utils->return_value = 0;
 	utils->redir = 1;
-	utils->line_EOF = NULL;
+	utils->line_eof = NULL;
 }
 
 void		write_down_cfile(t_utils *utils, int fd)

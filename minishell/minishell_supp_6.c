@@ -6,7 +6,7 @@
 /*   By: aurelien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 17:29:18 by aurelien          #+#    #+#             */
-/*   Updated: 2021/04/12 13:58:26 by aurelien         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:04:14 by aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			recup_line_supp_4(char **line, t_utils *utils)
 {
-	utils->line_EOF = NULL;
+	utils->line_eof = NULL;
 	if (**line != 0)
 		new_hlist(*line, utils);
 	refresh_screen(NULL, NULL, NULL, 0);
@@ -26,7 +26,7 @@ int			recup_line_supp_4(char **line, t_utils *utils)
 void		recup_line_supp_5(char **line, t_utils *utils,
 		char *prefix, char *buf)
 {
-	utils->line_EOF = NULL;
+	utils->line_eof = NULL;
 	ft_cpy(line, buf[0]);
 	refresh_screen(line, prefix, utils, 0);
 }
@@ -56,7 +56,7 @@ int			recup_line_ultimate(char **line, t_utils *utils, char *prefix,
 		recup_line_supp_6(line, utils, prefix);
 	else if (buf[0] == 4)
 	{
-		utils->line_EOF = NULL;
+		utils->line_eof = NULL;
 		if (**line == 0)
 			return (-1);
 	}
@@ -79,7 +79,7 @@ int			ft_recup_line(char **line, t_utils *utils, char *prefix)
 		ret_ulti = recup_line_ultimate(line, utils, prefix, buf);
 		if (ret_ulti != -2)
 			return (ret_ulti);
-		utils->line_EOF = NULL;
+		utils->line_eof = NULL;
 		if (ret == 0)
 			return (-1);
 		return (1);
