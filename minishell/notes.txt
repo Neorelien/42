@@ -1,6 +1,0 @@
-LEAK
-
-- quand on fait un backspace alors que la shellline est vide
-- Quand on utilise un separateur -> 4 bites def lost qui viennent de get_objet dans le parsing
-- quand on utilise un pipe -> ERREUR lecture de bites impossible, ca peut venir de la ENV qui est envoyé mais qui techniquement est vide
-- 11,810 bytes en still reachable a cause du termcaps 

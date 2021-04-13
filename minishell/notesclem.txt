@@ -1,5 +1,0 @@
-exit 52 return 52
-
-error -> write sur STDERROR
-
-
