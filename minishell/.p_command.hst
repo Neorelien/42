@@ -321,3 +321,8 @@ ls
 =======
 >>>>>>> d3f421f3b196348392f03922e30639ed789c68b6
 >>>>>>> 62dac1633b89353bd88940f40bd056ae004d55ca
+ls
+echo lol || lol
+echo lol || echo mdr
+echo lol || cat
+echo lol | | cat
